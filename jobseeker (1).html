@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dragon Suite — Job Seeker Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#07090E;--bg2:#0D1117;--card:#121820;--el:#1A2332;
+  --b:rgba(255,255,255,0.06);--b2:rgba(255,255,255,0.11);
+  --t1:#E8ECF1;--t2:#8B95A5;--t3:#5A6577;
+  --red:#FF2D55;--redd:rgba(255,45,85,0.12);
+  --green:#10B981;--gd:rgba(16,185,129,0.12);
+  --blue:#3B82F6;--bd:rgba(59,130,246,0.12);
+  --amber:#F59E0B;--ad:rgba(245,158,11,0.12);
+  --purple:#A78BFA;--pd:rgba(167,139,250,0.12);
+  --cyan:#06B6D4;--cd:rgba(6,182,212,0.12);
+  --fb:'DM Sans',sans-serif;--fm:'JetBrains Mono',monospace;
+  --r1:8px;--r2:12px;--r3:16px;
+}
+html{font-size:14px;scroll-behavior:smooth;}
+body{font-family:var(--fb);background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden;}
+
+/* ─── SIDEBAR ─── */
+.sb{position:fixed;left:0;top:0;bottom:0;width:240px;background:var(--bg2);border-right:1px solid var(--b);display:flex;flex-direction:column;z-index:100;}
+.sb-scroll{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.08) transparent;}
+.sb-scroll::-webkit-scrollbar{width:3px;}
+.sb-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:3px;}
+.sb-logo{padding:16px 20px 12px;border-bottom:1px solid var(--b);display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.lm{width:32px;height:32px;background:linear-gradient(135deg,var(--red),#CC1144);border-radius:8px;display:grid;place-items:center;font-size:15px;font-weight:700;color:var(--bg);}
+.lt{font-weight:700;font-size:15px;letter-spacing:-.3px;} .lt span{color:var(--red);}
+.sb-sec{padding:12px 20px 4px;font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--t3);font-weight:600;}
+.sb-nav{padding:0 8px;display:flex;flex-direction:column;gap:1px;}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--r1);cursor:pointer;transition:all .15s;font-size:11.5px;color:var(--t2);font-weight:500;position:relative;}
+.ni:hover{background:rgba(255,255,255,0.04);color:var(--t1);}
+.ni.on{background:var(--redd);color:var(--red);}
+.ni.on::before{content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);width:3px;height:16px;background:var(--red);border-radius:0 3px 3px 0;}
+.ni .ico{font-size:13px;width:16px;text-align:center;}
+.ndiv{height:1px;background:var(--b);margin:4px 8px;}
+.sb-foot{padding:12px;border-top:1px solid var(--b);flex-shrink:0;}
+.usw-lbl{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--t3);font-weight:600;margin-bottom:6px;}
+.usw{width:100%;padding:6px 10px;border-radius:var(--r1);background:var(--card);border:1px solid var(--b);color:var(--t2);font-family:var(--fb);font-size:11px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;margin-bottom:3px;}
+.usw:hover{border-color:var(--red);color:var(--red);}
+.usw.on{background:var(--redd);border-color:var(--red);color:var(--red);}
+
+/* ─── MAIN ─── */
+.main{margin-left:240px;min-height:100vh;}
+.topbar{position:sticky;top:0;z-index:50;padding:12px 24px;background:rgba(7,9,14,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center;}
+.tb-l{display:flex;align-items:center;gap:14px;}
+.tb-title{font-size:13px;color:var(--t2);font-weight:500;} .tb-title strong{color:var(--t1);}
+.tb-r{display:flex;align-items:center;gap:8px;}
+.btn{padding:6px 13px;border-radius:var(--r1);font-size:11.5px;font-weight:500;cursor:pointer;font-family:var(--fb);transition:all .15s;border:none;line-height:1.4;}
+.bg{background:var(--card);border:1px solid var(--b);color:var(--t2);}
+.bg:hover{border-color:var(--b2);color:var(--t1);}
+.bp{background:var(--red);color:#fff;}
+.bp:hover{background:#e0253b;}
+.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:11px;cursor:pointer;}
+
+/* recruiter toggle */
+.rv-toggle{display:flex;align-items:center;gap:6px;padding:5px 10px;background:var(--card);border:1px solid var(--b);border-radius:20px;font-size:11px;color:var(--t2);cursor:pointer;transition:all .15s;}
+.rv-toggle:hover,.rv-toggle.on{border-color:var(--amber);color:var(--amber);}
+.rv-dot{width:6px;height:6px;border-radius:50%;background:var(--t3);}
+.rv-toggle.on .rv-dot{background:var(--amber);}
+
+/* ─── SCREENS ─── */
+.ps{display:none;animation:fi .25s ease;}
+.ps.on{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── NUDGE ─── */
+.nudge{margin:16px 24px 0;border-radius:var(--r2);padding:11px 14px;display:flex;align-items:center;gap:11px;font-size:12.5px;font-weight:500;cursor:pointer;transition:transform .2s;position:relative;overflow:hidden;}
+.nudge:hover{transform:translateX(2px);}
+.n-ico{font-size:19px;flex-shrink:0;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+.n-txt{flex:1;line-height:1.45;font-size:12px;}
+.n-txt strong{color:var(--t1);}
+.n-cta{font-size:11px;font-weight:700;white-space:nowrap;padding:4px 10px;border-radius:8px;background:rgba(255,255,255,0.08);}
+.n-x{font-size:14px;color:var(--t3);padding:2px 5px;cursor:pointer;flex-shrink:0;}
+
+/* ─── HERO ─── */
+.hero{padding:16px 24px 0;}
+.hero-inner{display:flex;gap:18px;align-items:flex-start;}
+.h-av-w{position:relative;flex-shrink:0;}
+.h-av{width:80px;height:80px;border-radius:50%;display:grid;place-items:center;font-size:32px;border-width:2px;border-style:solid;}
+.h-badge{position:absolute;bottom:0;right:0;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:10px;border:2px solid var(--bg);}
+.h-info{flex:1;padding-top:2px;}
+.h-name{font-size:20px;font-weight:700;letter-spacing:-.3px;margin-bottom:3px;}
+.h-role{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:14px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;}
+.h-meta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.h-mi{display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--t2);}
+.h-acts{display:flex;gap:7px;flex-wrap:wrap;}
+
+/* profile completion */
+.pc-bar{margin:14px 24px 0;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);padding:11px 16px;display:flex;align-items:center;gap:14px;}
+.pc-label{font-size:11.5px;color:var(--t2);font-weight:500;white-space:nowrap;}
+.pc-track{flex:1;height:6px;background:rgba(255,255,255,0.05);border-radius:4px;overflow:hidden;}
+.pc-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--red),var(--amber));}
+.pc-pct{font-size:12px;font-weight:700;font-family:var(--fm);color:var(--amber);white-space:nowrap;}
+.pc-tip{font-size:11px;color:var(--t3);}
+
+/* score cards in hero */
+.h-scores{display:flex;gap:7px;align-items:stretch;}
+.sc{background:var(--card);border:1px solid var(--b);border-radius:var(--r2);padding:10px 13px;min-width:110px;}
+.sc-lbl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.9px;font-weight:600;margin-bottom:3px;}
+.sc-val{font-size:19px;font-weight:700;font-family:var(--fm);margin-bottom:1px;}
+.sc-sub{font-size:10px;color:var(--t2);}
+.sc-tr{font-size:10px;margin-top:2px;}
+.up{color:var(--green);}
+
+/* ─── QUEST STRIP ─── */
+.qs{margin:14px 24px 0;background:linear-gradient(135deg,rgba(167,139,250,0.08),rgba(59,130,246,0.04));border:1px solid rgba(167,139,250,0.18);border-radius:var(--r3);padding:14px 18px;position:relative;overflow:hidden;}
+.qs::after{content:'🐉';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:46px;opacity:0.07;}
+.qs-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
+.qs-ico{font-size:24px;background:rgba(167,139,250,0.14);border-radius:50%;width:44px;height:44px;display:grid;place-items:center;border:1px solid rgba(167,139,250,0.25);flex-shrink:0;}
+.qs-inf{flex:1;}
+.qs-nm{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:1px;}
+.qs-sb{font-size:11px;color:var(--t2);}
+.qs-stats{display:flex;gap:18px;}
+.qsp{text-align:center;}
+.qsp-v{font-size:16px;font-weight:700;font-family:var(--fm);}
+.qsp-l{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;}
+.qs-bar-l{display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:4px;}
+.qs-bar-l span:first-child{color:var(--t2);}
+.qs-bar-l span:last-child{color:var(--purple);font-family:var(--fm);font-weight:600;}
+.bt{height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;}
+.bf{height:100%;border-radius:3px;}
+.sf{font-size:20px;animation:fire .8s infinite alternate;}
+@keyframes fire{from{transform:scale(1) rotate(-3deg);}to{transform:scale(1.12) rotate(3deg);}}
+
+/* ─── TABS ─── */
+.tabs{display:flex;border-bottom:1px solid var(--b);padding:0 24px;margin-top:16px;overflow-x:auto;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{padding:10px 16px;font-size:12px;font-weight:500;color:var(--t2);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:5px;}
+.tab:hover{color:var(--t1);}
+.tab.on{color:var(--tc,var(--red));border-bottom-color:var(--tc,var(--red));}
+.tc{background:var(--el);border-radius:7px;padding:1px 6px;font-size:9.5px;font-family:var(--fm);}
+
+/* ─── TAB PANELS ─── */
+.tp{display:none;padding:18px 24px 60px;}
+.tp.on{display:block;}
+
+/* ─── OVERVIEW LAYOUT ─── */
+.ov-grid{display:grid;grid-template-columns:1fr 300px;gap:16px;}
+.ov-main{display:flex;flex-direction:column;gap:14px;}
+.ov-side{display:flex;flex-direction:column;gap:14px;}
+
+/* ─── SECTION CARD ─── */
+.card{background:var(--card);border:1px solid var(--b);border-radius:var(--r3);overflow:hidden;}
+.card:hover{border-color:var(--b2);}
+.card-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--b);}
+.card-title{font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:7px;}
+.card-action{font-size:11px;color:var(--red);cursor:pointer;font-weight:500;}
+.card-action:hover{text-decoration:underline;}
+.card-body{padding:14px 16px;}
+.card-body-np{padding:0;}
+
+/* ─── ACCORDION ─── */
+.acc{background:var(--card);border:1px solid var(--b);border-radius:var(--r2);margin-bottom:10px;overflow:hidden;transition:border-color .2s;}
+.acc:hover{border-color:var(--b2);}
+.acc.ex{border-color:var(--ac,var(--b2));}
+.acc-h{display:flex;align-items:center;gap:10px;padding:12px 15px;cursor:pointer;user-select:none;}
+.acc-ic{font-size:16px;flex-shrink:0;}
+.acc-t{flex:1;}
+.acc-tm{font-size:12.5px;font-weight:600;margin-bottom:1px;}
+.acc-ts{font-size:11px;color:var(--t2);}
+.acc-r{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.acc-badge{font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:16px;}
+.acc-arr{font-size:11px;color:var(--t3);transition:transform .22s;}
+.acc.ex .acc-arr{transform:rotate(180deg);}
+.acc-body{display:none;padding:0 15px 15px;border-top:1px solid var(--b);}
+.acc.ex .acc-body{display:block;animation:fi .2s ease;}
+
+/* ─── MINI STAT ROW ─── */
+.stat-row{display:grid;gap:0;}
+.stat-item{padding:10px 14px;border-right:1px solid var(--b);text-align:center;}
+.stat-item:last-child{border-right:none;}
+.stat-v{font-size:18px;font-weight:700;font-family:var(--fm);margin-bottom:2px;}
+.stat-l{font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.6px;}
+.stat-ch{font-size:10px;margin-top:1px;}
+
+/* ─── PROGRESS BAR ─── */
+.pb{margin-bottom:9px;}
+.pb-l{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:3px;}
+.pb-l span:first-child{color:var(--t2);}
+.pb-l span:last-child{font-family:var(--fm);font-size:10.5px;font-weight:600;}
+.pt{height:5px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;}
+.pf{height:100%;border-radius:3px;}
+
+/* ─── SKILL GRAPH ─── */
+.skill-item{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.skill-name{font-size:11.5px;color:var(--t2);width:130px;flex-shrink:0;}
+.skill-bar-wrap{flex:1;height:5px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;}
+.skill-bar{height:100%;border-radius:3px;}
+.skill-val{font-size:11px;font-weight:600;font-family:var(--fm);width:35px;text-align:right;flex-shrink:0;}
+
+/* ─── CERT ROW ─── */
+.cert-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--b);}
+.cert-row:last-child{border-bottom:none;}
+.cert-ico{font-size:18px;flex-shrink:0;}
+.cert-inf{flex:1;}
+.cert-nm{font-size:12px;font-weight:600;margin-bottom:1px;}
+.cert-dt{font-size:10.5px;color:var(--t3);}
+.cert-v{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:5px;background:var(--gd);color:var(--green);flex-shrink:0;}
+
+/* ─── CHIP ─── */
+.chip{display:inline-flex;align-items:center;padding:2px 9px;border-radius:13px;font-size:11px;font-weight:500;border:1px solid var(--b);}
+.cr{background:var(--redd);color:var(--red);border-color:rgba(255,45,85,0.2);}
+.cb{background:var(--bd);color:var(--blue);border-color:rgba(59,130,246,0.18);}
+.cg{background:var(--gd);color:var(--green);border-color:rgba(16,185,129,0.18);}
+.ca{background:var(--ad);color:var(--amber);border-color:rgba(245,158,11,0.18);}
+.cp{background:var(--pd);color:var(--purple);border-color:rgba(167,139,250,0.18);}
+.cc{background:var(--cd);color:var(--cyan);border-color:rgba(6,182,212,0.18);}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;}
+
+/* ─── AI BOX ─── */
+.ai-box{background:linear-gradient(135deg,rgba(59,130,246,0.07),rgba(167,139,250,0.04));border:1px solid rgba(59,130,246,0.14);border-radius:var(--r2);padding:11px 13px;margin-top:12px;}
+.ai-h{font-size:10px;font-weight:700;color:var(--blue);margin-bottom:6px;text-transform:uppercase;letter-spacing:.7px;}
+.ai-p{font-size:12px;color:var(--t2);line-height:1.6;}
+.ai-p strong{color:var(--t1);}
+
+/* ─── MATCH CARD ─── */
+.match-card{background:linear-gradient(135deg,rgba(255,45,85,0.06),transparent);border:1px solid rgba(255,45,85,0.12);border-radius:var(--r2);padding:12px 14px;margin-bottom:9px;}
+.mc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.mc-co{font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;}
+.mc-role{font-size:13.5px;font-weight:700;}
+.mc-pct{font-size:20px;font-weight:700;font-family:var(--fm);color:var(--green);}
+.mc-meta{display:flex;gap:10px;font-size:11px;color:var(--t2);flex-wrap:wrap;}
+.mc-why{font-size:11px;color:var(--t3);margin-top:7px;padding-top:7px;border-top:1px solid var(--b);}
+.mc-why strong{color:var(--t2);}
+
+/* ─── GPS STEPS ─── */
+.gps-step{display:flex;gap:11px;padding:9px 11px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);margin-bottom:6px;align-items:flex-start;}
+.gps-step.done{border-color:rgba(16,185,129,0.18);}
+.gps-step.now{border-color:rgba(255,45,85,0.22);background:rgba(255,45,85,0.03);}
+.gps-dot{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700;flex-shrink:0;}
+.dd{background:var(--gd);color:var(--green);}
+.dn{background:var(--redd);color:var(--red);}
+.du{background:var(--el);color:var(--t3);}
+.gps-t{font-size:12px;font-weight:600;margin-bottom:1px;}
+.gps-s{font-size:10.5px;color:var(--t3);}
+.gps-eta{font-size:10px;font-family:var(--fm);margin-top:2px;}
+
+/* ─── NOTIF ─── */
+.notif{display:flex;gap:9px;padding:9px 0;border-bottom:1px solid var(--b);align-items:flex-start;}
+.notif:last-child{border-bottom:none;}
+.nd{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.nb{flex:1;}
+.nt{font-size:12px;line-height:1.45;margin-bottom:2px;}
+.nt strong{color:var(--t1);}
+.nc{font-size:10.5px;font-weight:700;color:var(--red);cursor:pointer;margin-top:2px;}
+.nc:hover{text-decoration:underline;}
+.ntime{font-size:10px;color:var(--t3);}
+
+/* ─── PIPELINE ─── */
+.pl-col{background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);padding:11px;}
+.pl-h{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:9px;display:flex;justify-content:space-between;}
+.pl-c{background:var(--el);border-radius:7px;padding:1px 6px;font-family:var(--fm);font-size:9px;}
+.cand{background:var(--card);border:1px solid var(--b);border-radius:var(--r1);padding:8px 9px;margin-bottom:6px;cursor:pointer;transition:border-color .15s;}
+.cand:hover{border-color:var(--b2);}
+.c-nm{font-size:11.5px;font-weight:600;margin-bottom:1px;}
+.c-rl{font-size:10.5px;color:var(--t3);margin-bottom:3px;}
+.c-vd{font-size:10px;font-weight:600;font-family:var(--fm);}
+.vd-h{color:var(--green);}
+.vd-c{color:var(--amber);}
+.vd-b{color:var(--red);}
+
+/* ─── STUDENT ROW ─── */
+.srow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--b);}
+.srow:last-child{border-bottom:none;}
+.sav{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:grid;place-items:center;font-weight:700;font-size:11px;flex-shrink:0;}
+.sinf{flex:1;}
+.snm{font-size:12px;font-weight:600;margin-bottom:1px;}
+.sdp{font-size:10.5px;color:var(--t3);}
+.risk{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:6px;}
+.rh{background:rgba(239,68,68,0.12);color:#EF4444;}
+.rm{background:var(--ad);color:var(--amber);}
+.rl{background:var(--gd);color:var(--green);}
+
+/* ─── DRIVE ROW ─── */
+.drive{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--b);}
+.drive:last-child{border-bottom:none;}
+.dr-dt{text-align:center;min-width:40px;}
+.dr-day{font-size:18px;font-weight:700;font-family:var(--fm);}
+.dr-mo{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--t3);}
+.dr-inf{flex:1;}
+.dr-co{font-size:12.5px;font-weight:600;margin-bottom:1px;}
+.dr-meta{font-size:10.5px;color:var(--t3);}
+.dr-badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:7px;}
+
+/* ─── ELIGIBILITY ─── */
+.elig{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:var(--r2);margin-bottom:7px;border:1px solid;cursor:pointer;transition:transform .15s;}
+.elig:hover{transform:translateX(2px);}
+.elig-ico{font-size:16px;flex-shrink:0;}
+.elig-inf{flex:1;}
+.elig-co{font-size:12.5px;font-weight:600;margin-bottom:1px;}
+.elig-meta{font-size:10.5px;color:var(--t3);}
+.elig-tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:7px;white-space:nowrap;}
+
+/* ─── WHY YOU ─── */
+.why-item{display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--bg2);border-radius:var(--r2);border:1px solid var(--b);margin-bottom:8px;}
+.why-num{font-size:14px;font-weight:700;font-family:var(--fm);color:var(--red);width:20px;flex-shrink:0;}
+.why-t{font-size:12.5px;font-weight:600;margin-bottom:2px;}
+.why-s{font-size:11px;color:var(--t3);}
+
+/* ─── ENDORSEMENT ─── */
+.endorse{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--b);}
+.endorse:last-child{border-bottom:none;}
+.e-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;font-weight:700;font-size:11px;flex-shrink:0;}
+.e-inf{flex:1;}
+.e-nm{font-size:12px;font-weight:600;margin-bottom:1px;}
+.e-rl{font-size:10.5px;color:var(--t3);}
+.e-txt{font-size:11.5px;color:var(--t2);margin-top:4px;line-height:1.5;font-style:italic;}
+
+/* ─── APP ROW ─── */
+.app-row{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid var(--b);}
+.app-row:last-child{border-bottom:none;}
+.app-logo{width:32px;height:32px;border-radius:var(--r1);background:var(--el);display:grid;place-items:center;font-size:16px;}
+.app-inf{flex:1;}
+.app-co{font-size:12.5px;font-weight:600;margin-bottom:1px;}
+.app-dt{font-size:10.5px;color:var(--t3);}
+.app-status{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:7px;}
+
+/* ─── CONNECTION ─── */
+.conn{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--b);}
+.conn:last-child{border-bottom:none;}
+.conn-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));display:grid;place-items:center;font-weight:700;font-size:10px;flex-shrink:0;}
+.conn-inf{flex:1;}
+.conn-nm{font-size:12px;font-weight:600;margin-bottom:1px;}
+.conn-rl{font-size:10.5px;color:var(--t3);}
+.conn-btn{font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:7px;background:var(--bd);color:var(--blue);cursor:pointer;border:none;font-family:var(--fb);}
+
+/* ─── MODULE PILL ─── */
+.mod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.mod-pill{background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);padding:10px 11px;cursor:pointer;transition:all .15s;}
+.mod-pill:hover{border-color:var(--mc,var(--red));transform:translateY(-2px);}
+.mp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.mp-ico{font-size:16px;}
+.mp-st{font-size:9px;font-weight:700;padding:2px 6px;border-radius:7px;text-transform:uppercase;letter-spacing:.2px;}
+.st-on{background:var(--gd);color:var(--green);}
+.st-lk{background:rgba(90,101,119,0.15);color:var(--t3);}
+.st-el{background:var(--ad);color:var(--amber);}
+.st-nw{background:var(--bd);color:var(--blue);}
+.mp-nm{font-size:11.5px;font-weight:600;margin-bottom:2px;}
+.mp-st2{font-size:10px;color:var(--mc,var(--t3));font-family:var(--fm);}
+
+/* ─── DEPT SKILL BAR ─── */
+.dept-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.dept-nm{font-size:11.5px;color:var(--t2);width:90px;flex-shrink:0;}
+.dept-bar{flex:1;height:5px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;}
+.dept-fill{height:100%;border-radius:3px;}
+.dept-val{font-size:10.5px;font-family:var(--fm);width:32px;text-align:right;}
+
+/* ─── SECTION LABEL ─── */
+.slbl{font-size:9.5px;text-transform:uppercase;letter-spacing:1.1px;color:var(--t3);font-weight:600;margin-bottom:9px;margin-top:16px;}
+.slbl:first-child{margin-top:0;}
+
+/* ─── SEARCH STATS ─── */
+.s-stat{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--b);}
+.s-stat:last-child{border-bottom:none;}
+.s-stat-l{font-size:12px;color:var(--t2);}
+.s-stat-v{font-size:13px;font-weight:700;font-family:var(--fm);}
+
+/* ─── IMPORT / GENERATE BTNS ─── */
+.action-strip{display:flex;gap:8px;margin-bottom:14px;}
+.a-btn{flex:1;padding:8px 12px;border-radius:var(--r1);border:1px solid var(--b);background:var(--bg2);color:var(--t2);font-size:11.5px;font-weight:500;cursor:pointer;font-family:var(--fb);display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;}
+.a-btn:hover{border-color:var(--b2);color:var(--t1);}
+
+/* two col + sidebar layout */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.sbl{display:grid;grid-template-columns:1fr 290px;gap:14px;}
+
+/* recruiter-view overlay indicator */
+.rv-banner{background:linear-gradient(90deg,rgba(245,158,11,0.1),transparent);border:1px solid rgba(245,158,11,0.18);border-radius:var(--r2);padding:8px 14px;display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--amber);margin-bottom:14px;}
+
+/* ─── PO CHART BAR ─── */
+.chart-bar-wrap{display:flex;align-items:flex-end;gap:6px;height:80px;margin-bottom:6px;}
+.chart-bar{flex:1;border-radius:3px 3px 0 0;min-height:4px;transition:height .3s ease;}
+.chart-labels{display:flex;gap:6px;}
+.chart-label{flex:1;text-align:center;font-size:9.5px;color:var(--t3);}
+
+@media(max-width:1200px){.ov-grid,.sbl{grid-template-columns:1fr;}.mod-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:900px){.sb{transform:translateX(-100%);}.main{margin-left:0;}.two{grid-template-columns:1fr;}.mod-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+
+<!-- ─── SIDEBAR ─── -->
+<aside class="sb">
+  <div class="sb-logo"><div class="lm">🐉</div><div class="lt">Dragon<span>Suite</span></div></div>
+  <div class="sb-scroll">
+    <div class="sb-sec">Navigation</div>
+    <nav class="sb-nav">
+      <div class="ni on" data-nav="profile"><span class="ico">👤</span>My Profile</div>
+      <div class="ni" data-nav="gps"><span class="ico">🧭</span>Dragon GPS</div>
+      <div class="ni" data-nav="prep"><span class="ico">📚</span>Dragon Prep</div>
+      <div class="ni" data-nav="arena"><span class="ico">⚔️</span>Dragon Arena</div>
+      <div class="ni" data-nav="quest"><span class="ico">🐉</span>Dragon Quest</div>
+      <div class="ndiv"></div>
+      <div class="ni" data-nav="elite"><span class="ico">⭐</span>Dragon Elite</div>
+      <div class="ni" data-nav="hub"><span class="ico">🌐</span>Dragon Hub</div>
+      <div class="ni" data-nav="hire"><span class="ico">🎯</span>Dragon Hire</div>
+      <div class="ni" data-nav="bridge"><span class="ico">🌉</span>Dragon Bridge</div>
+      <div class="ni" data-nav="review"><span class="ico">📋</span>Dragon Review</div>
+      <div class="ndiv"></div>
+      <div class="ni" data-nav="skill"><span class="ico">🛠️</span>Skill Craft</div>
+      <div class="ni" data-nav="lab"><span class="ico">🧪</span>Project Lab</div>
+      <div class="ni" data-nav="vault"><span class="ico">🔐</span>Dragon Vault</div>
+      <div class="ni" data-nav="nexus"><span class="ico">🔗</span>Dragon Nexus</div>
+      <div class="ni" data-nav="dash"><span class="ico">📊</span>Talent Dashboard</div>
+      <div class="ni" data-nav="match"><span class="ico">🤖</span>Match Results</div>
+      <div class="ni" data-nav="market"><span class="ico">📈</span>Market Intel</div>
+    </nav>
+  </div>
+  <div class="sb-foot">
+    <div class="usw-lbl">Switch Profile View</div>
+    <button class="usw on" onclick="window.location.href='jobseeker (1).html'">🔍 Job Seeker</button>
+    <button class="usw" onclick="window.location.href='hr (1).html'">🏢 HR / Recruiter</button>
+    <button class="usw" onclick="window.location.href='placement (1).html'">🎓 Placement Officer</button>
+    <button class="usw" onclick="window.location.href='student (1).html'">📖 Student</button>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div class="tb-l">
+      <div class="tb-title"><strong>My Profile</strong> — <span id="topLbl">Job Seeker</span></div>
+      <div class="rv-toggle" id="rvToggle" onclick="toggleRV(this)" title="Toggle Recruiter View">
+        <div class="rv-dot"></div>Recruiter View
+      </div>
+    </div>
+    <div class="tb-r">
+      <button class="btn bg" style="font-size:11px;">📄 Generate Resume</button>
+      <button class="btn bg">⚙️ Settings</button>
+      <button class="btn bp">✏️ Edit Profile</button>
+      <div class="av" id="topAv" style="background:linear-gradient(135deg,#FF2D55,#CC1144);">A</div>
+    </div>
+  </header>
+
+<!-- ════════════════════════════════════
+     JOB SEEKER — 3-tab redesign
+════════════════════════════════════ -->
+<div class="ps on" id="ps-jobseeker">
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="h-av-w">
+        <div class="h-av" style="border-color:var(--red);background:rgba(99,102,241,0.07);">👩‍💻</div>
+        <div class="h-badge" style="background:var(--red);">🔍</div>
+      </div>
+      <div class="h-info">
+        <!-- Name + inline role title instead of badge -->
+        <div class="h-name">Arjun Mehta</div>
+        <div style="font-size:13px;color:var(--t2);font-weight:500;margin-bottom:8px;letter-spacing:-.1px;">Senior ML Engineer &nbsp;·&nbsp; <span style="color:var(--green);font-size:11px;font-weight:600;">● Actively Looking</span></div>
+        <div class="h-meta">
+          <div class="h-mi">📍 Bangalore, India</div>
+          <div class="h-mi">💼 4 yrs experience</div>
+          <div class="h-mi">💰 ₹28–35 LPA</div>
+          <div class="h-mi" style="color:var(--green);">🟢 Open to Remote</div>
+        </div>
+        <!-- Single primary CTA + secondary text links -->
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <button class="btn bp" style="font-size:11px;padding:7px 16px;">🤖 Activate Dragon Agent</button>
+          <button class="btn bg" style="font-size:11px;padding:7px 16px;">📥 Import LinkedIn</button>
+          <button class="btn bg" style="font-size:11px;padding:7px 16px;">📤 Share Profile</button>
+        </div>
+      </div>
+
+      <!-- Score cards -->
+      <div class="h-scores">
+        <!-- Dragon Score -->
+        <div class="sc" style="border-color:var(--redd);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">
+            <div class="sc-lbl">Dragon Score</div>
+            <!-- <span style="font-size:9px;color:var(--t3);">88 → 92</span> -->
+          </div>
+          <div class="sc-val" style="color:var(--red);">88</div>
+          <div style="font-size:9.5px;color:var(--t3);margin-top:2px;"><span style="color:var(--amber);">Elite eligible</span></div>
+        </div>
+        <!-- Quest / Level -->
+        <div class="sc" style="border-color:rgba(167,139,250,0.25);">
+          <div class="sc-lbl">Shadow Sage</div>
+          <div class="sc-val" style="color:var(--purple);font-size:16px;">Level 14</div>
+          <div style="font-size:9.5px;color:var(--t3);margin-top:2px;">4,280 XP · <span style="color:var(--amber);">42🔥 streak</span></div>
+        </div>
+        <!-- Profile completion -->
+        <div class="sc" style="border-color:rgba(245,158,11,0.25);">
+          <div class="sc-lbl">Completion</div>
+          <div class="sc-val" style="color:var(--amber);">78%</div>
+          <div style="font-size:9.5px;color:var(--t3);margin-top:2px;">Strength: <span style="color:var(--green);">High</span> · +2 tasks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3 TABS ── -->
+  <div class="tabs" style="--tc:var(--red);">
+    <div class="tab on" onclick="stab(this,'js-t1')">📁 Portfolio</div>
+    <div class="tab" onclick="stab(this,'js-t2')">💼 Career &amp; Job Management</div>
+    <div class="tab" onclick="stab(this,'js-t3')">⚡ Activity</div>
+  </div>
+
+
+  <!-- ══════════════ TAB 1: PORTFOLIO ══════════════ -->
+  <div class="tp on" id="js-t1">
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;">
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <!-- AI SKILL GRAPH — top of portfolio -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🧠 AI Skill Graph <span style="font-size:10px;color:var(--t3);font-weight:400;">— inferred from certs + assessments</span></div>
+          <span class="card-action">Full report →</span>
+        </div>
+        <div class="card-body">
+          <div class="two" style="gap:12px;">
+            <div>
+              <div class="skill-item"><span class="skill-name">Machine Learning</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:94%;background:var(--red);"></div></div><span class="skill-val" style="color:var(--red);">94</span></div>
+              <div class="skill-item"><span class="skill-name">Python / PyTorch</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:89%;background:var(--blue);"></div></div><span class="skill-val" style="color:var(--blue);">89</span></div>
+              <div class="skill-item"><span class="skill-name">Databricks / Spark</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:82%;background:var(--green);"></div></div><span class="skill-val" style="color:var(--green);">82</span></div>
+              <div class="skill-item"><span class="skill-name">System Design</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%;background:var(--amber);"></div></div><span class="skill-val" style="color:var(--amber);">75</span></div>
+            </div>
+            <div>
+              <div class="skill-item"><span class="skill-name">LLM / RAG</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:70%;background:var(--purple);"></div></div><span class="skill-val" style="color:var(--purple);">70</span></div>
+              <!-- below 75 — inline cert prompt -->
+              <div style="margin:-4px 0 7px 0;padding-left:140px;"><span style="font-size:9.5px;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);color:var(--purple);padding:2px 8px;border-radius:9px;cursor:pointer;">+ HuggingFace cert → 6 LLM roles</span></div>
+              <div class="skill-item"><span class="skill-name">MLOps</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:65%;background:var(--cyan);"></div></div><span class="skill-val" style="color:var(--cyan);">65</span></div>
+              <div style="margin:-4px 0 7px 0;padding-left:140px;"><span style="font-size:9.5px;background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);color:var(--cyan);padding:2px 8px;border-radius:9px;cursor:pointer;">+ Databricks ML Pro → +4 pts, 4 roles</span></div>
+            </div>
+          </div>
+          <div class="chip-row"><span class="chip cr">Deep Learning</span><span class="chip cb">MLOps</span><span class="chip cg">Snowflake</span><span class="chip ca">AWS ML</span><span class="chip cp">GenAI</span><span class="chip cc">RAG</span></div>
+        </div>
+      </div>
+
+      <!-- WHY YOU -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">💡 Why You — Top 3 Reasons Recruiters Choose You</div>
+          <span class="card-action">Edit →</span>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:0;">
+          <div class="why-item"><span class="why-num">01</span>
+            <div style="flex:1;"><div class="why-t">Verified ML expertise across 7 platforms</div><div class="why-s">Not self-reported — backed by independently verified certs from AWS, Databricks, Snowflake & NVIDIA.</div>
+              <div style="display:flex;gap:8px;margin-top:6px;"><span style="font-size:10.5px;color:var(--blue);cursor:pointer;font-weight:600;">+ Add to resume</span><span style="font-size:10.5px;color:var(--purple);cursor:pointer;font-weight:600;">↗ Share with recruiter</span></div>
+            </div>
+          </div>
+          <div class="why-item"><span class="why-num">02</span>
+            <div style="flex:1;"><div class="why-t">Proven in production, not just theory</div><div class="why-s">Built a live RAG-based QA system (88/100 quality score) that 14 companies have matched to open roles.</div>
+              <div style="display:flex;gap:8px;margin-top:6px;"><span style="font-size:10.5px;color:var(--blue);cursor:pointer;font-weight:600;">+ Add to resume</span><span style="font-size:10.5px;color:var(--purple);cursor:pointer;font-weight:600;">↗ Share with recruiter</span></div>
+            </div>
+          </div>
+          <div class="why-item" style="margin-bottom:0;"><span class="why-num">03</span>
+            <div style="flex:1;"><div class="why-t">Trust Score 96 — highest integrity signal</div><div class="why-s">All assessments proctored with 7-layer AI verification. Zero integrity flags.</div>
+              <div style="display:flex;gap:8px;margin-top:6px;"><span style="font-size:10.5px;color:var(--blue);cursor:pointer;font-weight:600;">+ Add to resume</span><span style="font-size:10.5px;color:var(--purple);cursor:pointer;font-weight:600;">↗ Share trust badge</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPERIENCE + PROJECTS -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">💼 Experience</div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn bg" style="font-size:10px;padding:3px 9px;">📥 Import LinkedIn</button>
+            <button class="btn bg" style="font-size:10px;padding:3px 9px;">📄 Generate Resume</button>
+          </div>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
+          <div style="padding:12px 14px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+              <div><div style="font-size:13px;font-weight:700;">Senior ML Engineer</div><div style="font-size:11.5px;color:var(--red);font-weight:600;">Flipkart</div></div>
+              <span style="font-size:10.5px;color:var(--t3);">Jan 2023 – Present</span>
+            </div>
+            <!-- Recruiter focus highlight -->
+            <div style="font-size:11.5px;color:var(--t2);line-height:1.55;"><span style="background:rgba(16,185,129,0.1);border-radius:3px;padding:1px 3px;">Built real-time recommendation engine serving 200M+ users.</span> Reduced latency by 40% using MLOps pipelines on Databricks. Led a team of 4 ML engineers.</div>
+            <div style="font-size:9.5px;color:var(--green);margin-top:3px;">👁️ Recruiters focus on this line</div>
+            <div class="chip-row"><span class="chip cb" style="cursor:pointer;" title="Contributes to Python/PyTorch score: 89">PyTorch</span><span class="chip cg" style="cursor:pointer;" title="Contributes to Databricks/Spark score: 82">Databricks</span><span class="chip ca">AWS</span><span class="chip cp">RAG</span></div>
+          </div>
+          <div style="padding:12px 14px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+              <div><div style="font-size:13px;font-weight:700;">ML Engineer</div><div style="font-size:11.5px;color:var(--blue);font-weight:600;">Swiggy</div></div>
+              <span style="font-size:10.5px;color:var(--t3);">Jun 2021 – Dec 2022</span>
+            </div>
+            <div style="font-size:11.5px;color:var(--t2);line-height:1.55;"><span style="background:rgba(16,185,129,0.1);border-radius:3px;padding:1px 3px;">Developed ETA prediction model improving accuracy by 22%.</span> Deployed A/B testing framework for ML models in production.</div>
+            <div style="font-size:9.5px;color:var(--green);margin-top:3px;">👁️ Recruiters focus on this line</div>
+            <div class="chip-row"><span class="chip cr">Python</span><span class="chip cg">Snowflake</span><span class="chip cc">Kafka</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🧪 Projects</div>
+          <button class="btn bg" style="font-size:10px;padding:3px 9px;">+ Add Project</button>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
+          <!-- Project 1 with score tooltip -->
+          <div style="padding:12px 14px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+              <div style="font-size:13px;font-weight:700;">RAG-based Document QA System</div>
+              <div style="position:relative;">
+                <span style="background:var(--gd);color:var(--green);font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:7px;cursor:pointer;" onmouseenter="document.getElementById('q1').style.display='block'" onmouseleave="document.getElementById('q1').style.display='none'">Quality 88/100 ⓘ</span>
+                <div id="q1" style="display:none;position:absolute;right:0;top:22px;width:200px;background:var(--el);border:1px solid var(--b2);border-radius:var(--r2);padding:10px;z-index:10;font-size:11px;color:var(--t2);">
+                  <div style="font-weight:700;color:var(--t1);margin-bottom:6px;">Score breakdown</div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Recruiter views</span><span style="color:var(--green);">34 · +22pts</span></div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>GitHub forks</span><span style="color:var(--green);">34 · +20pts</span></div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Company matches</span><span style="color:var(--green);">14 · +28pts</span></div>
+                  <div style="display:flex;justify-content:space-between;"><span>Test coverage</span><span style="color:var(--amber);">Missing · -12pts</span></div>
+                  <div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--b);color:var(--cyan);font-size:10px;">→ Add tests: +7 pts → 95/100</div>
+                </div>
+              </div>
+            </div>
+            <div style="font-size:11.5px;color:var(--t2);margin-bottom:8px;">End-to-end document QA with LangChain, Pinecone, FastAPI. 34 recruiter views · 14 company stack matches.</div>
+            <div class="chip-row" style="margin-top:0;"><span class="chip cb">LangChain</span><span class="chip cr">FastAPI</span><span class="chip cg">Pinecone</span><span class="chip cp">OpenAI</span></div>
+            <div style="display:flex;gap:8px;margin-top:9px;">
+              <button class="btn bg" style="font-size:10.5px;padding:4px 10px;">🐙 GitHub</button>
+              <button class="btn bg" style="font-size:10.5px;padding:4px 10px;">🌐 Live Demo</button>
+            </div>
+          </div>
+          <!-- Project 2 -->
+          <div style="padding:12px 14px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+              <div style="font-size:13px;font-weight:700;">Real-time ML Feature Store</div>
+              <div style="position:relative;">
+                <span style="background:var(--ad);color:var(--amber);font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:7px;cursor:pointer;" onmouseenter="document.getElementById('q2').style.display='block'" onmouseleave="document.getElementById('q2').style.display='none'">Quality 74/100 ⓘ</span>
+                <div id="q2" style="display:none;position:absolute;right:0;top:22px;width:200px;background:var(--el);border:1px solid var(--b2);border-radius:var(--r2);padding:10px;z-index:10;font-size:11px;color:var(--t2);">
+                  <div style="font-weight:700;color:var(--t1);margin-bottom:6px;">Score breakdown</div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Recruiter views</span><span style="color:var(--amber);">18 · +15pts</span></div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Company matches</span><span style="color:var(--green);">9 · +27pts</span></div>
+                  <div style="display:flex;justify-content:space-between;"><span>README + tests</span><span style="color:var(--red);">Missing · -18pts</span></div>
+                  <div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--b);color:var(--cyan);font-size:10px;">→ Add README + tests: +14 pts → 88/100</div>
+                </div>
+              </div>
+            </div>
+            <div style="font-size:11.5px;color:var(--t2);margin-bottom:8px;">Scalable feature store with Redis caching and Kafka streaming. 18 recruiter views · 9 company matches.</div>
+            <div class="chip-row" style="margin-top:0;"><span class="chip ca">Redis</span><span class="chip cb">Kafka</span><span class="chip cp">Feast</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <!-- CERTIFICATIONS -->
+      <div class="acc ex" style="--ac:rgba(16,185,129,0.2);">
+        <div class="acc-h" onclick="tog(this)">
+          <span class="acc-ic">🏅</span>
+          <div class="acc-t"><div class="acc-tm">Certifications</div><div class="acc-ts">7 verified · 2 expiring soon</div></div>
+          <div class="acc-r"><span class="acc-badge" style="background:var(--gd);color:var(--green);">7 Verified</span><span class="acc-arr">▼</span></div>
+        </div>
+        <div class="acc-body">
+          <div class="cert-row"><span class="cert-ico">🏅</span><div class="cert-inf"><div class="cert-nm">AWS ML Specialty</div><div class="cert-dt">Amazon · Jan 2024 · Exp Jan 2027</div></div><span class="cert-v">✓</span></div>
+          <div class="cert-row"><span class="cert-ico">❄️</span><div class="cert-inf"><div class="cert-nm">Snowflake SnowPro Core</div><div class="cert-dt">Snowflake · Mar 2024 · Exp Mar 2026</div></div><span class="cert-v">✓</span></div>
+          <div class="cert-row"><span class="cert-ico">🔶</span><div class="cert-inf"><div class="cert-nm">Databricks Assoc. Developer</div><div class="cert-dt">Databricks · Jun 2023 · No expiry</div></div><span class="cert-v">✓</span></div>
+          <!-- Expiring cert — amber alert -->
+          <div class="cert-row"><span class="cert-ico">🟦</span><div class="cert-inf"><div class="cert-nm">Azure AI Engineer Associate</div><div class="cert-dt" style="color:var(--amber);">⚠ Exp Nov 2025 · Renewing soon</div></div><div style="display:flex;flex-direction:column;gap:3px;align-items:flex-end;"><span class="cert-v">✓</span><span style="font-size:9px;background:var(--ad);color:var(--amber);padding:1px 6px;border-radius:5px;cursor:pointer;white-space:nowrap;">Renew →</span></div></div>
+          <div class="cert-row"><span class="cert-ico">🐍</span><div class="cert-inf"><div class="cert-nm">Google Professional Data Engineer</div><div class="cert-dt">Google Cloud · Feb 2024 · Exp Feb 2026</div></div><span class="cert-v">✓</span></div>
+        </div>
+      </div>
+
+      <!-- ENDORSEMENTS -->
+      <div class="acc" style="--ac:rgba(167,139,250,0.2);">
+        <div class="acc-h" onclick="tog(this)">
+          <span class="acc-ic">🌟</span>
+          <div class="acc-t"><div class="acc-tm">Endorsements & Recommendations</div><div class="acc-ts">3 recommendations · LinkedIn + Internal verified</div></div>
+          <div class="acc-r"><span class="acc-badge" style="background:var(--pd);color:var(--purple);">3 recs</span><span class="acc-arr">▼</span></div>
+        </div>
+        <div class="acc-body">
+          <div class="endorse">
+            <div class="e-av">SR</div>
+            <div class="e-inf">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:1px;"><div class="e-nm">Sneha Rao</div><span style="font-size:9px;background:var(--bd);color:var(--blue);padding:1px 6px;border-radius:4px;font-weight:600;">LinkedIn</span></div>
+              <div class="e-rl">Engineering Manager · Flipkart</div>
+              <div class="e-txt" style="max-height:36px;overflow:hidden;">"Arjun's ability to take an ML model from research to production in under 2 weeks is genuinely rare."</div>
+              <span style="font-size:10.5px;color:var(--purple);cursor:pointer;font-weight:600;" onclick="var el=this.previousElementSibling;el.style.maxHeight=el.style.maxHeight==='none'?'36px':'none';this.textContent=el.style.maxHeight==='none'?'Read less ↑':'Read full →'">Read full →</span>
+            </div>
+          </div>
+          <div class="endorse">
+            <div class="e-av" style="background:linear-gradient(135deg,var(--red),var(--amber));">VK</div>
+            <div class="e-inf">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:1px;"><div class="e-nm">Vikram Krishnan</div><span style="font-size:9px;background:var(--bd);color:var(--blue);padding:1px 6px;border-radius:4px;font-weight:600;">LinkedIn</span></div>
+              <div class="e-rl">Principal Data Scientist · Zomato</div>
+              <div class="e-txt">"Reduced pipeline time by 40%. Best Databricks engineer I've worked with."</div>
+              <span style="font-size:10.5px;color:var(--purple);cursor:pointer;font-weight:600;">Read full →</span>
+            </div>
+          </div>
+          <div class="endorse">
+            <div class="e-av" style="background:linear-gradient(135deg,var(--green),var(--cyan));">PD</div>
+            <div class="e-inf">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:1px;"><div class="e-nm">Priya Desai</div><span style="font-size:9px;background:var(--gd);color:var(--green);padding:1px 6px;border-radius:4px;font-weight:600;">Dragon Suite</span></div>
+              <div class="e-rl">Head of AI · Razorpay</div>
+              <div class="e-txt">"Top 5 of 200+ system design candidates I've interviewed."</div>
+              <span style="font-size:10.5px;color:var(--purple);cursor:pointer;font-weight:600;">Read full →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROOF OF SKILL — GitHub (prominent CTA) -->
+      <div class="card" style="border-color:rgba(16,185,129,0.2);">
+        <div class="card-head"><div class="card-title">🐙 Proof of Skill — GitHub</div></div>
+        <div class="card-body">
+          <!-- <div style="padding:11px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:var(--r2);margin-bottom:10px;">
+            <div style="font-size:12px;font-weight:700;margin-bottom:3px;">Connect GitHub</div>
+            <div style="font-size:11px;color:var(--t2);margin-bottom:8px;">Show recruiters real code, not just resume bullets.</div>
+            <div style="display:flex;gap:7px;margin-bottom:8px;">
+              <span style="font-size:10px;background:var(--gd);color:var(--green);padding:2px 8px;border-radius:8px;font-weight:600;">+8 Dragon Score</span>
+              <span style="font-size:10px;background:var(--bd);color:var(--blue);padding:2px 8px;border-radius:8px;font-weight:600;">+12 role unlocks</span>
+            </div>
+            <button class="btn bp" style="font-size:11px;width:100%;display:flex;justify-content:center;">Connect GitHub Now →</button>
+          </div> -->
+          <div style="padding:9px 10px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);margin-bottom:7px;">
+            <div style="font-size:12px;font-weight:600;margin-bottom:2px;">RAG-based Document QA</div>
+            <div style="display:flex;gap:10px;font-size:10.5px;color:var(--t2);"><span>⭐ 88/100</span><span>🍴 34 forks</span><span>👁️ 210 views</span></div>
+          </div>
+          <div style="padding:9px 10px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
+            <div style="font-size:12px;font-weight:600;margin-bottom:2px;">ML Feature Store</div>
+            <div style="display:flex;gap:10px;font-size:10.5px;color:var(--t2);"><span>⭐ 74/100</span><span>🍴 18 forks</span><span>👁️ 140 views</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div><!-- end portfolio -->
+
+
+  <!-- ══════════════ TAB 2: CAREER & JOB MANAGEMENT ══════════════ -->
+  <div class="tp" id="js-t2">
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;">
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <!-- TOP AI MATCHES -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🤖 Top AI Matches</div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <!-- Active preferences summary -->
+            <div style="display:flex;gap:5px;flex-wrap:wrap;">
+              <span class="chip cg" style="font-size:10px;">🟢 Remote OK</span>
+              <span class="chip ca" style="font-size:10px;">₹28L+</span>
+              <span class="chip cr" style="font-size:10px;">ML / AI</span>
+            </div>
+            <button class="btn bg" style="font-size:10px;padding:3px 9px;">⚙️ Edit Preferences</button>
+            <span class="card-action" style="font-size:11px;">See all 23 →</span>
+          </div>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
+          <!-- Match 1 — with gap analysis + apply button -->
+          <div style="background:linear-gradient(135deg,rgba(99,102,241,0.07),transparent);border:1px solid rgba(99,102,241,0.18);border-radius:var(--r2);padding:12px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <div><div style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;">Razorpay</div><div style="font-size:13.5px;font-weight:700;">Senior ML Engineer</div></div>
+              <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--green);">94%</div>
+            </div>
+            <div style="display:flex;gap:10px;font-size:11px;color:var(--t2);flex-wrap:wrap;margin-bottom:6px;"><span>📍 Bangalore</span><span>💰 ₹32–40 LPA</span><span>🟢 Hybrid</span></div>
+            <div style="font-size:11px;color:var(--t3);margin-bottom:5px;padding-bottom:5px;border-bottom:1px solid var(--b);">🤖 Match: <strong style="color:var(--t2);">AWS ML ✓ · Databricks ✓ · RAG project ✓ · Salary ✓</strong></div>
+            <div style="font-size:10.5px;color:var(--t3);margin-bottom:8px;">Gap to 100%: <span style="color:var(--amber);">RLHF cert (+3%) · System Design mock (+3%)</span></div>
+            <button class="btn bp" style="width:100%;display:flex;justify-content:center;font-size:11.5px;">🤖 Apply via Dragon Agent →</button>
+          </div>
+          <!-- Match 2 -->
+          <div style="background:linear-gradient(135deg,rgba(59,130,246,0.06),transparent);border:1px solid rgba(59,130,246,0.14);border-radius:var(--r2);padding:12px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <div><div style="font-size:10px;color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;">Stripe</div><div style="font-size:13.5px;font-weight:700;">ML Infrastructure Engineer</div></div>
+              <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--amber);">91%</div>
+            </div>
+            <div style="display:flex;gap:10px;font-size:11px;color:var(--t2);flex-wrap:wrap;margin-bottom:6px;"><span>📍 Remote</span><span>💰 $130K–160K</span></div>
+            <div style="font-size:10.5px;color:var(--t3);margin-bottom:8px;">Gap to 100%: <span style="color:var(--amber);">K8s cert (+5%) · System design score (+4%)</span></div>
+            <button class="btn bg" style="width:100%;display:flex;justify-content:center;font-size:11.5px;color:var(--blue);border-color:rgba(59,130,246,0.25);">🤖 Apply via Dragon Agent →</button>
+          </div>
+          <!-- Match 3 — upside badge -->
+          <div style="background:linear-gradient(135deg,rgba(245,158,11,0.06),transparent);border:1px solid rgba(245,158,11,0.14);border-radius:var(--r2);padding:12px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <div>
+                <div style="font-size:10px;color:var(--amber);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;">Google DeepMind</div>
+                <div style="font-size:13.5px;font-weight:700;">ML Research Engineer</div>
+                <div style="display:inline-flex;align-items:center;gap:4px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.25);padding:2px 8px;border-radius:9px;font-size:9.5px;margin-top:4px;color:var(--amber);font-weight:700;">⬆ 2.2× salary vs current range</div>
+              </div>
+              <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--purple);">86%</div>
+            </div>
+            <div style="display:flex;gap:10px;font-size:11px;color:var(--t2);flex-wrap:wrap;margin-bottom:6px;"><span>📍 Hyderabad / Remote</span><span>💰 ₹60–90 LPA</span></div>
+            <div style="font-size:10.5px;color:var(--t3);margin-bottom:8px;">Gap to 94%: <span style="color:var(--amber);">RLHF cert (+4%) · Research portfolio (+4%)</span></div>
+            <button class="btn bg" style="width:100%;display:flex;justify-content:center;font-size:11.5px;color:var(--amber);border-color:rgba(245,158,11,0.25);">🤖 Apply via Dragon Agent →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIMPLIFIED DRAGON GPS -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">🧭 Dragon GPS — Career Path</div>
+          <span style="font-size:11px;color:var(--green);font-weight:600;">On track</span>
+        </div>
+        <div class="card-body">
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px;">
+            <div style="font-size:11.5px;color:var(--t2);">Target: <strong style="color:var(--t1);">Senior ML Eng @ Razorpay</strong></div>
+            <div style="font-size:11.5px;color:var(--red);font-weight:700;">68%</div>
+          </div>
+          <div class="pt" style="height:5px;margin-bottom:12px;"><div class="pf" style="width:68%;background:var(--red);"></div></div>
+          
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;font-size:11.5px;align-items:center;">
+              <span style="color:var(--green);font-weight:700;">✓</span>
+              <div style="color:var(--t2);">Python & ML Foundations</div>
+            </div>
+            <div style="display:flex;gap:10px;font-size:11.5px;align-items:center;">
+              <span style="color:var(--red);font-weight:700;">●</span>
+              <div style="color:var(--t1);font-weight:600;">LLMs, RAG & GenAI <span style="font-size:10px;color:var(--t3);font-weight:400;margin-left:8px;">Module 3/5 · Wk 6/10</span></div>
+            </div>
+            <div style="display:flex;gap:10px;font-size:11.5px;align-items:center;opacity:0.5;">
+              <span style="color:var(--t3);">○</span>
+              <div style="color:var(--t3);">MLOps & Production</div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;padding:8px 10px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:var(--r2);font-size:11px;color:var(--t2);">
+            <strong style="color:var(--amber);">Rerouting Tip:</strong> Add RLHF (+2wks) for <strong style="color:var(--t1);">DeepMind</strong> (₹60L+)
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <!-- SEARCH APPEARANCE -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">👁️ Search Appearance</div>
+          <span style="font-size:10px;color:var(--t3);">Last 30 days</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--b);">
+          <div style="padding:10px 12px;border-right:1px solid var(--b);text-align:center;">
+            <div style="font-size:18px;font-weight:700;font-family:var(--fm);color:var(--blue);">142</div>
+            <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Profile Views</div>
+            <!-- Mini sparkline -->
+            <div style="display:flex;align-items:flex-end;justify-content:center;gap:2px;height:14px;margin:4px 0 2px;">
+              <div style="width:4px;height:5px;background:rgba(59,130,246,0.3);border-radius:1px;"></div>
+              <div style="width:4px;height:7px;background:rgba(59,130,246,0.4);border-radius:1px;"></div>
+              <div style="width:4px;height:9px;background:rgba(59,130,246,0.5);border-radius:1px;"></div>
+              <div style="width:4px;height:6px;background:rgba(59,130,246,0.5);border-radius:1px;"></div>
+              <div style="width:4px;height:13px;background:var(--blue);border-radius:1px;"></div>
+            </div>
+            <div style="font-size:10px;color:var(--green);">↑ +38 vs last wk</div>
+          </div>
+          <div style="padding:10px 12px;text-align:center;">
+            <div style="font-size:18px;font-weight:700;font-family:var(--fm);color:var(--green);">23</div>
+            <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Appearances</div>
+            <div style="display:flex;align-items:flex-end;justify-content:center;gap:2px;height:14px;margin:4px 0 2px;">
+              <div style="width:4px;height:4px;background:rgba(16,185,129,0.3);border-radius:1px;"></div>
+              <div style="width:4px;height:8px;background:rgba(16,185,129,0.4);border-radius:1px;"></div>
+              <div style="width:4px;height:6px;background:rgba(16,185,129,0.5);border-radius:1px;"></div>
+              <div style="width:4px;height:10px;background:rgba(16,185,129,0.5);border-radius:1px;"></div>
+              <div style="width:4px;height:13px;background:var(--green);border-radius:1px;"></div>
+            </div>
+            <div style="font-size:10px;color:var(--green);">↑ +7 vs last wk</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--b);">
+          <div style="padding:10px 12px;border-right:1px solid var(--b);text-align:center;">
+            <div style="font-size:18px;font-weight:700;font-family:var(--fm);color:var(--amber);">8</div>
+            <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Shortlisted</div>
+            <div style="font-size:10px;color:var(--green);margin-top:3px;">↑ +3 vs last wk</div>
+          </div>
+          <div style="padding:10px 12px;text-align:center;">
+            <div style="font-size:18px;font-weight:700;font-family:var(--fm);color:var(--purple);">3</div>
+            <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Contacted</div>
+            <div style="display:flex;flex-direction:column;gap:1px;margin-top:3px;">
+              <span style="font-size:9.5px;color:var(--red);cursor:pointer;text-decoration:underline;">Razorpay →</span>
+              <span style="font-size:9.5px;color:var(--green);cursor:pointer;text-decoration:underline;">CRED →</span>
+              <span style="font-size:9.5px;color:var(--blue);cursor:pointer;text-decoration:underline;">Stripe →</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:10px 12px;">
+          <div style="font-size:10.5px;color:var(--t2);margin-bottom:5px;">Top keywords:</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;"><span class="chip cb" style="font-size:10px;">ML Engineer</span><span class="chip ca" style="font-size:10px;">RAG Specialist</span><span class="chip cp" style="font-size:10px;">Databricks</span></div>
+          <span style="font-size:10px;color:var(--blue);cursor:pointer;font-weight:600;display:block;margin-top:6px;">Edit keywords →</span>
+        </div>
+      </div>
+
+      <!-- SIMPLIFIED APPLICATIONS -->
+      <div class="card">
+        <div class="card-head"><div class="card-title">📋 Applications</div><span class="card-action">View all →</span></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:var(--r1);">
+            <div style="font-size:11.5px;font-weight:700;color:var(--green);">Offer: Razorpay</div>
+            <span style="font-size:9px;background:var(--green);color:var(--bg);padding:1px 5px;border-radius:4px;font-weight:700;">NEW</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0 5px;">
+            <div style="font-size:11.5px;color:var(--t2);">Stripe · ML Infra</div>
+            <span style="font-size:10px;color:var(--blue);font-weight:600;">In Review</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0 5px;">
+            <div style="font-size:11.5px;color:var(--t2);">CRED · Staff ML</div>
+            <span style="font-size:10px;color:var(--green);font-weight:600;">Shortlisted</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0 5px;">
+            <div style="font-size:11.5px;color:var(--t2);">DeepMind · Research</div>
+            <span style="font-size:10px;color:var(--red);font-weight:600;">Assessment</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONNECTIONS -->
+      <div class="card">
+        <div class="card-head"><div class="card-title">🔗 Connections</div><span style="font-size:10.5px;color:var(--t3);">48 total</span></div>
+        <div class="card-body">
+          <!-- Suggested
+          <div style="background:var(--el);border-radius:var(--r1);padding:8px 10px;margin-bottom:10px;">
+            <div style="font-size:9.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:7px;">At your target companies</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div style="display:flex;gap:7px;align-items:center;"><div style="width:22px;height:22px;border-radius:50%;background:var(--redd);display:grid;place-items:center;font-size:9px;font-weight:700;color:var(--red);">NK</div><div style="font-size:11px;"><div style="font-weight:600;">Nikhil Kumar</div><div style="font-size:9.5px;color:var(--t3);">ML Lead · Razorpay</div></div></div>
+                <button class="conn-btn" style="font-size:9.5px;padding:2px 7px;">Connect</button>
+              </div> 
+            </div>
+          </div> -->
+
+          <div style="font-size:9.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:7px;">HR Recruiters</div>
+          <!-- Recruiter signal inline -->
+          <div class="conn">
+            <div class="conn-av" style="background:linear-gradient(135deg,var(--blue),var(--cyan));">PV</div>
+            <div class="conn-inf">
+              <div class="conn-nm">Priya Venkataraman</div>
+              <div style="font-size:9.5px;color:var(--red);font-weight:600;">🔥 Viewed you 3× this week</div>
+              <div style="font-size:9.5px;color:var(--t3);">Relevant to: Razorpay · Never messaged</div>
+            </div>
+            <button class="conn-btn" style="background:var(--redd);color:var(--red);border-color:rgba(99,102,241,0.2);font-size:9.5px;">Message</button>
+          </div>
+          <div class="conn">
+            <div class="conn-av" style="background:linear-gradient(135deg,var(--amber),var(--red));">AK</div>
+            <div class="conn-inf"><div class="conn-nm">Ankit Kumar</div><div class="conn-rl">Recruiter · CRED</div><div style="font-size:9.5px;color:var(--t3);">Last messaged: 5 days ago</div></div>
+            <button class="conn-btn" style="font-size:9.5px;">Message</button>
+          </div>
+          <div class="conn">
+            <div class="conn-av" style="background:linear-gradient(135deg,var(--green),var(--blue));">SN</div>
+            <div class="conn-inf"><div class="conn-nm">Sunita Nair</div><div class="conn-rl">Head of Talent · Stripe India</div><div style="font-size:9.5px;color:var(--amber);">Never messaged</div></div>
+            <button class="conn-btn" style="font-size:9.5px;">Message</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div><!-- end career tab -->
+
+
+  <!-- ══════════════ TAB 3: ACTIVITY ══════════════ -->
+  <div class="tp" id="js-t3">
+    <div style="display:grid;grid-template-columns:1fr 340px;gap:16px;">
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <!-- GAMIFICATION — Dragon Quest prominent section -->
+      <div style="background:linear-gradient(135deg,rgba(167,139,250,0.1),rgba(59,130,246,0.06));border:1px solid rgba(167,139,250,0.22);border-radius:var(--r3);overflow:hidden;position:relative;">
+        <div style="position:absolute;right:0;top:0;bottom:0;width:180px;background:linear-gradient(90deg,transparent,rgba(167,139,250,0.06));pointer-events:none;"></div>
+        <span style="position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:72px;opacity:0.06;pointer-events:none;">🐉</span>
+
+        <!-- Quest header -->
+        <div style="padding:18px 20px 14px;display:flex;align-items:center;gap:14px;">
+          <div style="width:52px;height:52px;border-radius:50%;background:rgba(167,139,250,0.16);border:2px solid rgba(167,139,250,0.3);display:grid;place-items:center;font-size:26px;flex-shrink:0;">🦅</div>
+          <div style="flex:1;">
+            <div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:3px;">Shadow Sage — Level 14 Fire Drake 🔥</div>
+            <div style="font-size:11.5px;color:var(--t2);">Dragon Quest · DSA Specialist · Agentic AI track</div>
+          </div>
+          <!-- Stats -->
+          <div style="display:flex;gap:22px;flex-shrink:0;">
+            <div style="text-align:center;"><div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--purple);">4,280</div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;">XP Total</div></div>
+            <div style="text-align:center;"><div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--amber);">42 <span style="animation:fire .8s infinite alternate;display:inline-block;">🔥</span></div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;">Day Streak</div></div>
+            <div style="text-align:center;"><div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--green);">720</div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;">Coins</div></div>
+          </div>
+        </div>
+
+        <!-- XP bar -->
+        <div style="padding:0 20px 10px;">
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:5px;"><span style="color:var(--t2);">Level 14 → 15 progress</span><span style="color:var(--purple);font-family:var(--fm);font-weight:600;">4,280 / 5,000 XP</span></div>
+          <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;"><div style="width:85.6%;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--purple),var(--blue));"></div></div>
+        </div>
+
+        <!-- Milestone strip -->
+        <div style="border-top:1px solid rgba(167,139,250,0.15);padding:12px 20px;display:flex;gap:8px;align-items:center;">
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
+            <div style="font-size:11.5px;color:var(--t2);">⚡ Next milestone: <strong style="color:var(--amber);">5-day boss battle</strong> starts tomorrow</div>
+            <div style="font-size:11px;color:var(--t3);">Win = <strong style="color:var(--t1);">Exclusive Dragon Badge + 500 coins</strong> · Don't break your streak!</div>
+          </div>
+          <button class="btn bp" style="background:var(--purple);font-size:11.5px;white-space:nowrap;flex-shrink:0;">Prep for Boss →</button>
+        </div>
+
+        <!-- Streak milestones visual -->
+        <div style="padding:12px 20px 18px;border-top:1px solid rgba(167,139,250,0.1);">
+          <div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.9px;margin-bottom:10px;">🏆 Streak Milestones</div>
+          <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;">
+            <div style="flex-shrink:0;min-width:90px;padding:9px 10px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:var(--r2);text-align:center;"><div style="font-size:16px;">✅</div><div style="font-size:11px;font-weight:700;margin-top:3px;">7 days</div><div style="font-size:10px;color:var(--green);">Coffee Voucher</div><div style="font-size:9.5px;color:var(--t3);">Claimed</div></div>
+            <div style="flex-shrink:0;min-width:90px;padding:9px 10px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:var(--r2);text-align:center;"><div style="font-size:16px;">✅</div><div style="font-size:11px;font-weight:700;margin-top:3px;">14 days</div><div style="font-size:10px;color:var(--green);">Movie Tickets</div><div style="font-size:9.5px;color:var(--t3);">Claimed</div></div>
+            <div style="flex-shrink:0;min-width:90px;padding:9px 10px;background:rgba(245,158,11,0.1);border:2px solid rgba(245,158,11,0.3);border-radius:var(--r2);text-align:center;"><div style="font-size:16px;">🎬</div><div style="font-size:11px;font-weight:700;margin-top:3px;color:var(--amber);">42 days</div><div style="font-size:10px;color:var(--amber);">Movie Tickets</div><div style="font-size:9.5px;color:var(--amber);font-weight:600;">In progress!</div></div>
+            <div style="flex-shrink:0;min-width:90px;padding:9px 10px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);text-align:center;opacity:.6;"><div style="font-size:16px;">🔒</div><div style="font-size:11px;font-weight:700;margin-top:3px;">60 days</div><div style="font-size:10px;color:var(--t3);">Premium Pass</div></div>
+            <div style="flex-shrink:0;min-width:90px;padding:9px 10px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);text-align:center;opacity:.6;"><div style="font-size:16px;">🔒</div><div style="font-size:11px;font-weight:700;margin-top:3px;">90 days</div><div style="font-size:10px;color:var(--t3);">Dragon Badge</div></div>
+            <div style="flex-shrink:0;min-width:90px;padding:9px 10px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);text-align:center;opacity:.6;"><div style="font-size:16px;">🔒</div><div style="font-size:11px;font-weight:700;margin-top:3px;">365 days</div><div style="font-size:10px;color:var(--t3);">Legendary Title</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODAY'S MICRO-ACTIONS -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">📅 Today's Plan</div>
+          <span style="font-size:11px;color:var(--green);font-weight:600;">+350 XP if all done · Streak: 43 days 🔥</span>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:7px;">
+          <div style="display:flex;gap:10px;padding:10px 12px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);align-items:center;">
+            <span style="font-size:16px;">📖</span>
+            <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Complete RAG Module 3</div><div style="font-size:10.5px;color:var(--t3);">Dragon Prep · +120 XP</div></div>
+            <span style="font-size:10px;background:var(--redd);color:var(--red);padding:2px 8px;border-radius:7px;font-weight:600;flex-shrink:0;">45 min</span>
+          </div>
+          <div style="display:flex;gap:10px;padding:10px 12px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);align-items:center;">
+            <span style="font-size:16px;">💻</span>
+            <div style="flex:1;"><div style="font-size:12px;font-weight:600;">2 LeetCode Hard — Sliding Window</div><div style="font-size:10.5px;color:var(--t3);">Dragon Prep · +80 XP</div></div>
+            <span style="font-size:10px;background:var(--redd);color:var(--red);padding:2px 8px;border-radius:7px;font-weight:600;flex-shrink:0;">60 min</span>
+          </div>
+          <div style="display:flex;gap:10px;padding:10px 12px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);align-items:center;">
+            <span style="font-size:16px;">🎙️</span>
+            <div style="flex:1;"><div style="font-size:12px;font-weight:600;">System Design Live at 7PM</div><div style="font-size:10.5px;color:var(--t3);">AI Interviewer · +150 XP</div></div>
+            <span style="font-size:10px;background:var(--redd);color:var(--red);padding:2px 8px;border-radius:7px;font-weight:600;flex-shrink:0;">90 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECENT ACTIVITY -->
+      <div class="card">
+        <div class="card-head"><div class="card-title">🕐 Recent Activity</div><span style="font-size:11px;color:var(--t3);">Last 7 days</span></div>
+        <div class="card-body">
+          <div class="notif"><div class="nd" style="background:var(--green);"></div><div class="nb"><div class="nt">Completed <strong>System Design Assessment</strong> — 84/100 · Trust 96</div><div class="ntime">2 hours ago</div></div></div>
+          <div class="notif"><div class="nd" style="background:var(--red);"></div><div class="nb"><div class="nt">Dragon Agent applied to <strong>Razorpay</strong> (Senior ML Eng) · ₹32–40 LPA</div><div class="ntime">Yesterday</div></div></div>
+          <div class="notif"><div class="nd" style="background:var(--purple);"></div><div class="nb"><div class="nt">Completed <strong>RAG Module 2</strong> in Dragon Prep · +120 XP</div><div class="ntime">2 days ago</div></div></div>
+          <div class="notif"><div class="nd" style="background:var(--amber);"></div><div class="nb"><div class="nt">Quest streak hit <strong>42 days</strong> 🔥 · Reward: Movie Tickets claimed</div><div class="ntime">3 days ago</div></div></div>
+          <div class="notif"><div class="nd" style="background:var(--blue);"></div><div class="nb"><div class="nt">AWS ML Specialty cert verified via <strong>Dragon Nexus</strong></div><div class="ntime">5 days ago</div></div></div>
+          <div class="notif"><div class="nd" style="background:var(--green);"></div><div class="nb"><div class="nt">RAG QA project viewed by <strong>4 new recruiters</strong> (Razorpay x3, CRED x1)</div><div class="ntime">1 week ago</div></div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <!-- AI INSIGHTS PANEL -->
+      <div class="card" style="border-color:rgba(59,130,246,0.15);">
+        <div class="card-head">
+          <div class="card-title" style="color:var(--blue);">🤖 AI Insights</div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="font-size:10px;color:var(--t3);">4 min ago</span>
+            <span style="font-size:13px;cursor:pointer;color:var(--blue);" title="Refresh">↻</span>
+          </div>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
+          <!-- Strong -->
+          <div style="padding:9px 11px;background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.15);border-radius:var(--r2);font-size:12px;color:var(--t2);">🟢 <strong style="color:var(--green);">Strong:</strong> Your RAG project matches 14 open roles. Views up 27% this week.</div>
+          <!-- Action — full-width banner treatment -->
+          <div style="padding:11px 13px;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(245,158,11,0.03));border:2px solid rgba(245,158,11,0.32);border-radius:var(--r2);">
+            <div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;">⚡ Highest Impact Move</div>
+            <div style="font-size:12.5px;font-weight:700;color:var(--t1);margin-bottom:2px;">Add Databricks ML Pro cert</div>
+            <div style="font-size:11.5px;color:var(--t2);margin-bottom:9px;">+4 Dragon Score · 4 ₹35L+ roles · ~14 days</div>
+            <button class="btn bp" style="background:var(--amber);font-size:11px;width:100%;display:flex;justify-content:center;">Start now →</button>
+          </div>
+          <!-- Vault — expandable -->
+          <div style="padding:9px 11px;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.15);border-radius:var(--r2);">
+            <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="var v=document.getElementById('vr');v.style.display=v.style.display==='none'?'block':'none'">
+              <span style="font-size:12px;color:var(--t2);">🔐 <strong style="color:var(--purple);">Vault:</strong> 4 exclusive ₹10L+ roles today.</span>
+              <span style="font-size:10.5px;color:var(--purple);font-weight:600;">Show ▾</span>
+            </div>
+            <div id="vr" style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid rgba(167,139,250,0.15);">
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;justify-content:space-between;font-size:11px;"><span>🟡 Stripe — ML Infra Eng.</span><span style="color:var(--green);">$130K+ · Remote</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;"><span>🔵 DeepMind — ML Research</span><span style="color:var(--green);">₹60–90 LPA</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;"><span>🟠 CRED — Staff ML (GenAI)</span><span style="color:var(--green);">₹38–52 LPA</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;"><span>🟣 PhonePe — MLOps Lead</span><span style="color:var(--green);">₹32–45 LPA</span></div>
+              </div>
+              <button class="btn bg" style="width:100%;margin-top:8px;font-size:11px;display:flex;justify-content:center;">View all Vault roles →</button>
+            </div>
+          </div>
+          <!-- Risk -->
+          <div style="padding:9px 11px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.18);border-radius:var(--r2);font-size:12px;color:var(--t2);">⚠️ <strong style="color:#EF4444;">Risk:</strong> System Design score (75) borderline for Razorpay (78+). Take 1 mock first. <span style="color:#EF4444;font-weight:600;cursor:pointer;">Schedule mock →</span></div>
+        </div>
+      </div>
+
+      <!-- NUDGES — motivating push notifications -->
+      <div class="card">
+        <div class="card-head"><div class="card-title">🔔 Your Nudges</div></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:8px;padding-top:10px;">
+          <!-- Urgent recruiter signal -->
+          <div style="display:flex;gap:9px;padding:10px 11px;background:rgba(99,102,241,0.09);border:1px solid rgba(99,102,241,0.22);border-radius:var(--r2);">
+            <span style="font-size:16px;animation:pulse 1.5s infinite;">🎯</span>
+            <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.45;"><strong style="color:var(--red);">Razorpay HR viewed you 3 times this week.</strong> They haven't messaged — first mover wins. Let Dragon Agent send the first move.<span style="display:block;margin-top:5px;"><button class="btn bp" style="font-size:10.5px;padding:4px 11px;">Activate Agent →</button></span></div>
+          </div>
+          <div style="display:flex;gap:9px;padding:10px 11px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.16);border-radius:var(--r2);">
+            <span style="font-size:16px;animation:pulse 2s infinite;">⚡</span>
+            <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.45;"><strong style="color:var(--amber);">Add 1 Databricks cert</strong> — +4 Dragon Score, 4 more ₹35L+ roles. Takes ~14 days. <span style="display:block;margin-top:4px;color:var(--amber);font-weight:700;font-size:10.5px;cursor:pointer;">Start →</span></div>
+          </div>
+          <div style="display:flex;gap:9px;padding:10px 11px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.14);border-radius:var(--r2);">
+            <span style="font-size:16px;animation:pulse 2s infinite;">🐉</span>
+            <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.45;"><strong style="color:var(--green);">You went from Score 66 → 88 in 60 days.</strong> Top 8% nationally. 4 new Vault roles added today — your competition isn't here yet. <span style="display:block;margin-top:4px;color:var(--green);font-weight:700;font-size:10.5px;cursor:pointer;">Explore Vault →</span></div>
+          </div>
+          <div style="display:flex;gap:9px;padding:10px 11px;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.16);border-radius:var(--r2);">
+            <span style="font-size:16px;animation:pulse 2s infinite;">🏆</span>
+            <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.45;"><strong style="color:var(--purple);">Boss Battle starts tomorrow.</strong> Top 3 win 1000 coins + Exclusive Badge. Your 42-day streak puts you as a favourite. Don't break it tonight. <span style="display:block;margin-top:4px;color:var(--purple);font-weight:700;font-size:10.5px;cursor:pointer;">Prep now →</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div><!-- end activity tab -->
+
+</div><!-- end ps-jobseeker -->
+
+</main>
+
+<script>
+const UC={
+  jobseeker:{label:'Job Seeker',bg:'linear-gradient(135deg,#FF2D55,#CC1144)',l:'A'},
+  hr:{label:'HR / Recruiter',bg:'linear-gradient(135deg,#3B82F6,#1D4ED8)',l:'P'},
+  placement:{label:'Placement Officer',bg:'linear-gradient(135deg,#10B981,#059669)',l:'D'},
+  student:{label:'Student',bg:'linear-gradient(135deg,#A78BFA,#7C3AED)',l:'K'}
+};
+
+function sw(id,btn){
+  document.querySelectorAll('.ps').forEach(p=>p.classList.remove('on'));
+  document.getElementById('ps-'+id).classList.add('on');
+  document.querySelectorAll('.usw').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const c=UC[id];
+  document.getElementById('topLbl').textContent=c.label;
+  document.getElementById('topAv').style.background=c.bg;
+  document.getElementById('topAv').textContent=c.l;
+}
+
+function stab(tab,pid){
+  const sc=tab.closest('.ps');
+  sc.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  sc.querySelectorAll('.tp').forEach(p=>p.classList.remove('on'));
+  tab.classList.add('on');
+  document.getElementById(pid).classList.add('on');
+}
+
+function tog(head){
+  const acc=head.closest('.acc');
+  acc.classList.toggle('ex');
+}
+
+function toggleRV(btn){
+  btn.classList.toggle('on');
+  const isRV = btn.classList.contains('on');
+  const banner = document.querySelector('.ps.on .rv-banner');
+  if(isRV){
+    // Add recruiter view banner to active tab
+    const active = document.querySelector('.ps.on .tp.on');
+    if(active && !active.querySelector('.rv-banner')){
+      const b = document.createElement('div');
+      b.className = 'rv-banner';
+      b.innerHTML = '👁️ <strong>Recruiter View Active</strong> — This is what a recruiter sees when they open your profile.';
+      active.insertBefore(b, active.firstChild);
+    }
+  } else {
+    document.querySelectorAll('.rv-banner').forEach(b=>b.remove());
+  }
+}
+
+document.querySelectorAll('.ni[data-nav]').forEach(n=>{
+  n.addEventListener('click',()=>{
+    document.querySelectorAll('.ni').forEach(i=>i.classList.remove('on'));
+    n.classList.add('on');
+  });
+});
+</script>
+</body>
