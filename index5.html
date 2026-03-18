@@ -1,0 +1,2448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dragon Suite — Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-primary: #07090E;
+  --bg-secondary: #0D1117;
+  --bg-card: #121820;
+  --bg-card-hover: #161E28;
+  --bg-elevated: #1A2332;
+  --border: rgba(255,255,255,0.06);
+  --border-active: rgba(255,255,255,0.12);
+
+  --text-primary: #E8ECF1;
+  --text-secondary: #8B95A5;
+  --text-muted: #5A6577;
+
+  --accent: #FF2D55;
+  --accent-success: #10B981;
+  --accent-success-dim: rgba(16,185,129,0.12);
+  --accent-dim: rgba(255,45,85,0.12);
+  --accent-glow: rgba(255,45,85,0.25);
+  --accent-blue: #3B82F6;
+  --accent-blue-dim: rgba(59,130,246,0.12);
+  --accent-amber: #F59E0B;
+  --accent-amber-dim: rgba(245,158,11,0.12);
+  --accent-purple: #A78BFA;
+  --accent-purple-dim: rgba(167,139,250,0.12);
+  --accent-cyan: #06B6D4;
+  --accent-cyan-dim: rgba(6,182,212,0.12);
+
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Playfair Display', serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+}
+
+html { font-size: 15px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed; left: 0; top: 0; bottom: 0;
+  width: 260px; background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  z-index: 100;
+}
+.sidebar-scroll {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+.sidebar-scroll::-webkit-scrollbar { width: 4px; }
+.sidebar-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+.sidebar-logo {
+  padding: 18px 24px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+}
+.logo-mark {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--accent), #CC1144);
+  border-radius: 10px; display: grid; place-items: center;
+  font-weight: 700; font-size: 16px; color: var(--bg-primary);
+}
+.logo-text { font-weight: 700; font-size: 17px; letter-spacing: -0.3px; }
+.logo-text span { color: var(--accent); }
+
+.sidebar-section-label {
+  padding: 14px 24px 6px;
+  font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--text-muted); font-weight: 600;
+}
+.sidebar-nav { padding: 0 12px; display: flex; flex-direction: column; gap: 1px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px; border-radius: var(--radius-sm);
+  cursor: pointer; transition: all 0.2s; font-size: 12.5px;
+  color: var(--text-secondary); font-weight: 500; position: relative;
+}
+.nav-item:hover { background: rgba(255,255,255,0.04); color: var(--text-primary); }
+.nav-item.active { background: var(--accent-dim); color: var(--accent); }
+.nav-item.active::before {
+  content: ''; position: absolute; left: -12px; top: 50%; transform: translateY(-50%);
+  width: 3px; height: 20px; background: var(--accent); border-radius: 0 3px 3px 0;
+}
+.nav-icon { font-size: 15px; width: 18px; text-align: center; }
+.nav-divider { height: 1px; background: var(--border); margin: 6px 12px; }
+
+.sidebar-footer {
+  padding: 16px; border-top: 1px solid var(--border); flex-shrink: 0;
+}
+.user-switcher-label {
+  font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--text-muted); font-weight: 600; margin-bottom: 8px;
+}
+.user-switch-btn {
+  width: 100%; padding: 8px 12px; border-radius: var(--radius-sm);
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--text-secondary); font-family: var(--font-body);
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: all 0.2s; margin-bottom: 4px;
+}
+.user-switch-btn:hover { border-color: var(--accent); color: var(--accent); }
+.user-switch-btn.active-user { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+
+/* ── MAIN ── */
+.main-content { margin-left: 260px; min-height: 100vh; }
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  padding: 16px 32px;
+  background: rgba(7,9,14,0.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-title { font-size: 14px; color: var(--text-secondary); font-weight: 500; }
+.topbar-title strong { color: var(--text-primary); font-weight: 600; }
+.breadcrumb { font-size: 12px; color: var(--text-muted); }
+.breadcrumb span { color: var(--accent); }
+.topbar-actions { display: flex; align-items: center; gap: 12px; }
+.topbar-btn {
+  padding: 7px 14px; border-radius: var(--radius-sm);
+  font-size: 12.5px; font-weight: 500; cursor: pointer;
+  font-family: var(--font-body); transition: all 0.2s;
+}
+.btn-ghost { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); }
+.btn-ghost:hover { border-color: var(--border-active); color: var(--text-primary); }
+.btn-primary { background: var(--accent); border: none; color: white; }
+.btn-primary:hover { background: #e0253b; }
+.avatar-wrap { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 700; font-size: 13px;
+}
+
+/* ── PAGE ── */
+.page-content { padding: 0 0 60px; }
+
+/* ── USER PROFILES (screens) ── */
+.profile-screen { display: none; animation: fadeIn 0.35s ease; }
+.profile-screen.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── PROFILE HERO ── */
+.profile-hero {
+  position: relative; overflow: hidden;
+  padding: 36px 32px 0;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--hero-color-a, rgba(255,45,85,0.06)) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-inner { position: relative; display: flex; align-items: flex-start; gap: 28px; }
+.profile-avatar-wrap { position: relative; flex-shrink: 0; }
+.profile-avatar {
+  width: 100px; height: 100px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 36px; font-weight: 700;
+  border: 3px solid var(--hero-color, var(--accent));
+  box-shadow: 0 0 30px var(--hero-glow, var(--accent-glow));
+}
+.profile-badge {
+  position: absolute; bottom: 2px; right: 2px;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--hero-color, var(--accent));
+  border: 2px solid var(--bg-primary);
+  display: grid; place-items: center; font-size: 12px;
+}
+.profile-info { flex: 1; padding-top: 8px; }
+.profile-name { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
+.profile-role-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.profile-meta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
+.profile-meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-secondary); }
+.profile-meta-item strong { color: var(--text-primary); }
+.profile-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.profile-score-row { display: flex; gap: 16px; margin-top: 20px; flex-wrap: wrap; }
+.score-pill {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 12px 18px;
+  display: flex; flex-direction: column; gap: 2px; min-width: 120px;
+}
+.score-pill-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.score-pill-val { font-size: 22px; font-weight: 700; font-family: var(--font-mono); }
+.score-pill-sub { font-size: 11px; color: var(--text-secondary); }
+
+/* ── PROFILE TABS ── */
+.profile-tabs {
+  display: flex; gap: 0; border-bottom: 1px solid var(--border);
+  padding: 0 32px; margin-top: 24px;
+}
+.profile-tab {
+  padding: 12px 20px; font-size: 13px; font-weight: 500;
+  color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+}
+.profile-tab:hover { color: var(--text-primary); }
+.profile-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-count {
+  background: var(--bg-elevated); border-radius: 10px;
+  padding: 1px 7px; font-size: 10px; font-family: var(--font-mono);
+}
+
+/* ── TAB PANELS ── */
+.tab-panel { display: none; padding: 28px 32px; }
+.tab-panel.active { display: block; }
+
+/* ── GRID LAYOUTS ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.sidebar-layout { display: grid; grid-template-columns: 1fr 340px; gap: 20px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--border-active); }
+.card-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 16px;
+}
+.card-title { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.card-action { font-size: 11.5px; color: var(--accent); cursor: pointer; font-weight: 500; }
+.card-action:hover { text-decoration: underline; }
+.section-gap { margin-bottom: 20px; }
+
+/* ── MODULE GRID ── */
+.module-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.module-card {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 14px;
+  cursor: pointer; transition: all 0.2s;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.module-card:hover { border-color: var(--mod-color, var(--accent)); transform: translateY(-2px); }
+.module-card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.module-icon { font-size: 20px; }
+.module-status {
+  font-size: 10px; font-weight: 600; padding: 2px 7px;
+  border-radius: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.status-active { background: var(--accent-success-dim); color: var(--accent-success); }
+.status-locked { background: rgba(90,101,119,0.2); color: var(--text-muted); }
+.status-new { background: var(--accent-blue-dim); color: var(--accent-blue); }
+.status-elite { background: var(--accent-amber-dim); color: var(--accent-amber); }
+.module-name { font-size: 13px; font-weight: 600; }
+.module-desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+.module-stat { font-size: 11px; color: var(--mod-color, var(--accent)); font-weight: 600; font-family: var(--font-mono); }
+
+/* ── PROGRESS BAR ── */
+.progress-bar-wrap { margin-bottom: 12px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; }
+.progress-label span:first-child { color: var(--text-secondary); }
+.progress-label span:last-child { font-family: var(--font-mono); font-size: 11px; }
+.progress-track { height: 5px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
+
+/* ── CERT ITEM ── */
+.cert-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px; background: var(--bg-secondary); border-radius: var(--radius-md);
+  border: 1px solid var(--border); margin-bottom: 8px; transition: border-color 0.2s;
+}
+.cert-item:hover { border-color: var(--border-active); }
+.cert-icon { font-size: 22px; flex-shrink: 0; }
+.cert-info { flex: 1; }
+.cert-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.cert-meta { font-size: 11px; color: var(--text-muted); }
+.cert-badge {
+  font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 6px;
+  display: flex; align-items: center; gap: 4px;
+}
+.verified { background: var(--accent-success-dim); color: var(--accent-success); }
+
+/* ── ACTIVITY FEED ── */
+.activity-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.activity-item:last-child { border-bottom: none; }
+.activity-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.activity-content { flex: 1; }
+.activity-title { font-size: 12.5px; margin-bottom: 2px; }
+.activity-time { font-size: 11px; color: var(--text-muted); }
+
+/* ── STAT ROW ── */
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.stat-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 16px; text-align: center;
+}
+.stat-val { font-size: 24px; font-weight: 700; font-family: var(--font-mono); margin-bottom: 4px; }
+.stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+.stat-change { font-size: 11px; margin-top: 4px; }
+.up { color: var(--accent-success); }
+.down { color: var(--accent); }
+
+/* ── BADGE CHIPS ── */
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+  border: 1px solid var(--border);
+}
+.chip-red { background: var(--accent-dim); color: var(--accent); border-color: rgba(255,45,85,0.2); }
+.chip-blue { background: var(--accent-blue-dim); color: var(--accent-blue); border-color: rgba(59,130,246,0.2); }
+.chip-green { background: var(--accent-success-dim); color: var(--accent-success); border-color: rgba(16,185,129,0.2); }
+.chip-amber { background: var(--accent-amber-dim); color: var(--accent-amber); border-color: rgba(245,158,11,0.2); }
+.chip-purple { background: var(--accent-purple-dim); color: var(--accent-purple); border-color: rgba(167,139,250,0.2); }
+.chip-cyan { background: var(--accent-cyan-dim); color: var(--accent-cyan); border-color: rgba(6,182,212,0.2); }
+
+/* ── SKILL GRAPH ── */
+.skill-bar-item { margin-bottom: 10px; }
+.skill-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.skill-name { font-size: 12.5px; color: var(--text-secondary); }
+.skill-val { font-size: 12px; font-family: var(--font-mono); font-weight: 600; }
+
+/* ── TIMELINE ── */
+.timeline-item { display: flex; gap: 16px; padding-bottom: 20px; position: relative; }
+.timeline-item::before {
+  content: ''; position: absolute; left: 15px; top: 28px; bottom: 0;
+  width: 1px; background: var(--border);
+}
+.timeline-item:last-child::before { display: none; }
+.timeline-dot { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  display: grid; place-items: center; font-size: 14px; background: var(--bg-elevated); border: 1px solid var(--border); }
+.timeline-content { flex: 1; padding-top: 4px; }
+.timeline-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+.timeline-sub { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
+.timeline-tag {
+  font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 6px;
+  display: inline-block;
+}
+
+/* ── HERO ACTION ── */
+.match-card {
+  background: linear-gradient(135deg, rgba(255,45,85,0.08), rgba(167,139,250,0.05));
+  border: 1px solid rgba(255,45,85,0.15); border-radius: var(--radius-lg);
+  padding: 20px; margin-bottom: 16px;
+}
+.match-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.match-company { font-size: 11px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+.match-role { font-size: 15px; font-weight: 700; margin-top: 2px; }
+.match-score {
+  font-size: 22px; font-weight: 700; font-family: var(--font-mono);
+  color: var(--accent-success);
+}
+.match-meta { display: flex; gap: 14px; font-size: 12px; color: var(--text-secondary); flex-wrap: wrap; }
+
+/* ── COMPANY ROW ── */
+.company-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.company-row:last-child { border-bottom: none; }
+.company-logo { width: 36px; height: 36px; border-radius: var(--radius-sm); background: var(--bg-elevated); display: grid; place-items: center; font-size: 18px; }
+.company-info { flex: 1; }
+.company-name { font-size: 13px; font-weight: 600; margin-bottom: 1px; }
+.company-detail { font-size: 11px; color: var(--text-muted); }
+.company-cta { font-size: 11.5px; color: var(--accent); font-weight: 600; cursor: pointer; }
+
+/* ── PLACEMENT SPECIFIC ── */
+.student-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px; border-radius: var(--radius-md);
+  background: var(--bg-secondary); margin-bottom: 8px;
+  border: 1px solid var(--border); transition: border-color 0.2s;
+}
+.student-row:hover { border-color: var(--border-active); }
+.student-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  display: grid; place-items: center; font-weight: 700; font-size: 12px; flex-shrink: 0;
+}
+.student-info { flex: 1; }
+.student-name { font-size: 12.5px; font-weight: 600; }
+.student-dept { font-size: 11px; color: var(--text-muted); }
+.risk-tag {
+  font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px;
+}
+.risk-high { background: rgba(239,68,68,0.15); color: #EF4444; }
+.risk-med { background: var(--accent-amber-dim); color: var(--accent-amber); }
+.risk-low { background: var(--accent-success-dim); color: var(--accent-success); }
+
+/* ── DRIVE CARD ── */
+.drive-card {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 14px; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 14px;
+}
+.drive-date { text-align: center; min-width: 48px; }
+.drive-day { font-size: 22px; font-weight: 700; font-family: var(--font-mono); color: var(--accent); }
+.drive-month { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+.drive-info { flex: 1; }
+.drive-company { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.drive-meta { font-size: 11px; color: var(--text-muted); }
+.drive-eligible {
+  font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px;
+  background: var(--accent-blue-dim); color: var(--accent-blue);
+}
+
+/* ── HR PIPELINE ── */
+.pipeline-col {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 14px;
+}
+.pipeline-header {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
+}
+.pipeline-count {
+  background: var(--bg-elevated); border-radius: 10px;
+  padding: 1px 7px; font-family: var(--font-mono); font-size: 10px;
+}
+.candidate-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 10px; margin-bottom: 8px;
+  cursor: pointer; transition: border-color 0.2s;
+}
+.candidate-card:hover { border-color: var(--border-active); }
+.candidate-name { font-size: 12.5px; font-weight: 600; margin-bottom: 3px; }
+.candidate-role { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
+.candidate-score { font-size: 11px; font-weight: 600; font-family: var(--font-mono); }
+.verdict-hire { color: var(--accent-success); }
+.verdict-consider { color: var(--accent-amber); }
+.verdict-below { color: var(--accent); }
+
+/* ── AI INSIGHT BOX ── */
+.ai-box {
+  background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(167,139,250,0.04));
+  border: 1px solid rgba(59,130,246,0.15); border-radius: var(--radius-md); padding: 16px;
+  margin-top: 16px;
+}
+.ai-box-header { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: var(--accent-blue); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.8px; }
+.ai-box p { font-size: 12.5px; color: var(--text-secondary); line-height: 1.65; }
+.ai-box strong { color: var(--text-primary); }
+
+/* ── EMPTY STATE ── */
+.empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 13px; }
+.empty-icon { font-size: 32px; margin-bottom: 10px; }
+
+/* ── HERO TIER COLORS ── */
+/* Job Seeker */
+#profile-jobseeker { --hero-color: #FF2D55; --hero-glow: rgba(255,45,85,0.3); --hero-color-a: rgba(255,45,85,0.08); }
+/* HR */
+#profile-hr { --hero-color: #3B82F6; --hero-glow: rgba(59,130,246,0.3); --hero-color-a: rgba(59,130,246,0.08); }
+/* Placement Officer */
+#profile-placement { --hero-color: #10B981; --hero-glow: rgba(16,185,129,0.3); --hero-color-a: rgba(16,185,129,0.08); }
+/* Student */
+#profile-student { --hero-color: #A78BFA; --hero-glow: rgba(167,139,250,0.3); --hero-color-a: rgba(167,139,250,0.08); }
+
+/* ── CONNECTIONS MAP ── */
+.connection-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.conn-pill {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 10px 12px;
+  font-size: 11.5px; font-weight: 600; text-align: center;
+  cursor: pointer; transition: all 0.2s;
+}
+.conn-pill:hover { border-color: var(--conn-color, var(--accent)); color: var(--conn-color, var(--accent)); transform: translateY(-2px); }
+
+/* ── GPS ROADMAP ── */
+.gps-step {
+  display: flex; gap: 14px; padding: 12px 14px;
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius-md); margin-bottom: 8px; align-items: flex-start;
+}
+.gps-step.completed { border-color: rgba(16,185,129,0.2); }
+.gps-step.current { border-color: rgba(255,45,85,0.3); background: rgba(255,45,85,0.03); }
+.gps-num { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+.gps-completed { background: var(--accent-success-dim); color: var(--accent-success); }
+.gps-current { background: var(--accent-dim); color: var(--accent); }
+.gps-upcoming { background: var(--bg-elevated); color: var(--text-muted); }
+.gps-info { flex: 1; }
+.gps-title { font-size: 12.5px; font-weight: 600; margin-bottom: 2px; }
+.gps-sub { font-size: 11px; color: var(--text-muted); }
+.gps-eta { font-size: 10px; font-family: var(--font-mono); margin-top: 4px; }
+
+/* ── NOTIFICATIONS ── */
+.notif-item {
+  display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.notif-item:last-child { border-bottom: none; }
+.notif-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.notif-text { font-size: 12.5px; line-height: 1.5; flex: 1; }
+.notif-text strong { color: var(--text-primary); }
+.notif-time { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1200px) {
+  .sidebar-layout { grid-template-columns: 1fr; }
+  .connection-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .main-content { margin-left: 0; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .module-grid { grid-template-columns: repeat(2, 1fr); }
+  .two-col { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">🐉</div>
+    <div class="logo-text">Dragon<span>Suite</span></div>
+  </div>
+
+  <div class="sidebar-scroll">
+    <div class="sidebar-section-label">Navigation</div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-nav="profile">
+        <span class="nav-icon">👤</span> My Profile
+      </div>
+      <div class="nav-item" data-nav="gps">
+        <span class="nav-icon">🧭</span> Dragon GPS
+      </div>
+      <div class="nav-item" data-nav="prep">
+        <span class="nav-icon">📚</span> Dragon Prep
+      </div>
+      <div class="nav-item" data-nav="arena">
+        <span class="nav-icon">⚔️</span> Dragon Arena
+      </div>
+      <div class="nav-item" data-nav="quest">
+        <span class="nav-icon">🐉</span> Dragon Quest
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-item" data-nav="elite">
+        <span class="nav-icon">⭐</span> Dragon Elite
+      </div>
+      <div class="nav-item" data-nav="hub">
+        <span class="nav-icon">🌐</span> Dragon Hub
+      </div>
+      <div class="nav-item" data-nav="hire">
+        <span class="nav-icon">🎯</span> Dragon Hire
+      </div>
+      <div class="nav-item" data-nav="bridge">
+        <span class="nav-icon">🌉</span> Dragon Bridge
+      </div>
+      <div class="nav-item" data-nav="review">
+        <span class="nav-icon">📋</span> Dragon Review
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-item" data-nav="skillcraft">
+        <span class="nav-icon">🛠️</span> Skill Craft
+      </div>
+      <div class="nav-item" data-nav="projectlab">
+        <span class="nav-icon">🧪</span> Project Lab
+      </div>
+      <div class="nav-item" data-nav="vault">
+        <span class="nav-icon">🔐</span> Dragon Vault
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-item" data-nav="ai">
+        <span class="nav-icon">💬</span> Dragon AI
+      </div>
+      <div class="nav-item" data-nav="nexus">
+        <span class="nav-icon">🔗</span> Dragon Nexus
+      </div>
+      <div class="nav-item" data-nav="forge">
+        <span class="nav-icon">⚒️</span> Dragon Forge
+      </div>
+      <div class="nav-item" data-nav="dashboard">
+        <span class="nav-icon">📊</span> Talent Dashboard
+      </div>
+      <div class="nav-item" data-nav="match">
+        <span class="nav-icon">🤖</span> Match Results
+      </div>
+      <div class="nav-item" data-nav="market">
+        <span class="nav-icon">📈</span> Market Intel
+      </div>
+    </nav>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="user-switcher-label">Switch Profile View</div>
+    <button class="user-switch-btn active-user" onclick="switchUser('jobseeker', this)">🔍 Job Seeker</button>
+    <button class="user-switch-btn" onclick="switchUser('hr', this)">🏢 HR / Recruiter</button>
+    <button class="user-switch-btn" onclick="switchUser('placement', this)">🎓 Placement Officer</button>
+    <button class="user-switch-btn" onclick="switchUser('student', this)">📖 Student</button>
+  </div>
+</aside>
+
+<!-- ── MAIN CONTENT ── -->
+<main class="main-content">
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-title"><strong>My Profile</strong> — Verified Identity</div>
+      <div class="breadcrumb">Dragon Suite › <span id="activeUserLabel">Job Seeker</span> › Profile</div>
+    </div>
+    <div class="topbar-actions">
+      <button class="topbar-btn btn-ghost">⚙️ Settings</button>
+      <button class="topbar-btn btn-primary">✏️ Edit Profile</button>
+      <div class="avatar-wrap">
+        <div class="avatar" id="topAvatar" style="background: linear-gradient(135deg,#FF2D55,#CC1144);">A</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-content">
+
+    <!-- ══════════════════════════════════════════
+         PROFILE 1 — JOB SEEKER
+    ══════════════════════════════════════════ -->
+    <div class="profile-screen active" id="profile-jobseeker">
+
+      <!-- Hero -->
+      <div class="profile-hero">
+        <div class="hero-bg"></div>
+        <div class="hero-inner">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar" style="background:linear-gradient(135deg,rgba(255,45,85,0.15),rgba(204,17,68,0.08));">
+              <span style="font-size:38px;">👩‍💻</span>
+            </div>
+            <div class="profile-badge">🔍</div>
+          </div>
+          <div class="profile-info">
+            <div class="profile-name">Arjun Mehta</div>
+            <div class="profile-role-tag" style="background:var(--accent-dim);color:var(--accent);">
+              🔍 Job Seeker · Actively Looking
+            </div>
+            <div class="profile-meta">
+              <div class="profile-meta-item">📍 <span>Bangalore, India</span></div>
+              <div class="profile-meta-item">💼 <span><strong>4 yrs</strong> exp · ML Engineer</span></div>
+              <div class="profile-meta-item">💰 <span>Expecting <strong>₹28–35 LPA</span></strong></div>
+              <div class="profile-meta-item">🟢 <span style="color:var(--accent-success);">Open to Remote</span></div>
+            </div>
+            <div class="profile-actions">
+              <button class="topbar-btn btn-primary" style="font-size:11.5px;">🤖 Activate Dragon Agent</button>
+              <button class="topbar-btn btn-ghost" style="font-size:11.5px;">📤 Share Profile</button>
+              <button class="topbar-btn btn-ghost" style="font-size:11.5px;">🔗 Connect Certs</button>
+            </div>
+          </div>
+          <div>
+            <div class="profile-score-row" style="flex-direction:column;gap:10px;">
+              <div class="score-pill" style="border-color:rgba(255,45,85,0.2);">
+                <span class="score-pill-label">Dragon Score</span>
+                <span class="score-pill-val" style="color:var(--accent);">88</span>
+                <span class="score-pill-sub">Top 8% · Elite eligible</span>
+              </div>
+              <div class="score-pill" style="border-color:rgba(16,185,129,0.2);">
+                <span class="score-pill-label">Trust Score</span>
+                <span class="score-pill-val" style="color:var(--accent-success);">96</span>
+                <span class="score-pill-sub">Verified · Proctored</span>
+              </div>
+              <div class="score-pill">
+                <span class="score-pill-label">Match Score</span>
+                <span class="score-pill-val" style="color:var(--accent-amber);">94%</span>
+                <span class="score-pill-sub">Top role fit · Live</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="profile-tabs">
+          <div class="profile-tab active" onclick="switchTab(this,'js-overview')">Overview</div>
+          <div class="profile-tab" onclick="switchTab(this,'js-modules')">My Modules <span class="tab-count">13</span></div>
+          <div class="profile-tab" onclick="switchTab(this,'js-certs')">Certifications <span class="tab-count">7</span></div>
+          <div class="profile-tab" onclick="switchTab(this,'js-gps')">Career GPS</div>
+          <div class="profile-tab" onclick="switchTab(this,'js-matches')">AI Matches <span class="tab-count">23</span></div>
+          <div class="profile-tab" onclick="switchTab(this,'js-activity')">Activity</div>
+        </div>
+      </div>
+
+      <!-- TAB: OVERVIEW -->
+      <div class="tab-panel active" id="js-overview">
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent);">88</div>
+            <div class="stat-label">Dragon Score</div>
+            <div class="stat-change up">↑ +6 this month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-success);">7</div>
+            <div class="stat-label">Verified Certs</div>
+            <div class="stat-change up">↑ +2 this month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-blue);">23</div>
+            <div class="stat-label">AI Matches</div>
+            <div class="stat-change up">↑ 94% avg fit</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-amber);">42</div>
+            <div class="stat-label">Day Streak</div>
+            <div class="stat-change up">🔥 Personal best</div>
+          </div>
+        </div>
+
+        <div class="sidebar-layout">
+          <div>
+            <!-- Top AI Matches -->
+            <div class="card section-gap">
+              <div class="card-header">
+                <div class="card-title">🤖 Top AI Matches <span style="font-size:11px;color:var(--accent-success);margin-left:8px;">● Live</span></div>
+                <span class="card-action">See all 23 →</span>
+              </div>
+              <div class="match-card">
+                <div class="match-top">
+                  <div>
+                    <div class="match-company">Razorpay</div>
+                    <div class="match-role">Senior ML Engineer</div>
+                  </div>
+                  <div class="match-score">94%</div>
+                </div>
+                <div class="match-meta">
+                  <span>📍 Bangalore</span><span>💰 ₹32–40 LPA</span><span>⚡ Dragon Agent Ready</span>
+                </div>
+              </div>
+              <div class="match-card" style="background:linear-gradient(135deg,rgba(59,130,246,0.06),transparent);">
+                <div class="match-top">
+                  <div>
+                    <div class="match-company" style="color:var(--accent-blue);">Stripe</div>
+                    <div class="match-role">ML Infrastructure Engineer</div>
+                  </div>
+                  <div class="match-score">91%</div>
+                </div>
+                <div class="match-meta">
+                  <span>📍 Remote</span><span>💰 $130K–$160K</span><span>🔐 Vault Role</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- AI Skill Graph -->
+            <div class="card section-gap">
+              <div class="card-header">
+                <div class="card-title">🧠 AI Skill Graph</div>
+                <span class="card-action">Full report →</span>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-top"><span class="skill-name">Machine Learning</span><span class="skill-val" style="color:var(--accent);">94/100</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:94%;background:var(--accent);"></div></div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-top"><span class="skill-name">Python / PyTorch</span><span class="skill-val" style="color:var(--accent-blue);">89/100</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:89%;background:var(--accent-blue);"></div></div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-top"><span class="skill-name">Databricks / Spark</span><span class="skill-val" style="color:var(--accent-success);">82/100</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:82%;background:var(--accent-success);"></div></div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-top"><span class="skill-name">System Design</span><span class="skill-val" style="color:var(--accent-amber);">75/100</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:75%;background:var(--accent-amber);"></div></div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-top"><span class="skill-name">LLM / RAG</span><span class="skill-val" style="color:var(--accent-purple);">70/100</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:70%;background:var(--accent-purple);"></div></div>
+              </div>
+              <div class="chip-row" style="margin-top:12px;">
+                <span class="chip chip-red">Deep Learning</span>
+                <span class="chip chip-blue">MLOps</span>
+                <span class="chip chip-green">Snowflake</span>
+                <span class="chip chip-amber">AWS ML</span>
+                <span class="chip chip-purple">GenAI</span>
+                <span class="chip chip-cyan">RAG</span>
+              </div>
+            </div>
+
+            <!-- Dragon Quest -->
+            <div class="card" style="background:linear-gradient(135deg,rgba(167,139,250,0.06),rgba(59,130,246,0.03));border-color:rgba(167,139,250,0.15);">
+              <div class="card-header">
+                <div class="card-title" style="color:var(--accent-purple);">🐉 Dragon Quest Status</div>
+                <span style="font-size:11px;background:var(--accent-amber-dim);color:var(--accent-amber);padding:3px 10px;border-radius:10px;font-weight:700;">Lv.14 Fire Drake</span>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;">
+                <div style="text-align:center;">
+                  <div style="font-size:20px;font-weight:700;font-family:var(--font-mono);color:var(--accent-purple);">4,280</div>
+                  <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">XP Total</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:20px;font-weight:700;font-family:var(--font-mono);color:var(--accent-amber);">42🔥</div>
+                  <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Day Streak</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:20px;font-weight:700;font-family:var(--font-mono);color:var(--accent-success);">720</div>
+                  <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Dragon Coins</div>
+                </div>
+              </div>
+              <div class="progress-bar-wrap">
+                <div class="progress-label"><span>XP to Level 15</span><span style="color:var(--accent-purple);">4280 / 5000</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:85.6%;background:linear-gradient(90deg,var(--accent-purple),var(--accent-blue));"></div></div>
+              </div>
+              <div style="font-size:11px;color:var(--text-muted);">🏆 Active Hero: <strong style="color:var(--accent-purple);">Shadow Sage</strong> · Next boss: AI Challenge Tournament in 3 days</div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div>
+            <!-- Dragon GPS Summary -->
+            <div class="card section-gap" style="border-color:rgba(255,45,85,0.15);">
+              <div class="card-header">
+                <div class="card-title">🧭 Dragon GPS</div>
+                <span class="card-action">Full map →</span>
+              </div>
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">Target: <strong style="color:var(--text-primary);">Senior ML Engineer @ Razorpay</strong></div>
+              <div class="progress-bar-wrap">
+                <div class="progress-label"><span>Journey Progress</span><span style="color:var(--accent);">68%</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:68%;background:linear-gradient(90deg,var(--accent),#FF6B8A);"></div></div>
+              </div>
+              <div style="font-size:12px;color:var(--accent-success);">🎯 ETA: 6 weeks at current pace</div>
+              <div class="ai-box" style="margin-top:12px;">
+                <div class="ai-box-header">🤖 Today's Micro-Actions</div>
+                <p>Complete <strong>RAG Module 3</strong> (45 min) · Practice <strong>2 LeetCode Hard</strong> problems · Attend <strong>System Design Live Session</strong> at 7PM</p>
+              </div>
+            </div>
+
+            <!-- Project Lab -->
+            <div class="card section-gap">
+              <div class="card-header">
+                <div class="card-title">🧪 Project Lab</div>
+                <span class="card-action">Add project →</span>
+              </div>
+              <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px;margin-bottom:8px;">
+                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">RAG-based Document QA System</div>
+                <div style="display:flex;gap:10px;font-size:11px;color:var(--text-muted);margin-bottom:8px;">
+                  <span>⭐ Quality: <strong style="color:var(--accent-success);">88/100</strong></span>
+                  <span>🏢 <strong style="color:var(--accent-blue);">14</strong> companies match</span>
+                  <span>👁️ 34 recruiter views</span>
+                </div>
+                <div class="chip-row"><span class="chip chip-blue">LangChain</span><span class="chip chip-red">FastAPI</span><span class="chip chip-green">Pinecone</span></div>
+              </div>
+              <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px;">
+                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Real-time ML Feature Store</div>
+                <div style="display:flex;gap:10px;font-size:11px;color:var(--text-muted);margin-bottom:8px;">
+                  <span>⭐ Quality: <strong style="color:var(--accent-amber);">74/100</strong></span>
+                  <span>🏢 <strong style="color:var(--accent-blue);">9</strong> companies match</span>
+                  <span>👁️ 18 recruiter views</span>
+                </div>
+                <div class="chip-row"><span class="chip chip-amber">Redis</span><span class="chip chip-blue">Kafka</span><span class="chip chip-purple">Feast</span></div>
+              </div>
+            </div>
+
+            <!-- Dragon Nexus Connected -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">🔗 Dragon Nexus</div>
+                <span class="card-action">Manage →</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="display:flex;justify-content:space-between;font-size:12.5px;padding:8px 10px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
+                  <span>🏅 Credly</span><span style="color:var(--accent-success);font-weight:600;">✓ Connected</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12.5px;padding:8px 10px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
+                  <span>☁️ AWS Skill Builder</span><span style="color:var(--accent-success);font-weight:600;">✓ Connected</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12.5px;padding:8px 10px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
+                  <span>💼 LinkedIn</span><span style="color:var(--accent-success);font-weight:600;">✓ Connected</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12.5px;padding:8px 10px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
+                  <span>🐙 GitHub</span><span style="color:var(--accent-success);font-weight:600;">✓ Connected</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12.5px;padding:8px 10px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
+                  <span>🔶 Databricks</span><span style="color:var(--accent-amber);font-weight:600;">⚡ Connect</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: MODULES -->
+      <div class="tab-panel" id="js-modules">
+        <div style="margin-bottom:16px;font-size:13px;color:var(--text-secondary);">13 modules active for your Job Seeker profile. Your usage and progress feed directly into your Dragon Score and AI match results.</div>
+        <div class="module-grid">
+          <div class="module-card" style="--mod-color:var(--accent);">
+            <div class="module-card-top"><span class="module-icon">🏠</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Talent Onboarding</div>
+            <div class="module-desc">60-second profile built from 7 verified certification platforms</div>
+            <div class="module-stat">7 certs verified · Score: 96/100</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent);">
+            <div class="module-card-top"><span class="module-icon">🧭</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon GPS</div>
+            <div class="module-desc">Live career map targeting Senior ML Engineer @ Razorpay</div>
+            <div class="module-stat">68% complete · ETA 6 weeks</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-blue);">
+            <div class="module-card-top"><span class="module-icon">📚</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Prep</div>
+            <div class="module-desc">ML engineering prep · LeetCode patterns · System design</div>
+            <div class="module-stat">380 problems solved · Top 15%</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-success);">
+            <div class="module-card-top"><span class="module-icon">⚔️</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Arena</div>
+            <div class="module-desc">AI-proctored assessments with 7-layer trust scoring</div>
+            <div class="module-stat">Trust: 96/100 · 12 sessions</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-purple);">
+            <div class="module-card-top"><span class="module-icon">🐉</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Quest</div>
+            <div class="module-desc">Lv.14 Fire Drake · 42-day streak · Shadow Sage hero</div>
+            <div class="module-stat">4,280 XP · 720 coins</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-amber);">
+            <div class="module-card-top"><span class="module-icon">⭐</span><span class="module-status status-elite">Elite</span></div>
+            <div class="module-name">Dragon Elite</div>
+            <div class="module-desc">Premium marketplace — Score 88 unlocks top-tier visibility</div>
+            <div class="module-stat">Dragon Score 88 · Top 8%</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-cyan);">
+            <div class="module-card-top"><span class="module-icon">🌐</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Hub</div>
+            <div class="module-desc">Aggregated 84K+ listings filtered to 247 at 85%+ match</div>
+            <div class="module-stat">247 curated · 94% avg fit</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-blue);">
+            <div class="module-card-top"><span class="module-icon">🛠️</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Skill Craft</div>
+            <div class="module-desc">Razorpay-targeted skill tree · Week 4 of 8-week sprint</div>
+            <div class="module-stat">+₹4.2L salary uplift projected</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-success);">
+            <div class="module-card-top"><span class="module-icon">🧪</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Project Lab</div>
+            <div class="module-desc">2 live projects · 52 total recruiter views · 23 company matches</div>
+            <div class="module-stat">Top project: 88/100 quality</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-amber);">
+            <div class="module-card-top"><span class="module-icon">🔐</span><span class="module-status status-elite">Vault</span></div>
+            <div class="module-name">Dragon Vault</div>
+            <div class="module-desc">₹10L+ & $100K+ exclusive roles — unlocked at Dragon Score 85+</div>
+            <div class="module-stat">Access: ✓ Unlocked · 4 new roles</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-blue);">
+            <div class="module-card-top"><span class="module-icon">💬</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon AI</div>
+            <div class="module-desc">AI co-pilot — full platform context, career guidance, mock tests</div>
+            <div class="module-stat">24 sessions · Avg 18 min</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-purple);">
+            <div class="module-card-top"><span class="module-icon">🔗</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Nexus</div>
+            <div class="module-desc">4 platforms connected · Profile auto-enriched daily</div>
+            <div class="module-stat">Credly · AWS · LinkedIn · GitHub</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-success);">
+            <div class="module-card-top"><span class="module-icon">📋</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Review</div>
+            <div class="module-desc">Detailed scorecard with recruiter-facing AI verdict</div>
+            <div class="module-stat">Last: System Design — 84/100</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: CERTS -->
+      <div class="tab-panel" id="js-certs">
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">All certifications are independently verified from their issuing platforms — not self-reported. Each carries a live verification badge.</div>
+        <div class="cert-item">
+          <div class="cert-icon">🏅</div>
+          <div class="cert-info">
+            <div class="cert-name">AWS Certified Machine Learning — Specialty</div>
+            <div class="cert-meta">Issued: Jan 2024 · Expires: Jan 2027 · Amazon Web Services</div>
+          </div>
+          <div class="cert-badge verified">✓ Verified</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">❄️</div>
+          <div class="cert-info">
+            <div class="cert-name">Snowflake SnowPro Core Certification</div>
+            <div class="cert-meta">Issued: Mar 2024 · Expires: Mar 2026 · Snowflake Inc.</div>
+          </div>
+          <div class="cert-badge verified">✓ Verified</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🔶</div>
+          <div class="cert-info">
+            <div class="cert-name">Databricks Certified Associate Developer for Apache Spark</div>
+            <div class="cert-meta">Issued: Jun 2023 · No expiry · Databricks</div>
+          </div>
+          <div class="cert-badge verified">✓ Verified</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🤗</div>
+          <div class="cert-info">
+            <div class="cert-name">Hugging Face NLP with Transformers</div>
+            <div class="cert-meta">Issued: Sep 2023 · No expiry · Hugging Face</div>
+          </div>
+          <div class="cert-badge verified">✓ Verified</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🟦</div>
+          <div class="cert-info">
+            <div class="cert-name">Microsoft Azure AI Engineer Associate</div>
+            <div class="cert-meta">Issued: Nov 2023 · Expires: Nov 2025 · Microsoft</div>
+          </div>
+          <div class="cert-badge verified">✓ Verified</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🐍</div>
+          <div class="cert-info">
+            <div class="cert-name">Google Professional Data Engineer</div>
+            <div class="cert-meta">Issued: Feb 2024 · Expires: Feb 2026 · Google Cloud</div>
+          </div>
+          <div class="cert-badge verified">✓ Verified</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🎓</div>
+          <div class="cert-info">
+            <div class="cert-name">NVIDIA Deep Learning Fundamentals</div>
+            <div class="cert-meta">Issued: Aug 2023 · No expiry · NVIDIA DLI</div>
+          </div>
+          <div class="cert-badge verified">✓ Verified</div>
+        </div>
+        <div class="ai-box">
+          <div class="ai-box-header">🤖 Dragon AI Recommendation</div>
+          <p>Adding a <strong>Databricks ML Professional</strong> cert would unlock <strong>4 additional ₹35L+ roles</strong> and boost your Dragon Score by an estimated <strong>+4 points</strong> to reach the top 5% threshold for Dragon Vault premium access.</p>
+        </div>
+      </div>
+
+      <!-- TAB: GPS -->
+      <div class="tab-panel" id="js-gps">
+        <div class="sidebar-layout">
+          <div>
+            <div class="card section-gap">
+              <div class="card-header">
+                <div class="card-title">🧭 Career Roadmap — Live</div>
+                <div style="font-size:11px;color:var(--accent-success);">● Synced with market data</div>
+              </div>
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px;">Route: <strong style="color:var(--text-primary);">Balanced Path</strong> — 14 weeks to Senior ML Engineer @ Razorpay (₹32–40 LPA)</div>
+              <div class="gps-step completed"><div class="gps-num gps-completed">✓</div><div class="gps-info"><div class="gps-title">Python & ML Foundations</div><div class="gps-sub">Completed · Cert: AWS ML Specialty</div><div class="gps-eta" style="color:var(--accent-success);">Done — Jan 2024</div></div></div>
+              <div class="gps-step completed"><div class="gps-num gps-completed">✓</div><div class="gps-info"><div class="gps-title">Deep Learning & Neural Networks</div><div class="gps-sub">Completed · Cert: NVIDIA DLI</div><div class="gps-eta" style="color:var(--accent-success);">Done — Mar 2024</div></div></div>
+              <div class="gps-step current"><div class="gps-num gps-current">●</div><div class="gps-info"><div class="gps-title">LLMs, RAG & GenAI</div><div class="gps-sub">In progress — Module 3 of 5</div><div class="gps-eta" style="color:var(--accent);">Week 6 of 10 · ETA: 4 weeks</div></div></div>
+              <div class="gps-step"><div class="gps-num gps-upcoming">4</div><div class="gps-info"><div class="gps-title">MLOps & Production Deployment</div><div class="gps-sub">Starts in 4 weeks · Targets: Databricks ML Pro cert</div><div class="gps-eta" style="color:var(--text-muted);">ETA: Week 14</div></div></div>
+              <div class="gps-step"><div class="gps-num gps-upcoming">🏆</div><div class="gps-info"><div class="gps-title">Senior ML Engineer @ Razorpay</div><div class="gps-sub">Target role · ₹32–40 LPA · Bangalore</div><div class="gps-eta" style="color:var(--text-muted);">ETA: 6 weeks</div></div></div>
+            </div>
+          </div>
+          <div>
+            <div class="card section-gap">
+              <div class="card-title" style="margin-bottom:14px;">⚡ Today's Micro-Actions</div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;gap:10px;padding:10px;background:var(--bg-secondary);border-radius:var(--radius-sm);align-items:center;">
+                  <span style="font-size:18px;">📖</span><div><div style="font-size:12.5px;font-weight:600;">Complete RAG Module 3</div><div style="font-size:11px;color:var(--text-muted);">Est. 45 min · +120 XP</div></div>
+                </div>
+                <div style="display:flex;gap:10px;padding:10px;background:var(--bg-secondary);border-radius:var(--radius-sm);align-items:center;">
+                  <span style="font-size:18px;">💻</span><div><div style="font-size:12.5px;font-weight:600;">2 LeetCode Hard Problems</div><div style="font-size:11px;color:var(--text-muted);">Sliding Window pattern · +80 XP</div></div>
+                </div>
+                <div style="display:flex;gap:10px;padding:10px;background:var(--bg-secondary);border-radius:var(--radius-sm);align-items:center;">
+                  <span style="font-size:18px;">🎙️</span><div><div style="font-size:12.5px;font-weight:600;">System Design Live at 7PM</div><div style="font-size:11px;color:var(--text-muted);">AI interviewer · +150 XP</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title" style="margin-bottom:14px;">📈 Route Options</div>
+              <div style="background:var(--accent-dim);border:1px solid rgba(255,45,85,0.2);border-radius:var(--radius-sm);padding:10px;margin-bottom:8px;">
+                <div style="font-size:12px;font-weight:700;color:var(--accent);">● Balanced (Current)</div>
+                <div style="font-size:11px;color:var(--text-muted);">14 weeks · 94% match at end</div>
+              </div>
+              <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;margin-bottom:8px;">
+                <div style="font-size:12px;font-weight:600;">⚡ Accelerated</div>
+                <div style="font-size:11px;color:var(--text-muted);">8 weeks · 16hrs/wk · 91% match</div>
+              </div>
+              <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;">
+                <div style="font-size:12px;font-weight:600;">🌱 Steady</div>
+                <div style="font-size:11px;color:var(--text-muted);">22 weeks · 6hrs/wk · 96% match</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: MATCHES -->
+      <div class="tab-panel" id="js-matches">
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">23 verified matches found · Ranked by composite AI score across certifications, assessments, location, salary range, and Dragon Score. All updated in real time.</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="match-card">
+            <div class="match-top"><div><div class="match-company">Razorpay</div><div class="match-role">Senior ML Engineer</div><div class="match-meta" style="margin-top:6px;"><span>📍 Bangalore</span><span>💰 ₹32–40 LPA</span><span>🟢 Hybrid</span><span>⚡ Dragon Agent Ready</span></div></div><div class="match-score">94%</div></div>
+          </div>
+          <div class="match-card" style="background:linear-gradient(135deg,rgba(59,130,246,0.06),transparent);border-color:rgba(59,130,246,0.15);">
+            <div class="match-top"><div><div class="match-company" style="color:var(--accent-blue);">Stripe</div><div class="match-role">ML Infrastructure Engineer</div><div class="match-meta" style="margin-top:6px;"><span>📍 Remote Global</span><span>💰 $130K–$160K</span><span>🔐 Dragon Vault</span></div></div><div class="match-score">91%</div></div>
+          </div>
+          <div class="match-card" style="background:linear-gradient(135deg,rgba(16,185,129,0.06),transparent);border-color:rgba(16,185,129,0.15);">
+            <div class="match-top"><div><div class="match-company" style="color:var(--accent-success);">CRED</div><div class="match-role">Staff ML Engineer — GenAI</div><div class="match-meta" style="margin-top:6px;"><span>📍 Bangalore</span><span>💰 ₹38–52 LPA</span><span>⭐ Dragon Elite</span></div></div><div class="match-score">89%</div></div>
+          </div>
+          <div class="match-card" style="background:linear-gradient(135deg,rgba(245,158,11,0.06),transparent);border-color:rgba(245,158,11,0.15);">
+            <div class="match-top"><div><div class="match-company" style="color:var(--accent-amber);">Google DeepMind</div><div class="match-role">ML Research Engineer</div><div class="match-meta" style="margin-top:6px;"><span>📍 Hyderabad / Remote</span><span>💰 ₹60–90 LPA</span><span>🔐 Dragon Vault · Req. Score 90+</span></div></div><div class="match-score">86%</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: ACTIVITY -->
+      <div class="tab-panel" id="js-activity">
+        <div class="sidebar-layout">
+          <div class="card">
+            <div class="card-header"><div class="card-title">🕐 Recent Activity</div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-success);"></div><div class="activity-content"><div class="activity-title">Completed <strong>System Design Assessment</strong> in Dragon Arena — 84/100</div><div class="activity-time">2 hours ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent);"></div><div class="activity-content"><div class="activity-title">Dragon Agent submitted application to <strong>Razorpay</strong> (Senior ML Eng)</div><div class="activity-time">Yesterday, 3:42 PM</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-purple);"></div><div class="activity-content"><div class="activity-title">Completed <strong>RAG Module 2</strong> in Dragon Prep · +120 XP</div><div class="activity-time">2 days ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-amber);"></div><div class="activity-content"><div class="activity-title">Dragon Quest streak reached <strong>42 days</strong> 🔥 · Earned: Movie Tickets reward</div><div class="activity-time">3 days ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-blue);"></div><div class="activity-content"><div class="activity-title">AWS ML Specialty cert verified via <strong>Dragon Nexus</strong> · Trust Score +2</div><div class="activity-time">5 days ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-success);"></div><div class="activity-content"><div class="activity-title"><strong>Project Lab</strong> — RAG Document QA viewed by 4 new recruiters</div><div class="activity-time">1 week ago</div></div></div>
+          </div>
+          <div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">🔔 Notifications</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent);"></div><div class="notif-text"><strong>Razorpay HR</strong> viewed your Dragon Elite profile and shortlisted you</div><div class="notif-time">1h ago</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent-success);"></div><div class="notif-text"><strong>Dragon Vault</strong> — 4 new ₹10L+ roles matching your profile</div><div class="notif-time">3h ago</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent-amber);"></div><div class="notif-text"><strong>Skill Craft</strong> — Week 4 sprint ready: MLOps with Databricks</div><div class="notif-time">Today</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent-purple);"></div><div class="notif-text"><strong>Dragon Quest</strong> — Boss Battle: AI Challenge starts in 3 days</div><div class="notif-time">Today</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end profile-jobseeker -->
+
+
+    <!-- ══════════════════════════════════════════
+         PROFILE 2 — HR / RECRUITER
+    ══════════════════════════════════════════ -->
+    <div class="profile-screen" id="profile-hr">
+
+      <div class="profile-hero">
+        <div class="hero-bg"></div>
+        <div class="hero-inner">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar" style="background:linear-gradient(135deg,rgba(59,130,246,0.15),rgba(30,80,200,0.08));">
+              <span style="font-size:38px;">👩‍💼</span>
+            </div>
+            <div class="profile-badge" style="background:var(--accent-blue);">🏢</div>
+          </div>
+          <div class="profile-info">
+            <div class="profile-name">Priya Venkataraman</div>
+            <div class="profile-role-tag" style="background:var(--accent-blue-dim);color:var(--accent-blue);">
+              🏢 HR Recruiter · Razorpay Technologies
+            </div>
+            <div class="profile-meta">
+              <div class="profile-meta-item">🏢 <span><strong>Razorpay</strong> · Talent Acquisition Lead</div>
+              <div class="profile-meta-item">📍 <span>Bangalore, India</span></div>
+              <div class="profile-meta-item">🎯 <span>Hiring for <strong>14 open roles</strong></span></div>
+              <div class="profile-meta-item">✅ <span><strong>Dragon Hire</strong> Enterprise Admin</span></div>
+            </div>
+            <div class="profile-actions">
+              <button class="topbar-btn btn-primary" style="font-size:11.5px;background:var(--accent-blue);">🤖 Run AI Search</button>
+              <button class="topbar-btn btn-ghost" style="font-size:11.5px;">📋 Create Assessment</button>
+              <button class="topbar-btn btn-ghost" style="font-size:11.5px;">📊 View Analytics</button>
+            </div>
+          </div>
+          <div>
+            <div class="profile-score-row" style="flex-direction:column;gap:10px;">
+              <div class="score-pill" style="border-color:rgba(59,130,246,0.2);">
+                <span class="score-pill-label">Active Pipelines</span>
+                <span class="score-pill-val" style="color:var(--accent-blue);">14</span>
+                <span class="score-pill-sub">Open requisitions</span>
+              </div>
+              <div class="score-pill" style="border-color:rgba(16,185,129,0.2);">
+                <span class="score-pill-label">Candidates Screened</span>
+                <span class="score-pill-val" style="color:var(--accent-success);">347</span>
+                <span class="score-pill-sub">This quarter</span>
+              </div>
+              <div class="score-pill">
+                <span class="score-pill-label">Hire Rate</span>
+                <span class="score-pill-val" style="color:var(--accent-amber);">8.4%</span>
+                <span class="score-pill-sub">↑ +2.1% vs last Q</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-tabs">
+          <div class="profile-tab active" onclick="switchTab(this,'hr-overview')">Overview</div>
+          <div class="profile-tab" onclick="switchTab(this,'hr-modules')">My Modules <span class="tab-count">11</span></div>
+          <div class="profile-tab" onclick="switchTab(this,'hr-pipeline')">Hiring Pipeline</div>
+          <div class="profile-tab" onclick="switchTab(this,'hr-search')">AI Talent Search</div>
+          <div class="profile-tab" onclick="switchTab(this,'hr-assessments')">Assessments</div>
+          <div class="profile-tab" onclick="switchTab(this,'hr-activity')">Activity</div>
+        </div>
+      </div>
+
+      <!-- HR OVERVIEW -->
+      <div class="tab-panel active" id="hr-overview">
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-blue);">14</div>
+            <div class="stat-label">Open Roles</div>
+            <div class="stat-change up">↑ 3 new this week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-success);">347</div>
+            <div class="stat-label">Candidates Screened</div>
+            <div class="stat-change up">↑ +42 this week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-amber);">29</div>
+            <div class="stat-label">Shortlisted</div>
+            <div class="stat-change">Strong Hire: 8</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent);">12.4d</div>
+            <div class="stat-label">Avg Time to Hire</div>
+            <div class="stat-change down">↓ -3.2d vs industry</div>
+          </div>
+        </div>
+
+        <div class="sidebar-layout">
+          <div>
+            <!-- Active Pipeline -->
+            <div class="card section-gap">
+              <div class="card-header"><div class="card-title">🎯 Active Hiring Pipeline</div><span class="card-action">Full view →</span></div>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+                <div class="pipeline-col">
+                  <div class="pipeline-header"><span style="color:var(--accent-blue);">Applied</span><span class="pipeline-count">143</span></div>
+                  <div class="candidate-card"><div class="candidate-name">Arjun Mehta</div><div class="candidate-role">Senior ML Engineer</div><div class="candidate-score verdict-hire">Score: 88 · Strong Hire</div></div>
+                  <div class="candidate-card"><div class="candidate-name">Riya Sharma</div><div class="candidate-role">ML Engineer</div><div class="candidate-score verdict-hire">Score: 84 · Hire</div></div>
+                </div>
+                <div class="pipeline-col">
+                  <div class="pipeline-header"><span style="color:var(--accent-amber);">Screened</span><span class="pipeline-count">57</span></div>
+                  <div class="candidate-card"><div class="candidate-name">Karthik Nair</div><div class="candidate-role">MLOps Engineer</div><div class="candidate-score verdict-hire">Score: 82 · Hire</div></div>
+                  <div class="candidate-card"><div class="candidate-name">Deepa Iyer</div><div class="candidate-role">Data Scientist</div><div class="candidate-score verdict-consider">Score: 76 · Consider</div></div>
+                </div>
+                <div class="pipeline-col">
+                  <div class="pipeline-header"><span style="color:var(--accent-purple);">Interviewed</span><span class="pipeline-count">21</span></div>
+                  <div class="candidate-card"><div class="candidate-name">Vikram Patel</div><div class="candidate-role">Senior Data Eng.</div><div class="candidate-score verdict-hire">Score: 91 · Strong Hire</div></div>
+                </div>
+                <div class="pipeline-col">
+                  <div class="pipeline-header"><span style="color:var(--accent-success);">Offered</span><span class="pipeline-count">8</span></div>
+                  <div class="candidate-card"><div class="candidate-name">Sneha Gupta</div><div class="candidate-role">ML Platform Lead</div><div class="candidate-score verdict-hire">Offer: ₹38 LPA</div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Market Intelligence -->
+            <div class="card">
+              <div class="card-header"><div class="card-title">📈 Market Intelligence</div><span class="card-action">Full view →</span></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div>
+                  <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Top Demanded Certs</div>
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <div style="display:flex;justify-content:space-between;font-size:12.5px;"><span>AWS ML Specialty</span><span style="color:var(--accent-success);">↑ 34%</span></div>
+                    <div style="display:flex;justify-content:space-between;font-size:12.5px;"><span>Databricks ML Pro</span><span style="color:var(--accent-success);">↑ 28%</span></div>
+                    <div style="display:flex;justify-content:space-between;font-size:12.5px;"><span>Google GenAI</span><span style="color:var(--accent-success);">↑ 47%</span></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Supply Gaps</div>
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <div style="display:flex;justify-content:space-between;font-size:12.5px;"><span>RLHF Specialists</span><span style="color:var(--accent);">⚠ Undersupply</span></div>
+                    <div style="display:flex;justify-content:space-between;font-size:12.5px;"><span>MLOps Engineers</span><span style="color:var(--accent-amber);">Tight</span></div>
+                    <div style="display:flex;justify-content:space-between;font-size:12.5px;"><span>RAG Architects</span><span style="color:var(--accent);">⚠ Undersupply</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="ai-box">
+                <div class="ai-box-header">🤖 Dragon AI Insight</div>
+                <p>For your <strong>ML Engineer</strong> role, Dragon AI found <strong>23 candidates</strong> at 90%+ fit in Bangalore at under ₹35 LPA. Recommend broadening to Remote to access 47 more candidates at the same salary range.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <!-- Dragon Hire Quick Actions -->
+            <div class="card section-gap" style="border-color:rgba(59,130,246,0.15);">
+              <div class="card-header"><div class="card-title" style="color:var(--accent-blue);">🎯 Dragon Hire</div></div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <button class="user-switch-btn" style="justify-content:flex-start;gap:10px;">🆕 Create New Assessment</button>
+                <button class="user-switch-btn" style="justify-content:flex-start;gap:10px;">📤 Deploy to Candidates</button>
+                <button class="user-switch-btn" style="justify-content:flex-start;gap:10px;">📊 View Results &amp; Rankings</button>
+                <button class="user-switch-btn" style="justify-content:flex-start;gap:10px;">🛡️ Review Proctor Reports</button>
+              </div>
+              <div style="margin-top:14px;padding:12px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
+                <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">LATEST ASSESSMENT</div>
+                <div style="font-size:13px;font-weight:600;">ML Engineer — Q1 2025 Drive</div>
+                <div style="font-size:12px;color:var(--text-muted);">86 candidates · Avg Trust: 91/100</div>
+              </div>
+            </div>
+
+            <!-- Dragon Vault -->
+            <div class="card section-gap" style="border-color:rgba(245,158,11,0.15);">
+              <div class="card-header"><div class="card-title" style="color:var(--accent-amber);">🔐 Dragon Vault</div></div>
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Access to pre-screened Dragon Score 85+ candidates for ₹10L+ roles only</div>
+              <div class="company-row">
+                <div class="company-logo">🧠</div>
+                <div class="company-info"><div class="company-name">Arjun Mehta</div><div class="company-detail">Score: 88 · AWS ML · Databricks · RAG</div></div>
+                <span class="company-cta">View Profile</span>
+              </div>
+              <div class="company-row">
+                <div class="company-logo">⭐</div>
+                <div class="company-info"><div class="company-name">Vikram Patel</div><div class="company-detail">Score: 91 · GCP · Snowflake · LLM</div></div>
+                <span class="company-cta">View Profile</span>
+              </div>
+              <div class="company-row">
+                <div class="company-logo">💡</div>
+                <div class="company-info"><div class="company-name">Divya Krishnan</div><div class="company-detail">Score: 86 · Azure AI · PyTorch · MLOps</div></div>
+                <span class="company-cta">View Profile</span>
+              </div>
+            </div>
+
+            <!-- Notifications -->
+            <div class="card">
+              <div class="card-header"><div class="card-title">🔔 Notifications</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent-success);"></div><div class="notif-text"><strong>8 new candidates</strong> matched your ML Engineer role at 90%+ fit</div><div class="notif-time">1h ago</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent-blue);"></div><div class="notif-text"><strong>Vikram Patel</strong> completed the assessment — Score: 91 · Strong Hire</div><div class="notif-time">3h ago</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent-amber);"></div><div class="notif-text"><strong>Dragon AI</strong> rerouted 3 candidates from Senior to Staff ML track</div><div class="notif-time">Today</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HR MODULES -->
+      <div class="tab-panel" id="hr-modules">
+        <div style="margin-bottom:16px;font-size:13px;color:var(--text-secondary);">11 modules active for HR / Enterprise Recruiter profile. Your hiring pipelines, assessments, and candidate scores connect across all modules.</div>
+        <div class="module-grid">
+          <div class="module-card" style="--mod-color:var(--accent-blue);">
+            <div class="module-card-top"><span class="module-icon">🎯</span><span class="module-status status-active">Enterprise</span></div>
+            <div class="module-name">Dragon Hire</div>
+            <div class="module-desc">Create AI-calibrated assessments with 9 formats and 7-layer anti-cheat</div>
+            <div class="module-stat">14 active JDs · 86 candidates tested</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-blue);">
+            <div class="module-card-top"><span class="module-icon">🌉</span><span class="module-status status-active">Enterprise</span></div>
+            <div class="module-name">Dragon Bridge</div>
+            <div class="module-desc">Recruiter view — AI-scored pipeline with hiring verdicts per candidate</div>
+            <div class="module-stat">347 screened · 29 shortlisted</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-success);">
+            <div class="module-card-top"><span class="module-icon">📋</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Review</div>
+            <div class="module-desc">Recruiter leaderboard · AI verdicts · proctor reports · salary insights</div>
+            <div class="module-stat">Verdicts: 8 Strong Hire · 21 Consider</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-amber);">
+            <div class="module-card-top"><span class="module-icon">🔐</span><span class="module-status status-elite">Premium</span></div>
+            <div class="module-name">Dragon Vault</div>
+            <div class="module-desc">Access Dragon Score 85+ pre-screened candidates for ₹10L+ roles</div>
+            <div class="module-stat">86 eligible · 14 in your target stack</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent);">
+            <div class="module-card-top"><span class="module-icon">🤖</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Match Results</div>
+            <div class="module-desc">AI talent search with natural language query and explainable scoring</div>
+            <div class="module-stat">Last query: 23 matches · 94% avg fit</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-purple);">
+            <div class="module-card-top"><span class="module-icon">📊</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Talent Intelligence Dashboard</div>
+            <div class="module-desc">Live KPIs on certified talent supply, location heatmaps, and availability</div>
+            <div class="module-stat">12,400 active candidates tracked</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-cyan);">
+            <div class="module-card-top"><span class="module-icon">📈</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Market Intelligence</div>
+            <div class="module-desc">Certification demand vs supply · 12-month salary trends · AI forecast</div>
+            <div class="module-stat">Salary trend: ML up 18% YoY</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-blue);">
+            <div class="module-card-top"><span class="module-icon">💬</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon AI</div>
+            <div class="module-desc">Run talent searches, generate assessments, get hiring insights by chat</div>
+            <div class="module-stat">18 searches run this week</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-success);">
+            <div class="module-card-top"><span class="module-icon">🔗</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Nexus</div>
+            <div class="module-desc">ATS integration, LinkedIn Recruiter sync, and custom API connectors</div>
+            <div class="module-stat">Greenhouse · LinkedIn · Slack connected</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-amber);">
+            <div class="module-card-top"><span class="module-icon">⭐</span><span class="module-status status-elite">Premium</span></div>
+            <div class="module-name">Dragon Elite</div>
+            <div class="module-desc">Browse and contact top 5–10% verified professionals directly</div>
+            <div class="module-stat">3 profiles messaged this week</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-purple);">
+            <div class="module-card-top"><span class="module-icon">🧪</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Project Lab</div>
+            <div class="module-desc">View candidate project portfolios with quality scores and tech stack match</div>
+            <div class="module-stat">Viewed 47 projects this month</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HR PIPELINE -->
+      <div class="tab-panel" id="hr-pipeline">
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">Full hiring pipeline powered by Dragon Bridge · All candidates AI-scored with explainable verdicts · Powered by Dragon Arena assessments</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+          <div class="pipeline-col">
+            <div class="pipeline-header"><span style="color:var(--accent-blue);">Applied</span><span class="pipeline-count">143</span></div>
+            <div class="candidate-card"><div class="candidate-name">Arjun Mehta</div><div class="candidate-role">ML Engineer · Score 88</div><div class="candidate-score verdict-hire">Strong Hire</div></div>
+            <div class="candidate-card"><div class="candidate-name">Riya Sharma</div><div class="candidate-role">ML Engineer · Score 84</div><div class="candidate-score verdict-hire">Hire</div></div>
+            <div class="candidate-card"><div class="candidate-name">+141 more</div><div class="candidate-role">Awaiting AI screen</div></div>
+          </div>
+          <div class="pipeline-col">
+            <div class="pipeline-header"><span style="color:var(--accent-amber);">AI Screened</span><span class="pipeline-count">57</span></div>
+            <div class="candidate-card"><div class="candidate-name">Karthik Nair</div><div class="candidate-role">MLOps · Score 82</div><div class="candidate-score verdict-hire">Hire</div></div>
+            <div class="candidate-card"><div class="candidate-name">Deepa Iyer</div><div class="candidate-role">Data Sci · Score 76</div><div class="candidate-score verdict-consider">Consider</div></div>
+            <div class="candidate-card"><div class="candidate-name">+55 more</div><div class="candidate-role">Review required</div></div>
+          </div>
+          <div class="pipeline-col">
+            <div class="pipeline-header"><span style="color:var(--accent-purple);">Assessed</span><span class="pipeline-count">21</span></div>
+            <div class="candidate-card"><div class="candidate-name">Vikram Patel</div><div class="candidate-role">Data Eng · Score 91</div><div class="candidate-score verdict-hire">Strong Hire</div></div>
+            <div class="candidate-card"><div class="candidate-name">Anjali Rao</div><div class="candidate-role">ML Eng · Score 78</div><div class="candidate-score verdict-consider">Consider</div></div>
+          </div>
+          <div class="pipeline-col">
+            <div class="pipeline-header"><span style="color:var(--accent-success);">Offered</span><span class="pipeline-count">8</span></div>
+            <div class="candidate-card"><div class="candidate-name">Sneha Gupta</div><div class="candidate-role">ML Platform Lead</div><div class="candidate-score" style="color:var(--accent-success);">Offer: ₹38 LPA</div></div>
+            <div class="candidate-card"><div class="candidate-name">Rahul Krishnan</div><div class="candidate-role">ML Engineer</div><div class="candidate-score" style="color:var(--accent-success);">Offer: ₹30 LPA</div></div>
+          </div>
+          <div class="pipeline-col">
+            <div class="pipeline-header"><span style="color:var(--accent-cyan);">Joined</span><span class="pipeline-count">3</span></div>
+            <div class="candidate-card"><div class="candidate-name">Priya Das</div><div class="candidate-role">ML Engineer</div><div class="candidate-score" style="color:var(--accent-cyan);">Joined Mar 2025</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HR SEARCH -->
+      <div class="tab-panel" id="hr-search">
+        <div class="card" style="max-width:700px;margin-bottom:20px;">
+          <div class="card-title" style="margin-bottom:12px;">🤖 Dragon AI Talent Search</div>
+          <div style="display:flex;gap:10px;">
+            <input style="flex:1;background:var(--bg-secondary);border:1px solid var(--border-active);border-radius:var(--radius-sm);padding:10px 14px;color:var(--text-primary);font-family:var(--font-body);font-size:13px;outline:none;" placeholder='e.g. "Databricks + Snowflake, Bangalore, under ₹30L, RAG experience"' />
+            <button class="topbar-btn btn-primary" style="background:var(--accent-blue);">Search</button>
+          </div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Natural language · Verified candidates only · All scores from Dragon Arena</div>
+        </div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:14px;">Last Search: "Databricks + Snowflake, Bangalore, ≤₹35L, RAG" — <span style="color:var(--accent-success);">23 verified matches</span></div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="match-card" style="background:linear-gradient(135deg,rgba(59,130,246,0.06),transparent);border-color:rgba(59,130,246,0.15);">
+            <div class="match-top">
+              <div>
+                <div style="font-size:11px;font-weight:700;color:var(--accent-blue);">ARJUN MEHTA · Bangalore</div>
+                <div style="font-size:15px;font-weight:700;">ML Engineer — 4 yrs exp</div>
+                <div class="match-meta" style="margin-top:6px;"><span>💰 ₹28–35 LPA</span><span>🏅 AWS ML + Databricks + Snowflake</span><span style="color:var(--accent-success);">✓ RAG experience</span></div>
+              </div>
+              <div class="match-score">94%</div>
+            </div>
+            <div style="font-size:11.5px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+              🤖 Match reason: <strong style="color:var(--text-primary);">All 3 cert stacks verified · Bangalore · Salary in range · 3 RAG projects in Project Lab</strong>
+            </div>
+          </div>
+          <div class="match-card" style="background:linear-gradient(135deg,rgba(16,185,129,0.05),transparent);border-color:rgba(16,185,129,0.12);">
+            <div class="match-top">
+              <div>
+                <div style="font-size:11px;font-weight:700;color:var(--accent-success);">DIVYA KRISHNAN · Bangalore</div>
+                <div style="font-size:15px;font-weight:700;">Senior Data Engineer — 6 yrs exp</div>
+                <div class="match-meta" style="margin-top:6px;"><span>💰 ₹32–40 LPA</span><span>🏅 AWS + Databricks</span><span style="color:var(--accent-amber);">Snowflake: Inferred</span></div>
+              </div>
+              <div class="match-score" style="color:var(--accent-amber);">89%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HR ASSESSMENTS -->
+      <div class="tab-panel" id="hr-assessments">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="card">
+            <div class="card-header"><div class="card-title">🎯 Active Assessments</div><button class="topbar-btn btn-primary" style="font-size:11px;background:var(--accent-blue);padding:5px 12px;">+ New</button></div>
+            <div class="drive-card">
+              <div class="drive-date"><div class="drive-day" style="color:var(--accent-blue);">22</div><div class="drive-month">Mar</div></div>
+              <div class="drive-info"><div class="drive-company">ML Engineer — Q1 Assessment</div><div class="drive-meta">86 candidates · 9 formats · 7-layer proctor</div></div>
+              <span class="drive-eligible" style="background:var(--accent-success-dim);color:var(--accent-success);">● Live</span>
+            </div>
+            <div class="drive-card">
+              <div class="drive-date"><div class="drive-day" style="color:var(--accent-amber);">28</div><div class="drive-month">Mar</div></div>
+              <div class="drive-info"><div class="drive-company">MLOps Engineer — Technical Round</div><div class="drive-meta">34 candidates · Coding + System Design</div></div>
+              <span class="drive-eligible">Scheduled</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">📊 Assessment Analytics</div></div>
+            <div class="skill-bar-item">
+              <div class="skill-top"><span class="skill-name">Avg Trust Score</span><span class="skill-val" style="color:var(--accent-success);">91/100</span></div>
+              <div class="progress-track"><div class="progress-fill" style="width:91%;background:var(--accent-success);"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-top"><span class="skill-name">Strong Hire Rate</span><span class="skill-val" style="color:var(--accent-blue);">9.3%</span></div>
+              <div class="progress-track"><div class="progress-fill" style="width:9.3%;background:var(--accent-blue);"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-top"><span class="skill-name">Completion Rate</span><span class="skill-val" style="color:var(--accent-amber);">84%</span></div>
+              <div class="progress-track"><div class="progress-fill" style="width:84%;background:var(--accent-amber);"></div></div>
+            </div>
+            <div class="ai-box">
+              <div class="ai-box-header">🤖 Dragon AI</div>
+              <p>Top drop-off point: <strong>AI Video Interview</strong> step (18% abandonment). Consider making this round optional for senior roles to improve conversion.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HR ACTIVITY -->
+      <div class="tab-panel" id="hr-activity">
+        <div class="sidebar-layout">
+          <div class="card">
+            <div class="card-header"><div class="card-title">🕐 Recent Activity</div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-success);"></div><div class="activity-content"><div class="activity-title">Dragon AI found <strong>8 new 90%+ matches</strong> for ML Engineer role</div><div class="activity-time">1 hour ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-blue);"></div><div class="activity-content"><div class="activity-title"><strong>Vikram Patel</strong> completed assessment — Strong Hire verdict</div><div class="activity-time">3 hours ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent);"></div><div class="activity-content"><div class="activity-title">Viewed <strong>Arjun Mehta</strong> — RAG Document QA project in Project Lab</div><div class="activity-time">Yesterday</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-amber);"></div><div class="activity-content"><div class="activity-title">Launched <strong>MLOps Engineer — Technical Round</strong> assessment via Dragon Hire</div><div class="activity-time">2 days ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-purple);"></div><div class="activity-content"><div class="activity-title">Pulled <strong>Market Intelligence</strong> report — ML salary trends Q1 2025</div><div class="activity-time">3 days ago</div></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">🔔 Notifications</div></div>
+            <div class="notif-item"><div class="notif-dot" style="background:var(--accent-success);"></div><div class="notif-text"><strong>23 candidates</strong> available for ML Engineer role at ₹28–35 LPA in Bangalore</div><div class="notif-time">1h ago</div></div>
+            <div class="notif-item"><div class="notif-dot" style="background:var(--accent-blue);"></div><div class="notif-text">Proctor flag: <strong>1 anomaly</strong> detected in MLOps assessment — review required</div><div class="notif-time">5h ago</div></div>
+            <div class="notif-item"><div class="notif-dot" style="background:var(--accent-amber);"></div><div class="notif-text"><strong>Dragon Vault</strong> — 3 new Dragon Score 90+ candidates this week</div><div class="notif-time">Today</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end profile-hr -->
+
+
+    <!-- ══════════════════════════════════════════
+         PROFILE 3 — PLACEMENT OFFICER
+    ══════════════════════════════════════════ -->
+    <div class="profile-screen" id="profile-placement">
+
+      <div class="profile-hero">
+        <div class="hero-bg"></div>
+        <div class="hero-inner">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar" style="background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(5,120,80,0.08));">
+              <span style="font-size:38px;">👨‍🎓</span>
+            </div>
+            <div class="profile-badge" style="background:var(--accent-success);">🎓</div>
+          </div>
+          <div class="profile-info">
+            <div class="profile-name">Dr. Ramesh Kumar</div>
+            <div class="profile-role-tag" style="background:var(--accent-success-dim);color:var(--accent-success);">
+              🎓 Placement Officer · PSG College of Technology
+            </div>
+            <div class="profile-meta">
+              <div class="profile-meta-item">🏫 <span><strong>PSG College of Technology</strong> · Coimbatore</div>
+              <div class="profile-meta-item">👥 <span><strong>620</strong> final-year students</span></div>
+              <div class="profile-meta-item">🏢 <span><strong>84</strong> companies registered</span></div>
+              <div class="profile-meta-item">📅 <span><strong>12</strong> drives scheduled</span></div>
+            </div>
+            <div class="profile-actions">
+              <button class="topbar-btn btn-primary" style="font-size:11.5px;background:var(--accent-success);">📋 Schedule Drive</button>
+              <button class="topbar-btn btn-ghost" style="font-size:11.5px;">🚨 Flag At-Risk Students</button>
+              <button class="topbar-btn btn-ghost" style="font-size:11.5px;">📊 Cohort Analytics</button>
+            </div>
+          </div>
+          <div>
+            <div class="profile-score-row" style="flex-direction:column;gap:10px;">
+              <div class="score-pill" style="border-color:rgba(16,185,129,0.2);">
+                <span class="score-pill-label">Placement Rate</span>
+                <span class="score-pill-val" style="color:var(--accent-success);">78%</span>
+                <span class="score-pill-sub">↑ +8% YoY</span>
+              </div>
+              <div class="score-pill" style="border-color:rgba(245,158,11,0.2);">
+                <span class="score-pill-label">At-Risk Students</span>
+                <span class="score-pill-val" style="color:var(--accent-amber);">47</span>
+                <span class="score-pill-sub">Flagged by AI</span>
+              </div>
+              <div class="score-pill">
+                <span class="score-pill-label">Avg Dragon Score</span>
+                <span class="score-pill-val" style="color:var(--accent-blue);">71</span>
+                <span class="score-pill-sub">Batch 2025</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-tabs">
+          <div class="profile-tab active" onclick="switchTab(this,'po-overview')">Overview</div>
+          <div class="profile-tab" onclick="switchTab(this,'po-modules')">My Modules <span class="tab-count">10</span></div>
+          <div class="profile-tab" onclick="switchTab(this,'po-students')">Student Readiness <span class="tab-count">620</span></div>
+          <div class="profile-tab" onclick="switchTab(this,'po-drives')">Campus Drives <span class="tab-count">12</span></div>
+          <div class="profile-tab" onclick="switchTab(this,'po-analytics')">Cohort Analytics</div>
+          <div class="profile-tab" onclick="switchTab(this,'po-activity')">Activity</div>
+        </div>
+      </div>
+
+      <!-- PO OVERVIEW -->
+      <div class="tab-panel active" id="po-overview">
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-success);">620</div>
+            <div class="stat-label">Total Students</div>
+            <div class="stat-change up">483 Dragon-verified</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent);">47</div>
+            <div class="stat-label">At-Risk Students</div>
+            <div class="stat-change down">⚠ Need intervention</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-blue);">12</div>
+            <div class="stat-label">Drives Scheduled</div>
+            <div class="stat-change up">Next: 3 days</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-amber);">84</div>
+            <div class="stat-label">Companies</div>
+            <div class="stat-change up">↑ 9 new this year</div>
+          </div>
+        </div>
+
+        <div class="sidebar-layout">
+          <div>
+            <!-- At-risk students -->
+            <div class="card section-gap" style="border-color:rgba(239,68,68,0.15);">
+              <div class="card-header">
+                <div class="card-title">🚨 AI-Flagged At-Risk Students</div>
+                <span class="card-action">See all 47 →</span>
+              </div>
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Dragon AI identifies students unlikely to clear upcoming company thresholds based on Dragon Score, assessment performance, and prep velocity.</div>
+              <div class="student-row">
+                <div class="student-avatar">RS</div>
+                <div class="student-info"><div class="student-name">Rohit Suresh</div><div class="student-dept">CSE · Dragon Score: 48 · 2 sessions/week</div></div>
+                <span class="risk-tag risk-high">High Risk</span>
+              </div>
+              <div class="student-row">
+                <div class="student-avatar">AM</div>
+                <div class="student-info"><div class="student-name">Anjali Mishra</div><div class="student-dept">IT · Dragon Score: 56 · 4 sessions/week</div></div>
+                <span class="risk-tag risk-med">Medium</span>
+              </div>
+              <div class="student-row">
+                <div class="student-avatar">KP</div>
+                <div class="student-info"><div class="student-name">Kiran Pillai</div><div class="student-dept">ECE · Dragon Score: 61 · Improving</div></div>
+                <span class="risk-tag risk-med">Medium</span>
+              </div>
+              <div class="student-row">
+                <div class="student-avatar">DM</div>
+                <div class="student-info"><div class="student-name">Divya Mohan</div><div class="student-dept">CSE · Dragon Score: 68 · 7 sessions/week</div></div>
+                <span class="risk-tag risk-low">On Track</span>
+              </div>
+              <div class="ai-box">
+                <div class="ai-box-header">🤖 Dragon AI Recommendation</div>
+                <p>Prescribing a <strong>14-day intensive Dragon Prep</strong> path for the 47 at-risk students. Focus: DSA patterns + Aptitude. This brings <strong>31 students</strong> to the Infosys threshold (Score 65+) within 2 weeks.</p>
+              </div>
+            </div>
+
+            <!-- Upcoming Drives -->
+            <div class="card">
+              <div class="card-header"><div class="card-title">📅 Upcoming Campus Drives</div><span class="card-action">Manage all →</span></div>
+              <div class="drive-card">
+                <div class="drive-date"><div class="drive-day" style="color:var(--accent-success);">21</div><div class="drive-month">Mar</div></div>
+                <div class="drive-info"><div class="drive-company">Infosys · Software Engineer</div><div class="drive-meta">Threshold: Score 65 · ₹6.5 LPA package</div></div>
+                <span class="drive-eligible">412 eligible</span>
+              </div>
+              <div class="drive-card">
+                <div class="drive-date"><div class="drive-day" style="color:var(--accent-blue);">28</div><div class="drive-month">Mar</div></div>
+                <div class="drive-info"><div class="drive-company">TCS · Digital · Data Engineering</div><div class="drive-meta">Threshold: Score 70 · ₹7 LPA package</div></div>
+                <span class="drive-eligible">364 eligible</span>
+              </div>
+              <div class="drive-card">
+                <div class="drive-date"><div class="drive-day" style="color:var(--accent);">04</div><div class="drive-month">Apr</div></div>
+                <div class="drive-info"><div class="drive-company">Zoho · Software Developer</div><div class="drive-meta">Threshold: Score 75 · ₹10 LPA package</div></div>
+                <span class="drive-eligible">287 eligible</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <!-- Cohort snapshot -->
+            <div class="card section-gap" style="border-color:rgba(16,185,129,0.15);">
+              <div class="card-header"><div class="card-title" style="color:var(--accent-success);">📊 Cohort Snapshot</div></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+                <div style="text-align:center;padding:12px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
+                  <div style="font-size:22px;font-weight:700;font-family:var(--font-mono);color:var(--accent-success);">483</div>
+                  <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Verified Profiles</div>
+                </div>
+                <div style="text-align:center;padding:12px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
+                  <div style="font-size:22px;font-weight:700;font-family:var(--font-mono);color:var(--accent-amber);">137</div>
+                  <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Unverified</div>
+                </div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-top"><span class="skill-name">Score 80+ (Company-ready)</span><span class="skill-val" style="color:var(--accent-success);">124</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:20%;background:var(--accent-success);"></div></div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-top"><span class="skill-name">Score 65–79 (Eligible)</span><span class="skill-val" style="color:var(--accent-blue);">359</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:58%;background:var(--accent-blue);"></div></div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-top"><span class="skill-name">Score below 65 (At-Risk)</span><span class="skill-val" style="color:var(--accent);">137</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:22%;background:var(--accent);"></div></div>
+              </div>
+            </div>
+
+            <!-- Company readiness -->
+            <div class="card section-gap">
+              <div class="card-header"><div class="card-title">🏢 Company Readiness</div></div>
+              <div class="company-row"><div class="company-logo">🔵</div><div class="company-info"><div class="company-name">Infosys</div><div class="company-detail">Threshold: 65 · 412 eligible</div></div><div style="font-size:12px;font-weight:700;color:var(--accent-success);">66%</div></div>
+              <div class="company-row"><div class="company-logo">🟢</div><div class="company-info"><div class="company-name">TCS Digital</div><div class="company-detail">Threshold: 70 · 364 eligible</div></div><div style="font-size:12px;font-weight:700;color:var(--accent-blue);">59%</div></div>
+              <div class="company-row"><div class="company-logo">🟠</div><div class="company-info"><div class="company-name">Zoho</div><div class="company-detail">Threshold: 75 · 287 eligible</div></div><div style="font-size:12px;font-weight:700;color:var(--accent-amber);">46%</div></div>
+              <div class="company-row"><div class="company-logo">🔴</div><div class="company-info"><div class="company-name">Razorpay</div><div class="company-detail">Threshold: 82 · 89 eligible</div></div><div style="font-size:12px;font-weight:700;color:var(--accent);">14%</div></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><div class="card-title">🔔 Notifications</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent);"></div><div class="notif-text"><strong>47 students</strong> flagged as at-risk for Infosys drive on Mar 21</div><div class="notif-time">2h ago</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent-success);"></div><div class="notif-text">Dragon AI auto-prescribed prep paths for <strong>31 at-risk students</strong></div><div class="notif-time">Today</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent-blue);"></div><div class="notif-text"><strong>Wipro</strong> confirmed campus drive for Apr 15 — 350+ eligible</div><div class="notif-time">Yesterday</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PO MODULES -->
+      <div class="tab-panel" id="po-modules">
+        <div style="margin-bottom:16px;font-size:13px;color:var(--text-secondary);">10 modules active for Placement Officer profile. You manage student readiness, campus drives, and company partnerships from one unified view.</div>
+        <div class="module-grid">
+          <div class="module-card" style="--mod-color:var(--accent-success);">
+            <div class="module-card-top"><span class="module-icon">🌉</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Bridge</div>
+            <div class="module-desc">Campus view — student readiness, at-risk flags, drive management</div>
+            <div class="module-stat">620 students · 47 at-risk flagged</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-success);">
+            <div class="module-card-top"><span class="module-icon">📋</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Review</div>
+            <div class="module-desc">Placement Officer view — cohort analytics, company readiness, gap analysis</div>
+            <div class="module-stat">Batch avg: 71/100 · Improving</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-blue);">
+            <div class="module-card-top"><span class="module-icon">🎯</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Hire</div>
+            <div class="module-desc">Create and deploy assessments for campus drive screening</div>
+            <div class="module-stat">12 drives · 3,200+ assessments run</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-blue);">
+            <div class="module-card-top"><span class="module-icon">📊</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Talent Intelligence Dashboard</div>
+            <div class="module-desc">Live view of certified talent supply within your college batch</div>
+            <div class="module-stat">483 verified · 124 company-ready</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-cyan);">
+            <div class="module-card-top"><span class="module-icon">📈</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Market Intelligence</div>
+            <div class="module-desc">Hiring trends · salary benchmarks · what companies want this year</div>
+            <div class="module-stat">Top demand: AI/ML, Cloud, DevOps</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-blue);">
+            <div class="module-card-top"><span class="module-icon">💬</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon AI</div>
+            <div class="module-desc">Ask about student readiness, generate cohort reports, prescribe prep paths</div>
+            <div class="module-stat">28 queries this month</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-success);">
+            <div class="module-card-top"><span class="module-icon">🔗</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Nexus</div>
+            <div class="module-desc">College ERP and LMS integration via LTI 1.3 and webhooks</div>
+            <div class="module-stat">ERP + LMS + email connected</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent);">
+            <div class="module-card-top"><span class="module-icon">🤖</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Match Results</div>
+            <div class="module-desc">AI match between students and company JDs — pre-drive alignment view</div>
+            <div class="module-stat">Zoho drive: 287 eligible matched</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-purple);">
+            <div class="module-card-top"><span class="module-icon">📚</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Prep</div>
+            <div class="module-desc">Monitor student usage — prep velocity, patterns covered, mock scores</div>
+            <div class="module-stat">Avg 3.4 sessions/student/week</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-amber);">
+            <div class="module-card-top"><span class="module-icon">⚒️</span><span class="module-status status-new">Admin</span></div>
+            <div class="module-name">Dragon Forge</div>
+            <div class="module-desc">Request custom assessment content tailored for campus drive formats</div>
+            <div class="module-stat">3 custom packs ordered this term</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PO STUDENTS -->
+      <div class="tab-panel" id="po-students">
+        <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+          <button class="topbar-btn btn-primary" style="background:var(--accent-success);">All Students (620)</button>
+          <button class="topbar-btn btn-ghost">At-Risk (47)</button>
+          <button class="topbar-btn btn-ghost">Company-Ready (124)</button>
+          <button class="topbar-btn btn-ghost">Unverified (137)</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <div class="student-row">
+              <div class="student-avatar" style="background:linear-gradient(135deg,var(--accent-success),#059669);">AK</div>
+              <div class="student-info"><div class="student-name">Arun Kumar</div><div class="student-dept">CSE · Score: 88 · Dragon Elite eligible</div></div>
+              <span class="risk-tag risk-low">Placed</span>
+            </div>
+            <div class="student-row">
+              <div class="student-avatar" style="background:linear-gradient(135deg,var(--accent-blue),#1D4ED8);">SP</div>
+              <div class="student-info"><div class="student-name">Sridevi Pillai</div><div class="student-dept">IT · Score: 74 · 5 sessions/week</div></div>
+              <span class="risk-tag risk-low">On Track</span>
+            </div>
+            <div class="student-row">
+              <div class="student-avatar" style="background:linear-gradient(135deg,var(--accent-amber),#D97706);">RS</div>
+              <div class="student-info"><div class="student-name">Rohit Suresh</div><div class="student-dept">CSE · Score: 48 · 2 sessions/week</div></div>
+              <span class="risk-tag risk-high">High Risk</span>
+            </div>
+            <div class="student-row">
+              <div class="student-avatar">AM</div>
+              <div class="student-info"><div class="student-name">Anjali Mishra</div><div class="student-dept">IT · Score: 56 · Prep path: Applied</div></div>
+              <span class="risk-tag risk-med">Medium</span>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <div class="card-title" style="margin-bottom:12px;">🤖 AI Prep Prescriptions Active</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Dragon AI has auto-prescribed personalized Dragon Prep paths for 31 at-risk students. Expected uplift to Infosys threshold (65+) within 14 days.</div>
+              <div class="progress-bar-wrap">
+                <div class="progress-label"><span>Students on prescribed path</span><span style="color:var(--accent-success);">31/47</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:66%;background:var(--accent-success);"></div></div>
+              </div>
+              <div class="progress-bar-wrap">
+                <div class="progress-label"><span>Avg score improvement (7d)</span><span style="color:var(--accent-blue);">+6.2 pts</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:62%;background:var(--accent-blue);"></div></div>
+              </div>
+              <div class="ai-box">
+                <div class="ai-box-header">🤖 Dragon AI</div>
+                <p>At current pace, <strong>Rohit Suresh</strong> needs a <strong>bootcamp intervention</strong> — not a prep path. Recommend: 3-day offline intensive + mock assessments in Dragon Arena daily for 2 weeks.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PO DRIVES -->
+      <div class="tab-panel" id="po-drives">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <div class="card section-gap">
+              <div class="card-header"><div class="card-title">📅 Upcoming Drives</div><button class="topbar-btn btn-primary" style="font-size:11px;background:var(--accent-success);padding:5px 12px;">+ Schedule Drive</button></div>
+              <div class="drive-card"><div class="drive-date"><div class="drive-day" style="color:var(--accent-success);">21</div><div class="drive-month">Mar</div></div><div class="drive-info"><div class="drive-company">Infosys · Software Engineer</div><div class="drive-meta">₹6.5 LPA · Threshold: Score 65 · 412 eligible</div></div><span class="drive-eligible">Confirmed</span></div>
+              <div class="drive-card"><div class="drive-date"><div class="drive-day" style="color:var(--accent-blue);">28</div><div class="drive-month">Mar</div></div><div class="drive-info"><div class="drive-company">TCS Digital · Data Engineering</div><div class="drive-meta">₹7 LPA · Threshold: Score 70 · 364 eligible</div></div><span class="drive-eligible">Confirmed</span></div>
+              <div class="drive-card"><div class="drive-date"><div class="drive-day" style="color:var(--accent);">04</div><div class="drive-month">Apr</div></div><div class="drive-info"><div class="drive-company">Zoho · Software Developer</div><div class="drive-meta">₹10 LPA · Threshold: Score 75 · 287 eligible</div></div><span class="drive-eligible">Confirmed</span></div>
+              <div class="drive-card"><div class="drive-date"><div class="drive-day" style="color:var(--accent-amber);">15</div><div class="drive-month">Apr</div></div><div class="drive-info"><div class="drive-company">Wipro · Technology Associate</div><div class="drive-meta">₹6.5 LPA · Threshold: Score 65 · Pending count</div></div><span class="drive-eligible" style="background:var(--accent-amber-dim);color:var(--accent-amber);">Pending</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="card section-gap">
+              <div class="card-header"><div class="card-title">📊 Drive Analytics</div></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+                <div style="text-align:center;padding:14px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
+                  <div style="font-size:24px;font-weight:700;font-family:var(--font-mono);color:var(--accent-success);">78%</div>
+                  <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Placement Rate</div>
+                </div>
+                <div style="text-align:center;padding:14px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
+                  <div style="font-size:24px;font-weight:700;font-family:var(--font-mono);color:var(--accent-blue);">₹8.4L</div>
+                  <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Avg Package</div>
+                </div>
+              </div>
+              <div class="ai-box">
+                <div class="ai-box-header">🤖 Dragon AI Forecast</div>
+                <p>Based on current student prep velocity and registered companies, Dragon AI predicts a <strong>84% placement rate</strong> for Batch 2025 — up from last year's 78%. Top bottleneck: DSA skills gap in 22% of students.</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">🏢 Company Directory</div><span class="card-action">All 84 →</span></div>
+              <div class="company-row"><div class="company-logo">🔵</div><div class="company-info"><div class="company-name">Infosys</div><div class="company-detail">8 open roles · Mar 21</div></div><span class="company-cta">Manage</span></div>
+              <div class="company-row"><div class="company-logo">🟢</div><div class="company-info"><div class="company-name">TCS Digital</div><div class="company-detail">12 open roles · Mar 28</div></div><span class="company-cta">Manage</span></div>
+              <div class="company-row"><div class="company-logo">🟠</div><div class="company-info"><div class="company-name">Zoho</div><div class="company-detail">5 open roles · Apr 4</div></div><span class="company-cta">Manage</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PO ANALYTICS -->
+      <div class="tab-panel" id="po-analytics">
+        <div class="two-col">
+          <div class="card">
+            <div class="card-header"><div class="card-title">📊 Cohort Score Distribution</div></div>
+            <div class="skill-bar-item"><div class="skill-top"><span class="skill-name">85–100 (Dragon Elite)</span><span class="skill-val" style="color:var(--accent-success);">48</span></div><div class="progress-track"><div class="progress-fill" style="width:7.7%;background:var(--accent-success);"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-top"><span class="skill-name">75–84 (Premium)</span><span class="skill-val" style="color:var(--accent-blue);">76</span></div><div class="progress-track"><div class="progress-fill" style="width:12.3%;background:var(--accent-blue);"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-top"><span class="skill-name">65–74 (Eligible)</span><span class="skill-val" style="color:var(--accent-amber);">283</span></div><div class="progress-track"><div class="progress-fill" style="width:45.6%;background:var(--accent-amber);"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-top"><span class="skill-name">Below 65 (At-Risk)</span><span class="skill-val" style="color:var(--accent);">213</span></div><div class="progress-track"><div class="progress-fill" style="width:34.4%;background:var(--accent);"></div></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">🧠 Cohort Skill Gaps</div></div>
+            <div class="skill-bar-item"><div class="skill-top"><span class="skill-name">Data Structures & Algorithms</span><span class="skill-val" style="color:var(--accent);">-28pts avg</span></div><div class="progress-track"><div class="progress-fill" style="width:54%;background:var(--accent);"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-top"><span class="skill-name">DBMS & SQL</span><span class="skill-val" style="color:var(--accent-amber);">-16pts avg</span></div><div class="progress-track"><div class="progress-fill" style="width:68%;background:var(--accent-amber);"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-top"><span class="skill-name">Aptitude & Reasoning</span><span class="skill-val" style="color:var(--accent-blue);">-11pts avg</span></div><div class="progress-track"><div class="progress-fill" style="width:76%;background:var(--accent-blue);"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-top"><span class="skill-name">Communication (Video)</span><span class="skill-val" style="color:var(--accent-success);">-6pts avg</span></div><div class="progress-track"><div class="progress-fill" style="width:88%;background:var(--accent-success);"></div></div></div>
+            <div class="ai-box">
+              <div class="ai-box-header">🤖 Batch Intervention Plan</div>
+              <p>Schedule a <strong>targeted DSA bootcamp</strong> for 220+ students. A 10-day focused camp on Trees, Graphs, and DP patterns would close 70% of the gap and bring <strong>180 more students</strong> above the Infosys threshold.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PO ACTIVITY -->
+      <div class="tab-panel" id="po-activity">
+        <div class="sidebar-layout">
+          <div class="card">
+            <div class="card-header"><div class="card-title">🕐 Recent Activity</div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent);"></div><div class="activity-content"><div class="activity-title">Dragon AI flagged <strong>47 at-risk students</strong> for Infosys drive</div><div class="activity-time">2 hours ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-success);"></div><div class="activity-content"><div class="activity-title"><strong>Zoho</strong> confirmed campus drive for Apr 4 — 287 eligible</div><div class="activity-time">Yesterday</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-blue);"></div><div class="activity-content"><div class="activity-title">Viewed <strong>Dragon Review</strong> cohort report — TCS assessment results</div><div class="activity-time">2 days ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-amber);"></div><div class="activity-content"><div class="activity-title">Requested <strong>Dragon Forge</strong> custom pack for aptitude + coding</div><div class="activity-time">4 days ago</div></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">🔔 Notifications</div></div>
+            <div class="notif-item"><div class="notif-dot" style="background:var(--accent);"></div><div class="notif-text"><strong>47 students</strong> at risk of failing Infosys threshold (Mar 21)</div><div class="notif-time">2h ago</div></div>
+            <div class="notif-item"><div class="notif-dot" style="background:var(--accent-success);"></div><div class="notif-text">Dragon AI prescribed prep paths for <strong>31 at-risk students</strong></div><div class="notif-time">Today</div></div>
+            <div class="notif-item"><div class="notif-dot" style="background:var(--accent-blue);"></div><div class="notif-text"><strong>Wipro</strong> confirmed drive for Apr 15 — register now</div><div class="notif-time">Yesterday</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end profile-placement -->
+
+
+    <!-- ══════════════════════════════════════════
+         PROFILE 4 — STUDENT
+    ══════════════════════════════════════════ -->
+    <div class="profile-screen" id="profile-student">
+
+      <div class="profile-hero">
+        <div class="hero-bg"></div>
+        <div class="hero-inner">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar" style="background:linear-gradient(135deg,rgba(167,139,250,0.15),rgba(109,40,217,0.08));">
+              <span style="font-size:38px;">🧑‍🎓</span>
+            </div>
+            <div class="profile-badge" style="background:var(--accent-purple);">📖</div>
+          </div>
+          <div class="profile-info">
+            <div class="profile-name">Kavya Nair</div>
+            <div class="profile-role-tag" style="background:var(--accent-purple-dim);color:var(--accent-purple);">
+              📖 Student · PSG College of Technology · Final Year CSE
+            </div>
+            <div class="profile-meta">
+              <div class="profile-meta-item">🏫 <span>PSG College of Technology · Coimbatore</span></div>
+              <div class="profile-meta-item">🎓 <span>B.E CSE · <strong>Final Year</strong> · 2025 Batch</span></div>
+              <div class="profile-meta-item">🏆 <span>Dragon Score: <strong style="color:var(--accent-purple);">74</strong></span></div>
+              <div class="profile-meta-item">🔥 <span><strong>18-day</strong> streak</span></div>
+            </div>
+            <div class="profile-actions">
+              <button class="topbar-btn btn-primary" style="font-size:11.5px;background:var(--accent-purple);">🧭 View Career GPS</button>
+              <button class="topbar-btn btn-ghost" style="font-size:11.5px;">⚔️ Start Practice</button>
+              <button class="topbar-btn btn-ghost" style="font-size:11.5px;">🔗 Connect Certs</button>
+            </div>
+          </div>
+          <div>
+            <div class="profile-score-row" style="flex-direction:column;gap:10px;">
+              <div class="score-pill" style="border-color:rgba(167,139,250,0.2);">
+                <span class="score-pill-label">Dragon Score</span>
+                <span class="score-pill-val" style="color:var(--accent-purple);">74</span>
+                <span class="score-pill-sub">Top 32% in batch</span>
+              </div>
+              <div class="score-pill" style="border-color:rgba(16,185,129,0.2);">
+                <span class="score-pill-label">Trust Score</span>
+                <span class="score-pill-val" style="color:var(--accent-success);">88</span>
+                <span class="score-pill-sub">3 proctored sessions</span>
+              </div>
+              <div class="score-pill">
+                <span class="score-pill-label">Readiness</span>
+                <span class="score-pill-val" style="color:var(--accent-amber);">TCS ✓</span>
+                <span class="score-pill-sub">Score 70 cleared</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-tabs">
+          <div class="profile-tab active" onclick="switchTab(this,'st-overview')">Overview</div>
+          <div class="profile-tab" onclick="switchTab(this,'st-modules')">My Modules <span class="tab-count">11</span></div>
+          <div class="profile-tab" onclick="switchTab(this,'st-prep')">Prep & Practice</div>
+          <div class="profile-tab" onclick="switchTab(this,'st-quest')">Dragon Quest</div>
+          <div class="profile-tab" onclick="switchTab(this,'st-certs')">Certifications <span class="tab-count">2</span></div>
+          <div class="profile-tab" onclick="switchTab(this,'st-activity')">Activity</div>
+        </div>
+      </div>
+
+      <!-- STUDENT OVERVIEW -->
+      <div class="tab-panel active" id="st-overview">
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-purple);">74</div>
+            <div class="stat-label">Dragon Score</div>
+            <div class="stat-change up">↑ +8 this month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-amber);">18🔥</div>
+            <div class="stat-label">Day Streak</div>
+            <div class="stat-change up">Personal best!</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-blue);">142</div>
+            <div class="stat-label">Problems Solved</div>
+            <div class="stat-change up">↑ 23 this week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" style="color:var(--accent-success);">2</div>
+            <div class="stat-label">Verified Certs</div>
+            <div class="stat-change">+1 in progress</div>
+          </div>
+        </div>
+
+        <div class="sidebar-layout">
+          <div>
+            <!-- Campus Drive Eligibility -->
+            <div class="card section-gap" style="border-color:rgba(167,139,250,0.15);">
+              <div class="card-header"><div class="card-title" style="color:var(--accent-purple);">🏢 Campus Drive Eligibility</div><span class="card-action">View all drives →</span></div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--accent-success-dim);border:1px solid rgba(16,185,129,0.15);border-radius:var(--radius-md);">
+                  <span style="font-size:18px;">✅</span>
+                  <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Infosys — Software Engineer</div><div style="font-size:11px;color:var(--text-muted);">Threshold: 65 · Your score: 74 · Mar 21</div></div>
+                  <span style="font-size:11px;font-weight:700;color:var(--accent-success);">ELIGIBLE</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--accent-success-dim);border:1px solid rgba(16,185,129,0.15);border-radius:var(--radius-md);">
+                  <span style="font-size:18px;">✅</span>
+                  <div style="flex:1;"><div style="font-size:13px;font-weight:600;">TCS Digital — Data Engineering</div><div style="font-size:11px;color:var(--text-muted);">Threshold: 70 · Your score: 74 · Mar 28</div></div>
+                  <span style="font-size:11px;font-weight:700;color:var(--accent-success);">ELIGIBLE</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--accent-amber-dim);border:1px solid rgba(245,158,11,0.15);border-radius:var(--radius-md);">
+                  <span style="font-size:18px;">⚡</span>
+                  <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Zoho — Software Developer</div><div style="font-size:11px;color:var(--text-muted);">Threshold: 75 · Your score: 74 · Apr 4</div></div>
+                  <span style="font-size:11px;font-weight:700;color:var(--accent-amber);">1 PT AWAY</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.12);border-radius:var(--radius-md);">
+                  <span style="font-size:18px;">🔒</span>
+                  <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Razorpay — ML Engineer</div><div style="font-size:11px;color:var(--text-muted);">Threshold: 82 · Your score: 74 · Need +8 pts</div></div>
+                  <span style="font-size:11px;font-weight:700;color:var(--accent);">NOT YET</span>
+                </div>
+              </div>
+              <div class="ai-box">
+                <div class="ai-box-header">🤖 Dragon AI</div>
+                <p>You're <strong>1 point away</strong> from Zoho eligibility. Completing the <strong>DBMS mock test</strong> in Dragon Arena today could push your score to 76. Dragon GPS has a <strong>3-day sprint</strong> ready for you.</p>
+              </div>
+            </div>
+
+            <!-- Dragon GPS -->
+            <div class="card">
+              <div class="card-header"><div class="card-title">🧭 Dragon GPS — Your Path</div><span class="card-action">Full map →</span></div>
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">Target: <strong style="color:var(--text-primary);">Software Engineer @ Zoho</strong> · ETA: 3 days</div>
+              <div class="gps-step completed"><div class="gps-num gps-completed">✓</div><div class="gps-info"><div class="gps-title">Python & OOP Fundamentals</div><div class="gps-sub">Completed · Good foundation</div></div></div>
+              <div class="gps-step current"><div class="gps-num gps-current">●</div><div class="gps-info"><div class="gps-title">DBMS & SQL</div><div class="gps-sub">In progress — 68% complete · Key gap area</div><div class="gps-eta" style="color:var(--accent-purple);">Est. 2 days to threshold</div></div></div>
+              <div class="gps-step"><div class="gps-num gps-upcoming">3</div><div class="gps-info"><div class="gps-title">DSA — Arrays, Trees, Graphs</div><div class="gps-sub">Starts after DBMS · High priority</div></div></div>
+              <div class="gps-step"><div class="gps-num gps-upcoming">🏆</div><div class="gps-info"><div class="gps-title">Zoho Drive — Apr 4</div><div class="gps-sub">Target: Score 75+ · ₹10 LPA package</div></div></div>
+            </div>
+          </div>
+
+          <div>
+            <!-- Today's Plan -->
+            <div class="card section-gap" style="border-color:rgba(167,139,250,0.2);">
+              <div class="card-title" style="margin-bottom:12px;color:var(--accent-purple);">📅 Today's Dragon Plan</div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;gap:10px;padding:10px;background:var(--bg-secondary);border-radius:var(--radius-sm);align-items:center;">
+                  <span style="font-size:18px;">📖</span><div><div style="font-size:12.5px;font-weight:600;">DBMS — Normalization & Joins</div><div style="font-size:11px;color:var(--text-muted);">30 min · Dragon Prep · +90 XP</div></div>
+                </div>
+                <div style="display:flex;gap:10px;padding:10px;background:var(--bg-secondary);border-radius:var(--radius-sm);align-items:center;">
+                  <span style="font-size:18px;">⚔️</span><div><div style="font-size:12.5px;font-weight:600;">DBMS Mock Test — Dragon Arena</div><div style="font-size:11px;color:var(--text-muted);">20 min · Updates Dragon Score · +60 XP</div></div>
+                </div>
+                <div style="display:flex;gap:10px;padding:10px;background:var(--bg-secondary);border-radius:var(--radius-sm);align-items:center;">
+                  <span style="font-size:18px;">🧩</span><div><div style="font-size:12.5px;font-weight:600;">3 LeetCode Easy (Array pattern)</div><div style="font-size:11px;color:var(--text-muted);">Dragon Prep · +45 XP</div></div>
+                </div>
+              </div>
+              <div style="margin-top:12px;padding:10px;background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.15);border-radius:var(--radius-sm);font-size:12px;color:var(--text-secondary);">
+                Complete today's plan → 🔥 Streak extends to 19 days · +195 XP total
+              </div>
+            </div>
+
+            <!-- Dragon Quest -->
+            <div class="card section-gap" style="background:linear-gradient(135deg,rgba(167,139,250,0.06),rgba(59,130,246,0.03));border-color:rgba(167,139,250,0.15);">
+              <div class="card-header"><div class="card-title" style="color:var(--accent-purple);">🐉 Dragon Quest</div></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;margin-bottom:12px;">
+                <div><div style="font-size:18px;font-weight:700;font-family:var(--font-mono);color:var(--accent-purple);">1,840</div><div style="font-size:10px;color:var(--text-muted);">XP Total</div></div>
+                <div><div style="font-size:18px;font-weight:700;font-family:var(--font-mono);color:var(--accent-amber);">18🔥</div><div style="font-size:10px;color:var(--text-muted);">Streak</div></div>
+                <div><div style="font-size:18px;font-weight:700;font-family:var(--font-mono);color:var(--accent-success);">280</div><div style="font-size:10px;color:var(--text-muted);">Coins</div></div>
+              </div>
+              <div style="font-size:11.5px;padding:8px;background:rgba(167,139,250,0.08);border-radius:var(--radius-sm);text-align:center;">
+                🦊 Hero: <strong style="color:var(--accent-purple);">Swift Fox</strong> · Level 7 · DSA Specialist track<br>
+                <span style="font-size:10px;color:var(--text-muted);">Next milestone: 21-day streak → Movie Tickets 🎬</span>
+              </div>
+            </div>
+
+            <!-- Certifications -->
+            <div class="card">
+              <div class="card-header"><div class="card-title">🏅 Certifications</div><span class="card-action">Add cert →</span></div>
+              <div class="cert-item">
+                <div class="cert-icon">🐍</div>
+                <div class="cert-info"><div class="cert-name">Python Data Science — IBM</div><div class="cert-meta">Issued: Jan 2025 · Coursera</div></div>
+                <div class="cert-badge verified">✓ Verified</div>
+              </div>
+              <div class="cert-item">
+                <div class="cert-icon">🤗</div>
+                <div class="cert-info"><div class="cert-name">SQL for Data Analysis — Kaggle</div><div class="cert-meta">Issued: Feb 2025 · Kaggle</div></div>
+                <div class="cert-badge verified">✓ Verified</div>
+              </div>
+              <div class="ai-box">
+                <div class="ai-box-header">🤖 Dragon AI Recommendation</div>
+                <p>Getting an <strong>AWS Cloud Practitioner</strong> cert would boost your Dragon Score by <strong>+5 pts</strong> and make you eligible for <strong>14 additional campus roles</strong> including TCS Digital fast track.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STUDENT MODULES -->
+      <div class="tab-panel" id="st-modules">
+        <div style="margin-bottom:16px;font-size:13px;color:var(--text-secondary);">11 modules active for Student profile. Each module connects your learning, practice, and assessments to build your Dragon Score and campus drive eligibility.</div>
+        <div class="module-grid">
+          <div class="module-card" style="--mod-color:var(--accent-purple);">
+            <div class="module-card-top"><span class="module-icon">🏠</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Talent Onboarding</div>
+            <div class="module-desc">Verified profile built from certifications — your proof of skills</div>
+            <div class="module-stat">2 certs verified · Trust: 88</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-purple);">
+            <div class="module-card-top"><span class="module-icon">🧭</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon GPS</div>
+            <div class="module-desc">Career map targeting Software Engineer @ Zoho — 3 days away</div>
+            <div class="module-stat">68% to Zoho threshold</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-blue);">
+            <div class="module-card-top"><span class="module-icon">📚</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Prep</div>
+            <div class="module-desc">Exam prep for TCS, Infosys, Zoho · 142 problems solved · DBMS sprint</div>
+            <div class="module-stat">142 problems · Top 28% batch</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-success);">
+            <div class="module-card-top"><span class="module-icon">⚔️</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Arena</div>
+            <div class="module-desc">Take proctored assessments that update Dragon Score in real time</div>
+            <div class="module-stat">3 sessions · Trust: 88/100</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-purple);">
+            <div class="module-card-top"><span class="module-icon">🐉</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Quest</div>
+            <div class="module-desc">18-day streak · Level 7 Swift Fox · 280 coins · DSA track</div>
+            <div class="module-stat">1,840 XP · 3 days to movie tickets</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-cyan);">
+            <div class="module-card-top"><span class="module-icon">🌐</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Hub</div>
+            <div class="module-desc">Internships, jobs, and learning aggregated from 50+ platforms</div>
+            <div class="module-stat">47 internships at 80%+ match</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-blue);">
+            <div class="module-card-top"><span class="module-icon">🛠️</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Skill Craft</div>
+            <div class="module-desc">Zoho-targeted skill tree — DBMS, DSA, and system design sprint</div>
+            <div class="module-stat">Week 2 of 4 · +₹1.2L uplift</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-success);">
+            <div class="module-card-top"><span class="module-icon">🧪</span><span class="module-status status-new">New</span></div>
+            <div class="module-name">Project Lab</div>
+            <div class="module-desc">Build real projects to showcase to campus recruiters</div>
+            <div class="module-stat">0 projects · Start your first →</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-success);">
+            <div class="module-card-top"><span class="module-icon">📋</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Review</div>
+            <div class="module-desc">Detailed scorecard and AI feedback after every assessment</div>
+            <div class="module-stat">Last: Aptitude — 72/100</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-blue);">
+            <div class="module-card-top"><span class="module-icon">💬</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon AI</div>
+            <div class="module-desc">Ask anything — your co-pilot for study, prep, and career decisions</div>
+            <div class="module-stat">12 sessions · "What should I study today?"</div>
+          </div>
+          <div class="module-card" style="--mod-color:var(--accent-purple);">
+            <div class="module-card-top"><span class="module-icon">🔗</span><span class="module-status status-active">Active</span></div>
+            <div class="module-name">Dragon Nexus</div>
+            <div class="module-desc">Connect Coursera, Kaggle, GitHub for automatic cert verification</div>
+            <div class="module-stat">Coursera + Kaggle connected</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STUDENT PREP -->
+      <div class="tab-panel" id="st-prep">
+        <div class="two-col">
+          <div class="card">
+            <div class="card-header"><div class="card-title">📚 Dragon Prep Progress</div></div>
+            <div class="progress-bar-wrap"><div class="progress-label"><span>DSA — Arrays & Strings</span><span style="color:var(--accent-success);">72%</span></div><div class="progress-track"><div class="progress-fill" style="width:72%;background:var(--accent-success);"></div></div></div>
+            <div class="progress-bar-wrap"><div class="progress-label"><span>DBMS & SQL</span><span style="color:var(--accent-amber);">41%</span></div><div class="progress-track"><div class="progress-fill" style="width:41%;background:var(--accent-amber);"></div></div></div>
+            <div class="progress-bar-wrap"><div class="progress-label"><span>Aptitude & Reasoning</span><span style="color:var(--accent-blue);">58%</span></div><div class="progress-track"><div class="progress-fill" style="width:58%;background:var(--accent-blue);"></div></div></div>
+            <div class="progress-bar-wrap"><div class="progress-label"><span>Computer Networks</span><span style="color:var(--accent-purple);">28%</span></div><div class="progress-track"><div class="progress-fill" style="width:28%;background:var(--accent-purple);"></div></div></div>
+            <div class="progress-bar-wrap"><div class="progress-label"><span>OS Concepts</span><span style="color:var(--accent);">22%</span></div><div class="progress-track"><div class="progress-fill" style="width:22%;background:var(--accent);"></div></div></div>
+          </div>
+          <div>
+            <div class="card section-gap">
+              <div class="card-header"><div class="card-title">⚔️ Dragon Arena — History</div></div>
+              <div class="timeline-item">
+                <div class="timeline-dot">📝</div>
+                <div class="timeline-content">
+                  <div class="timeline-title">Aptitude Mock — Company Standard</div>
+                  <div class="timeline-sub">72/100 · Trust: 92 · Compared to batch: Above avg</div>
+                  <span class="timeline-tag chip-amber">2 days ago</span>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot">💻</div>
+                <div class="timeline-content">
+                  <div class="timeline-title">DSA Coding — Easy/Medium</div>
+                  <div class="timeline-sub">3/4 problems · Trust: 88 · 78th percentile</div>
+                  <span class="timeline-tag chip-blue">5 days ago</span>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot">🎙️</div>
+                <div class="timeline-content">
+                  <div class="timeline-title">AI Video Interview Mock</div>
+                  <div class="timeline-sub">Communication: 74 · STAR score: 68</div>
+                  <span class="timeline-tag chip-purple">1 week ago</span>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">🧪 Start a Project</div></div>
+              <div style="font-size:12.5px;color:var(--text-secondary);margin-bottom:12px;">Build a real project to show recruiters what you can do. Dragon AI guides every step.</div>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="padding:10px 12px;background:var(--bg-secondary);border-radius:var(--radius-sm);font-size:12.5px;cursor:pointer;border:1px solid var(--border);display:flex;justify-content:space-between;">
+                  <span>Student Portal with Django + SQL</span><span style="color:var(--accent-success);">Beginner</span>
+                </div>
+                <div style="padding:10px 12px;background:var(--bg-secondary);border-radius:var(--radius-sm);font-size:12.5px;cursor:pointer;border:1px solid var(--border);display:flex;justify-content:space-between;">
+                  <span>Sales Dashboard with Python + Pandas</span><span style="color:var(--accent-amber);">Intermediate</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STUDENT QUEST -->
+      <div class="tab-panel" id="st-quest">
+        <div class="two-col">
+          <div class="card" style="background:linear-gradient(135deg,rgba(167,139,250,0.08),rgba(59,130,246,0.04));border-color:rgba(167,139,250,0.2);">
+            <div class="card-header"><div class="card-title" style="color:var(--accent-purple);">🐉 Dragon Quest — Your Journey</div></div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;">
+              <div style="text-align:center;padding:14px;background:rgba(167,139,250,0.1);border-radius:var(--radius-md);">
+                <div style="font-size:26px;font-weight:700;font-family:var(--font-mono);color:var(--accent-purple);">7</div>
+                <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Level</div>
+              </div>
+              <div style="text-align:center;padding:14px;background:rgba(245,158,11,0.1);border-radius:var(--radius-md);">
+                <div style="font-size:26px;font-weight:700;font-family:var(--font-mono);color:var(--accent-amber);">18🔥</div>
+                <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Day Streak</div>
+              </div>
+              <div style="text-align:center;padding:14px;background:rgba(16,185,129,0.1);border-radius:var(--radius-md);">
+                <div style="font-size:26px;font-weight:700;font-family:var(--font-mono);color:var(--accent-success);">280</div>
+                <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Coins</div>
+              </div>
+            </div>
+            <div style="text-align:center;padding:16px;background:rgba(167,139,250,0.08);border-radius:var(--radius-md);margin-bottom:16px;">
+              <div style="font-size:32px;margin-bottom:6px;">🦊</div>
+              <div style="font-size:15px;font-weight:700;color:var(--accent-purple);">Swift Fox</div>
+              <div style="font-size:11px;color:var(--text-muted);">DSA Specialist · Agile Learner</div>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-label"><span>XP to Level 8</span><span style="color:var(--accent-purple);">1840 / 2500</span></div>
+              <div class="progress-track"><div class="progress-fill" style="width:73.6%;background:linear-gradient(90deg,var(--accent-purple),var(--accent-blue));"></div></div>
+            </div>
+          </div>
+          <div>
+            <div class="card section-gap">
+              <div class="card-title" style="margin-bottom:12px;">🏆 Streak Milestones</div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;gap:10px;align-items:center;padding:10px;background:var(--accent-success-dim);border-radius:var(--radius-sm);">
+                  <span>✅</span><div style="flex:1;font-size:12.5px;"><strong>7 days</strong> — Coffee Voucher redeemed</div>
+                </div>
+                <div style="display:flex;gap:10px;align-items:center;padding:10px;background:var(--accent-success-dim);border-radius:var(--radius-sm);">
+                  <span>✅</span><div style="flex:1;font-size:12.5px;"><strong>14 days</strong> — Movie Tickets redeemed</div>
+                </div>
+                <div style="display:flex;gap:10px;align-items:center;padding:10px;background:var(--accent-amber-dim);border-radius:var(--radius-sm);">
+                  <span>🎬</span><div style="flex:1;font-size:12.5px;"><strong>21 days</strong> — Movie Tickets (3 days away!)</div>
+                </div>
+                <div style="display:flex;gap:10px;align-items:center;padding:10px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
+                  <span>🔒</span><div style="flex:1;font-size:12.5px;color:var(--text-muted);"><strong>30 days</strong> — Premium Day Pass</div>
+                </div>
+                <div style="display:flex;gap:10px;align-items:center;padding:10px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
+                  <span>🔒</span><div style="flex:1;font-size:12.5px;color:var(--text-muted);"><strong>90 days</strong> — Exclusive Dragon Badge</div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title" style="margin-bottom:12px;">⚔️ Active Challenges</div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="padding:10px 12px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);">
+                  <div style="font-size:12.5px;font-weight:600;">Weekly DSA Boss Battle</div>
+                  <div style="font-size:11px;color:var(--text-muted);">Ends in 2 days · Your rank: #47 of 320</div>
+                </div>
+                <div style="padding:10px 12px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);">
+                  <div style="font-size:12.5px;font-weight:600;">College Leaderboard — March</div>
+                  <div style="font-size:11px;color:var(--text-muted);">Your rank: #34 of 620 · Top 6%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STUDENT CERTS -->
+      <div class="tab-panel" id="st-certs">
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">2 certifications verified via Dragon Nexus. Adding more certs directly boosts your Dragon Score and campus drive eligibility.</div>
+        <div class="cert-item">
+          <div class="cert-icon">🐍</div>
+          <div class="cert-info"><div class="cert-name">Python for Data Science & AI — IBM</div><div class="cert-meta">Issued: Jan 2025 · Coursera · Verified via Dragon Nexus</div></div>
+          <div class="cert-badge verified">✓ Verified</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">📊</div>
+          <div class="cert-info"><div class="cert-name">SQL for Data Analysis — Kaggle</div><div class="cert-meta">Issued: Feb 2025 · Kaggle · Verified via Dragon Nexus</div></div>
+          <div class="cert-badge verified">✓ Verified</div>
+        </div>
+        <div style="padding:20px;background:var(--bg-secondary);border:1px dashed var(--border-active);border-radius:var(--radius-lg);text-align:center;margin-top:20px;">
+          <div style="font-size:28px;margin-bottom:8px;">🏅</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:4px;">Add More Certifications</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Each verified cert adds +3–8 Dragon Score points and unlocks more company eligibility</div>
+          <button class="topbar-btn btn-primary" style="background:var(--accent-purple);">🔗 Connect Certification Account</button>
+        </div>
+        <div class="ai-box" style="margin-top:16px;">
+          <div class="ai-box-header">🤖 Dragon AI — Best Certs for Your Goal</div>
+          <p>To reach <strong>Zoho eligibility (Score 75)</strong> you need +1 pt. The fastest path is completing the free <strong>AWS Cloud Practitioner</strong> course (2 weeks) — adds +5 pts and opens 14 new roles. Alternatively, passing the <strong>Dragon Arena DBMS mock</strong> this week adds +2 pts immediately.</p>
+        </div>
+      </div>
+
+      <!-- STUDENT ACTIVITY -->
+      <div class="tab-panel" id="st-activity">
+        <div class="sidebar-layout">
+          <div class="card">
+            <div class="card-header"><div class="card-title">🕐 Recent Activity</div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-success);"></div><div class="activity-content"><div class="activity-title">Solved <strong>LeetCode: Two Sum</strong> in Dragon Prep · +15 XP</div><div class="activity-time">30 minutes ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-purple);"></div><div class="activity-content"><div class="activity-title">Streak extended to <strong>18 days</strong> 🔥 · +100 XP bonus</div><div class="activity-time">2 hours ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-blue);"></div><div class="activity-content"><div class="activity-title">Completed <strong>DBMS Module 3</strong> in Dragon Prep · +90 XP</div><div class="activity-time">Yesterday</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-amber);"></div><div class="activity-content"><div class="activity-title">Dragon Arena: <strong>Aptitude Mock</strong> — 72/100 · Dragon Score +1</div><div class="activity-time">2 days ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent);"></div><div class="activity-content"><div class="activity-title">Became eligible for <strong>TCS Digital drive</strong> — Score now 74</div><div class="activity-time">3 days ago</div></div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--accent-success);"></div><div class="activity-content"><div class="activity-title">SQL for Data Analysis cert verified via <strong>Dragon Nexus</strong> · Trust +3</div><div class="activity-time">1 week ago</div></div></div>
+          </div>
+          <div>
+            <div class="card section-gap">
+              <div class="card-header"><div class="card-title">🔔 Notifications</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent-amber);"></div><div class="notif-text">You're <strong>1 point away</strong> from Zoho eligibility — take the DBMS mock now!</div><div class="notif-time">1h ago</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent-success);"></div><div class="notif-text"><strong>TCS Digital drive</strong> — You're eligible! Register by Mar 22</div><div class="notif-time">Today</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent-purple);"></div><div class="notif-text">Dragon Quest <strong>boss battle</strong> starts tomorrow — practice now</div><div class="notif-time">Today</div></div>
+              <div class="notif-item"><div class="notif-dot" style="background:var(--accent-blue);"></div><div class="notif-text">Dragon GPS rerouted your path — DBMS now priority over OS</div><div class="notif-time">Yesterday</div></div>
+            </div>
+            <div class="card">
+              <div class="card-title" style="margin-bottom:12px;">💬 Ask Dragon AI</div>
+              <div style="display:flex;gap:8px;">
+                <input style="flex:1;background:var(--bg-secondary);border:1px solid var(--border-active);border-radius:var(--radius-sm);padding:9px 12px;color:var(--text-primary);font-family:var(--font-body);font-size:12.5px;outline:none;" placeholder="What should I study today?" />
+                <button class="topbar-btn btn-primary" style="background:var(--accent-purple);padding:8px 14px;">Ask</button>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
+                <span style="padding:4px 10px;background:var(--bg-elevated);border-radius:10px;font-size:11px;cursor:pointer;color:var(--text-secondary);">Am I ready for Zoho?</span>
+                <span style="padding:4px 10px;background:var(--bg-elevated);border-radius:10px;font-size:11px;cursor:pointer;color:var(--text-secondary);">Mock test now</span>
+                <span style="padding:4px 10px;background:var(--bg-elevated);border-radius:10px;font-size:11px;cursor:pointer;color:var(--text-secondary);">Best cert to add?</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end profile-student -->
+
+  </div><!-- end page-content -->
+</main>
+
+<script>
+// ── USER SWITCHER ──
+const userConfigs = {
+  jobseeker: {
+    label: 'Job Seeker',
+    avatarBg: 'linear-gradient(135deg,#FF2D55,#CC1144)',
+    avatarLetter: 'A',
+  },
+  hr: {
+    label: 'HR / Recruiter',
+    avatarBg: 'linear-gradient(135deg,#3B82F6,#1D4ED8)',
+    avatarLetter: 'P',
+  },
+  placement: {
+    label: 'Placement Officer',
+    avatarBg: 'linear-gradient(135deg,#10B981,#059669)',
+    avatarLetter: 'D',
+  },
+  student: {
+    label: 'Student',
+    avatarBg: 'linear-gradient(135deg,#A78BFA,#7C3AED)',
+    avatarLetter: 'K',
+  }
+};
+
+function switchUser(userId, btn) {
+  // Hide all profiles
+  document.querySelectorAll('.profile-screen').forEach(s => s.classList.remove('active'));
+  // Show selected
+  document.getElementById('profile-' + userId).classList.add('active');
+  // Update sidebar buttons
+  document.querySelectorAll('.user-switch-btn').forEach(b => b.classList.remove('active-user'));
+  btn.classList.add('active-user');
+  // Update topbar
+  const config = userConfigs[userId];
+  document.getElementById('activeUserLabel').textContent = config.label;
+  document.getElementById('topAvatar').style.background = config.avatarBg;
+  document.getElementById('topAvatar').textContent = config.avatarLetter;
+  // Reset tabs to first
+  document.querySelectorAll('#profile-' + userId + ' .tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#profile-' + userId + ' .profile-tab').forEach(t => t.classList.remove('active'));
+  const firstPanel = document.querySelector('#profile-' + userId + ' .tab-panel');
+  const firstTab = document.querySelector('#profile-' + userId + ' .profile-tab');
+  if (firstPanel) firstPanel.classList.add('active');
+  if (firstTab) firstTab.classList.add('active');
+}
+
+// ── TAB SWITCHER ──
+function switchTab(tab, panelId) {
+  const profileScreen = tab.closest('.profile-screen');
+  profileScreen.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+  profileScreen.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+}
+
+// ── SIDEBAR NAV HIGHLIGHT ──
+document.querySelectorAll('.nav-item[data-nav]').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
+// Highlight profile nav item on load
+document.querySelector('[data-nav="profile"]').classList.add('active');
+</script>
+
+</body>
+</html>
