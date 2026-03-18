@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dragon Suite — The AI Super App for Talent, Learning & Hiring</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#07090E;--bg-card:#0D1117;--bg-el:#161B22;
+--text:#F0F6FC;--text2:#8B949E;--text3:#484F58;
+--red:#FF2D55;--red-dim:rgba(255,45,85,0.12);--red-glow:rgba(255,45,85,0.35);
+--cyan:#22D3EE;--amber:#F59E0B;--purple:#A78BFA;--green:#10B981;--blue:#3B82F6;--orange:#F97316;
+--fd:'Playfair Display',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif;--fm:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);line-height:1.6;overflow-x:hidden}
+a{color:var(--red);text-decoration:none}
+::selection{background:var(--red);color:var(--bg)}
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+.section{padding:120px 0;position:relative}
+.section-label{font-family:var(--fm);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:16px;font-weight:700}
+.section-title{font-family:var(--fd);font-size:clamp(36px,5vw,56px);font-weight:900;line-height:1.1;margin-bottom:20px}
+.section-sub{font-size:18px;color:var(--text2);max-width:640px;line-height:1.7}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+
+/* Grain overlay */
+.grain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;opacity:0.025}
+
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 0;backdrop-filter:blur(20px);background:rgba(7,9,14,0.82);border-bottom:1px solid rgba(255,255,255,0.04)}
+.nav .container{display:flex;justify-content:space-between;align-items:center}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+.nav-logo .mark{width:34px;height:34px;background:linear-gradient(135deg,var(--red),#CC1144);border-radius:9px;display:grid;place-items:center;font-size:14px;color:#fff;font-weight:800}
+.nav-logo span{color:var(--red)}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{color:var(--text2);font-size:14px;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--text)}
+.btn-cta{padding:10px 24px;background:var(--red);color:#fff;border-radius:8px;font-weight:700;font-size:14px;border:none;cursor:pointer;transition:all 0.3s;font-family:var(--fb)}
+.btn-cta:hover{filter:brightness(1.15);transform:translateY(-1px);box-shadow:0 8px 24px var(--red-glow)}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-20%;right:-10%;width:800px;height:800px;background:radial-gradient(circle,rgba(255,45,85,0.08) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-30%;left:-15%;width:600px;height:600px;background:radial-gradient(circle,rgba(34,211,238,0.05) 0%,transparent 70%);pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:800px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:var(--red-dim);border:1px solid rgba(255,45,85,0.15);border-radius:100px;font-size:13px;font-weight:600;color:var(--red);margin-bottom:32px;animation:fadeDown 0.8s ease}
+.hero-title{font-family:var(--fd);font-size:clamp(48px,7vw,84px);font-weight:900;line-height:1.05;margin-bottom:24px;animation:fadeUp 0.8s ease}
+.hero-title .hl{background:linear-gradient(135deg,var(--red),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:20px;color:var(--text2);line-height:1.7;max-width:600px;margin-bottom:40px;animation:fadeUp 0.8s 0.2s ease both}
+.hero-actions{display:flex;gap:16px;animation:fadeUp 0.8s 0.4s ease both}
+.btn-p{padding:16px 36px;background:var(--red);color:#fff;border-radius:10px;font-weight:700;font-size:16px;border:none;cursor:pointer;transition:all 0.3s;font-family:var(--fb)}
+.btn-p:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 12px 40px var(--red-glow)}
+.btn-s{padding:16px 36px;background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.12);border-radius:10px;font-weight:600;font-size:16px;cursor:pointer;transition:all 0.3s;font-family:var(--fb)}
+.btn-s:hover{border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.03)}
+.hero-stats{display:flex;gap:48px;margin-top:64px;animation:fadeUp 0.8s 0.6s ease both}
+.hs-num{font-family:var(--fm);font-size:36px;font-weight:700}
+.hs-label{font-size:13px;color:var(--text3);margin-top:4px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+
+/* Logos */
+.logos-bar{border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);padding:40px 0;text-align:center}
+.logos-bar p{font-size:13px;color:var(--text3);text-transform:uppercase;letter-spacing:2px;font-weight:600;margin-bottom:24px}
+.logos-row{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;opacity:0.4}
+.logos-row span{font-size:18px;font-weight:700;color:var(--text2)}
+
+/* Product Cards */
+.pc{background:var(--bg-card);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:32px;transition:all 0.4s;position:relative;overflow:hidden}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:0;transition:opacity 0.4s}
+.pc:hover{border-color:rgba(255,255,255,0.1);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.4)}
+.pc:hover::before{opacity:1}
+.pc-icon{font-size:32px;margin-bottom:16px}
+.pc-name{font-family:var(--fd);font-size:22px;font-weight:700;margin-bottom:8px}
+.pc-desc{font-size:14px;color:var(--text2);line-height:1.6}
+.pc-tag{margin-top:14px}
+.badge{display:inline-flex;padding:4px 12px;border-radius:6px;font-size:12px;font-weight:700}
+.badge-r{background:var(--red-dim);color:var(--red)}
+.badge-c{background:rgba(34,211,238,0.12);color:var(--cyan)}
+.badge-g{background:rgba(16,185,129,0.12);color:var(--green)}
+
+/* Stats */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,0.04);border-radius:16px;overflow:hidden}
+.sc{background:var(--bg-card);padding:48px 32px;text-align:center}
+.sc-num{font-family:var(--fd);font-size:48px;font-weight:900;background:linear-gradient(135deg,var(--red),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sc-label{font-size:14px;color:var(--text2);margin-top:8px}
+
+/* Showcase */
+.showcase{display:flex;gap:48px;align-items:center;margin-bottom:100px}
+.showcase.rev{flex-direction:row-reverse}
+.showcase-text{flex:1}
+.showcase-vis{flex:1;background:var(--bg-card);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:32px;min-height:300px;position:relative;overflow:hidden}
+
+/* Dragon Heroes */
+.hc{background:var(--bg-card);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px;text-align:center;transition:all 0.3s}
+.hc:hover{border-color:rgba(255,45,85,0.2);transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.3)}
+.hc-emoji{font-size:36px;margin-bottom:8px}
+.hc-name{font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:1px}
+.hc-domain{font-size:11px;color:var(--text3);margin-top:4px}
+
+/* Testimonials */
+.testi{background:var(--bg-card);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:36px}
+.t-quote{font-size:16px;line-height:1.8;color:var(--text2);font-style:italic;margin-bottom:20px}
+.t-author{font-weight:700;font-size:14px}
+.t-role{font-size:12px;color:var(--text3)}
+
+/* CTA */
+.cta-section{text-align:center;padding:140px 0;position:relative}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(255,45,85,0.1) 0%,transparent 70%);pointer-events:none}
+
+/* Footer */
+.footer{border-top:1px solid rgba(255,255,255,0.04);padding:64px 0 40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-col h4{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin-bottom:16px;font-weight:700}
+.footer-col a{display:block;font-size:13.5px;color:var(--text2);margin-bottom:10px;transition:color 0.2s}
+.footer-col a:hover{color:var(--text)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.04);padding-top:24px;display:flex;justify-content:space-between;font-size:12px;color:var(--text3)}
+
+/* Persona */
+.persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.persona-card{background:var(--bg-card);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:36px;text-align:center;transition:all 0.3s}
+.persona-card:hover{border-color:rgba(255,45,85,0.15);transform:translateY(-4px)}
+.persona-icon{font-size:48px;margin-bottom:16px}
+.persona-title{font-family:var(--fd);font-size:24px;font-weight:700;margin-bottom:8px}
+.persona-desc{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:16px}
+.persona-list{text-align:left;font-size:13px;color:var(--text2);line-height:2}
+
+@media(max-width:900px){
+.grid-3,.grid-4,.persona-grid{grid-template-columns:repeat(2,1fr)}
+.showcase,.showcase.rev{flex-direction:column}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.hero-stats{flex-wrap:wrap;gap:24px}
+.footer-grid{grid-template-columns:1fr 1fr}
+.nav-links{display:none}
+}
+@media(max-width:600px){
+.grid-3,.grid-4,.stats-grid,.persona-grid{grid-template-columns:1fr}
+.hero-actions{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- NAV -->
+<nav class="nav">
+<div class="container">
+<div class="nav-logo"><div class="mark">DS</div> Dragon<span>Suite</span></div>
+<div class="nav-links">
+<a href="#products">Products</a>
+<a href="#personas">Who It's For</a>
+<a href="#heroes">Dragon Heroes</a>
+<a href="#stats">Numbers</a>
+<button class="btn-cta">Get Early Access</button>
+</div>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<div class="container">
+<div class="hero-content">
+<div class="hero-badge">🐉 India's first AI-native talent super app</div>
+<h1 class="hero-title">Spot the <span class="hl">Dragon</span> in every candidate.</h1>
+<p class="hero-sub">20 AI-powered modules. One platform. From exam prep to dream job — Dragon Suite is the assessment, learning, and hiring engine for 30M+ aspirants and the companies that need them.</p>
+<div class="hero-actions">
+<button class="btn-p">Start Free — Candidates</button>
+<button class="btn-s">Book Demo — Enterprises</button>
+</div>
+<div class="hero-stats">
+<div><div class="hs-num" style="color:var(--red)">30M+</div><div class="hs-label">Annual aspirants served</div></div>
+<div><div class="hs-num" style="color:var(--cyan)">43+</div><div class="hs-label">Certification domains</div></div>
+<div><div class="hs-num" style="color:var(--amber)">9</div><div class="hs-label">Assessment formats</div></div>
+<div><div class="hs-num" style="color:var(--green)">50+</div><div class="hs-label">Platform integrations</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- LOGOS -->
+<div class="logos-bar">
+<div class="container">
+<p>Trusted by aspirants preparing for</p>
+<div class="logos-row">
+<span>GATE</span><span>JEE</span><span>NEET</span><span>UPSC</span><span>CAT</span><span>Banking</span><span>SSC</span><span>Railways</span><span>NDA</span><span>NET</span>
+</div>
+</div>
+</div>
+
+<!-- WHO IT'S FOR -->
+<section class="section" id="personas">
+<div class="container">
+<div class="section-label">Built for everyone in the talent ecosystem</div>
+<h2 class="section-title">Three users. <span style="color:var(--red);">One platform.</span></h2>
+<p class="section-sub" style="margin-bottom:56px;">Dragon Suite serves all three sides of the talent market — and the data flywheel between them is what makes the magic.</p>
+<div class="persona-grid">
+<div class="persona-card">
+<div class="persona-icon">👤</div>
+<div class="persona-title">Candidates</div>
+<div class="persona-desc">Aspirants, students, job seekers, freelancers — anyone building their career.</div>
+<div class="persona-list">
+✦ Prep for GATE, JEE, NEET, Banking, UPSC + 43 certs<br>
+✦ Practice infinite AI-generated problems<br>
+✦ Take 9 types of assessments, earn Dragon Certs<br>
+✦ GPS navigates your career path in real-time<br>
+✦ Elite Agent auto-applies to 50+ platforms<br>
+✦ Vault unlocks $100K+/₹10L+ roles
+</div>
+</div>
+<div class="persona-card" style="border-color:rgba(255,45,85,0.1);">
+<div class="persona-icon">💼</div>
+<div class="persona-title">Recruiters</div>
+<div class="persona-desc">HR teams, hiring managers, staffing agencies — anyone finding talent.</div>
+<div class="persona-list">
+✦ AI generates unique assessments per role<br>
+✦ 7-layer proctoring, zero leaked questions<br>
+✦ 4D AI benchmarking with explainable scores<br>
+✦ Ranked scorecards with AI hire/no-hire verdicts<br>
+✦ Video interviews with live AI evaluation<br>
+✦ Push to ATS via Dragon Nexus connectors
+</div>
+</div>
+<div class="persona-card">
+<div class="persona-icon">🎓</div>
+<div class="persona-title">Colleges & Placement</div>
+<div class="persona-desc">Placement officers, training heads, institutional leaders — anyone placing talent.</div>
+<div class="persona-list">
+✦ Batch performance dashboards + at-risk alerts<br>
+✦ Company readiness scoring per student<br>
+✦ AI-prescribes GPS paths for weak students<br>
+✦ Campus drive pipeline management<br>
+✦ Company satisfaction scoring + analytics<br>
+✦ Placement reports for management and NAAC
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" id="products" style="padding-top:80px;">
+<div class="container">
+<div class="section-label">The Dragon Ecosystem</div>
+<h2 class="section-title">20 modules. One <span style="color:var(--red);">super app.</span></h2>
+<p class="section-sub" style="margin-bottom:56px;">Every module feeds every other module. Your exam prep improves your profile. Your profile unlocks jobs. Your job data makes the GPS smarter. That's the Dragon Flywheel.</p>
+<div class="grid-3" style="margin-bottom:24px;">
+<div class="pc"><div class="pc-icon">🧭</div><div class="pc-name">Dragon GPS</div><div class="pc-desc">AI career navigation. Like Google Maps for your career — real-time routes from where you are to where you want to be.</div><div class="pc-tag"><span class="badge badge-r">AI Career Path</span></div></div>
+<div class="pc"><div class="pc-icon">📚</div><div class="pc-name">Dragon Prep</div><div class="pc-desc">10 exam categories, 43+ certs, infinite AI-generated problems. Offline-first with on-device AI. Cross-domain skill mapping.</div><div class="pc-tag"><span class="badge badge-c">B2C Learning</span></div></div>
+<div class="pc"><div class="pc-icon">⚔️</div><div class="pc-name">Dragon Arena</div><div class="pc-desc">9 assessment formats — adaptive MCQ, coding sandbox, AI video interview, hackathons, case studies, inbox sims, and more.</div><div class="pc-tag"><span class="badge badge-r">9 Formats</span></div></div>
+<div class="pc"><div class="pc-icon">🎯</div><div class="pc-name">Dragon Hire</div><div class="pc-desc">Enterprise assessment engine. HR defines role → AI generates unique test → 7-layer proctoring → 4D benchmarking. Zero leaks.</div><div class="pc-tag"><span class="badge badge-c">B2B Enterprise</span></div></div>
+<div class="pc"><div class="pc-icon">🐉</div><div class="pc-name">Dragon Quest</div><div class="pc-desc">16 Dragon Heroes, XP, streaks, coins, psychology badges, FOMO alerts, 3P culture, and a 6-act narrative. Learning becomes legend.</div><div class="pc-tag"><span class="badge badge-r">Gamification</span></div></div>
+<div class="pc"><div class="pc-icon">🌐</div><div class="pc-name">Dragon Hub</div><div class="pc-desc">Unified aggregator — jobs, internships, freelance, learning, problems, challenges from 50+ platforms. One feed to rule them all.</div><div class="pc-tag"><span class="badge badge-g">Aggregator</span></div></div>
+<div class="pc"><div class="pc-icon">💬</div><div class="pc-name">Dragon AI</div><div class="pc-desc">Conversational command center. Talk to the entire suite — prep, jobs, hiring, reports — all through natural language chat.</div><div class="pc-tag"><span class="badge badge-r">Super App AI</span></div></div>
+<div class="pc"><div class="pc-icon">⭐</div><div class="pc-name">Dragon Elite</div><div class="pc-desc">Premium marketplace + autonomous Agent. Your AI employee applies to 50+ job platforms while you sleep. Top 5-10% only.</div><div class="pc-tag"><span class="badge badge-r">AI Agent</span></div></div>
+<div class="pc"><div class="pc-icon">🔐</div><div class="pc-name">Dragon Vault</div><div class="pc-desc">$100K+ and ₹10L+ salary-gated roles. Stripe, Google, CRED, Toptal. Elite verified talent meets elite compensation.</div><div class="pc-tag"><span class="badge badge-g">$100K+</span></div></div>
+<div class="pc"><div class="pc-icon">🌉</div><div class="pc-name">Dragon Bridge</div><div class="pc-desc">Placement officer command center. Campus drive pipeline, batch analytics, at-risk alerts, company satisfaction scoring.</div><div class="pc-tag"><span class="badge badge-c">Placement</span></div></div>
+<div class="pc"><div class="pc-icon">🔗</div><div class="pc-name">Dragon Nexus</div><div class="pc-desc">Universal connector. LinkedIn, Naukri, GitHub, Slack, WhatsApp, LLM APIs, ATS — 50+ integrations. The super app fabric.</div><div class="pc-tag"><span class="badge badge-c">Connectors</span></div></div>
+<div class="pc"><div class="pc-icon">⚒️</div><div class="pc-name">Dragon Forge</div><div class="pc-desc">Content engine. Web scraping from 127 sources + AI generation of infinite questions, problems, and learning modules. The brain.</div><div class="pc-tag"><span class="badge badge-r">Content AI</span></div></div>
+</div>
+<div style="text-align:center;margin-top:24px;color:var(--text3);font-size:14px;">+ Skill Craft · Project Lab · Dragon Review · Market Intelligence · Match Results · Talent Dashboard</div>
+</div>
+</section>
+
+<!-- FEATURES: FLYWHEEL + AI + PROCTORING -->
+<section class="section" id="features">
+<div class="container">
+<div class="section-label">The Dragon Difference</div>
+<h2 class="section-title">Why this isn't <span style="color:var(--red);">another EdTech.</span></h2>
+<p class="section-sub" style="margin-bottom:72px;">Other platforms do one thing. Dragon Suite does everything — and every module makes every other module smarter.</p>
+
+<div class="showcase">
+<div class="showcase-text">
+<div class="section-label" style="color:var(--amber)">The Flywheel</div>
+<h3 style="font-family:var(--fd);font-size:28px;font-weight:700;margin-bottom:16px;">Every action compounds.</h3>
+<p style="color:var(--text2);line-height:1.8;font-size:15px;">Prep builds verified credentials → unlocks Elite status → Agent applies to 50+ platforms → you get hired → GPS learns from outcomes → Bridge connects companies → Hire generates intelligence → Prep gets smarter. Round and round. The more you use it, the more valuable it becomes.</p>
+</div>
+<div class="showcase-vis">
+<div style="position:relative;z-index:1;text-align:center;">
+<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+<span style="padding:8px 14px;background:var(--red-dim);border-radius:20px;font-size:12px;color:var(--red);font-weight:700;">📚 Prep</span>
+<span style="color:var(--text3);align-self:center;">→</span>
+<span style="padding:8px 14px;background:rgba(245,158,11,0.12);border-radius:20px;font-size:12px;color:var(--amber);font-weight:700;">⭐ Elite</span>
+<span style="color:var(--text3);align-self:center;">→</span>
+<span style="padding:8px 14px;background:rgba(167,139,250,0.12);border-radius:20px;font-size:12px;color:var(--purple);font-weight:700;">🤖 Agent</span>
+<span style="color:var(--text3);align-self:center;">→</span>
+<span style="padding:8px 14px;background:rgba(16,185,129,0.12);border-radius:20px;font-size:12px;color:var(--green);font-weight:700;">💼 Hire</span>
+<span style="color:var(--text3);align-self:center;">→</span>
+<span style="padding:8px 14px;background:rgba(34,211,238,0.12);border-radius:20px;font-size:12px;color:var(--cyan);font-weight:700;">🧭 GPS</span>
+<span style="color:var(--text3);align-self:center;">→</span>
+<span style="padding:8px 14px;background:rgba(59,130,246,0.12);border-radius:20px;font-size:12px;color:var(--blue);font-weight:700;">🌉 Bridge</span>
+</div>
+<div style="margin-top:24px;font-size:48px;">♻️</div>
+<div style="font-size:13px;color:var(--text3);margin-top:8px;">Infinite compounding loop</div>
+</div>
+</div>
+</div>
+
+<div class="showcase rev">
+<div class="showcase-text">
+<div class="section-label" style="color:var(--cyan)">9 Assessment Formats</div>
+<h3 style="font-family:var(--fd);font-size:28px;font-weight:700;margin-bottom:16px;">Every format. Every domain.</h3>
+<p style="color:var(--text2);line-height:1.8;font-size:15px;">AI Adaptive MCQ (IRT + LLM) · Coding Sandbox (40+ languages, Firecracker microVMs) · AI Video Interview (WebRTC + LiveKit) · 7-Layer Proctored Test · Hackathon Engine (2–48 hrs) · AI Case Discussion (Tier 1) · Inbox Simulation (JSON state machines) · Harvard Business Publishing Sims · Offline Practice (ONNX + TinyLlama on-device). All AI-generated. All unique. Zero leaks.</p>
+</div>
+<div class="showcase-vis">
+<div style="position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+<div style="padding:14px;background:var(--bg-el);border-radius:10px;text-align:center;"><div style="font-size:22px;">📝</div><div style="font-size:11px;font-weight:600;margin-top:4px;">AI Adaptive MCQ</div></div>
+<div style="padding:14px;background:var(--bg-el);border-radius:10px;text-align:center;"><div style="font-size:22px;">💻</div><div style="font-size:11px;font-weight:600;margin-top:4px;">Coding Sandbox</div></div>
+<div style="padding:14px;background:var(--bg-el);border-radius:10px;text-align:center;"><div style="font-size:22px;">🎥</div><div style="font-size:11px;font-weight:600;margin-top:4px;">AI Video</div></div>
+<div style="padding:14px;background:var(--bg-el);border-radius:10px;text-align:center;"><div style="font-size:22px;">👁️</div><div style="font-size:11px;font-weight:600;margin-top:4px;">7-Layer Proctor</div></div>
+<div style="padding:14px;background:var(--bg-el);border-radius:10px;text-align:center;"><div style="font-size:22px;">🏗️</div><div style="font-size:11px;font-weight:600;margin-top:4px;">Hackathon</div></div>
+<div style="padding:14px;background:var(--bg-el);border-radius:10px;text-align:center;"><div style="font-size:22px;">📈</div><div style="font-size:11px;font-weight:600;margin-top:4px;">Case Discussion</div></div>
+<div style="padding:14px;background:var(--bg-el);border-radius:10px;text-align:center;"><div style="font-size:22px;">📧</div><div style="font-size:11px;font-weight:600;margin-top:4px;">Inbox Sim</div></div>
+<div style="padding:14px;background:var(--bg-el);border-radius:10px;text-align:center;"><div style="font-size:22px;">🎓</div><div style="font-size:11px;font-weight:600;margin-top:4px;">HBP Sims</div></div>
+<div style="padding:14px;background:var(--bg-el);border-radius:10px;text-align:center;"><div style="font-size:22px;">📱</div><div style="font-size:11px;font-weight:600;margin-top:4px;">Offline AI</div></div>
+</div>
+</div>
+</div>
+
+<div class="showcase">
+<div class="showcase-text">
+<div class="section-label" style="color:var(--green)">Super App Architecture</div>
+<h3 style="font-family:var(--fd);font-size:28px;font-weight:700;margin-bottom:16px;">Dragon AI + Dragon Nexus.</h3>
+<p style="color:var(--text2);line-height:1.8;font-size:15px;">One conversational interface to do everything (Dragon AI). One config panel to connect everything (Dragon Nexus — LinkedIn, Naukri, GitHub, Slack, WhatsApp, OpenAI, Claude, Gemini, ATS, and 50+ more). Like WeChat meets Zapier — for talent. Candidates feed in their logins, recruiters connect their ATS, colleges connect their ERP. Dragon Suite syncs the external world.</p>
+</div>
+<div class="showcase-vis">
+<div style="position:relative;z-index:1;text-align:center;">
+<div style="font-size:48px;margin-bottom:16px;">💬 + 🔗</div>
+<div style="font-family:var(--fd);font-size:20px;font-weight:700;margin-bottom:16px;">Dragon AI + Dragon Nexus</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">LinkedIn</span>
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">Naukri</span>
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">GitHub</span>
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">Slack</span>
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">WhatsApp</span>
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">LeetCode</span>
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">Kaggle</span>
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">OpenAI</span>
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">Claude</span>
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">Gemini</span>
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">Toptal</span>
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">Upwork</span>
+<span style="padding:5px 10px;background:var(--bg-el);border-radius:6px;font-size:11px;color:var(--text2);">+38 more</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- STATS -->
+<section class="section" id="stats" style="padding:80px 0;">
+<div class="container">
+<div class="stats-grid">
+<div class="sc"><div class="sc-num">30M+</div><div class="sc-label">Annual aspirants addressable</div></div>
+<div class="sc"><div class="sc-num">43+</div><div class="sc-label">Certification domains</div></div>
+<div class="sc"><div class="sc-num">10</div><div class="sc-label">Competitive exam categories</div></div>
+<div class="sc"><div class="sc-num">∞</div><div class="sc-label">AI-generated unique questions</div></div>
+<div class="sc"><div class="sc-num">9</div><div class="sc-label">Assessment format types</div></div>
+<div class="sc"><div class="sc-num">7</div><div class="sc-label">Proctoring detection layers</div></div>
+<div class="sc"><div class="sc-num">50+</div><div class="sc-label">Platform integrations</div></div>
+<div class="sc"><div class="sc-num">20</div><div class="sc-label">Modules in one super app</div></div>
+</div>
+</div>
+</section>
+
+<!-- DRAGON HEROES -->
+<section class="section" id="heroes">
+<div class="container">
+<div class="section-label">The Dragon Universe</div>
+<h2 class="section-title">16 Dragon Heroes.<br>Choose your <span style="color:var(--red);">legend.</span></h2>
+<p class="section-sub" style="margin-bottom:48px;">Each hero represents a skill domain. Level up your heroes, unlock abilities, earn XP, and build your legend across the Dragon Quest narrative arc.</p>
+<div style="display:grid;grid-template-columns:repeat(8,1fr);gap:12px;">
+<div class="hc"><div class="hc-emoji">🔥</div><div class="hc-name">CODEFIRE</div><div class="hc-domain">DSA / CP</div></div>
+<div class="hc"><div class="hc-emoji">🏛️</div><div class="hc-name">ARCHITECT</div><div class="hc-domain">Sys Design</div></div>
+<div class="hc"><div class="hc-emoji">🐛</div><div class="hc-name">DEBUGGER</div><div class="hc-domain">Testing</div></div>
+<div class="hc"><div class="hc-emoji">🛡️</div><div class="hc-name">SENTINEL</div><div class="hc-domain">Security</div></div>
+<div class="hc"><div class="hc-emoji">🧠</div><div class="hc-name">DATAFORGE</div><div class="hc-domain">AI / ML</div></div>
+<div class="hc"><div class="hc-emoji">☁️</div><div class="hc-name">CLOUDWALKER</div><div class="hc-domain">Cloud</div></div>
+<div class="hc"><div class="hc-emoji">⚡</div><div class="hc-name">FULLSTACK</div><div class="hc-domain">Web Dev</div></div>
+<div class="hc"><div class="hc-emoji">🎨</div><div class="hc-name">INTERFACER</div><div class="hc-domain">UI/UX</div></div>
+<div class="hc"><div class="hc-emoji">📊</div><div class="hc-name">STRATEGIST</div><div class="hc-domain">Product</div></div>
+<div class="hc"><div class="hc-emoji">🗣️</div><div class="hc-name">COMMUNICATOR</div><div class="hc-domain">Soft Skills</div></div>
+<div class="hc"><div class="hc-emoji">⚡</div><div class="hc-name">CIRCUITBREAKER</div><div class="hc-domain">ECE/VLSI</div></div>
+<div class="hc"><div class="hc-emoji">⚙️</div><div class="hc-name">MECHANON</div><div class="hc-domain">Mech/Aero</div></div>
+<div class="hc"><div class="hc-emoji">🏗️</div><div class="hc-name">TERRAFORGE</div><div class="hc-domain">Civil/BIM</div></div>
+<div class="hc"><div class="hc-emoji">📒</div><div class="hc-name">LEDGER</div><div class="hc-domain">Finance</div></div>
+<div class="hc"><div class="hc-emoji">🧬</div><div class="hc-name">BIOGUARD</div><div class="hc-domain">Life Sci</div></div>
+<div class="hc"><div class="hc-emoji">🐲</div><div class="hc-name">DRAGON MASTER</div><div class="hc-domain">Multi-domain</div></div>
+</div>
+</div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="testimonials">
+<div class="container">
+<div class="section-label">Early Voices</div>
+<h2 class="section-title">From the <span style="color:var(--red);">ecosystem.</span></h2>
+<div class="grid-3" style="margin-top:48px;">
+<div class="testi">
+<div class="t-quote">"Finally a platform that doesn't just test my knowledge — it navigates my entire career. GPS told me to skip one certification and do another. It was right. I got hired at ₹32L instead of ₹12L."</div>
+<div class="t-author">Arjun S.</div>
+<div class="t-role">ML Engineer · Former GATE aspirant</div>
+</div>
+<div class="testi">
+<div class="t-quote">"We replaced HackerRank, Mettl, and our internal ATS with Dragon Suite. The AI-generated assessments are truly unique per candidate. Our offer acceptance rate jumped 34%."</div>
+<div class="t-author">Meera R.</div>
+<div class="t-role">VP Engineering · Series C Fintech</div>
+</div>
+<div class="testi">
+<div class="t-quote">"As a placement officer, I could finally see which students needed help BEFORE they failed company tests. The batch analytics and auto-GPS paths saved our placement season."</div>
+<div class="t-author">Dr. Priya K.</div>
+<div class="t-role">Placement Director · Engineering College, Tamil Nadu</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+<div class="container" style="position:relative;">
+<h2 style="font-family:var(--fd);font-size:clamp(36px,5vw,64px);font-weight:900;margin-bottom:20px;">Ready to spot <span style="color:var(--red);">your Dragon?</span></h2>
+<p style="font-size:18px;color:var(--text2);margin-bottom:40px;">Join the waitlist. Be among the first to experience India's talent super app.</p>
+<div style="display:flex;gap:16px;justify-content:center;">
+<button class="btn-p">Get Early Access — Free</button>
+<button class="btn-s">Schedule Enterprise Demo</button>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<div style="font-weight:700;font-size:18px;margin-bottom:12px;">Dragon<span style="color:var(--red);">Suite</span></div>
+<div style="font-size:13px;color:var(--text3);line-height:1.6;max-width:280px;">The AI-native super app for talent assessment, learning, and hiring. Built in India. For the world.</div>
+</div>
+<div class="footer-col"><h4>Candidates</h4><a href="#">Dragon GPS</a><a href="#">Dragon Prep</a><a href="#">Dragon Arena</a><a href="#">Dragon Quest</a><a href="#">Dragon Hub</a></div>
+<div class="footer-col"><h4>Enterprise</h4><a href="#">Dragon Hire</a><a href="#">Dragon Bridge</a><a href="#">Dragon Review</a><a href="#">Dragon Vault</a><a href="#">Pricing</a></div>
+<div class="footer-col"><h4>Platform</h4><a href="#">Dragon AI</a><a href="#">Dragon Nexus</a><a href="#">Dragon Forge</a><a href="#">API Docs</a><a href="#">Status</a></div>
+<div class="footer-col"><h4>Company</h4><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Contact</a><a href="#">Press Kit</a></div>
+</div>
+<div class="footer-bottom">
+<div>© 2026 Dragon Suite. All rights reserved.</div>
+<div>Privacy · Terms · Security</div>
+</div>
+</div>
+</footer>
+</body>
+</html>
