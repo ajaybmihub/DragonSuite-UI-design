@@ -2005,12 +2005,146 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .rv-banner i {
+      color: var(--red);
+      font-size: 18px;
+    }
+
+    /* ──── RECRUITER VIEW MODES ──── */
+    /* Hide student specific elements */
+    body.rv-active .js-only {
+      display: none !important;
+    }
+
+    /* Show recruiter-only elements */
+    .rv-only {
+      display: none !important;
+    }
+
+    body.rv-active .rv-only {
+      display: flex !important;
+    }
+
+    body.rv-active .btn.rv-only {
+      display: block !important;
+    }
+
+    /* Hide edit buttons and settings in recruiter view */
+    body.rv-active .card-action,
+    body.rv-active .tb-r .btn:not(.rv-toggle):not(.rv-only),
+    body.rv-active .nudge,
+    body.rv-active .pc-bar,
+    body.rv-active .qs {
+      display: none !important;
+    }
+
+    /* Hero section glow effect in recruiter view */
+    body.rv-active .hero {
+      border: 1px solid rgba(255, 45, 85, 0.3);
+      border-radius: var(--r3);
+      padding: 12px 24px;
+      margin: 16px 24px 0;
+      background: linear-gradient(135deg, rgba(255, 45, 85, 0.05), transparent);
+      animation: glowPulse 2s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      from {
+        border-color: rgba(255, 45, 85, 0.2);
+        box-shadow: 0 0 10px rgba(255, 45, 85, 0.1);
+      }
+
+      to {
+        border-color: rgba(255, 45, 85, 0.5);
+        box-shadow: 0 0 20px rgba(255, 45, 85, 0.3);
+      }
+    }
+
+    /* Portfolio card enhancements in recruiter view */
+    body.rv-active .card {
+      border-color: rgba(255, 45, 85, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    body.rv-active .card:hover {
+      border-color: rgba(255, 45, 85, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 45, 85, 0.2);
+    }
+
+    /* Skill bars animation in recruiter view */
+    body.rv-active .skill-bar {
+      transition: width 1.5s ease;
+      background: linear-gradient(90deg, var(--red), #8B5CF6);
+    }
+
+    /* Recruiter view badge pulse */
+    .rv-view-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 45, 85, 0.15);
+      border: 1px solid rgba(255, 45, 85, 0.3);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--red);
+      margin-left: 10px;
+      animation: badgePulse 2s infinite;
+    }
+
+    @keyframes badgePulse {
+      0%, 100% {
+        opacity: 0.8;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+    }
+
+    /* Toast notification */
+    .rv-toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--red), #4F46E5);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: var(--r2);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 1000;
+      animation: slideInRight 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- ─── SIDEBAR ─── -->
+  <!-- ─── SIDEBAR ─── (unchanged) -->
   <aside class="sb">
     <div class="sb-logo">
       <div class="lm"><i class="ph-fill ph-dragon"></i></div>
@@ -2029,7 +2163,8 @@
         <div class="ni" data-nav="hub"><span class="ico"><i class="ph ph-globe"></i></span>Dragon Hub</div>
         <div class="ni" data-nav="hire"><span class="ico"><i class="ph ph-target"></i></span>Dragon Hire</div>
         <div class="ni" data-nav="bridge"><span class="ico"><i class="ph ph-bridge"></i></span>Dragon Bridge</div>
-        <div class="ni" data-nav="review"><span class="ico"><i class="ph ph-clipboard-text"></i></span>Dragon Review</div>
+        <div class="ni" data-nav="review"><span class="ico"><i class="ph ph-clipboard-text"></i></span>Dragon Review
+        </div>
         <div class="ndiv"></div>
         <div class="ni" data-nav="skill"><span class="ico"><i class="ph ph-wrench"></i></span>Skill Craft</div>
         <div class="ni" data-nav="lab"><span class="ico"><i class="ph ph-flask"></i></span>Project Lab</div>
@@ -2042,9 +2177,12 @@
     </div>
     <div class="sb-foot">
       <div class="usw-lbl">Switch Profile View</div>
-      <button class="usw" onclick="window.location.href='index.html'"><i class="ph ph-magnifying-glass"></i> Job Seeker</button>
-      <button class="usw" onclick="window.location.href='hr.html'"><i class="ph ph-buildings"></i> HR / Recruiter</button>
-      <button class="usw" onclick="window.location.href='placement.html'"><i class="ph ph-graduation-cap"></i> Placement Officer</button>
+      <button class="usw" onclick="window.location.href='index.html'"><i class="ph ph-magnifying-glass"></i> Job
+        Seeker</button>
+      <button class="usw" onclick="window.location.href='hr.html'"><i class="ph ph-buildings"></i> HR /
+        Recruiter</button>
+      <button class="usw" onclick="window.location.href='placement.html'"><i class="ph ph-graduation-cap"></i> Placement
+        Officer</button>
       <button class="usw on" onclick="window.location.href='student.html'"><i class="ph ph-book-open"></i> Student</button>
     </div>
   </aside>
@@ -2058,85 +2196,87 @@
         </div>
       </div>
       <div class="tb-r">
-        <button class="btn bg" style="font-size:11px;"><i class="ph ph-file-text"></i> Generate Resume</button>
-        <button class="btn bg"><i class="ph ph-gear"></i> Settings</button>
-        <button class="btn bp"><i class="ph ph-pencil"></i> Edit Profile</button>
+        <button class="btn bg js-only" style="font-size:11px;"><i class="ph ph-file-text"></i> Generate Resume</button>
+        <button class="btn bg js-only"><i class="ph ph-gear"></i> Settings</button>
+        <button class="btn bp js-only"><i class="ph ph-pencil"></i> Edit Profile</button>
+        <!-- Recruiter-only buttons (hidden by default) -->
+        <button class="btn bp rv-only" style="background:var(--red);"><i class="ph ph-user-plus"></i> Add to Pipeline</button>
+        <button class="btn bg rv-only"><i class="ph ph-chat-text"></i> Message</button>
         <div class="av" id="topAv" style="background:linear-gradient(135deg,#A78BFA,#7C3AED);">K</div>
       </div>
     </header>
 
-
-
-    <!-- ════════════════════════════════════
-     STUDENT
-════════════════════════════════════ -->
+    <!-- ========== STUDENT PROFILE (REDESIGNED) ========== -->
     <div class="ps on" id="ps-student">
 
-      <div class="nudge"
-        style="background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(245,158,11,0.02));border:1px solid rgba(245,158,11,0.22);">
-        <span class="n-ico"><i class="ph-fill ph-lightning"></i></span>
-        <div class="n-txt" style="color:var(--amber);"><strong>1 point away from Zoho (₹10 LPA).</strong> Take the DBMS
-          mock test — 20 minutes. 3 classmates crossed the threshold today.</div>
-        <span class="n-cta" style="color:var(--amber);">Take test <i class="ph ph-arrow-right"></i></span>
-        <span class="n-x" onclick="this.parentElement.style.display='none'">✕</span>
-      </div>
-
+      <!-- HERO SECTION -->
       <div class="hero">
         <div class="hero-inner">
           <div class="h-av-w">
-            <div class="h-av" style="border-color:var(--purple);background:rgba(167,139,250,0.07);"><i class="ph-fill ph-user-circle"></i></div>
+            <div class="h-av" style="border-color:var(--purple);background:rgba(167,139,250,0.07);"><i
+                class="ph-fill ph-user-circle"></i></div>
             <div class="h-badge" style="background:var(--purple);"><i class="ph ph-book-open"></i></div>
           </div>
           <div class="h-info">
             <div class="h-name">Kavya Nair</div>
-            <div class="h-role" style="background:var(--pd);color:var(--purple);"><i class="ph ph-book-open"></i> Student · PSG College · Final Year
-              CSE · 2025 Batch</div>
-            <div class="h-meta">
-              <div class="h-mi"><i class="ph ph-buildings"></i> PSG College of Technology, Coimbatore</div>
-              <div class="h-mi"><i class="ph ph-graduation-cap"></i> B.E CSE · Final Year</div>
-              <div class="h-mi" style="color:var(--purple);"><i class="ph ph-dragon"></i> Dragon Score: <strong>74</strong></div>
-              <div class="h-mi" style="color:var(--amber);"><i class="ph-fill ph-fire"></i> 18-day streak</div>
-              <div class="h-mi" style="color:var(--green);"><i class="ph ph-check-circle"></i> TCS Digital eligible</div>
+            <div style="font-size:13px;color:var(--t2);font-weight:500;margin-bottom:8px;letter-spacing:-.1px;">
+              B.E CSE, Final Year &nbsp;·&nbsp; <span style="color:var(--green);font-size:11px;font-weight:600;">● Actively
+                Preparing</span>
             </div>
-            <div class="h-acts">
-              <button class="btn bp" style="background:var(--purple);font-size:11px;">🧭 View GPS</button>
-              <button class="btn bg" style="font-size:11px;">📥 Import LinkedIn</button>
-              <button class="btn bg" style="font-size:11px;">⚔️ Practice Now</button>
+            <div class="h-meta">
+              <div class="h-mi">📍 PSG College of Technology, Coimbatore</div>
+              <div class="h-mi">🎓 2025 Batch</div>
+              <div class="h-mi">🐉 Dragon Score: 74</div>
+              <div class="h-mi" style="color:var(--amber);">🔥 18-day streak</div>
+              <div class="h-mi" style="color:var(--green);">✅ TCS Digital eligible</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <!-- Student Only -->
+              <button class="btn bp js-only" style="background:var(--purple);font-size:11px;padding:7px 16px;"><i class="ph ph-robot"></i>
+                Activate Study Agent</button>
+              <button class="btn bg js-only" style="font-size:11px;padding:7px 16px;"><i
+                  class="ph ph-download-simple"></i> Import LinkedIn</button>
+              <button class="btn bg" style="font-size:11px;padding:7px 16px;"><i class="ph ph-share-network"></i> Share
+                Profile</button>
+
+              <!-- Recruiter Only -->
+              <button class="btn bp rv-only" style="font-size:11px;padding:7px 16px;background:var(--red);"><i
+                  class="ph ph-user-plus"></i> Add to Pipeline</button>
+              <button class="btn bg rv-only" style="font-size:11px;padding:7px 16px;"><i class="ph ph-chats"></i>
+                Message Kavya</button>
+              <button class="btn bg rv-only" style="font-size:11px;padding:7px 16px;"><i class="ph ph-file-pdf"></i>
+                Download Resume</button>
             </div>
           </div>
+
+          <!-- Score cards -->
           <div class="h-scores">
-            <div class="sc" style="border-color:rgba(167,139,250,0.22);">
+            <div class="sc" style="border-color:rgba(167,139,250,0.25);">
               <div class="sc-lbl">Dragon Score</div>
               <div class="sc-val" style="color:var(--purple);">74</div>
-              <div class="sc-sub">Top 32% in batch</div>
-              <div class="sc-tr up"><i class="ph ph-trend-up"></i> +8 this month <i class="ph ph-rocket"></i></div>
+              <div style="font-size:9.5px;color:var(--t3);margin-top:2px;">Top 32% in batch</div>
             </div>
             <div class="sc" style="border-color:rgba(16,185,129,0.2);">
               <div class="sc-lbl">Trust Score</div>
               <div class="sc-val" style="color:var(--green);">88</div>
-              <div class="sc-sub">3 proctored sessions</div>
+              <div style="font-size:9.5px;color:var(--t3);margin-top:2px;">3 proctored sessions</div>
+            </div>
+            <div class="sc" style="border-color:rgba(245,158,11,0.25);">
+              <div class="sc-lbl">Completion</div>
+              <div class="sc-val" style="color:var(--amber);">62%</div>
+              <div style="font-size:9.5px;color:var(--t3);margin-top:2px;">Add GitHub + certs</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Profile completion -->
-      <div class="pc-bar">
-        <span class="pc-label">Profile Completion</span>
-        <div class="pc-track">
-          <div class="pc-fill" style="width:62%;"></div>
-        </div>
-        <span class="pc-pct">62%</span>
-        <span class="pc-tip">Add GitHub · 2 more certs · Projects <i class="ph ph-arrow-right"></i> 100%</span>
-      </div>
-
-      <!-- QUEST STRIP -->
-      <div class="qs">
+      <!-- QUEST STRIP (Gamification) -->
+      <!-- <div class="qs">
         <div class="qs-row">
           <div class="qs-ico"><i class="ph-fill ph-smiley-wink"></i></div>
           <div class="qs-inf">
             <div class="qs-nm">Swift Fox — Level 7 · DSA Specialist <i class="ph-fill ph-fire"></i></div>
-            <div class="qs-sb">Dragon Quest · 3 days to Movie Tickets <i class="ph ph-sparkle"></i> · Don't break the streak!</div>
+            <div class="qs-sb">Dragon Quest · 3 days to Movie Tickets · Don't break the streak!</div>
           </div>
           <div class="qs-stats">
             <div class="qsp">
@@ -2144,7 +2284,8 @@
               <div class="qsp-l">XP</div>
             </div>
             <div class="qsp">
-              <div class="qsp-v" style="color:var(--amber);">18<span class="sf"><i class="ph-fill ph-fire"></i></span></div>
+              <div class="qsp-v" style="color:var(--amber);">18<span class="sf"><i class="ph-fill ph-fire"></i></span>
+              </div>
               <div class="qsp-l">Streak</div>
             </div>
             <div class="qsp">
@@ -2153,37 +2294,64 @@
             </div>
           </div>
         </div>
-        <div class="qs-bar-l"><span>Level 7 <i class="ph ph-arrow-right"></i> 8</span><span>1,840 / 2,500 XP</span></div>
+        <div class="qs-bar-l"><span>Level 7 → 8</span><span>1,840 / 2,500 XP</span></div>
         <div class="bt">
           <div class="bf" style="width:73.6%;background:linear-gradient(90deg,var(--purple),var(--blue));"></div>
         </div>
         <div style="font-size:11px;color:var(--t2);margin-top:7px;">🏫 College rank: <strong
             style="color:var(--purple);">#34 / 620</strong> · Top 6% · 3 study days = Movie Tickets reward</div>
-      </div>
+      </div> -->
 
+      <!-- TABS (Now only 3) -->
       <div class="tabs" style="--tc:var(--purple);">
-        <div class="tab on" onclick="stab(this,'st-t1')">Overview</div>
-        <div class="tab" onclick="stab(this,'st-t2')">Drives & Eligibility</div>
-        <div class="tab" onclick="stab(this,'st-t3')">Portfolio</div>
-        <div class="tab" onclick="stab(this,'st-t4')">Prep & Practice</div>
-        <div class="tab" onclick="stab(this,'st-t5')">Dragon Quest</div>
-        <div class="tab" onclick="stab(this,'st-t6')">Connections</div>
-        <div class="tab" onclick="stab(this,'st-t7')">Modules <span class="tc">11</span></div>
+        <div class="tab on" onclick="stab(this,'st-t1')"><i class="ph ph-folder"></i> Overview</div>
+        <div class="tab" onclick="stab(this,'st-t2')"><i class="ph ph-briefcase"></i> Drives</div>
+        <div class="tab" onclick="stab(this,'st-t3')"><i class="ph ph-lightning"></i> Quest & Activity</div>
       </div>
 
+      <!-- ========== TAB 1: OVERVIEW ========== -->
       <div class="tp on" id="st-t1">
-        <div class="ov-grid">
-          <div class="ov-main">
-
-            <!-- AI SKILL GRAPH — TOP -->
+        <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;">
+          <!-- Left Main -->
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <!-- Why You (for recruiters) -->
+            <div class="card js-only">
+              <div class="card-head">
+                <div class="card-title"><i class="ph ph-lightbulb"></i> Why You — For Recruiters</div>
+                <span class="card-action">Edit →</span>
+              </div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:0;">
+                <div class="why-item"><span class="why-num" style="color:var(--purple);">01</span>
+                  <div style="flex:1;">
+                    <div class="why-t">Verified skills, not just a resume</div>
+                    <div class="why-s">7 certifications independently verified from AWS, Snowflake, and Databricks. Trust Score 88 — all assessments proctored.</div>
+                  </div>
+                </div>
+                <div class="why-item"><span class="why-num" style="color:var(--purple);">02</span>
+                  <div style="flex:1;">
+                    <div class="why-t">Consistently ranked top 6% in college</div>
+                    <div class="why-s">Dragon Score 74, Rank #34 of 620 students. Moved from rank 280 to 197 in one month — consistently improving.</div>
+                  </div>
+                </div>
+                <div class="why-item" style="margin-bottom:0;"><span class="why-num"
+                    style="color:var(--purple);">03</span>
+                  <div style="flex:1;">
+                    <div class="why-t">18-day unbroken learning streak</div>
+                    <div class="why-s">Proof of discipline and work ethic. 142 problems solved this semester, 3+ hours
+                      of structured learning per day.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- AI Skill Graph -->
             <div class="card">
               <div class="card-head">
                 <div class="card-title"><i class="ph ph-brain"></i> AI Skill Graph <span
-                    style="font-size:10px;color:var(--t3);font-weight:400;">— from certs + assessments</span></div><span
-                  class="card-action">Full analysis <i class="ph ph-arrow-right"></i></span>
+                    style="font-size:10px;color:var(--t3);font-weight:400;">— from certs + assessments</span></div>
+                <span class="card-action">Full analysis →</span>
               </div>
               <div class="card-body">
-                <div class="two" style="gap:10px;">
+                <div class="two" style="gap:12px;">
                   <div>
                     <div class="skill-item"><span class="skill-name">Python</span>
                       <div class="skill-bar-wrap">
@@ -2212,125 +2380,98 @@
                         <div class="skill-bar" style="width:45%;background:var(--red);"></div>
                       </div><span class="skill-val" style="color:var(--red);">45</span>
                     </div>
-                    <div class="skill-item"><span class="skill-name">Data Science</span>
-                      <div class="skill-bar-wrap">
-                        <div class="skill-bar" style="width:70%;background:var(--cyan);"></div>
-                      </div><span class="skill-val" style="color:var(--cyan);">70</span>
-                    </div>
                   </div>
+                </div>
+                <div class="chip-row">
+                  <span class="chip cp">Python</span><span class="chip cb">DSA</span><span
+                    class="chip cg">SQL</span><span class="chip ca">Aptitude</span>
                 </div>
               </div>
             </div>
 
-            <!-- WHY YOU -->
+            <!-- Experience (new) -->
             <div class="card">
               <div class="card-head">
-                <div class="card-title"><i class="ph ph-lightbulb"></i> Why You — For Recruiters</div><span class="card-action">Edit <i class="ph ph-arrow-right"></i></span>
+                <div class="card-title"><i class="ph ph-briefcase"></i> Experience & Internships</div>
+                <button class="btn bg js-only" style="font-size:10px;padding:3px 9px;">+ Add Exp</button>
               </div>
-              <div class="card-body" style="display:flex;flex-direction:column;gap:0;">
-                <div class="why-item"><span class="why-num" style="color:var(--purple);">01</span>
-                  <div>
-                    <div class="why-t">Verified skills, not just a resume</div>
-                    <div class="why-s">2 certifications independently verified from Coursera and Kaggle. Trust Score 88
-                      — all assessments proctored with AI monitoring.</div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
+                <div style="padding:12px 14px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                    <div>
+                      <div style="font-size:13px;font-weight:700;">Machine Learning Intern</div>
+                      <div style="font-size:11.5px;color:var(--red);font-weight:600;">Zoho Corporation</div>
+                    </div>
+                    <span style="font-size:10.5px;color:var(--t3);">May 2024 – Jul 2024</span>
                   </div>
-                </div>
-                <div class="why-item"><span class="why-num" style="color:var(--purple);">02</span>
-                  <div>
-                    <div class="why-t">Consistently ranked top 6% in college</div>
-                    <div class="why-s">Dragon Score 74, Rank #34 of 620 students. Moved from rank 280 to 197 in one
-                      month — consistently improving.</div>
-                  </div>
-                </div>
-                <div class="why-item" style="margin-bottom:0;"><span class="why-num"
-                    style="color:var(--purple);">03</span>
-                  <div>
-                    <div class="why-t">18-day unbroken learning streak</div>
-                    <div class="why-s">Proof of discipline and work ethic. 142 problems solved this semester, 3+ hours
-                      of structured learning per day.</div>
-                  </div>
+                  <div style="font-size:11.5px;color:var(--t2);line-height:1.55;">Optimized SQL queries for internal dashboarding. Built a sentiment analysis model using Python/NLTK for customer support tickets.</div>
+                  <div class="chip-row"><span class="chip cb">SQL</span><span class="chip cr">Python</span><span class="chip cg">NLTK</span></div>
                 </div>
               </div>
             </div>
 
-            <!-- AI INSIGHTS -->
-            <div class="card" style="border-color:rgba(59,130,246,0.14);">
+            <!-- Featured Projects (new) -->
+            <div class="card">
               <div class="card-head">
-                <div class="card-title" style="color:var(--blue);"><i class="ph ph-brain"></i> AI Insights Panel</div>
+                <div class="card-title"><i class="ph ph-flask"></i> Featured Projects</div>
+                <button class="btn bg js-only" style="font-size:10px;padding:3px 9px;">+ Add Project</button>
               </div>
-              <div class="card-body" style="display:flex;flex-direction:column;gap:7px;">
-                <div
-                  style="padding:9px 11px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.14);border-radius:var(--r2);font-size:11.5px;color:var(--t2);">
-                  <i class="ph-fill ph-lightning"></i> <strong style="color:var(--amber);">Action now:</strong> DBMS mock test (20 min) <i class="ph ph-arrow-right"></i> +2 Dragon Score <i class="ph ph-arrow-right"></i>
-                  Zoho eligible (₹10 LPA). Drive is Apr 4.</div>
-                <div
-                  style="padding:9px 11px;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.14);border-radius:var(--r2);font-size:11.5px;color:var(--t2);">
-                  <i class="ph ph-trend-up"></i> <strong style="color:var(--purple);">Progress:</strong> +8 Dragon Score this month. You've moved
-                  from rank 280 <i class="ph ph-arrow-right"></i> 197. At this pace, top 20% by April.</div>
-                <div
-                  style="padding:9px 11px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.13);border-radius:var(--r2);font-size:11.5px;color:var(--t2);">
-                  <i class="ph ph-medal"></i> <strong style="color:var(--green);">Next cert:</strong> AWS Cloud Practitioner (free, 2 weeks) <i class="ph ph-arrow-right"></i> +5
-                  Dragon Score <i class="ph ph-arrow-right"></i> 14 new campus roles unlocked.</div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
+                <div style="padding:12px 14px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                    <div style="font-size:13px;font-weight:700;">AI-Driven Portfolio Optimizer</div>
+                    <span style="background:var(--gd);color:var(--green);font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:7px;">Quality 82/100</span>
+                  </div>
+                  <div style="font-size:11.5px;color:var(--t2);margin-bottom:8px;">End-to-end stocks analysis with Flask, Scikit-learn, and Yahoo Finance API. 12 recruiter views.</div>
+                  <div class="chip-row"><span class="chip cb">Flask</span><span class="chip cr">ML</span><span class="chip cg">API</span></div>
+                </div>
               </div>
             </div>
 
-            <!-- CERTIFICATIONS compact -->
-            <div class="acc" style="--ac:rgba(16,185,129,0.2);">
+            <!-- Certifications (accordion) -->
+            <div class="acc ex" style="--ac:rgba(16,185,129,0.2);">
               <div class="acc-h" onclick="tog(this)">
                 <span class="acc-ic"><i class="ph ph-medal"></i></span>
                 <div class="acc-t">
                   <div class="acc-tm">Certifications</div>
-                  <div class="acc-ts">2 verified · Python Data Science (IBM) · SQL for Data Analysis (Kaggle)</div>
+                  <div class="acc-ts">7 verified · 2 expiring soon</div>
                 </div>
-                <div class="acc-r"><span class="acc-badge" style="background:var(--gd);color:var(--green);">2
-                    Verified</span><span class="acc-arr"><i class="ph ph-caret-down"></i></span></div>
+                <div class="acc-r"><span class="acc-badge" style="background:var(--gd);color:var(--green);">7
+                    Verified</span><span class="acc-arr">▲</span></div>
               </div>
               <div class="acc-body">
-                <div class="cert-row"><span class="cert-ico">🐍</span>
+                <div class="cert-row"><span class="cert-ico" style="color:#A78BFA;"><i class="ph-fill ph-medal"></i></span>
                   <div class="cert-inf">
-                    <div class="cert-nm">Python for Data Science — IBM</div>
-                    <div class="cert-dt">Coursera · Jan 2025 · Dragon Nexus verified</div>
+                    <div class="cert-nm">AWS ML Specialty</div>
+                    <div class="cert-dt">Amazon · Jan 2024 · Exp Jan 2027</div>
                   </div><span class="cert-v">✓</span>
                 </div>
-                <div class="cert-row"><span class="cert-ico">📊</span>
+                <div class="cert-row"><span class="cert-ico" style="color:#38BDF8;">❄️</span>
                   <div class="cert-inf">
-                    <div class="cert-nm">SQL for Data Analysis — Kaggle</div>
-                    <div class="cert-dt">Kaggle · Feb 2025 · Dragon Nexus verified</div>
+                    <div class="cert-nm">Snowflake SnowPro Core</div>
+                    <div class="cert-dt">Snowflake · Mar 2024 · Exp Mar 2026</div>
                   </div><span class="cert-v">✓</span>
                 </div>
-                <div class="ai-box">
-                  <div class="ai-h"><i class="ph ph-brain"></i> Next cert to add</div>
-                  <div class="ai-p"><strong>AWS Cloud Practitioner</strong> (free, 2 weeks) → +5 Dragon Score → 14 new
-                    campus roles. Highest ROI cert for your profile.</div>
+                <div class="cert-row"><span class="cert-ico" style="color:#F97316;">🔶</span>
+                  <div class="cert-inf">
+                    <div class="cert-nm">Databricks Assoc. Developer</div>
+                    <div class="cert-dt">Databricks · Jun 2023 · No expiry</div>
+                  </div><span class="cert-v">✓</span>
+                </div>
+                <div class="cert-row"><span class="cert-ico" style="color:#0EA5E9;">🟦</span>
+                  <div class="cert-inf">
+                    <div class="cert-nm">Azure AI Engineer Associate</div>
+                    <div class="cert-dt">Microsoft · Nov 2024 · Exp Nov 2025</div>
+                  </div><span class="cert-v">✓</span>
                 </div>
               </div>
             </div>
+          </div> <!-- end left column -->
 
-            <!-- PROOF OF SKILL FROM GITHUB -->
-            <div class="acc" style="--ac:rgba(59,130,246,0.2);">
-              <div class="acc-h" onclick="tog(this)">
-                <span class="acc-ic"><i class="ph ph-github-logo"></i></span>
-                <div class="acc-t">
-                  <div class="acc-tm">Proof of Skill — GitHub</div>
-                  <div class="acc-ts">Not connected yet · Connect to show projects to recruiters</div>
-                </div>
-                <div class="acc-r"><span class="acc-badge"
-                    style="background:var(--bd);color:var(--blue);">Connect</span><span class="acc-arr"><i class="ph ph-caret-down"></i></span></div>
-              </div>
-              <div class="acc-body">
-                <div style="text-align:center;padding:20px;color:var(--t3);font-size:12px;">
-                  <div style="font-size:28px;margin-bottom:8px;">🐙</div>
-                  <div style="margin-bottom:10px;">Connect your GitHub to show recruiters your actual code, not just a
-                    resume line.</div>
-                  <button class="btn bp" style="background:var(--purple);font-size:11.5px;">Connect GitHub → +2 Dragon
-                    Score</button>
-                </div>
-              </div>
-            </div>
+          <!-- Right Sidebar -->
+          <div style="display:flex;flex-direction:column;gap:14px;">
 
-          </div>
-          <div class="ov-side">
-
+            <!-- Nudges -->
             <div class="card">
               <div class="card-head">
                 <div class="card-title"><i class="ph ph-bell"></i> Your Nudges</div>
@@ -2343,14 +2484,14 @@
                       style="color:var(--amber);">Zoho drive is Apr 4 — 17 days.</strong> 1 point away. 3 classmates
                     crossed threshold today.<span
                       style="display:block;margin-top:4px;color:var(--amber);font-weight:700;font-size:10.5px;cursor:pointer;">Take
-                      DBMS mock <i class="ph ph-arrow-right"></i></span></div>
+                      DBMS mock →</span></div>
                 </div>
                 <div
                   style="display:flex;gap:8px;padding:9px 11px;background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.18);border-radius:var(--r2);">
                   <span style="font-size:16px;animation:pulse 2s infinite;"><i class="ph ph-dragon"></i></span>
                   <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.4;"><strong
-                      style="color:var(--purple);">Score jumped +8 this month.</strong> Rank 280 <i class="ph ph-arrow-right"></i> 197. Keep this pace
-                    for 3 more weeks <i class="ph ph-arrow-right"></i> Top 20%.</div>
+                      style="color:var(--purple);">Score jumped +8 this month.</strong> Rank 280 → 197. Keep this pace
+                    for 3 more weeks → Top 20%.</div>
                 </div>
                 <div
                   style="display:flex;gap:8px;padding:9px 11px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.16);border-radius:var(--r2);">
@@ -2365,8 +2506,8 @@
             <!-- GPS short -->
             <div class="card" style="border-color:rgba(167,139,250,0.2);">
               <div class="card-head">
-                <div class="card-title"><i class="ph ph-compass"></i> Dragon GPS</div><span class="card-action" style="color:var(--purple);">Full
-                  map <i class="ph ph-arrow-right"></i></span>
+                <div class="card-title"><i class="ph ph-compass"></i> Dragon GPS</div>
+                <span class="card-action" style="color:var(--purple);">Full map →</span>
               </div>
               <div class="card-body">
                 <div style="font-size:11.5px;color:var(--t2);margin-bottom:8px;">Target: <strong
@@ -2378,8 +2519,8 @@
                     </div>
                   </div>
                 </div>
-                <div style="font-size:11.5px;color:var(--green);margin-bottom:10px;"><i class="ph ph-target"></i> ETA: 3 days at current pace
-                </div>
+                <div style="font-size:11.5px;color:var(--green);margin-bottom:10px;"><i class="ph ph-target"></i> ETA: 3
+                  days at current pace</div>
                 <div class="gps-step now">
                   <div class="gps-dot dn"><i class="ph-fill ph-circle"></i></div>
                   <div>
@@ -2387,60 +2528,13 @@
                     <div class="gps-s">Key gap — finish → Score 76</div>
                   </div>
                 </div>
-                <div class="gps-step">
-                  <div class="gps-dot du">3</div>
-                  <div>
-                    <div class="gps-t">DSA — Arrays, Trees, Graphs</div>
-                    <div class="gps-s">High priority for TCS Digital</div>
-                  </div>
-                </div>
-                <div class="gps-step">
-                  <div class="gps-dot du"><i class="ph ph-trophy"></i></div>
-                  <div>
-                    <div class="gps-t">Zoho Drive — Apr 4 · ₹10 LPA</div>
-                  </div>
-                </div>
               </div>
             </div>
+          </div> <!-- end right column -->
+        </div> <!-- end grid -->
+      </div> <!-- end st-t1 -->
 
-            <!-- Today's plan -->
-            <div class="card" style="border-color:rgba(167,139,250,0.18);">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-calendar-blank"></i> Today's Plan</div><span style="font-size:10px;color:var(--green);">+195 XP if
-                  all done</span>
-              </div>
-              <div class="card-body" style="display:flex;flex-direction:column;gap:6px;">
-                <div
-                  style="display:flex;gap:9px;padding:9px;background:var(--bg2);border-radius:var(--r2);align-items:center;border:1px solid var(--b);cursor:pointer;">
-                  <span style="font-size:16px;"><i class="ph ph-book-open"></i></span>
-                  <div style="flex:1;">
-                    <div style="font-size:12px;font-weight:600;">DBMS Normalization & Joins</div>
-                    <div style="font-size:10.5px;color:var(--t3);">30 min · Dragon Prep · +90 XP</div>
-                  </div><span style="font-size:10.5px;font-weight:700;color:var(--purple);">Start <i class="ph ph-arrow-right"></i></span>
-                </div>
-                <div
-                  style="display:flex;gap:9px;padding:9px;background:var(--bg2);border-radius:var(--r2);align-items:center;border:1px solid var(--b);cursor:pointer;">
-                  <span style="font-size:16px;"><i class="ph ph-sword"></i></span>
-                  <div style="flex:1;">
-                    <div style="font-size:12px;font-weight:600;">DBMS Mock Test — Dragon Arena</div>
-                    <div style="font-size:10.5px;color:var(--t3);">20 min · Updates Dragon Score · +60 XP</div>
-                  </div><span style="font-size:10.5px;font-weight:700;color:var(--red);">Start <i class="ph ph-arrow-right"></i></span>
-                </div>
-                <div
-                  style="display:flex;gap:9px;padding:9px;background:var(--bg2);border-radius:var(--r2);align-items:center;border:1px solid var(--b);cursor:pointer;">
-                  <span style="font-size:16px;"><i class="ph ph-puzzle-piece"></i></span>
-                  <div style="flex:1;">
-                    <div style="font-size:12px;font-weight:600;">3 LeetCode Easy (Array pattern)</div>
-                    <div style="font-size:10.5px;color:var(--t3);">Dragon Prep · +45 XP</div>
-                  </div><span style="font-size:10.5px;font-weight:700;color:var(--blue);">Start <i class="ph ph-arrow-right"></i></span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
+      <!-- ========== TAB 2: DRIVES & GPS ========== -->
       <div class="tp" id="st-t2">
         <div style="font-size:12px;color:var(--t2);margin-bottom:14px;">Your eligibility updates in real-time as your
           Dragon Score changes. Complete today's DBMS mock to unlock Zoho.</div>
@@ -2479,406 +2573,202 @@
             <div class="elig-meta">Threshold: 65 · Your score: 74 · Apr 15 · ₹6.5 LPA</div>
           </div><span class="elig-tag" style="background:var(--gd);color:var(--green);">ELIGIBLE</span>
         </div>
-        <div class="ai-box">
-          <div class="ai-h"><i class="ph ph-brain"></i> Dragon AI — Zoho Plan</div>
-          <div class="ai-p">Step 1: Complete <strong>DBMS mock test today</strong> (+2 pts → Score 76 → Zoho eligible).
-            Step 2: <strong>3-day SQL sprint</strong> in Skill Craft. Step 3: Register for Zoho (Apr 4). That's the
-            whole plan.</div>
-        </div>
-      </div>
 
-      <!-- PORTFOLIO -->
-      <div class="tp" id="st-t3">
-        <div class="sbl">
-          <div>
-            <div class="action-strip">
-              <button class="a-btn">📥 Import LinkedIn</button>
-              <button class="a-btn">📄 Generate Resume</button>
-              <button class="a-btn">🐙 Connect GitHub</button>
+        <!-- Upcoming Drives (short) -->
+        <div class="card" style="margin-top:16px;">
+          <div class="card-head">
+            <div class="card-title"><i class="ph ph-calendar"></i> Upcoming Drives</div>
+          </div>
+          <div class="card-body">
+            <div class="drive">
+              <div class="dr-dt">
+                <div class="dr-day" style="color:var(--green);">21</div>
+                <div class="dr-mo">Mar</div>
+              </div>
+              <div class="dr-inf">
+                <div class="dr-co">Infosys · SE</div>
+                <div class="dr-meta">₹6.5L · 412 eligible</div>
+              </div><span class="dr-badge" style="background:var(--gd);color:var(--green);">Confirmed</span>
             </div>
-            <div class="slbl">💼 Experience</div>
-            <div
-              style="background:var(--card);border:1px solid var(--b);border-radius:var(--r2);padding:12px 14px;margin-bottom:14px;">
-              <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-                <div>
-                  <div style="font-size:13px;font-weight:700;">ML Intern</div>
-                  <div style="font-size:11.5px;color:var(--purple);font-weight:600;">Zoho Corporation</div>
-                </div>
-                <span style="font-size:10.5px;color:var(--t3);">May 2024 – Jul 2024</span>
+            <div class="drive">
+              <div class="dr-dt">
+                <div class="dr-day" style="color:var(--blue);">28</div>
+                <div class="dr-mo">Mar</div>
               </div>
-              <div style="font-size:11.5px;color:var(--t2);line-height:1.55;">Built a customer churn prediction model
-                using XGBoost achieving 87% accuracy. Worked on Zoho Analytics backend data pipelines.</div>
-              <div class="chip-row"><span class="chip cp">Python</span><span class="chip cb">XGBoost</span><span
-                  class="chip cg">SQL</span></div>
+              <div class="dr-inf">
+                <div class="dr-co">TCS Digital · DE</div>
+                <div class="dr-meta">₹7L · 364 eligible</div>
+              </div><span class="dr-badge" style="background:var(--bd);color:var(--blue);">Confirmed</span>
             </div>
-            <div class="slbl">🧪 Projects</div>
-            <div style="display:flex;flex-direction:column;gap:9px;">
-              <div style="background:var(--card);border:1px solid var(--b);border-radius:var(--r2);padding:12px 14px;">
-                <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-                  <div style="font-size:13px;font-weight:700;">Student Portal with Django + SQL</div>
-                  <span
-                    style="background:var(--ad);color:var(--amber);font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;">In
-                    Progress</span>
-                </div>
-                <div style="font-size:11.5px;color:var(--t2);margin-bottom:7px;">Full-stack student attendance and grade
-                  management system. Matches Zoho's tech stack.</div>
-                <div class="chip-row" style="margin-top:0;"><span class="chip cp">Django</span><span
-                    class="chip cb">PostgreSQL</span><span class="chip cg">HTML/CSS</span></div>
+            <div class="drive">
+              <div class="dr-dt">
+                <div class="dr-day" style="color:var(--red);">04</div>
+                <div class="dr-mo">Apr</div>
               </div>
-              <div style="background:var(--card);border:1px solid var(--b);border-radius:var(--r2);padding:12px 14px;">
-                <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-                  <div style="font-size:13px;font-weight:700;">Sales Dashboard — Pandas + Plotly</div>
-                  <span
-                    style="background:var(--gd);color:var(--green);font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;">Quality
-                    72/100</span>
-                </div>
-                <div style="font-size:11.5px;color:var(--t2);margin-bottom:7px;">Interactive sales analytics dashboard.
-                  Viewed by 12 recruiters via Project Lab.</div>
-                <div class="chip-row" style="margin-top:0;"><span class="chip cr">Python</span><span
-                    class="chip ca">Pandas</span><span class="chip cc">Plotly</span></div>
-              </div>
+              <div class="dr-inf">
+                <div class="dr-co">Zoho · SDE</div>
+                <div class="dr-meta">₹10L · 287 eligible</div>
+              </div><span class="dr-badge" style="background:var(--bd);color:var(--blue);">Confirmed</span>
             </div>
           </div>
-          <div>
-            <div class="slbl">🏅 Certifications</div>
-            <div class="card">
-              <div class="card-body">
-                <div class="cert-row"><span class="cert-ico">🐍</span>
-                  <div class="cert-inf">
-                    <div class="cert-nm">Python for Data Science — IBM</div>
-                    <div class="cert-dt">Coursera · Jan 2025 · Verified</div>
-                  </div><span class="cert-v">✓</span>
-                </div>
-                <div class="cert-row"><span class="cert-ico">📊</span>
-                  <div class="cert-inf">
-                    <div class="cert-nm">SQL for Data Analysis — Kaggle</div>
-                    <div class="cert-dt">Kaggle · Feb 2025 · Verified</div>
-                  </div><span class="cert-v">✓</span>
-                </div>
+        </div>
+
+      <!-- ========== TAB 3: QUEST & ACTIVITY ========== -->
+      <div class="tp" id="st-t3">
+        <div style="display:grid;grid-template-columns:1fr 340px;gap:16px;">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+
+            <!-- Gamification (Dragon Quest) -->
+            <div
+              style="background:linear-gradient(135deg,rgba(167,139,250,0.1),rgba(59,130,246,0.06));border:1px solid rgba(167,139,250,0.22);border-radius:var(--r3);overflow:hidden;position:relative;">
+              <div
+                style="position:absolute;right:0;top:0;bottom:0;width:180px;background:linear-gradient(90deg,transparent,rgba(167,139,250,0.06));pointer-events:none;">
+              </div>
+              <i class="ph-fill ph-dragon"
+                style="position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:72px;opacity:0.06;pointer-events:none;"></i>
+
+              <div style="padding:18px 20px 14px;display:flex;align-items:center;gap:14px;">
                 <div
-                  style="text-align:center;padding:12px;border:1px dashed rgba(167,139,250,0.3);border-radius:var(--r2);margin-top:8px;cursor:pointer;">
-                  <div style="font-size:12px;color:var(--purple);">+ Add More Certs</div>
-                  <div style="font-size:10.5px;color:var(--t3);">Each cert = +3–8 Dragon Score</div>
+                  style="width:52px;height:52px;border-radius:50%;background:rgba(167,139,250,0.16);border:2px solid rgba(167,139,250,0.3);display:grid;place-items:center;font-size:26px;flex-shrink:0;">
+                  <i class="ph ph-shield-chevron"></i>
+                </div>
+                <div style="flex:1;">
+                  <div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:3px;">Swift Fox — Level 7
+                    Fire Drake <i class="ph-fill ph-fire"></i></div>
+                  <div style="font-size:11.5px;color:var(--t2);">Dragon Quest · DSA Specialist · Agentic AI track</div>
+                </div>
+                <div style="display:flex;gap:22px;flex-shrink:0;">
+                  <div style="text-align:center;">
+                    <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--purple);">1,840</div>
+                    <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">XP</div>
+                  </div>
+                  <div style="text-align:center;">
+                    <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--amber);">18 <span
+                        style="animation:fire .8s infinite alternate;display:inline-block;"><i
+                          class="ph-fill ph-fire"></i></span></div>
+                    <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Streak</div>
+                  </div>
+                  <div style="text-align:center;">
+                    <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--green);">280</div>
+                    <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Coins</div>
+                  </div>
                 </div>
               </div>
+
+              <div style="padding:0 20px 10px;">
+                <div style="display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:5px;"><span
+                    style="color:var(--t2);">Level 7 → 8 progress</span><span
+                    style="color:var(--purple);font-family:var(--fm);font-weight:600;">1,840 / 2,500 XP</span></div>
+                <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+                  <div
+                    style="width:73.6%;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--purple),var(--blue));">
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style="border-top:1px solid rgba(167,139,250,0.15);padding:12px 20px;display:flex;gap:8px;align-items:center;">
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
+                  <div style="font-size:11.5px;color:var(--t2);"><i class="ph ph-lightning"></i> Next milestone: <strong
+                      style="color:var(--amber);">5-day boss battle</strong> starts tomorrow</div>
+                  <div style="font-size:11px;color:var(--t3);">Win = <strong style="color:var(--t1);">Exclusive Dragon
+                      Badge + 500 coins</strong> · Don't break your streak!</div>
+                </div>
+                <button class="btn bp" style="background:var(--purple);font-size:11.5px;white-space:nowrap;">Prep for
+                  Boss →</button>
+              </div>
             </div>
-            <div class="slbl" style="margin-top:14px;">🌟 Endorsements</div>
+
+            <!-- Recent Activity -->
             <div class="card">
+              <div class="card-head">
+                <div class="card-title">🕐 Recent Activity</div><span style="font-size:11px;color:var(--t3);">Last 7
+                  days</span>
+              </div>
               <div class="card-body">
-                <div class="endorse">
-                  <div class="e-av" style="background:linear-gradient(135deg,var(--purple),var(--blue));">ZI</div>
-                  <div class="e-inf">
-                    <div class="e-nm">Zoho Internship Mentor</div>
-                    <div class="e-rl">Senior Engineer · Zoho Corporation</div>
-                    <div class="e-txt">"Kavya picked up Django and SQL in record time. Her churn prediction model went
-                      directly to the analytics team."</div>
+                <div class="notif">
+                  <div class="nd" style="background:var(--green);"></div>
+                  <div class="nb">
+                    <div class="nt">Completed <strong>System Design Assessment</strong> — 84/100 · Trust 96</div>
+                    <div class="ntime">2 hours ago</div>
+                  </div>
+                </div>
+                <div class="notif">
+                  <div class="nd" style="background:var(--purple);"></div>
+                  <div class="nb">
+                    <div class="nt">Completed <strong>RAG Module 2</strong> in Dragon Prep · +120 XP</div>
+                    <div class="ntime">2 days ago</div>
+                  </div>
+                </div>
+                <div class="notif">
+                  <div class="nd" style="background:var(--amber);"></div>
+                  <div class="nb">
+                    <div class="nt">Quest streak hit <strong>42 days</strong> <i class="ph-fill ph-fire"></i> · Reward:
+                      Movie Tickets claimed</div>
+                    <div class="ntime">3 days ago</div>
+                  </div>
+                </div>
+                <div class="notif">
+                  <div class="nd" style="background:var(--blue);"></div>
+                  <div class="nb">
+                    <div class="nt">AWS ML Specialty cert verified via <strong>Dragon Nexus</strong></div>
+                    <div class="ntime">5 days ago</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="tp" id="st-t4">
-        <div class="two">
-          <div>
-            <div class="slbl">📚 Dragon Prep — Recent Activity</div>
-            <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px;">
-              <div
-                style="display:flex;gap:9px;padding:10px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);">
-                <span style="font-size:16px;">📖</span>
-                <div>
-                  <div style="font-size:12px;font-weight:600;">DBMS — Normalization Chapter 3</div>
-                  <div style="font-size:10.5px;color:var(--t3);">Course · 2 hours ago · +90 XP</div>
-                </div>
-              </div>
-              <div
-                style="display:flex;gap:9px;padding:10px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);">
-                <span style="font-size:16px;">💻</span>
-                <div>
-                  <div style="font-size:12px;font-weight:600;">LeetCode: Two Sum + Maximum Subarray</div>
-                  <div style="font-size:10.5px;color:var(--t3);">Coding · Yesterday · +30 XP</div>
-                </div>
-              </div>
-              <div
-                style="display:flex;gap:9px;padding:10px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);">
-                <span style="font-size:16px;"><i class="ph ph-calculator"></i></span>
-                <div>
-                  <div style="font-size:12px;font-weight:600;">Aptitude Mock — Number System</div>
-                  <div style="font-size:10.5px;color:var(--t3);">Course · 2 days ago · Score 78/100</div>
-                </div>
-              </div>
-            </div>
-            <div class="slbl"><i class="ph ph-chart-line"></i> Module Progress</div>
-            <div class="pb">
-              <div class="pb-l"><span>DSA — Arrays & Strings</span><span style="color:var(--green);">72%</span></div>
-              <div class="pt">
-                <div class="pf" style="width:72%;background:var(--green);"></div>
-              </div>
-            </div>
-            <div class="pb">
-              <div class="pb-l"><span>DBMS & SQL</span><span style="color:var(--amber);">41%</span></div>
-              <div class="pt">
-                <div class="pf" style="width:41%;background:var(--amber);"></div>
-              </div>
-            </div>
-            <div class="pb">
-              <div class="pb-l"><span>Aptitude & Reasoning</span><span style="color:var(--blue);">58%</span></div>
-              <div class="pt">
-                <div class="pf" style="width:58%;background:var(--blue);"></div>
-              </div>
-            </div>
-            <div class="pb">
-              <div class="pb-l"><span>OS Concepts</span><span style="color:var(--purple);">22%</span></div>
-              <div class="pt">
-                <div class="pf" style="width:22%;background:var(--purple);"></div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="slbl"><i class="ph ph-sword"></i> Dragon Arena — Assessments Taken</div>
-            <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px;">
-              <div style="padding:11px 13px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);">
-                <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
-                  <div style="font-size:12px;font-weight:600;">Aptitude Mock</div><span
-                    style="font-size:12px;font-weight:700;color:var(--amber);">72/100</span>
-                </div>
-                <div style="font-size:10.5px;color:var(--t3);">Trust: 92 · Above batch avg · 2 days ago</div>
-              </div>
-              <div style="padding:11px 13px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);">
-                <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
-                  <div style="font-size:12px;font-weight:600;">DSA Coding — Easy/Medium</div><span
-                    style="font-size:12px;font-weight:700;color:var(--blue);">3/4</span>
-                </div>
-                <div style="font-size:10.5px;color:var(--t3);">Trust: 88 · 78th percentile · 5 days ago</div>
-              </div>
-              <div style="padding:11px 13px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);">
-                <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
-                  <div style="font-size:12px;font-weight:600;">AI Video Interview Mock</div><span
-                    style="font-size:12px;font-weight:700;color:var(--purple);">74/100</span>
-                </div>
-                <div style="font-size:10.5px;color:var(--t3);">Trust: 85 · STAR score 68 · 1 week ago</div>
-              </div>
-            </div>
-            <div style="background:var(--card);border:1px solid var(--b);border-radius:var(--r2);padding:11px 13px;">
-              <div style="font-size:11.5px;font-weight:600;margin-bottom:3px;">Trust Score: <span
-                  style="color:var(--green);">88/100</span></div>
-              <div style="font-size:10.5px;color:var(--t3);">Across 3 proctored assessments · No integrity flags</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tp" id="st-t5">
-        <div class="two">
-          <div
-            style="background:linear-gradient(135deg,rgba(167,139,250,0.07),rgba(59,130,246,0.03));border:1px solid rgba(167,139,250,0.18);border-radius:var(--r3);padding:18px;">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
-              <div
-                style="font-size:32px;background:rgba(167,139,250,0.14);border-radius:50%;width:54px;height:54px;display:grid;place-items:center;">
-                <i class="ph-fill ph-smiley-wink"></i></div>
-              <div>
-                <div style="font-size:15px;font-weight:700;color:var(--purple);">Swift Fox · Level 7</div>
-                <div style="font-size:11.5px;color:var(--t2);">DSA Specialist · Agile Learner</div>
-              </div>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
-              <div style="text-align:center;padding:11px;background:rgba(167,139,250,0.1);border-radius:var(--r2);">
-                <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--purple);">7</div>
-                <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Level</div>
-              </div>
-              <div style="text-align:center;padding:11px;background:rgba(245,158,11,0.1);border-radius:var(--r2);">
-                <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--amber);">18<i class="ph-fill ph-fire"></i></div>
-                <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Streak</div>
-              </div>
-              <div style="text-align:center;padding:11px;background:var(--gd);border-radius:var(--r2);">
-                <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--green);">280</div>
-                <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Coins</div>
-              </div>
-            </div>
-            <div class="pb-l" style="font-size:10.5px;"><span style="color:var(--t2);">Level 7 <i class="ph ph-arrow-right"></i> 8</span><span
-                style="color:var(--purple);font-family:var(--fm);">1,840 / 2,500 XP</span></div>
-            <div class="bt" style="height:7px;">
-              <div class="bf" style="width:73.6%;background:linear-gradient(90deg,var(--purple),var(--blue));"></div>
-            </div>
-            <div style="font-size:11px;color:var(--t2);margin-top:8px;">📅 Boss Battle: Weekly DSA · Rank #47 of 320 ·
-              Ends in 2 days</div>
-          </div>
-          <div>
-            <div class="slbl">🏆 Streak Milestones</div>
-            <div style="display:flex;flex-direction:column;gap:6px;">
-              <div
-                style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--gd);border-radius:var(--r1);">
-                <span style="font-size:15px;"><i class="ph ph-check-circle"></i></span>
-                <div style="font-size:12px;flex:1;"><strong>7 days</strong> — Coffee Voucher · Claimed</div>
-              </div>
-              <div
-                style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--gd);border-radius:var(--r1);">
-                <span style="font-size:15px;"><i class="ph ph-check-circle"></i></span>
-                <div style="font-size:12px;flex:1;"><strong>14 days</strong> — Movie Tickets · Claimed</div>
-              </div>
-              <div
-                style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);border-radius:var(--r1);">
-                <span style="font-size:15px;"><i class="ph ph-sparkle"></i></span>
-                <div style="font-size:12px;flex:1;"><strong>21 days — Movie Tickets <i class="ph ph-sparkle"></i> · 3 days away!</strong></div>
-              </div>
-              <div
-                style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--card);border:1px solid var(--b);border-radius:var(--r1);">
-                <span style="font-size:15px;"><i class="ph ph-lock"></i></span>
-                <div style="font-size:12px;color:var(--t3);flex:1;"><strong>30 days</strong> — Premium Day Pass</div>
-              </div>
-              <div
-                style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--card);border:1px solid var(--b);border-radius:var(--r1);">
-                <span style="font-size:15px;"><i class="ph ph-lock"></i></span>
-                <div style="font-size:12px;color:var(--t3);flex:1;"><strong>90 days</strong> — Exclusive Dragon Badge
-                </div>
-              </div>
-              <div
-                style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--card);border:1px solid var(--b);border-radius:var(--r1);">
-                <span style="font-size:15px;"><i class="ph ph-lock"></i></span>
-                <div style="font-size:12px;color:var(--t3);flex:1;"><strong>365 days</strong> — Legendary Dragon Title
-                </div>
-              </div>
-            </div>
-            <div
-              style="margin-top:12px;padding:10px 13px;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.16);border-radius:var(--r2);font-size:11.5px;color:var(--t2);">
-              🏫 College rank: <strong style="color:var(--purple);">#34 / 620</strong> · Top 6% · 4 students above you
-              have 22-day streaks — catch them in 4 days.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tp" id="st-t6">
-        <div class="two">
-          <div>
-            <div class="slbl">🎓 Placement Officers</div>
+          <!-- Right column (Nudges / AI Insights) -->
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <!-- Nudges -->
             <div class="card">
-              <div class="card-body">
-                <div class="conn">
-                  <div class="conn-av" style="background:linear-gradient(135deg,var(--green),var(--blue));">RK</div>
-                  <div class="conn-inf">
-                    <div class="conn-nm">Dr. Ramesh Kumar</div>
-                    <div class="conn-rl">Placement Officer · PSG College</div>
-                  </div><button class="conn-btn">Message</button>
+              <div class="card-head">
+                <div class="card-title">🔔 Your Nudges</div>
+              </div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:8px;padding-top:10px;">
+                <div
+                  style="display:flex;gap:9px;padding:10px 11px;background:rgba(245,158,11,0.09);border:1px solid rgba(245,158,11,0.22);border-radius:var(--r2);">
+                  <span style="font-size:16px;animation:pulse 1.5s infinite;"><i class="ph-fill ph-lightning"></i></span>
+                  <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.45;"><strong
+                      style="color:var(--amber);">1 point away from Zoho.</strong> The DBMS mock test takes 20 minutes.
+                    <span style="display:block;margin-top:5px;"><button class="btn bp"
+                        style="background:var(--amber);font-size:10.5px;padding:4px 11px;">Take mock →</button></span>
+                  </div>
+                </div>
+                <div
+                  style="display:flex;gap:9px;padding:10px 11px;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.16);border-radius:var(--r2);">
+                  <span style="font-size:16px;animation:pulse 2s infinite;"><i class="ph ph-trophy"></i></span>
+                  <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.45;"><strong
+                      style="color:var(--purple);">Boss Battle starts tomorrow.</strong> Top 3 win 1000 coins + Badge.
+                    Your 18-day streak puts you in top 20%.</div>
                 </div>
               </div>
             </div>
-            <div class="slbl" style="margin-top:14px;">🏢 HR / Recruiters</div>
-            <div class="card">
-              <div class="card-body">
-                <div class="conn">
-                  <div class="conn-av" style="background:linear-gradient(135deg,var(--amber),var(--red));">ZI</div>
-                  <div class="conn-inf">
-                    <div class="conn-nm">Zoho Internship Mentor</div>
-                    <div class="conn-rl">Senior Engineer · Zoho Corp</div>
-                  </div><button class="conn-btn">Message</button>
-                </div>
-                <div class="conn">
-                  <div class="conn-av" style="background:linear-gradient(135deg,var(--blue),var(--purple));">IH</div>
-                  <div class="conn-inf">
-                    <div class="conn-nm">Infosys HR</div>
-                    <div class="conn-rl">Campus Recruiter · Drive: Mar 21</div>
-                  </div><button class="conn-btn">Message</button>
-                </div>
+            <!-- AI Insights -->
+            <div class="card" style="border-color:rgba(59,130,246,0.15);">
+              <div class="card-head">
+                <div class="card-title" style="color:var(--blue);">🤖 AI Insights</div>
               </div>
-            </div>
-          </div>
-          <div>
-            <div class="slbl">👤 Batchmates</div>
-            <div class="card">
-              <div class="card-body">
-                <div class="conn">
-                  <div class="conn-av">AK</div>
-                  <div class="conn-inf">
-                    <div class="conn-nm">Arun Kumar</div>
-                    <div class="conn-rl">CSE · Dragon Score 88 · Placed</div>
-                  </div><button class="conn-btn">Connect</button>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
+                <div
+                  style="padding:9px 11px;background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.15);border-radius:var(--r2);font-size:12px;color:var(--t2);">
+                  <i class="ph ph-circle" style="color:var(--green);"></i> <strong style="color:var(--green);">Strong:</strong> Aptitude (68) above Infosys threshold.
                 </div>
-                <div class="conn">
-                  <div class="conn-av" style="background:linear-gradient(135deg,var(--blue),var(--cyan));">SP</div>
-                  <div class="conn-inf">
-                    <div class="conn-nm">Sridevi Pillai</div>
-                    <div class="conn-rl">IT · Dragon Score 74 · Same level!</div>
-                  </div><button class="conn-btn">Message</button>
-                </div>
-                <div class="conn">
-                  <div class="conn-av" style="background:linear-gradient(135deg,var(--purple),var(--red));">MR</div>
-                  <div class="conn-inf">
-                    <div class="conn-nm">Meera Raj</div>
-                    <div class="conn-rl">CSE · Dragon Score 80 · TCS Digital</div>
-                  </div><button class="conn-btn">Connect</button>
+                <div
+                  style="padding:11px 13px;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(245,158,11,0.03));border:2px solid rgba(245,158,11,0.32);border-radius:var(--r2);">
+                  <div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;">⚡ Highest Impact Move</div>
+                  <div style="font-size:12.5px;font-weight:700;color:var(--t1);margin-bottom:2px;">Add AWS Cloud Practitioner cert</div>
+                  <div style="font-size:11.5px;color:var(--t2);margin-bottom:9px;">+5 Dragon Score · 14 new roles · free, 2 weeks</div>
+                  <button class="btn bp" style="background:var(--amber);font-size:11px;width:100%;">Start now →</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> <!-- end st-t3 -->
 
-      <div class="tp" id="st-t7">
-        <div style="font-size:12px;color:var(--t2);margin-bottom:13px;">11 active modules — every module feeds your
-          Dragon Score and campus drive eligibility. Dragon AI removed from module view; it's always available
-          site-wide.</div>
-        <div class="mod-grid">
-          <div class="mod-pill" style="--mc:var(--purple);">
-            <div class="mp-top"><span class="mp-ico"><i class="ph ph-compass"></i></span><span class="mp-st st-on">Active</span></div>
-            <div class="mp-nm">Dragon GPS</div>
-            <div class="mp-st2">Zoho target · 3d ETA</div>
-          </div>
-          <div class="mod-pill" style="--mc:var(--blue);">
-            <div class="mp-top"><span class="mp-ico"><i class="ph ph-book-open"></i></span><span class="mp-st st-on">Active</span></div>
-            <div class="mp-nm">Dragon Prep</div>
-            <div class="mp-st2">DBMS sprint · 142 solved</div>
-          </div>
-          <div class="mod-pill" style="--mc:var(--green);">
-            <div class="mp-top"><span class="mp-ico"><i class="ph ph-sword"></i></span><span class="mp-st st-on">Active</span></div>
-            <div class="mp-nm">Dragon Arena</div>
-            <div class="mp-st2">3 assessments · Trust 88</div>
-          </div>
-          <div class="mod-pill" style="--mc:var(--purple);">
-            <div class="mp-top"><span class="mp-ico"><i class="ph ph-dragon"></i></span><span class="mp-st st-on">Active</span></div>
-            <div class="mp-nm">Dragon Quest</div>
-            <div class="mp-st2">Lv7 · 18d streak <i class="ph-fill ph-fire"></i></div>
-          </div>
-          <div class="mod-pill" style="--mc:var(--amber);">
-            <div class="mp-top"><span class="mp-ico"><i class="ph ph-star"></i></span><span class="mp-st st-el">Soon</span></div>
-            <div class="mp-nm">Dragon Elite</div>
-            <div class="mp-st2">Unlocks at Score 85</div>
-          </div>
-          <div class="mod-pill" style="--mc:var(--cyan);">
-            <div class="mp-top"><span class="mp-ico"><i class="ph ph-globe"></i></span><span class="mp-st st-on">Active</span></div>
-            <div class="mp-nm">Dragon Hub</div>
-            <div class="mp-st2">47 internships match</div>
-          </div>
-          <div class="mod-pill" style="--mc:var(--blue);">
-            <div class="mp-top"><span class="mp-ico"><i class="ph ph-wrench"></i></span><span class="mp-st st-on">Active</span></div>
-            <div class="mp-nm">Skill Craft</div>
-            <div class="mp-st2">3 mastered · +₹1.2L uplift</div>
-          </div>
-          <div class="mod-pill" style="--mc:var(--green);">
-            <div class="mp-top"><span class="mp-ico"><i class="ph ph-flask"></i></span><span class="mp-st st-nw">New</span></div>
-            <div class="mp-nm">Project Lab</div>
-            <div class="mp-st2">Sales Dashboard · 72/100</div>
-          </div>
-          <div class="mod-pill" style="--mc:var(--green);">
-            <div class="mp-top"><span class="mp-ico"><i class="ph ph-clipboard-text"></i></span><span class="mp-st st-on">Active</span></div>
-            <div class="mp-nm">Dragon Review</div>
-            <div class="mp-st2">Last: Aptitude 72/100</div>
-          </div>
-          <div class="mod-pill" style="--mc:var(--purple);">
-            <div class="mp-top"><span class="mp-ico"><i class="ph ph-link"></i></span><span class="mp-st st-on">Active</span></div>
-            <div class="mp-nm">Dragon Nexus</div>
-            <div class="mp-st2">Coursera + Kaggle linked</div>
-          </div>
-          <div class="mod-pill" style="--mc:var(--red);">
-            <div class="mp-top"><span class="mp-ico"><i class="ph ph-user-circle"></i></span><span class="mp-st st-on">Active</span></div>
-            <div class="mp-nm">Talent Onboarding</div>
-            <div class="mp-st2">2 certs verified · Trust 88</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- end student -->
+    </div> <!-- end ps-student -->
 
   </main>
 
@@ -2901,12 +2791,21 @@
       document.getElementById('topAv').textContent = c.l;
     }
 
-    function stab(tab, pid) {
-      const sc = tab.closest('.ps');
-      sc.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
-      sc.querySelectorAll('.tp').forEach(p => p.classList.remove('on'));
+    function stab(tab, id) {
+      const ps = tab.closest('.ps');
+      ps.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+      ps.querySelectorAll('.tp').forEach(c => c.classList.remove('on'));
       tab.classList.add('on');
-      document.getElementById(pid).classList.add('on');
+      const p = document.getElementById(id);
+      if (p) {
+        p.classList.add('on');
+        if (document.body.classList.contains('rv-active') && !p.querySelector('.rv-banner')) {
+          const b = document.createElement('div');
+          b.className = 'rv-banner';
+          b.innerHTML = '<i class="ph-fill ph-eye"></i> <span><strong>Recruiter View Active</strong> — This is how recruiters see your verified skills and campus readiness.</span>';
+          p.insertBefore(b, p.firstChild);
+        }
+      }
     }
 
     function tog(head) {
@@ -2916,18 +2815,26 @@
 
     function toggleRV(btn) {
       btn.classList.toggle('on');
-      const isRV = btn.classList.contains('on');
-      const banner = document.querySelector('.ps.on .rv-banner');
+      document.body.classList.toggle('rv-active');
+      const isRV = document.body.classList.contains('rv-active');
+      const topLbl = document.getElementById('topLbl');
+
       if (isRV) {
-        // Add recruiter view banner to active tab
+        if (topLbl) topLbl.innerText = 'Recruiter View';
+        // Auto-switch to Overview tab
+        const portTab = document.querySelector('.tabs .tab[onclick*="st-t1"]');
+        if (portTab) stab(portTab, 'st-t1');
+
+        // Add recruiter view banner
         const active = document.querySelector('.ps.on .tp.on');
         if (active && !active.querySelector('.rv-banner')) {
           const b = document.createElement('div');
           b.className = 'rv-banner';
-          b.innerHTML = '<i class="ph ph-eye"></i> <strong>Recruiter View Active</strong> — This is what a recruiter sees when they open your profile.';
+          b.innerHTML = '<i class="ph-fill ph-eye"></i> <span><strong>Recruiter View Active</strong> — This is how recruiters see your verified skills and campus readiness.</span>';
           active.insertBefore(b, active.firstChild);
         }
       } else {
+        if (topLbl) topLbl.innerText = 'Student';
         document.querySelectorAll('.rv-banner').forEach(b => b.remove());
       }
     }
@@ -2940,3 +2847,5 @@
     });
   </script>
 </body>
+
+</html>
