@@ -19,15 +19,15 @@
     }
 
     :root {
-      --bg: #07090E;
+      --bg: #040609;
       --bg2: #0D1117;
-      --card: #121820;
-      --el: #1A2332;
-      --b: rgba(255, 255, 255, 0.06);
-      --b2: rgba(255, 255, 255, 0.11);
+      --card: #161D27;
+      --el: #1F2937;
+      --b: rgba(255, 255, 255, 0.09);
+      --b2: rgba(255, 255, 255, 0.15);
       --t1: #E8ECF1;
-      --t2: #8B95A5;
-      --t3: #5A6577;
+      --t2: #9CA3AF;
+      --t3: #6B7280;
       --red: #FF2D55;
       --redd: rgba(255, 45, 85, 0.12);
       --green: #10B981;
@@ -503,7 +503,7 @@
       margin: 14px 24px 0;
       background: linear-gradient(135deg, rgba(16, 185, 129, 0.07), rgba(59, 130, 246, 0.03));
       border: 1px solid rgba(16, 185, 129, 0.18);
-      border-radius: var(--r3);
+      border-radius: var(--r2);
       padding: 14px 18px;
       position: relative;
       overflow: hidden;
@@ -556,11 +556,20 @@
 
     .qs-stats {
       display: flex;
-      gap: 18px;
+      gap: 0;
+      border: 1px solid var(--b);
+      border-radius: var(--r2);
+      background: var(--card);
     }
 
     .qsp {
       text-align: center;
+      padding: 12px 20px;
+      border-right: 1px solid var(--b);
+    }
+
+    .qsp:last-child {
+      border-right: none;
     }
 
     .qsp-v {
@@ -574,6 +583,8 @@
       color: var(--t3);
       text-transform: uppercase;
       letter-spacing: .7px;
+      margin-top: 2px;
+      font-weight: 500;
     }
 
     .qs-bar-l {
@@ -697,7 +708,7 @@
     .card {
       background: var(--card);
       border: 1px solid var(--b);
-      border-radius: var(--r3);
+      border-radius: var(--r2);
       overflow: hidden;
     }
 
@@ -893,7 +904,8 @@
 
     /* ─── SKILL GRAPH ─── */
     .skill-item {
-      display: flex;
+      display: grid;
+      grid-template-columns: 120px 1fr 34px;
       align-items: center;
       gap: 10px;
       margin-bottom: 8px;
@@ -902,8 +914,7 @@
     .skill-name {
       font-size: 11.5px;
       color: var(--t2);
-      width: 120px;
-      flex-shrink: 0;
+      white-space: nowrap;
     }
 
     .skill-bar-wrap {
@@ -992,7 +1003,7 @@
     }
 
     .ai-h {
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--green);
       margin-bottom: 6px;
@@ -1001,7 +1012,7 @@
     }
 
     .ai-p {
-      font-size: 12px;
+      font-size: 13.5px;
       color: var(--t2);
       line-height: 1.6;
     }
@@ -1066,8 +1077,8 @@
     .srow {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 0;
+      gap: 12px;
+      padding: 6px 0;
       border-bottom: 1px solid var(--b);
     }
 
@@ -1089,12 +1100,16 @@
 
     .sinf {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .snm {
       font-size: 12px;
       font-weight: 600;
       margin-bottom: 1px;
+      line-height: 1.25;
     }
 
     .sdp {
@@ -1105,12 +1120,14 @@
     .risk {
       font-size: 9.5px;
       font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 6px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .rh {
-      background: rgba(239, 68, 68, 0.12);
+      background: var(--redd);
       color: #EF4444;
     }
 
@@ -1391,32 +1408,34 @@
             <div class="h-badge" style="background:var(--green);"><i class="ph ph-graduation-cap"></i></div>
           </div>
           <div class="h-info">
-            <div class="h-name">Dr. Ramesh Kumar</div>
-            <div class="h-role" style="background:var(--gd);color:var(--green);"><i class="ph ph-graduation-cap"></i> Placement Officer · PSG College of
-              Technology</div>
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+              <div>
+                <div class="h-name">Dr. Ramesh Kumar <span class="risk rm" style="display:inline-flex;align-items:center;padding:3px 8px;border-radius:12px;margin-left:8px;vertical-align:middle;font-size:10px;"><i class="ph ph-warning-diamond" style="margin-right:4px;"></i> 47 At-Risk</span></div>
+                <div class="h-role" style="background:var(--gd);color:var(--green);"><i class="ph ph-graduation-cap"></i> Placement Officer · PSG College of Technology</div>
+              </div>
+              <div class="h-scores">
+                <div class="sc" style="border-color:rgba(16,185,129,0.2);">
+                  <div class="sc-lbl">Placement Rate</div>
+                  <div class="sc-val" style="color:var(--green);">78%</div>
+                  <div class="sc-sub sc-tr up"><i class="ph ph-trend-up"></i> +8% YoY</div>
+                </div>
+                <div class="sc" style="border-color:rgba(59,130,246,0.2);">
+                  <div class="sc-lbl">Avg Package</div>
+                  <div class="sc-val" style="color:var(--blue);">₹8.4L</div>
+                  <div class="sc-sub"><i class="ph ph-trend-up"></i> +₹0.8L YoY</div>
+                </div>
+              </div>
+            </div>
             <div class="h-meta">
               <div class="h-mi"><i class="ph ph-buildings"></i> PSG College of Technology, Coimbatore</div>
               <div class="h-mi"><i class="ph ph-globe"></i> psgtech.ac.in/placements</div>
               <div class="h-mi"><i class="ph ph-users"></i> <strong>620</strong> students</div>
               <div class="h-mi"><i class="ph ph-books"></i> <strong>12</strong> departments</div>
-              <div class="h-mi" style="color:var(--amber);"><i class="ph ph-warning-circle"></i> <strong>47</strong> at-risk students</div>
             </div>
             <div class="h-acts">
-              <button class="btn bp" style="background:var(--green);font-size:11px;"><i class="ph ph-calendar-plus"></i> Schedule Drive</button>
-              <button class="btn bg" style="font-size:11px;"><i class="ph ph-file-arrow-down"></i> Export Report</button>
-              <button class="btn bg" style="font-size:11px;"><i class="ph ph-bell-ringing"></i> Flag Students</button>
-            </div>
-          </div>
-          <div class="h-scores">
-            <div class="sc" style="border-color:rgba(16,185,129,0.2);">
-              <div class="sc-lbl">Placement Rate</div>
-              <div class="sc-val" style="color:var(--green);">78%</div>
-              <div class="sc-sub sc-tr up"><i class="ph ph-trend-up"></i> +8% YoY</div>
-            </div>
-            <div class="sc" style="border-color:rgba(59,130,246,0.2);">
-              <div class="sc-lbl">Avg Package</div>
-              <div class="sc-val" style="color:var(--blue);">₹8.4L</div>
-              <div class="sc-sub"><i class="ph ph-trend-up"></i> +₹0.8L YoY</div>
+              <button class="btn bg" style="font-size:11.5px;"><i class="ph ph-calendar-plus"></i> Schedule Drive</button>
+              <button class="btn bg" style="font-size:11.5px;"><i class="ph ph-file-arrow-down"></i> Export Report</button>
+              <button class="btn bg" style="font-size:11.5px;color:var(--red);border-color:var(--redd);"><i class="ph ph-bell-ringing"></i> Flag Students</button>
             </div>
           </div>
         </div>
@@ -1424,12 +1443,12 @@
 
       <!-- College health strip -->
       <div class="qs">
-        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
           <div style="flex:1;">
             <div style="font-size:12.5px;font-weight:700;margin-bottom:3px;"><i class="ph ph-buildings"></i> Batch 2025 — Placement Health</div>
             <div style="font-size:11px;color:var(--t2);">PSG College of Technology · 620 students · 12 departments</div>
           </div>
-          <div class="qs-stats" style="gap:18px;">
+          <div class="qs-stats">
             <div class="qsp">
               <div class="qsp-v" style="color:var(--green);">483</div>
               <div class="qsp-l">Verified</div>
@@ -1453,8 +1472,8 @@
       <div class="tabs" style="--tc:var(--green);">
         <div class="tab on" onclick="stab(this,'po-t1')">Profile Management</div>
         <div class="tab" onclick="stab(this,'po-t2')">Students <span class="tc">620</span></div>
-        <div class="tab" onclick="stab(this,'po-t3')">Campus Drives <span class="tc">12</span></div>
-        <div class="tab" onclick="stab(this,'po-t5')">Connections</div>
+        <!-- <div class="tab" onclick="stab(this,'po-t3')">Campus Drives <span class="tc">12</span></div>
+        <div class="tab" onclick="stab(this,'po-t5')">Connections</div> -->
       </div>
 
       <!-- PROFILE MANAGEMENT TAB - College Summary, HR Connections, Peer Officers -->
@@ -1464,7 +1483,7 @@
             <!-- College summary -->
             <div class="card">
               <div class="card-head">
-                <div class="card-title"><i class="ph ph-buildings"></i> College Summary</div><span class="card-action">Edit <i class="ph ph-arrow-right"></i></span>
+                <div class="card-title"><i class="ph ph-buildings"></i> College Summary</div><span class="card-action">Edit <i class="ph ph-pencil-simple"></i></span>
               </div>
               <div class="card-body">
                 <div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px;">PSG College of
@@ -1527,7 +1546,7 @@
             <div class="card">
               <div class="card-head">
                 <div class="card-title"><i class="ph ph-buildings"></i> HR / Company Connections</div>
-                <span class="card-action">+ Connect</span>
+                <button class="btn bg" style="padding:4px 10px;font-size:10.5px;display:flex;align-items:center;gap:4px;"><i class="ph ph-plus"></i> Connect</button>
               </div>
               <div class="card-body">
                 <div class="co-row">
@@ -1558,7 +1577,7 @@
             <div class="card">
               <div class="card-head">
                 <div class="card-title"><i class="ph ph-graduation-cap"></i> Peer Placement Officers</div>
-                <span class="card-action">+ Connect</span>
+                <button class="btn bg" style="padding:4px 10px;font-size:10.5px;display:flex;align-items:center;gap:4px;"><i class="ph ph-plus"></i> Connect</button>
               </div>
               <div class="card-body">
                 <div class="co-row">
@@ -1590,122 +1609,75 @@
 
       <!-- STUDENTS TAB - All, At-Risk, Ready, Unverified + Department Skills + Score Distribution -->
       <div class="tp" id="po-t2">
-        <div style="display:flex;gap:8px;margin-bottom:16px;">
-          <button class="btn bp" style="background:var(--green);font-size:11px;">All (620)</button>
-          <button class="btn bg" style="font-size:11px;">At-Risk (47)</button>
-          <button class="btn bg" style="font-size:11px;">Ready (124)</button>
-          <button class="btn bg" style="font-size:11px;">Unverified (137)</button>
-        </div>
+        <!-- <div style="display:flex;gap:4px;margin-bottom:16px;background:var(--card);padding:4px;border-radius:var(--r1);border:1px solid var(--b);width:fit-content;">
+          <button class="btn" style="background:var(--b2);color:var(--t1);">All <span style="background:rgba(255,255,255,0.1);padding:1px 5px;border-radius:4px;font-size:9.5px;margin-left:4px;">620</span></button>
+          <button class="btn" style="background:transparent;color:var(--t2);">At-Risk <span style="background:var(--redd);color:var(--red);padding:1px 5px;border-radius:4px;font-size:9.5px;margin-left:4px;">47</span></button>
+          <button class="btn" style="background:transparent;color:var(--t2);">Ready <span style="background:rgba(255,255,255,0.06);padding:1px 5px;border-radius:4px;font-size:9.5px;margin-left:4px;">124</span></button>
+          <button class="btn" style="background:transparent;color:var(--t2);">Unverified <span style="background:rgba(255,255,255,0.06);padding:1px 5px;border-radius:4px;font-size:9.5px;margin-left:4px;">137</span></button>
+        </div> -->
 
-        <div class="two">
-          <!-- Student List -->
-          <div class="card">
+        <div class="three" style="align-items: stretch;">
+          <!-- Card 1: Score Distribution -->
+          <div class="card" style="display:flex;flex-direction:column;height:100%;">
             <div class="card-head">
-              <div class="card-title">Student List</div>
-              <span class="card-action">Filter <i class="ph ph-arrow-right"></i></span>
+              <div class="card-title"><i class="ph ph-chart-bar"></i> Score Distribution</div>
             </div>
-            <div class="card-body">
-              <div class="srow">
-                <div class="sav" style="background:linear-gradient(135deg,var(--green),#059669);">AK</div>
-                <div class="sinf">
-                  <div class="snm">Arun Kumar — CSE</div>
-                  <div class="sdp">Score: 88 · Dragon Elite eligible</div>
-                </div><span class="risk rl">Placed</span>
+            <div class="card-body" style="flex:1;">
+              <div class="skill-item"><span class="skill-name">85–100 Elite</span>
+                <div class="skill-bar-wrap">
+                  <div class="skill-bar" style="width:7.7%;background:var(--green);"></div>
+                </div><span class="skill-val" style="color:var(--green);">48</span>
               </div>
-              <div class="srow">
-                <div class="sav" style="background:linear-gradient(135deg,var(--blue),#1D4ED8);">SP</div>
-                <div class="sinf">
-                  <div class="snm">Sridevi Pillai — IT</div>
-                  <div class="sdp">Score: 74 · 5 sessions/week</div>
-                </div><span class="risk rl">On Track</span>
+              <div class="skill-item"><span class="skill-name">75–84 Premium</span>
+                <div class="skill-bar-wrap">
+                  <div class="skill-bar" style="width:12%;background:var(--blue);"></div>
+                </div><span class="skill-val" style="color:var(--blue);">76</span>
               </div>
-              <div class="srow">
-                <div class="sav" style="background:linear-gradient(135deg,var(--amber),#D97706);">RS</div>
-                <div class="sinf">
-                  <div class="snm">Rohit Suresh — CSE</div>
-                  <div class="sdp">Score: 48 · Prescription active</div>
-                </div><span class="risk rh">High Risk</span>
+              <div class="skill-item"><span class="skill-name">65–74 Eligible</span>
+                <div class="skill-bar-wrap">
+                  <div class="skill-bar" style="width:45%;background:var(--amber);"></div>
+                </div><span class="skill-val" style="color:var(--amber);">283</span>
               </div>
-              <div class="srow">
-                <div class="sav">AM</div>
-                <div class="sinf">
-                  <div class="snm">Anjali Mishra — IT</div>
-                  <div class="sdp">Score: 56 · Prep path: Active</div>
-                </div><span class="risk rm">Medium</span>
-              </div>
-              <div class="srow">
-                <div class="sav">KP</div>
-                <div class="sinf">
-                  <div class="snm">Kiran Pillai — ECE</div>
-                  <div class="sdp">Score: 61 · Improving</div>
-                </div><span class="risk rm">Medium</span>
+              <div class="skill-item"><span class="skill-name">Below 65 At-Risk</span>
+                <div class="skill-bar-wrap">
+                  <div class="skill-bar" style="width:35%;background:var(--red);"></div>
+                </div><span class="skill-val" style="color:var(--red);">213</span>
               </div>
             </div>
           </div>
 
-          <!-- Score Distribution & Cohort Gaps -->
-          <div>
-            <div class="card" style="margin-bottom:16px;">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-chart-bar"></i> Score Distribution</div>
-              </div>
-              <div class="card-body">
-                <div class="dept-row"><span class="dept-nm">85–100 Elite</span>
-                  <div class="dept-bar">
-                    <div class="dept-fill" style="width:7.7%;background:var(--green);"></div>
-                  </div><span class="dept-val" style="color:var(--green);">48</span>
-                </div>
-                <div class="dept-row"><span class="dept-nm">75–84 Premium</span>
-                  <div class="dept-bar">
-                    <div class="dept-fill" style="width:12%;background:var(--blue);"></div>
-                  </div><span class="dept-val" style="color:var(--blue);">76</span>
-                </div>
-                <div class="dept-row"><span class="dept-nm">65–74 Eligible</span>
-                  <div class="dept-bar">
-                    <div class="dept-fill" style="width:45%;background:var(--amber);"></div>
-                  </div><span class="dept-val" style="color:var(--amber);">283</span>
-                </div>
-                <div class="dept-row"><span class="dept-nm">Below 65 At-Risk</span>
-                  <div class="dept-bar">
-                    <div class="dept-fill" style="width:35%;background:var(--red);"></div>
-                  </div><span class="dept-val" style="color:var(--red);">213</span>
-                </div>
-              </div>
+          <!-- Card 2: Cohort Skill Gaps -->
+          <div class="card" style="display:flex;flex-direction:column;height:100%;">
+            <div class="card-head">
+              <div class="card-title"><i class="ph ph-brain"></i> Cohort Skill Gaps</div>
+              <div style="display:flex;gap:10px;font-size:10px;color:var(--t2);"><span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--red);"></span> Critical</span><span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--amber);"></span> Warning</span></div>
             </div>
-
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-brain"></i> Cohort Skill Gaps</div>
+            <div class="card-body" style="flex:1;">
+              <div class="skill-item"><span class="skill-name">DSA & Algorithms</span>
+                <div class="skill-bar-wrap">
+                  <div class="skill-bar" style="width:54%;background:var(--red);"></div>
+                </div><span class="skill-val" style="color:var(--red);">-28</span>
               </div>
-              <div class="card-body">
-                <div class="dept-row"><span class="dept-nm">DSA & Algorithms</span>
-                  <div class="dept-bar">
-                    <div class="dept-fill" style="width:54%;background:var(--red);"></div>
-                  </div><span class="dept-val" style="color:var(--red);">-28</span>
-                </div>
-                <div class="dept-row"><span class="dept-nm">DBMS & SQL</span>
-                  <div class="dept-bar">
-                    <div class="dept-fill" style="width:68%;background:var(--amber);"></div>
-                  </div><span class="dept-val" style="color:var(--amber);">-16</span>
-                </div>
-                <div class="dept-row"><span class="dept-nm">Aptitude</span>
-                  <div class="dept-bar">
-                    <div class="dept-fill" style="width:76%;background:var(--blue);"></div>
-                  </div><span class="dept-val" style="color:var(--blue);">-11</span>
-                </div>
+              <div class="skill-item"><span class="skill-name">DBMS & SQL</span>
+                <div class="skill-bar-wrap">
+                  <div class="skill-bar" style="width:68%;background:var(--amber);"></div>
+                </div><span class="skill-val" style="color:var(--amber);">-16</span>
+              </div>
+              <div class="skill-item"><span class="skill-name">Aptitude</span>
+                <div class="skill-bar-wrap">
+                  <div class="skill-bar" style="width:76%;background:var(--blue);"></div>
+                </div><span class="skill-val" style="color:var(--blue);">-11</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Department-wise Skill Score -->
-        <div class="card" style="margin-top:16px;">
-          <div class="card-head">
-            <div class="card-title"><i class="ph ph-buildings"></i> Department-wise Skill Score</div><span class="card-action">Export <i class="ph ph-arrow-right"></i></span>
-          </div>
-          <div class="card-body">
-            <div class="three">
-              <div>
+          <!-- Card 3: Department-wise Skill Score -->
+          <div class="card" style="display:flex;flex-direction:column;height:100%;">
+            <div class="card-head">
+              <div class="card-title"><i class="ph ph-buildings"></i> Department-wise Skill Score</div><span class="card-action">Export <i class="ph ph-arrow-right"></i></span>
+            </div>
+            <div class="card-body" style="flex:1;">
+              <div style="margin-bottom:16px;">
                 <div class="slbl" style="margin-top:0;">CSE — 240 students</div>
                 <div class="skill-item"><span class="skill-name">DSA</span>
                   <div class="skill-bar-wrap">
@@ -1718,7 +1690,7 @@
                   </div><span class="skill-val" style="color:var(--blue);">72</span>
                 </div>
               </div>
-              <div>
+              <div style="margin-bottom:16px;">
                 <div class="slbl" style="margin-top:0;">IT — 180 students</div>
                 <div class="skill-item"><span class="skill-name">DSA</span>
                   <div class="skill-bar-wrap">
@@ -1820,28 +1792,28 @@
             <!-- Company Readiness -->
             <div class="card">
               <div class="card-head">
-                <div class="card-title">📊 Company Readiness</div>
+                <div class="card-title"><i class="ph ph-buildings"></i> Company Readiness</div>
               </div>
               <div class="card-body">
-                <div class="dept-row"><span class="dept-nm">Infosys (65)</span>
-                  <div class="dept-bar">
-                    <div class="dept-fill" style="width:66%;background:var(--green);"></div>
-                  </div><span class="dept-val" style="color:var(--green);">66%</span>
+                <div class="skill-item"><span class="skill-name">Infosys (65)</span>
+                  <div class="skill-bar-wrap">
+                    <div class="skill-bar" style="width:66%;background:var(--green);"></div>
+                  </div><span class="skill-val" style="color:var(--green);">66%</span>
                 </div>
-                <div class="dept-row"><span class="dept-nm">TCS Digital (70)</span>
-                  <div class="dept-bar">
-                    <div class="dept-fill" style="width:59%;background:var(--blue);"></div>
-                  </div><span class="dept-val" style="color:var(--blue);">59%</span>
+                <div class="skill-item"><span class="skill-name">TCS Digital (70)</span>
+                  <div class="skill-bar-wrap">
+                    <div class="skill-bar" style="width:59%;background:var(--blue);"></div>
+                  </div><span class="skill-val" style="color:var(--blue);">59%</span>
                 </div>
-                <div class="dept-row"><span class="dept-nm">Zoho (75)</span>
-                  <div class="dept-bar">
-                    <div class="dept-fill" style="width:46%;background:var(--amber);"></div>
-                  </div><span class="dept-val" style="color:var(--amber);">46%</span>
+                <div class="skill-item"><span class="skill-name">Zoho (75)</span>
+                  <div class="skill-bar-wrap">
+                    <div class="skill-bar" style="width:46%;background:var(--amber);"></div>
+                  </div><span class="skill-val" style="color:var(--amber);">46%</span>
                 </div>
-                <div class="dept-row"><span class="dept-nm">Razorpay (82)</span>
-                  <div class="dept-bar">
-                    <div class="dept-fill" style="width:14%;background:var(--red);"></div>
-                  </div><span class="dept-val" style="color:var(--red);">14%</span>
+                <div class="skill-item"><span class="skill-name">Razorpay (82)</span>
+                  <div class="skill-bar-wrap">
+                    <div class="skill-bar" style="width:14%;background:var(--red);"></div>
+                  </div><span class="skill-val" style="color:var(--red);">14%</span>
                 </div>
               </div>
             </div>
