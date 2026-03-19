@@ -609,116 +609,197 @@
       color: var(--green);
     }
 
-    /* ─── QUEST STRIP ─── */
-    .qs {
-      margin: 14px 24px 0;
-      background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(59, 130, 246, 0.04));
-      border: 1px solid rgba(167, 139, 250, 0.18);
-      border-radius: var(--r3);
-      padding: 14px 18px;
-      position: relative;
-      overflow: hidden;
+    /* ─── DECISION FIELDS (NORMALIZED) ─── */
+    .df-row {
+      display: flex;
+      gap: 12px;
+      margin: 16px 0;
+      flex-wrap: wrap;
     }
 
-    .qs::after {
-      content: '🐉';
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 46px;
-      opacity: 0.07;
-    }
-
-    .qs-row {
+    .df {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 10px;
+      gap: 12px;
+      padding: 10px 16px;
+      background: var(--bg2);
+      border: 1px solid var(--b);
+      border-radius: var(--r2);
+      transition: all 0.2s;
     }
 
-    .qs-ico {
-      font-size: 24px;
-      background: rgba(167, 139, 250, 0.14);
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
+    .df:hover {
+      border-color: var(--b2);
+      background: var(--el);
+    }
+
+    .df-ico {
+      font-size: 16px;
+      color: var(--t3);
+      width: 32px;
+      height: 32px;
+      background: var(--b);
+      border-radius: 8px;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(167, 139, 250, 0.25);
       flex-shrink: 0;
     }
 
-    .qs-inf {
-      flex: 1;
+    .df-content {
+      display: flex;
+      flex-direction: column;
     }
 
-    .qs-nm {
-      font-size: 13px;
+    .df-l {
+      font-size: 8.5px;
+      font-weight: 701;
+      color: var(--t3);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 2px;
+    }
+
+    .df-v {
+      font-size: 13.5px;
       font-weight: 700;
       color: var(--t1);
-      margin-bottom: 1px;
+      font-family: var(--fm);
     }
 
-    .qs-sb {
-      font-size: 11px;
-      color: var(--t2);
+    /* ─── SKILL GROUPS ─── */
+    .skill-group {
+      margin-bottom: 20px;
     }
 
-    .qs-stats {
+    .sg-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--t3);
+      font-weight: 700;
+      margin-bottom: 10px;
       display: flex;
-      gap: 18px;
+      align-items: center;
+      gap: 8px;
     }
 
-    .qsp {
+    .sg-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--b);
+    }
+
+    .skill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg2);
+      border: 1px solid var(--b);
+      padding: 4px 10px;
+      border-radius: var(--r1);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .skill-badge.top {
+      border-color: var(--red);
+      background: var(--redd);
+      color: var(--red);
+    }
+
+    /* ─── IMPACT TAGS ─── */
+    .impact-tag {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--bd);
+      color: var(--blue);
+      text-transform: uppercase;
+    }
+
+    /* ─── SCORE BREAKDOWN ─── */
+    .score-breakdown {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--b);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sb-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--t3);
+    }
+
+    /* ─── SOCIAL SIGNALS ─── */
+    .sig-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .sig-card {
+      background: var(--bg2);
+      border: 1px solid var(--b);
+      border-radius: var(--r2);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
     }
 
-    .qsp-v {
-      font-size: 16px;
+    .sig-ico {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .sig-val {
+      font-size: 15px;
       font-weight: 700;
       font-family: var(--fm);
     }
 
-    .qsp-l {
+    .sig-lbl {
       font-size: 9px;
       color: var(--t3);
       text-transform: uppercase;
-      letter-spacing: .7px;
     }
 
-    .qs-bar-l {
+    /* ─── SNAPSHOT ─── */
+    .snap-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .snap-item {
+      background: var(--card);
+      border: 1px solid var(--b);
+      border-radius: var(--r2);
+      padding: 12px;
       display: flex;
-      justify-content: space-between;
-      font-size: 10.5px;
-      margin-bottom: 4px;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    .qs-bar-l span:first-child {
-      color: var(--t2);
+    .snap-v {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--t1);
     }
 
-    .qs-bar-l span:last-child {
-      color: var(--purple);
-      font-family: var(--fm);
+    .snap-l {
+      font-size: 10px;
+      color: var(--t3);
+      text-transform: uppercase;
       font-weight: 600;
-    }
-
-    .bt {
-      height: 5px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .bf {
-      height: 100%;
-      border-radius: 3px;
-    }
-
-    .sf {
-      font-size: 20px;
-      animation: fire .8s infinite alternate;
     }
 
     @keyframes fire {
@@ -2173,26 +2254,16 @@
     <div class="sb-scroll">
       <div class="sb-sec">Navigation</div>
       <nav class="sb-nav">
-        <div class="ni on" data-nav="profile"><span class="ico"><i class="ph ph-user"></i></span>My Profile</div>
-        <div class="ni" data-nav="gps"><span class="ico"><i class="ph ph-compass"></i></span>Dragon GPS</div>
-        <div class="ni" data-nav="prep"><span class="ico"><i class="ph ph-book-open"></i></span>Dragon Prep</div>
-        <div class="ni" data-nav="arena"><span class="ico"><i class="ph ph-sword"></i></span>Dragon Arena</div>
-        <div class="ni" data-nav="quest"><span class="ico"><i class="ph ph-dragon"></i></span>Dragon Quest</div>
+        <div class="ni on" data-nav="profile"><span class="ico"><i class="ph ph-user"></i></span>Talent Identity</div>
+        <div class="ni" data-nav="gps"><span class="ico"><i class="ph ph-map-trifold"></i></span>Career Path (GPS)</div>
         <div class="ndiv"></div>
-        <div class="ni" data-nav="elite"><span class="ico"><i class="ph ph-star"></i></span>Dragon Elite</div>
-        <div class="ni" data-nav="hub"><span class="ico"><i class="ph ph-globe"></i></span>Dragon Hub</div>
-        <div class="ni" data-nav="hire"><span class="ico"><i class="ph ph-target"></i></span>Dragon Hire</div>
-        <div class="ni" data-nav="bridge"><span class="ico"><i class="ph ph-bridge"></i></span>Dragon Bridge</div>
-        <div class="ni" data-nav="review"><span class="ico"><i class="ph ph-clipboard-text"></i></span>Dragon Review
-        </div>
+        <div class="ni" data-nav="prep"><span class="ico"><i class="ph ph-graduation-cap"></i></span>Skill Growth Lab</div>
+        <div class="ni" data-nav="lab"><span class="ico"><i class="ph ph-flask"></i></span>Project Showcase</div>
+        <div class="ni" data-nav="elite"><span class="ico"><i class="ph ph-crown"></i></span>Elite Talent Network</div>
         <div class="ndiv"></div>
-        <div class="ni" data-nav="skill"><span class="ico"><i class="ph ph-wrench"></i></span>Skill Craft</div>
-        <div class="ni" data-nav="lab"><span class="ico"><i class="ph ph-flask"></i></span>Project Lab</div>
-        <div class="ni" data-nav="vault"><span class="ico"><i class="ph ph-lock-laminated"></i></span>Dragon Vault</div>
-        <div class="ni" data-nav="nexus"><span class="ico"><i class="ph ph-link"></i></span>Dragon Nexus</div>
-        <div class="ni" data-nav="dash"><span class="ico"><i class="ph ph-chart-bar"></i></span>Talent Dashboard</div>
-        <div class="ni" data-nav="match"><span class="ico"><i class="ph ph-robot"></i></span>Match Results</div>
-        <div class="ni" data-nav="market"><span class="ico"><i class="ph ph-chart-line-up"></i></span>Market Intel</div>
+        <div class="ni" data-nav="vault"><span class="ico"><i class="ph ph-briefcase"></i></span>Verified Job Vault</div>
+        <div class="ni" data-nav="nexus"><span class="ico"><i class="ph ph-users-three"></i></span>Dragon Nexus</div>
+        <div class="ni" data-nav="review"><span class="ico"><i class="ph ph-chat-centered-text"></i></span>Peer & Expert Review</div>
       </nav>
     </div>
     <div class="sb-foot">
@@ -2237,923 +2308,359 @@
             <div class="h-badge" style="background:var(--red);"><i class="ph ph-magnifying-glass"></i></div>
           </div>
           <div class="h-info">
-            <div class="h-name">Arjun Mehta</div>
-            <div style="font-size:13px;color:var(--t2);font-weight:500;margin-bottom:8px;letter-spacing:-.1px;">Senior
-              ML Engineer &nbsp;·&nbsp; <span style="color:var(--green);font-size:11px;font-weight:600;">● Actively
-                Looking</span></div>
-            <div class="h-meta">
-              <div class="h-mi">📍 Bangalore, India</div>
-              <div class="h-mi">💼 4 yrs experience</div>
-              <div class="h-mi">💰 ₹28–35 LPA</div>
-              <div class="h-mi" style="color:var(--green);">🟢 Open to Remote</div>
+            <div class="h-name">Arjun Mehta <span style="font-size:12px;color:var(--t3);font-weight:400;margin-left:8px;">(He/Him)</span></div>
+            <div style="font-size:14px;color:var(--t2);font-weight:600;margin-bottom:8px;">Senior ML Engineer &nbsp;·&nbsp; Specialist in GenAI & RAG</div>
+            
+
+            <div class="h-meta" style="margin-top:14px; display:flex; gap:16px;">
+              <div class="h-mi"><i class="ph ph-map-pin"></i> Bangalore, India (Open to Remote)</div>
+              <div class="h-mi" style="color:var(--green);font-weight:600;"><i class="ph-fill ph-check-circle"></i> Actively Interviewing</div>
             </div>
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-              <!-- Job Seeker Only -->
+
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;">
               <button class="btn bp js-only" style="font-size:11px;padding:7px 16px;"><i class="ph ph-robot"></i>
                 Activate Dragon Agent</button>
-              <button class="btn bg js-only" style="font-size:11px;padding:7px 16px;"><i
-                  class="ph ph-download-simple"></i> Import LinkedIn</button>
               <button class="btn bg" style="font-size:11px;padding:7px 16px;"><i class="ph ph-share-network"></i> Share
                 Profile</button>
-
-              <!-- Recruiter Only -->
+              
               <button class="btn bp rv-only" style="font-size:11px;padding:7px 16px;background:var(--red);"><i
-                  class="ph ph-user-plus"></i> Add to Pipeline</button>
-              <button class="btn bg rv-only" style="font-size:11px;padding:7px 16px;"><i class="ph ph-chats"></i>
-                Message Arjun</button>
-              <button class="btn bg rv-only" style="font-size:11px;padding:7px 16px;"><i class="ph ph-file-pdf"></i>
-                Download CV</button>
+                  class="ph ph-user-plus"></i> Shortlist Arjun</button>
+              <button class="btn bg rv-only" style="font-size:11px;padding:7px 16px;"><i class="ph ph-calendar"></i>
+                Book Interview</button>
             </div>
           </div>
 
           <!-- Score cards -->
           <div class="h-scores">
-            <div class="sc" style="border-color:var(--redd);">
+            <div class="sc" style="border-color:var(--red);background:linear-gradient(135deg, var(--redd), transparent);">
               <div class="sc-lbl">Dragon Score</div>
-              <div class="sc-val" style="color:var(--red);">88</div>
-              <div style="font-size:9.5px;color:var(--t3);margin-top:2px;"><span style="color:var(--amber);">Elite
-                  eligible</span></div>
+              <div class="sc-val" style="color:var(--red);">88<span style="font-size:12px;color:var(--t3);font-weight:400;">/100</span></div>
+              <div class="score-breakdown">
+                <div class="sb-item"><span>Skill Proof</span><span>94%</span></div>
+                <div class="sb-item"><span>Project Quality</span><span>88%</span></div>
+                <div class="sb-item"><span>Trust Score</span><span>96%</span></div>
+              </div>
             </div>
-            <div class="sc" style="border-color:rgba(167,139,250,0.25);">
-              <div class="sc-lbl">Shadow Sage</div>
-              <div class="sc-val" style="color:var(--purple);font-size:16px;">Level 14</div>
-              <div style="font-size:9.5px;color:var(--t3);margin-top:2px;">4,280 XP · <span
-                  style="color:var(--amber);">42<i class="ph-fill ph-fire"></i> streak</span></div>
-            </div>
-            <div class="sc" style="border-color:rgba(245,158,11,0.25);">
-              <div class="sc-lbl">Completion</div>
-              <div class="sc-val" style="color:var(--amber);">78%</div>
-              <div style="font-size:9.5px;color:var(--t3);margin-top:2px;">Strength: <span
-                  style="color:var(--green);">High</span></div>
+            <div class="sc" style="border-color:var(--amber);">
+              <div class="sc-lbl">Match Score</div>
+              <div class="sc-val" style="color:var(--amber);">94%</div>
+              <div style="font-size:9.5px;color:var(--t3);margin-top:4px;">Average match for <strong>Razorpay, Stripe, CRED</strong></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 3 TABS -->
+      <!-- 1 TAB (Simplified) -->
       <div class="tabs" style="--tc:var(--red);">
-        <div class="tab on" onclick="stab(this,'js-t1')"><i class="ph ph-folder"></i> Portfolio</div>
-        <div class="tab" onclick="stab(this,'js-t2')"><i class="ph ph-briefcase"></i> Career & Job Management</div>
-        <div class="tab" onclick="stab(this,'js-t3')"><i class="ph ph-lightning"></i> Activity</div>
+        <div class="tab on" onclick="stab(this,'js-t1')"><i class="ph ph-user-focus"></i> Identity & Talent Profile</div>
       </div>
 
-      <!-- TAB 1: PORTFOLIO (Base view - no Why Hire section) -->
       <div class="tp on" id="js-t1">
+        <!-- This is where the Why Hire section will be inserted dynamically in recruiter view -->
+        <div id="why-hire-container"></div>
+
         <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;">
           <div style="display:flex;flex-direction:column;gap:14px;">
-            <!-- This is where the Why Hire section will be inserted dynamically in recruiter view -->
-            <div id="why-hire-container"></div>
-
-            <!-- AI SKILL GRAPH -->
+            <!-- AI SKILL GRAPH (UPGRADED) -->
             <div class="card">
               <div class="card-head">
-                <div class="card-title"><i class="ph ph-brain"></i> Verified Skills</div>
-                <span class="card-action js-only">Full report →</span>
+                <div class="card-title"><i class="ph ph-brain"></i> Verified Skill Identity</div>
+                <span class="card-action js-only">Depth vs Breadth Report →</span>
               </div>
               <div class="card-body">
-                <div class="two" style="gap:12px;">
-                  <div>
-                    <div class="skill-item"><span class="skill-name">Machine Learning</span>
-                      <div class="skill-bar-wrap">
-                        <div class="skill-bar" style="width:94%;background:var(--red);"></div>
-                      </div><span class="skill-val" style="color:var(--red);">94</span>
-                    </div>
-                    <div class="skill-item"><span class="skill-name">Python / PyTorch</span>
-                      <div class="skill-bar-wrap">
-                        <div class="skill-bar" style="width:89%;background:var(--blue);"></div>
-                      </div><span class="skill-val" style="color:var(--blue);">89</span>
-                    </div>
-                    <div class="skill-item"><span class="skill-name">Databricks / Spark</span>
-                      <div class="skill-bar-wrap">
-                        <div class="skill-bar" style="width:82%;background:var(--green);"></div>
-                      </div><span class="skill-val" style="color:var(--green);">82</span>
-                    </div>
+                <div class="skill-group">
+                  <div class="sg-title">Core Mastery (Top 3)</div>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                    <span class="skill-badge top"><i class="ph ph-check-circle"></i> Machine Learning (94%)</span>
+                    <span class="skill-badge top"><i class="ph ph-check-circle"></i> Python / PyTorch (89%)</span>
+                    <span class="skill-badge top"><i class="ph ph-check-circle"></i> Databricks / Spark (82%)</span>
                   </div>
-                  <div>
-                    <div class="skill-item"><span class="skill-name">System Design</span>
-                      <div class="skill-bar-wrap">
-                        <div class="skill-bar" style="width:75%;background:var(--amber);"></div>
-                      </div><span class="skill-val" style="color:var(--amber);">75</span>
+                </div>
+
+                <div class="skill-group">
+                  <div class="sg-title">Supporting Depth</div>
+                  <div class="two" style="gap:12px;">
+                    <div>
+                      <div class="skill-item"><span class="skill-name">System Design</span>
+                        <div class="skill-bar-wrap">
+                          <div class="skill-bar" style="width:75%;background:var(--amber);"></div>
+                        </div><span class="skill-val">75</span>
+                      </div>
+                      <div class="skill-item"><span class="skill-name">LLM / RAG</span>
+                        <div class="skill-bar-wrap">
+                          <div class="skill-bar" style="width:70%;background:var(--purple);"></div>
+                        </div><span class="skill-val">70</span>
+                      </div>
                     </div>
-                    <div class="skill-item"><span class="skill-name">LLM / RAG</span>
-                      <div class="skill-bar-wrap">
-                        <div class="skill-bar" style="width:70%;background:var(--purple);"></div>
-                      </div><span class="skill-val" style="color:var(--purple);">70</span>
+                    <div>
+                      <div class="skill-item"><span class="skill-name">MLOps</span>
+                        <div class="skill-bar-wrap">
+                          <div class="skill-bar" style="width:65%;background:var(--blue);"></div>
+                        </div><span class="skill-val">65</span>
+                      </div>
+                      <div class="skill-item"><span class="skill-name">Cloud (AWS/Azure)</span>
+                        <div class="skill-bar-wrap">
+                          <div class="skill-bar" style="width:80%;background:var(--green);"></div>
+                        </div><span class="skill-val">80</span>
+                      </div>
                     </div>
                   </div>
                 </div>
+
                 <div class="chip-row">
-                  <span class="chip cr">Deep Learning</span>
-                  <span class="chip cb">MLOps</span>
-                  <span class="chip cg">Snowflake</span>
-                  <span class="chip ca">AWS ML</span>
-                  <span class="chip cp">GenAI</span>
+                  <span class="chip">Deep Learning</span>
+                  <span class="chip">Snowflake</span>
+                  <span class="chip">Kafka</span>
+                  <span class="chip">Docker/K8s</span>
+                  <span class="chip">GenAI</span>
                 </div>
               </div>
             </div>
 
-            <!-- EXPERIENCE -->
+            <!-- WORK EXPERIENCE (DECISION-DRIVEN) -->
             <div class="card">
               <div class="card-head">
-                <div class="card-title"><i class="ph ph-briefcase"></i> Experience</div>
-                <div class="js-only" style="display:flex;gap:8px;">
-                  <button class="btn bg" style="font-size:10px;padding:3px 9px;">📥 Import LinkedIn</button>
-                </div>
+                <div class="card-title"><i class="ph ph-briefcase"></i> Work Experience</div>
               </div>
-              <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
-                <div style="padding:12px 14px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
-                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
-                    <div>
-                      <div style="font-size:13px;font-weight:700;">Senior ML Engineer</div>
-                      <div style="font-size:11.5px;color:var(--red);font-weight:600;">Flipkart</div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:20px;">
+                <!-- Entry 1 -->
+                <div style="display:flex;gap:16px;">
+                  <div style="flex-shrink:0;width:44px;height:44px;background:var(--bd);color:var(--blue);border-radius:10px;display:grid;place-items:center;font-size:22px;"><i class="ph-fill ph-buildings"></i></div>
+                  <div style="flex:1;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                      <div style="font-size:15px;font-weight:700;color:var(--t1);">Senior ML Engineer</div>
+                      <div style="font-size:11px;color:var(--t3);font-weight:600;">JUL 2023 — PRESENT</div>
                     </div>
-                    <span style="font-size:10.5px;color:var(--t3);">Jan 2023 – Present</span>
+                    <div style="font-size:13px;color:var(--blue);font-weight:600;margin-bottom:6px;">Flipkart · Full-time</div>
+                    <div style="font-size:12.5px;color:var(--t2);line-height:1.5;">Led the scaling of GenAI-powered search for 200M+ users & optimized real-time inference on Databricks.</div>
+                    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+                      <span style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;align-self:center;">Core Tech:</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;">Python</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;">Databricks</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;">PyTorch</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;">LangChain</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;">MLOps</span>
+                    </div>
                   </div>
-                  <div style="font-size:11.5px;color:var(--t2);line-height:1.55;">Built real-time recommendation engine
-                    serving 200M+ users. Reduced latency by 40% using MLOps pipelines on Databricks. Led a team of 4 ML
-                    engineers.</div>
-                  <div class="chip-row"><span class="chip cb">PyTorch</span><span class="chip cg">Databricks</span><span
-                      class="chip ca">AWS</span></div>
                 </div>
-                <div style="padding:12px 14px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
-                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
-                    <div>
-                      <div style="font-size:13px;font-weight:700;">ML Engineer</div>
-                      <div style="font-size:11.5px;color:var(--blue);font-weight:600;">Swiggy</div>
+
+                <!-- Entry 2 -->
+                <div style="display:flex;gap:16px;">
+                  <div style="flex-shrink:0;width:44px;height:44px;background:var(--gd);color:var(--green);border-radius:10px;display:grid;place-items:center;font-size:22px;"><i class="ph-fill ph-storefront"></i></div>
+                  <div style="flex:1;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                      <div style="font-size:15px;font-weight:700;color:var(--t1);">Machine Learning Engineer</div>
+                      <div style="font-size:11px;color:var(--t3);font-weight:600;">JUNE 2021 — JUNE 2023</div>
                     </div>
-                    <span style="font-size:10.5px;color:var(--t3);">Jun 2021 – Dec 2022</span>
+                    <div style="font-size:13px;color:var(--green);font-weight:600;margin-bottom:6px;">Zomato · Full-time</div>
+                    <div style="font-size:12.5px;color:var(--t2);line-height:1.5;">Developed Food-Arrival-Time (FAT) prediction models using Graph Neural Networks and robust telemetry validation.</div>
+                    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+                      <span style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;align-self:center;">Core Tech:</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(16,185,129,0.1);color:var(--green);border:none;">GNNs</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(16,185,129,0.1);color:var(--green);border:none;">TensorFlow</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(16,185,129,0.1);color:var(--green);border:none;">Kafka</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(16,185,129,0.1);color:var(--green);border:none;">Redis</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(16,185,129,0.1);color:var(--green);border:none;">Docker</span>
+                    </div>
                   </div>
-                  <div style="font-size:11.5px;color:var(--t2);line-height:1.55;">Developed ETA prediction model
-                    improving accuracy by 22%. Deployed A/B testing framework for ML models in production.</div>
-                  <div class="chip-row"><span class="chip cr">Python</span><span class="chip cg">Snowflake</span><span
-                      class="chip cc">Kafka</span></div>
+                </div>
+
+                <!-- Entry 3 -->
+                <div style="display:flex;gap:16px;">
+                  <div style="flex-shrink:0;width:44px;height:44px;background:var(--redd);color:var(--red);border-radius:10px;display:grid;place-items:center;font-size:22px;"><i class="ph-fill ph-google-logo"></i></div>
+                  <div style="flex:1;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                      <div style="font-size:15px;font-weight:700;color:var(--t1);">Software Engineering Intern</div>
+                      <div style="font-size:11px;color:var(--t3);font-weight:600;">MAY 2020 — AUG 2020</div>
+                    </div>
+                    <div style="font-size:13px;color:var(--red);font-weight:600;margin-bottom:6px;">Google · Internship</div>
+                    <div style="font-size:12.5px;color:var(--t2);line-height:1.5;">Enhanced TensorBoard's plugin architecture for multi-modal data visualization within the Google Brain team.</div>
+                    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+                      <span style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;align-self:center;">Core Tech:</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(99,102,241,0.1);color:var(--red);border:none;">TypeScript</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(99,102,241,0.1);color:var(--red);border:none;">C++</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(99,102,241,0.1);color:var(--red);border:none;">Bazel</span>
+                      <span class="chip" style="font-size:10px;padding:3px 8px;background:rgba(99,102,241,0.1);color:var(--red);border:none;">TensorBoard</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- PROJECTS -->
+            <!-- PROJECTS (DECISION-DRIVEN) -->
             <div class="card">
               <div class="card-head">
-                <div class="card-title"><i class="ph ph-flask"></i> Featured Projects</div>
-                <button class="btn bg js-only" style="font-size:10px;padding:3px 9px;">+ Add Project</button>
+                <div class="card-title"><i class="ph ph-flask"></i> Proof of Work (Projects)</div>
+                <button class="btn bg js-only" style="font-size:10px;padding:3px 9px;">+ New Proof</button>
               </div>
-              <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
-                <div style="padding:12px 14px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
-                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
-                    <div style="font-size:13px;font-weight:700;">RAG-based Document QA System</div>
-                    <span
-                      style="background:var(--gd);color:var(--green);font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:7px;">Quality
-                      88/100</span>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+                <!-- Project 1 -->
+                <div style="padding:14px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <div>
+                      <div style="font-size:14px;font-weight:700;color:var(--t1);">RAG-based Document QA System</div>
+                      <div style="font-size:11px;color:var(--t3);margin-top:2px;">Tech: LangChain, Pinecone, FastAPI, Docker</div>
+                    </div>
+                    <div style="text-align:right;">
+                      <!-- <div style="background:var(--gd);color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:7px;">AI QUALITY: 88/100</div> -->
+                      <div style="font-size:9px;color:var(--t3);margin-top:4px;">Verified by Proctoring</div>
+                    </div>
                   </div>
-                  <div style="font-size:11.5px;color:var(--t2);margin-bottom:8px;">End-to-end document QA with
-                    LangChain, Pinecone, FastAPI. 34 recruiter views · 14 company matches.</div>
-                  <div class="chip-row"><span class="chip cb">LangChain</span><span class="chip cr">FastAPI</span><span
-                      class="chip cg">Pinecone</span></div>
+                  <div style="font-size:12px;color:var(--t2);line-height:1.55;margin-bottom:10px;">End-to-end document QA with vector search. Handled 10k+ concurrent requests in benchmark tests.</div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <div style="display:flex;gap:12px;">
+                      <a href="#" style="color:var(--blue);font-size:11px;font-weight:600;text-decoration:none;"><i class="ph ph-github-logo"></i> Repository</a>
+                      <a href="#" style="color:var(--green);font-size:11px;font-weight:600;text-decoration:none;"><i class="ph ph-browser"></i> Live Demo</a>
+                    </div>
+                    <div class="impact-tag">Matched with 14 companies (Razorpay, CRED, etc.)</div>
+                  </div>
                 </div>
-                <div style="padding:12px 14px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
-                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
-                    <div style="font-size:13px;font-weight:700;">Real-time ML Feature Store</div>
-                    <span
-                      style="background:var(--ad);color:var(--amber);font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:7px;">Quality
-                      74/100</span>
+
+                <!-- Project 2 -->
+                <div style="padding:14px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <div>
+                      <div style="font-size:14px;font-weight:700;color:var(--t1);">Real-time ML Feature Store</div>
+                      <div style="font-size:11px;color:var(--t3);margin-top:2px;">Tech: Redis, Kafka, Feast, Python</div>
+                    </div>
+                    <div style="text-align:right;">
+                      <!-- <div style="background:var(--bd);color:var(--blue);font-size:10px;font-weight:700;padding:2px 8px;border-radius:7px;">AI QUALITY: 74/100</div> -->
+                      <div style="font-size:9px;color:var(--t3);margin-top:4px;">Verified codebase</div>
+                    </div>
                   </div>
-                  <div style="font-size:11.5px;color:var(--t2);margin-bottom:8px;">Scalable feature store with Redis
-                    caching and Kafka streaming. 18 recruiter views · 9 company matches.</div>
-                  <div class="chip-row"><span class="chip ca">Redis</span><span class="chip cb">Kafka</span><span
-                      class="chip cp">Feast</span></div>
+                  <div style="font-size:12px;color:var(--t2);line-height:1.55;margin-bottom:10px;">Scalable feature store for low-latency inference. Integrated with production data pipelines.</div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <div style="display:flex;gap:12px;">
+                      <a href="#" style="color:var(--blue);font-size:11px;font-weight:600;text-decoration:none;"><i class="ph ph-github-logo"></i> Repository</a>
+                    </div>
+                    <div class="impact-tag">Matched with 9 companies</div>
+                  </div>
                 </div>
               </div>
             </div>
+
           </div>
 
           <!-- RIGHT COLUMN -->
           <div style="display:flex;flex-direction:column;gap:14px;">
-            <!-- CERTIFICATIONS -->
-            <div class="acc ex" style="--ac:rgba(16,185,129,0.2);">
+            <!-- DECISION SNAPSHOT (SIDEBAR) -->
+            <div class="df-row" style="flex-direction:column; gap:10px; margin:0;">
+              <div class="df">
+                <i class="ph ph-hourglass df-ico"></i>
+                <div class="df-content">
+                  <div class="df-l">Experience</div>
+                  <div class="df-v">4.2 Years (Mid-Senior)</div>
+                </div>
+              </div>
+              <div class="df">
+                <i class="ph ph-currency-inr df-ico"></i>
+                <div class="df-content">
+                  <div class="df-l">Expected CTC</div>
+                  <div class="df-v">₹32–40 LPA</div>
+                </div>
+              </div>
+              <div class="df">
+                <i class="ph ph-timer df-ico"></i>
+                <div class="df-content">
+                  <div class="df-l">Notice Period</div>
+                  <div class="df-v">Immediate / 15 days</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CERTIFICATIONS (UPGRADED) -->
+            <div class="acc ex" style="--ac:var(--green);">
               <div class="acc-h" onclick="tog(this)">
                 <span class="acc-ic"><i class="ph ph-medal"></i></span>
                 <div class="acc-t">
-                  <div class="acc-tm">Certifications</div>
-                  <div class="acc-ts">7 verified · 2 expiring soon</div>
+                  <div class="acc-tm">Verified Certifications</div>
+                  <div class="acc-ts">7 Total · All Industry Recognized</div>
                 </div>
-                <div class="acc-r"><span class="acc-badge" style="background:var(--gd);color:var(--green);">7
-                    Verified</span><span class="acc-arr">▼</span></div>
+                <div class="acc-arr">▼</div>
               </div>
-              <div class="acc-body">
-                <div class="cert-row"><span class="cert-ico"><i class="ph ph-medal"></i></span>
+              <div class="acc-body" style="padding: 0 16px 16px;">
+                <div class="cert-row">
                   <div class="cert-inf">
                     <div class="cert-nm">AWS ML Specialty</div>
-                    <div class="cert-dt">Amazon · Jan 2024 · Exp Jan 2027</div>
-                  </div><span class="cert-v">✓</span>
+                    <div class="cert-dt">Amazon · 2024</div>
+                    <div class="impact-tag" style="margin-top:3px;display:inline-block;">Matched in 4 active roles</div>
+                  </div>
+                  <div class="cert-v" style="color:var(--green);">Verified</div>
                 </div>
-                <div class="cert-row"><span class="cert-ico">❄️</span>
-                  <div class="cert-inf">
-                    <div class="cert-nm">Snowflake SnowPro Core</div>
-                    <div class="cert-dt">Snowflake · Mar 2024 · Exp Mar 2026</div>
-                  </div><span class="cert-v">✓</span>
-                </div>
-                <div class="cert-row"><span class="cert-ico">🔶</span>
+                <div class="cert-row">
                   <div class="cert-inf">
                     <div class="cert-nm">Databricks Assoc. Developer</div>
-                    <div class="cert-dt">Databricks · Jun 2023 · No expiry</div>
-                  </div><span class="cert-v">✓</span>
+                    <div class="cert-dt">Databricks · 2023</div>
+                  </div>
+                  <div class="cert-v" style="color:var(--green);">Verified</div>
                 </div>
-                <div class="cert-row"><span class="cert-ico">🟦</span>
+                <div class="cert-row">
                   <div class="cert-inf">
-                    <div class="cert-nm">Azure AI Engineer Associate</div>
-                    <div class="cert-dt">Microsoft · Nov 2024 · Exp Nov 2025</div>
-                  </div><span class="cert-v">✓</span>
+                    <div class="cert-nm">Snowflake SnowPro</div>
+                    <div class="cert-dt">Snowflake · 2024</div>
+                  </div>
+                  <div class="cert-v" style="color:var(--green);">Verified</div>
                 </div>
               </div>
             </div>
 
-            <!-- ENDORSEMENTS -->
-            <div class="acc" style="--ac:rgba(167,139,250,0.2);">
-              <div class="acc-h" onclick="tog(this)">
-                <span class="acc-ic"><i class="ph ph-star"></i></span>
-                <div class="acc-t">
-                  <div class="acc-tm">Recommendations</div>
-                  <div class="acc-ts">3 endorsements from managers</div>
-                </div>
-                <div class="acc-r"><span class="acc-badge" style="background:var(--pd);color:var(--purple);">3
-                    recs</span><span class="acc-arr">▼</span></div>
-              </div>
-              <div class="acc-body">
-                <div class="endorse">
-                  <div class="e-av">SR</div>
-                  <div class="e-inf">
-                    <div class="e-nm">Sneha Rao</div>
-                    <div class="e-rl">Engineering Manager · Flipkart</div>
-                    <div class="e-txt">"Arjun's ability to take an ML model from research to production in under 2 weeks
-                      is genuinely rare."</div>
-                  </div>
-                </div>
-                <div class="endorse">
-                  <div class="e-av">VK</div>
-                  <div class="e-inf">
-                    <div class="e-nm">Vikram Krishnan</div>
-                    <div class="e-rl">Principal Data Scientist · Zomato</div>
-                    <div class="e-txt">"Reduced pipeline time by 40%. Best Databricks engineer I've worked with."</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- GITHUB -->
+            <!-- EDUCATION (MOVED TO SIDEBAR) -->
             <div class="card">
               <div class="card-head">
-                <div class="card-title"><i class="ph ph-github-logo"></i> GitHub Portfolio</div>
+                <div class="card-title"><i class="ph ph-graduation-cap"></i> Education</div>
               </div>
               <div class="card-body">
-                <div
-                  style="padding:9px 10px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);margin-bottom:7px;">
-                  <div style="font-size:12px;font-weight:600;margin-bottom:2px;">RAG-based Document QA</div>
-                  <div style="display:flex;gap:10px;font-size:10.5px;color:var(--t2);"><span>⭐ 88/100</span><span>🍴 34
-                      forks</span></div>
+                <div style="display:flex;gap:14px;">
+                  <div style="width:40px;height:40px;background:var(--el);border-radius:var(--r1);display:grid;place-items:center;font-size:20px;color:var(--t3);"><i class="ph ph-buildings"></i></div>
+                  <div>
+                    <div style="font-size:13px;font-weight:700;color:var(--t1);">B.Tech in CS</div>
+                    <div style="font-size:12px;color:var(--t2);">IIT, Delhi</div>
+                    <div style="font-size:10px;color:var(--t3);margin-top:2px;">Class of 2021 · CGPA: 8.9</div>
+                  </div>
                 </div>
-                <div style="padding:9px 10px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);">
-                  <div style="font-size:12px;font-weight:600;margin-bottom:2px;">ML Feature Store</div>
-                  <div style="display:flex;gap:10px;font-size:10.5px;color:var(--t2);"><span>⭐ 74/100</span><span>🍴 18
-                      forks</span></div>
+              </div>
+            </div>
+
+            <!-- SOCIAL SIGNALS (NEW) -->
+            <div class="card">
+              <div class="card-head">
+                <div class="card-title"><i class="ph ph-rss"></i> Social Proof & Signals</div>
+              </div>
+              <div class="card-body">
+                <div class="sig-grid">
+                  <div class="sig-card">
+                    <i class="ph ph-github-logo sig-ico" style="color:var(--t1);"></i>
+                    <div class="sig-val">420+</div>
+                    <div class="sig-lbl">Stars</div>
+                  </div>
+                  <div class="sig-card">
+                    <i class="ph ph-linkedin-logo sig-ico" style="color:var(--blue);"></i>
+                    <div class="sig-val">12k+</div>
+                    <div class="sig-lbl">Followers</div>
+                  </div>
+                  <div class="sig-card">
+                    <i class="ph ph-code sig-ico" style="color:var(--amber);"></i>
+                    <div class="sig-val">Top 5%</div>
+                    <div class="sig-lbl">LeetCode</div>
+                  </div>
+                </div>
+                <div style="margin-top:12px;font-size:11px;color:var(--t3);text-align:center;">
+                  Most active on <strong style="color:var(--t2);">Distributed Systems</strong> and <strong style="color:var(--t2);">LLM Research</strong>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-<!-- ══════════════ TAB 2: CAREER & JOB MANAGEMENT ══════════════ -->
-      <div class="tp" id="js-t2">
-        <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;">
-          <div style="display:flex;flex-direction:column;gap:14px;">
-
-            <!-- TOP AI MATCHES -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-robot"></i> Top AI Matches</div>
-                <div style="display:flex;gap:8px;align-items:center;">
-                  <!-- Active preferences summary -->
-                  <div style="display:flex;gap:5px;flex-wrap:wrap;">
-                    <span class="chip cg" style="font-size:10px;">🟢 Remote OK</span>
-                    <span class="chip ca" style="font-size:10px;">₹28L+</span>
-                    <span class="chip cr" style="font-size:10px;">ML / AI</span>
-                  </div>
-                  <button class="btn bg" style="font-size:10px;padding:3px 9px;">⚙️ Edit Preferences</button>
-                  <span class="card-action" style="font-size:11px;">See all 23 →</span>
-                </div>
-              </div>
-              <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
-                <!-- Match 1 — with gap analysis + apply button -->
-                <div
-                  style="background:linear-gradient(135deg,rgba(99,102,241,0.07),transparent);border:1px solid rgba(99,102,241,0.18);border-radius:var(--r2);padding:12px 14px;">
-                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-                    <div>
-                      <div
-                        style="font-size:10px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;">
-                        Razorpay</div>
-                      <div style="font-size:13.5px;font-weight:700;">Senior ML Engineer</div>
-                    </div>
-                    <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--green);">94%</div>
-                  </div>
-                  <div style="display:flex;gap:10px;font-size:11px;color:var(--t2);flex-wrap:wrap;margin-bottom:6px;">
-                    <span>📍 Bangalore</span><span>💰 ₹32–40 LPA</span><span>🟢 Hybrid</span>
-                  </div>
-                  <div
-                    style="font-size:11px;color:var(--t3);margin-bottom:5px;padding-bottom:5px;border-bottom:1px solid var(--b);">
-                    🤖 Match: <strong style="color:var(--t2);">AWS ML ✓ · Databricks ✓ · RAG project ✓ · Salary
-                      ✓</strong></div>
-                  <div style="font-size:10.5px;color:var(--t3);margin-bottom:8px;">Gap to 100%: <span
-                      style="color:var(--amber);">RLHF cert (+3%) · System Design mock (+3%)</span></div>
-                  <button class="btn bp" style="width:100%;display:flex;justify-content:center;font-size:11.5px;">🤖
-                    Apply via Dragon Agent →</button>
-                </div>
-                <!-- Match 2 -->
-                <div
-                  style="background:linear-gradient(135deg,rgba(59,130,246,0.06),transparent);border:1px solid rgba(59,130,246,0.14);border-radius:var(--r2);padding:12px 14px;">
-                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-                    <div>
-                      <div
-                        style="font-size:10px;color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;">
-                        Stripe</div>
-                      <div style="font-size:13.5px;font-weight:700;">ML Infrastructure Engineer</div>
-                    </div>
-                    <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--amber);">91%</div>
-                  </div>
-                  <div style="display:flex;gap:10px;font-size:11px;color:var(--t2);flex-wrap:wrap;margin-bottom:6px;">
-                    <span>📍 Remote</span><span>💰 $130K–160K</span>
-                  </div>
-                  <div style="font-size:10.5px;color:var(--t3);margin-bottom:8px;">Gap to 100%: <span
-                      style="color:var(--amber);">K8s cert (+5%) · System design score (+4%)</span></div>
-                  <button class="btn bg"
-                    style="width:100%;display:flex;justify-content:center;font-size:11.5px;color:var(--blue);border-color:rgba(59,130,246,0.25);">🤖
-                    Apply via Dragon Agent →</button>
-                </div>
-                <!-- Match 3 — upside badge -->
-                <div
-                  style="background:linear-gradient(135deg,rgba(245,158,11,0.06),transparent);border:1px solid rgba(245,158,11,0.14);border-radius:var(--r2);padding:12px 14px;">
-                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-                    <div>
-                      <div
-                        style="font-size:10px;color:var(--amber);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;">
-                        Google DeepMind</div>
-                      <div style="font-size:13.5px;font-weight:700;">ML Research Engineer</div>
-                      <div
-                        style="display:inline-flex;align-items:center;gap:4px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.25);padding:2px 8px;border-radius:9px;font-size:9.5px;margin-top:4px;color:var(--amber);font-weight:700;">
-                        ⬆ 2.2× salary vs current range</div>
-                    </div>
-                    <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--purple);">86%</div>
-                  </div>
-                  <div style="display:flex;gap:10px;font-size:11px;color:var(--t2);flex-wrap:wrap;margin-bottom:6px;">
-                    <span>📍 Hyderabad / Remote</span><span>💰 ₹60–90 LPA</span>
-                  </div>
-                  <div style="font-size:10.5px;color:var(--t3);margin-bottom:8px;">Gap to 94%: <span
-                      style="color:var(--amber);">RLHF cert (+4%) · Research portfolio (+4%)</span></div>
-                  <button class="btn bg"
-                    style="width:100%;display:flex;justify-content:center;font-size:11.5px;color:var(--amber);border-color:rgba(245,158,11,0.25);">🤖
-                    Apply via Dragon Agent →</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- SIMPLIFIED DRAGON GPS -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-compass"></i> Dragon GPS — Career Path</div>
-                <span style="font-size:11px;color:var(--green);font-weight:600;">On track</span>
-              </div>
-              <div class="card-body">
-                <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px;">
-                  <div style="font-size:11.5px;color:var(--t2);">Target: <strong style="color:var(--t1);">Senior ML Eng
-                      @ Razorpay</strong></div>
-                  <div style="font-size:11.5px;color:var(--red);font-weight:700;">68%</div>
-                </div>
-                <div class="pt" style="height:5px;margin-bottom:12px;">
-                  <div class="pf" style="width:68%;background:var(--red);"></div>
-                </div>
-
-                <div style="display:flex;flex-direction:column;gap:8px;">
-                  <div style="display:flex;gap:10px;font-size:11.5px;align-items:center;">
-                    <span style="color:var(--green);font-weight:700;">✓</span>
-                    <div style="color:var(--t2);">Python & ML Foundations</div>
-                  </div>
-                  <div style="display:flex;gap:10px;font-size:11.5px;align-items:center;">
-                    <span style="color:var(--red);font-weight:700;">●</span>
-                    <div style="color:var(--t1);font-weight:600;">LLMs, RAG & GenAI <span
-                        style="font-size:10px;color:var(--t3);font-weight:400;margin-left:8px;">Module 3/5 · Wk
-                        6/10</span></div>
-                  </div>
-                  <div style="display:flex;gap:10px;font-size:11.5px;align-items:center;opacity:0.5;">
-                    <span style="color:var(--t3);">○</span>
-                    <div style="color:var(--t3);">MLOps & Production</div>
-                  </div>
-                </div>
-
-                <div
-                  style="margin-top:14px;padding:8px 10px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:var(--r2);font-size:11px;color:var(--t2);">
-                  <strong style="color:var(--amber);">Rerouting Tip:</strong> Add RLHF (+2wks) for <strong
-                    style="color:var(--t1);">DeepMind</strong> (₹60L+)
-                </div>
-              </div>
-            </div>
-
-
-
-          </div>
-
-          <!-- RIGHT COLUMN -->
-          <div style="display:flex;flex-direction:column;gap:14px;">
-
-            <!-- SEARCH APPEARANCE -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-eye"></i> Search Appearance</div>
-                <span style="font-size:10px;color:var(--t3);">Last 30 days</span>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--b);">
-                <div style="padding:10px 12px;border-right:1px solid var(--b);text-align:center;">
-                  <div style="font-size:18px;font-weight:700;font-family:var(--fm);color:var(--blue);">142</div>
-                  <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Profile Views</div>
-                  <!-- Mini sparkline -->
-                  <div
-                    style="display:flex;align-items:flex-end;justify-content:center;gap:2px;height:14px;margin:4px 0 2px;">
-                    <div style="width:4px;height:5px;background:rgba(59,130,246,0.3);border-radius:1px;"></div>
-                    <div style="width:4px;height:7px;background:rgba(59,130,246,0.4);border-radius:1px;"></div>
-                    <div style="width:4px;height:9px;background:rgba(59,130,246,0.5);border-radius:1px;"></div>
-                    <div style="width:4px;height:6px;background:rgba(59,130,246,0.5);border-radius:1px;"></div>
-                    <div style="width:4px;height:13px;background:var(--blue);border-radius:1px;"></div>
-                  </div>
-                  <div style="font-size:10px;color:var(--green);">↑ +38 vs last wk</div>
-                </div>
-                <div style="padding:10px 12px;text-align:center;">
-                  <div style="font-size:18px;font-weight:700;font-family:var(--fm);color:var(--green);">23</div>
-                  <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Appearances</div>
-                  <div
-                    style="display:flex;align-items:flex-end;justify-content:center;gap:2px;height:14px;margin:4px 0 2px;">
-                    <div style="width:4px;height:4px;background:rgba(16,185,129,0.3);border-radius:1px;"></div>
-                    <div style="width:4px;height:8px;background:rgba(16,185,129,0.4);border-radius:1px;"></div>
-                    <div style="width:4px;height:6px;background:rgba(16,185,129,0.5);border-radius:1px;"></div>
-                    <div style="width:4px;height:10px;background:rgba(16,185,129,0.5);border-radius:1px;"></div>
-                    <div style="width:4px;height:13px;background:var(--green);border-radius:1px;"></div>
-                  </div>
-                  <div style="font-size:10px;color:var(--green);">↑ +7 vs last wk</div>
-                </div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--b);">
-                <div style="padding:10px 12px;border-right:1px solid var(--b);text-align:center;">
-                  <div style="font-size:18px;font-weight:700;font-family:var(--fm);color:var(--amber);">8</div>
-                  <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Shortlisted</div>
-                  <div style="font-size:10px;color:var(--green);margin-top:3px;">↑ +3 vs last wk</div>
-                </div>
-                <div style="padding:10px 12px;text-align:center;">
-                  <div style="font-size:18px;font-weight:700;font-family:var(--fm);color:var(--purple);">3</div>
-                  <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Contacted</div>
-                  <div style="display:flex;flex-direction:column;gap:1px;margin-top:3px;">
-                    <span style="font-size:9.5px;color:var(--red);cursor:pointer;text-decoration:underline;">Razorpay
-                      →</span>
-                    <span style="font-size:9.5px;color:var(--green);cursor:pointer;text-decoration:underline;">CRED
-                      →</span>
-                    <span style="font-size:9.5px;color:var(--blue);cursor:pointer;text-decoration:underline;">Stripe
-                      →</span>
-                  </div>
-                </div>
-              </div>
-              <div style="padding:10px 12px;">
-                <div style="font-size:10.5px;color:var(--t2);margin-bottom:5px;">Top keywords:</div>
-                <div style="display:flex;gap:5px;flex-wrap:wrap;"><span class="chip cb" style="font-size:10px;">ML
-                    Engineer</span><span class="chip ca" style="font-size:10px;">RAG Specialist</span><span
-                    class="chip cp" style="font-size:10px;">Databricks</span></div>
-                <span
-                  style="font-size:10px;color:var(--blue);cursor:pointer;font-weight:600;display:block;margin-top:6px;">Edit
-                  keywords →</span>
-              </div>
-            </div>
-
-            <!-- SIMPLIFIED APPLICATIONS -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-clipboard-text"></i> Applications</div><span
-                  class="card-action">View all →</span>
-              </div>
-              <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
-                <div
-                  style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:var(--r1);">
-                  <div style="font-size:11.5px;font-weight:700;color:var(--green);">Offer: Razorpay</div>
-                  <span
-                    style="font-size:9px;background:var(--green);color:var(--bg);padding:1px 5px;border-radius:4px;font-weight:700;">NEW</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:0 5px;">
-                  <div style="font-size:11.5px;color:var(--t2);">Stripe · ML Infra</div>
-                  <span style="font-size:10px;color:var(--blue);font-weight:600;">In Review</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:0 5px;">
-                  <div style="font-size:11.5px;color:var(--t2);">CRED · Staff ML</div>
-                  <span style="font-size:10px;color:var(--green);font-weight:600;">Shortlisted</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:0 5px;">
-                  <div style="font-size:11.5px;color:var(--t2);">DeepMind · Research</div>
-                  <span style="font-size:10px;color:var(--red);font-weight:600;">Assessment</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- CONNECTIONS -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-link"></i> Connections</div><span
-                  style="font-size:10.5px;color:var(--t3);">48
-                  total</span>
-              </div>
-              <div class="card-body">
-                <!-- Suggested
-          <div style="background:var(--el);border-radius:var(--r1);padding:8px 10px;margin-bottom:10px;">
-            <div style="font-size:9.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:7px;">At your target companies</div>
-            <div style="display:flex;flex-direction:column;gap:6px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;">
-                <div style="display:flex;gap:7px;align-items:center;"><div style="width:22px;height:22px;border-radius:50%;background:var(--redd);display:grid;place-items:center;font-size:9px;font-weight:700;color:var(--red);">NK</div><div style="font-size:11px;"><div style="font-weight:600;">Nikhil Kumar</div><div style="font-size:9.5px;color:var(--t3);">ML Lead · Razorpay</div></div></div>
-                <button class="conn-btn" style="font-size:9.5px;padding:2px 7px;">Connect</button>
-              </div> 
-            </div>
-          </div> -->
-
-                <div
-                  style="font-size:9.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:7px;">
-                  HR Recruiters</div>
-                <!-- Recruiter signal inline -->
-                <div class="conn">
-                  <div class="conn-av" style="background:linear-gradient(135deg,var(--blue),var(--cyan));">PV</div>
-                  <div class="conn-inf">
-                    <div class="conn-nm">Priya Venkataraman</div>
-                    <div style="font-size:9.5px;color:var(--red);font-weight:600;"><i class="ph-fill ph-fire"></i>
-                      Viewed you 3× this week</div>
-                    <div style="font-size:9.5px;color:var(--t3);">Relevant to: Razorpay · Never messaged</div>
-                  </div>
-                  <button class="conn-btn"
-                    style="background:var(--redd);color:var(--red);border-color:rgba(99,102,241,0.2);font-size:9.5px;">Message</button>
-                </div>
-                <div class="conn">
-                  <div class="conn-av" style="background:linear-gradient(135deg,var(--amber),var(--red));">AK</div>
-                  <div class="conn-inf">
-                    <div class="conn-nm">Ankit Kumar</div>
-                    <div class="conn-rl">Recruiter · CRED</div>
-                    <div style="font-size:9.5px;color:var(--t3);">Last messaged: 5 days ago</div>
-                  </div>
-                  <button class="conn-btn" style="font-size:9.5px;">Message</button>
-                </div>
-                <div class="conn">
-                  <div class="conn-av" style="background:linear-gradient(135deg,var(--green),var(--blue));">SN</div>
-                  <div class="conn-inf">
-                    <div class="conn-nm">Sunita Nair</div>
-                    <div class="conn-rl">Head of Talent · Stripe India</div>
-                    <div style="font-size:9.5px;color:var(--amber);">Never messaged</div>
-                  </div>
-                  <button class="conn-btn" style="font-size:9.5px;">Message</button>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
-      </div><!-- end career tab -->
-
-      <!-- ══════════════ TAB 3: ACTIVITY ══════════════ -->
-      <div class="tp" id="js-t3">
-        <div style="display:grid;grid-template-columns:1fr 340px;gap:16px;">
-          <div style="display:flex;flex-direction:column;gap:14px;">
-
-            <!-- GAMIFICATION — Dragon Quest prominent section -->
-            <div
-              style="background:linear-gradient(135deg,rgba(167,139,250,0.1),rgba(59,130,246,0.06));border:1px solid rgba(167,139,250,0.22);border-radius:var(--r3);overflow:hidden;position:relative;">
-              <div
-                style="position:absolute;right:0;top:0;bottom:0;width:180px;background:linear-gradient(90deg,transparent,rgba(167,139,250,0.06));pointer-events:none;">
-              </div>
-              <i class="ph-fill ph-dragon"
-                style="position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:72px;opacity:0.06;pointer-events:none;"></i>
-
-              <!-- Quest header -->
-              <div style="padding:18px 20px 14px;display:flex;align-items:center;gap:14px;">
-                <div
-                  style="width:52px;height:52px;border-radius:50%;background:rgba(167,139,250,0.16);border:2px solid rgba(167,139,250,0.3);display:grid;place-items:center;font-size:26px;flex-shrink:0;">
-                  <i class="ph ph-shield-chevron"></i>
-                </div>
-                <div style="flex:1;">
-                  <div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:3px;">Shadow Sage — Level 14
-                    Fire Drake <i class="ph-fill ph-fire"></i></div>
-                  <div style="font-size:11.5px;color:var(--t2);">Dragon Quest · DSA Specialist · Agentic AI track</div>
-                </div>
-                <!-- Stats -->
-                <div style="display:flex;gap:22px;flex-shrink:0;">
-                  <div style="text-align:center;">
-                    <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--purple);">4,280</div>
-                    <div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;">XP Total
-                    </div>
-                  </div>
-                  <div style="text-align:center;">
-                    <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--amber);">42 <span
-                        style="animation:fire .8s infinite alternate;display:inline-block;"><i
-                          class="ph-fill ph-fire"></i></span></div>
-                    <div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;">Day Streak
-                    </div>
-                  </div>
-                  <div style="text-align:center;">
-                    <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--green);">720</div>
-                    <div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;">Coins</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- XP bar -->
-              <div style="padding:0 20px 10px;">
-                <div style="display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:5px;"><span
-                    style="color:var(--t2);">Level 14 → 15 progress</span><span
-                    style="color:var(--purple);font-family:var(--fm);font-weight:600;">4,280 / 5,000 XP</span></div>
-                <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
-                  <div
-                    style="width:85.6%;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--purple),var(--blue));">
-                  </div>
-                </div>
-              </div>
-
-              <!-- Milestone strip -->
-              <div
-                style="border-top:1px solid rgba(167,139,250,0.15);padding:12px 20px;display:flex;gap:8px;align-items:center;">
-                <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
-                  <div style="font-size:11.5px;color:var(--t2);"><i class="ph ph-lightning"></i> Next milestone: <strong
-                      style="color:var(--amber);">5-day boss battle</strong> starts tomorrow</div>
-                  <div style="font-size:11px;color:var(--t3);">Win = <strong style="color:var(--t1);">Exclusive Dragon
-                      Badge + 500 coins</strong> · Don't break your streak!</div>
-                </div>
-                <button class="btn bp"
-                  style="background:var(--purple);font-size:11.5px;white-space:nowrap;flex-shrink:0;">Prep for Boss
-                  →</button>
-              </div>
-
-              <!-- Streak milestones visual -->
-              <!-- <div style="padding:12px 20px 18px;border-top:1px solid rgba(167,139,250,0.1);">
-                <div
-                  style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.9px;margin-bottom:10px;">
-                  🏆 Streak Milestones</div>
-                <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;">
-                  <div
-                    style="flex-shrink:0;min-width:90px;padding:9px 10px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:var(--r2);text-align:center;">
-                    <div style="font-size:16px;"><i class="ph ph-check-circle"></i></div>
-                    <div style="font-size:11px;font-weight:700;margin-top:3px;">7 days</div>
-                    <div style="font-size:10px;color:var(--green);">Coffee Voucher</div>
-                    <div style="font-size:9.5px;color:var(--t3);">Claimed</div>
-                  </div>
-                  <div
-                    style="flex-shrink:0;min-width:90px;padding:9px 10px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:var(--r2);text-align:center;">
-                    <div style="font-size:16px;">✅</div>
-                    <div style="font-size:11px;font-weight:700;margin-top:3px;">14 days</div>
-                    <div style="font-size:10px;color:var(--green);">Movie Tickets</div>
-                    <div style="font-size:9.5px;color:var(--t3);">Claimed</div>
-                  </div>
-                  <div
-                    style="flex-shrink:0;min-width:90px;padding:9px 10px;background:rgba(245,158,11,0.1);border:2px solid rgba(245,158,11,0.3);border-radius:var(--r2);text-align:center;">
-                    <div style="font-size:16px;"><i class="ph ph-sparkle"></i></div>
-                    <div style="font-size:11px;font-weight:700;margin-top:3px;color:var(--amber);">42 days</div>
-                    <div style="font-size:10px;color:var(--amber);">Movie Tickets</div>
-                    <div style="font-size:9.5px;color:var(--amber);font-weight:600;">In progress!</div>
-                  </div>
-                  <div
-                    style="flex-shrink:0;min-width:90px;padding:9px 10px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);text-align:center;opacity:.6;">
-                    <div style="font-size:16px;">🔒</div>
-                    <div style="font-size:11px;font-weight:700;margin-top:3px;">60 days</div>
-                    <div style="font-size:10px;color:var(--t3);">Premium Pass</div>
-                  </div>
-                  <div
-                    style="flex-shrink:0;min-width:90px;padding:9px 10px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);text-align:center;opacity:.6;">
-                    <div style="font-size:16px;"><i class="ph ph-lock"></i></div>
-                    <div style="font-size:11px;font-weight:700;margin-top:3px;">90 days</div>
-                    <div style="font-size:10px;color:var(--t3);">Dragon Badge</div>
-                  </div>
-                  <div
-                    style="flex-shrink:0;min-width:90px;padding:9px 10px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);text-align:center;opacity:.6;">
-                    <div style="font-size:16px;"><i class="ph ph-lock"></i></div>
-                    <div style="font-size:11px;font-weight:700;margin-top:3px;">365 days</div>
-                    <div style="font-size:10px;color:var(--t3);">Legendary Title</div>
-                  </div>
-                </div>
-              </div> -->
-            </div>
-
-            <!-- TODAY'S MICRO-ACTIONS
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title">📅 Today's Plan</div>
-                <span style="font-size:11px;color:var(--green);font-weight:600;">+350 XP if all done · Streak: 43 days
-                  🔥</span>
-              </div>
-              <div class="card-body" style="display:flex;flex-direction:column;gap:7px;">
-                <div
-                  style="display:flex;gap:10px;padding:10px 12px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);align-items:center;">
-                  <span style="font-size:16px;"><i class="ph ph-book-open"></i></span>
-                  <div style="flex:1;">
-                    <div style="font-size:12px;font-weight:600;">Complete RAG Module 3</div>
-                    <div style="font-size:10.5px;color:var(--t3);">Dragon Prep · +120 XP</div>
-                  </div>
-                  <span
-                    style="font-size:10px;background:var(--redd);color:var(--red);padding:2px 8px;border-radius:7px;font-weight:600;flex-shrink:0;">45
-                    min</span>
-                </div>
-                <div
-                  style="display:flex;gap:10px;padding:10px 12px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);align-items:center;">
-                  <span style="font-size:16px;"><i class="ph ph-terminal-window"></i></span>
-                  <div style="flex:1;">
-                    <div style="font-size:12px;font-weight:600;">2 LeetCode Hard — Sliding Window</div>
-                    <div style="font-size:10.5px;color:var(--t3);">Dragon Prep · +80 XP</div>
-                  </div>
-                  <span
-                    style="font-size:10px;background:var(--redd);color:var(--red);padding:2px 8px;border-radius:7px;font-weight:600;flex-shrink:0;">60
-                    min</span>
-                </div>
-                <div
-                  style="display:flex;gap:10px;padding:10px 12px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r2);align-items:center;">
-                  <span style="font-size:16px;"><i class="ph ph-microphone-stage"></i></span>
-                  <div style="flex:1;">
-                    <div style="font-size:12px;font-weight:600;">System Design Live at 7PM</div>
-                    <div style="font-size:10.5px;color:var(--t3);">AI Interviewer · +150 XP</div>
-                  </div>
-                  <span
-                    style="font-size:10px;background:var(--redd);color:var(--red);padding:2px 8px;border-radius:7px;font-weight:600;flex-shrink:0;">90
-                    min</span>
-                </div>
-              </div>
-            </div> -->
-
-            <!-- RECENT ACTIVITY -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title">🕐 Recent Activity</div><span style="font-size:11px;color:var(--t3);">Last 7
-                  days</span>
-              </div>
-              <div class="card-body">
-                <div class="notif">
-                  <div class="nd" style="background:var(--green);"></div>
-                  <div class="nb">
-                    <div class="nt">Completed <strong>System Design Assessment</strong> — 84/100 · Trust 96</div>
-                    <div class="ntime">2 hours ago</div>
-                  </div>
-                </div>
-                <div class="notif">
-                  <div class="nd" style="background:var(--red);"></div>
-                  <div class="nb">
-                    <div class="nt">Dragon Agent applied to <strong>Razorpay</strong> (Senior ML Eng) · ₹32–40 LPA</div>
-                    <div class="ntime">Yesterday</div>
-                  </div>
-                </div>
-                <div class="notif">
-                  <div class="nd" style="background:var(--purple);"></div>
-                  <div class="nb">
-                    <div class="nt">Completed <strong>RAG Module 2</strong> in Dragon Prep · +120 XP</div>
-                    <div class="ntime">2 days ago</div>
-                  </div>
-                </div>
-                <div class="notif">
-                  <div class="nd" style="background:var(--amber);"></div>
-                  <div class="nb">
-                    <div class="nt">Quest streak hit <strong>42 days</strong> <i class="ph-fill ph-fire"></i> · Reward:
-                      Movie Tickets claimed</div>
-                    <div class="ntime">3 days ago</div>
-                  </div>
-                </div>
-                <div class="notif">
-                  <div class="nd" style="background:var(--blue);"></div>
-                  <div class="nb">
-                    <div class="nt">AWS ML Specialty cert verified via <strong>Dragon Nexus</strong></div>
-                    <div class="ntime">5 days ago</div>
-                  </div>
-                </div>
-                <div class="notif">
-                  <div class="nd" style="background:var(--green);"></div>
-                  <div class="nb">
-                    <div class="nt">RAG QA project viewed by <strong>4 new recruiters</strong> (Razorpay x3, CRED x1)
-                    </div>
-                    <div class="ntime">1 week ago</div>
-                  </div>
+      </div>
                 </div>
               </div>
             </div>
-
-          </div>
-
-          <!-- RIGHT COLUMN -->
-          <div style="display:flex;flex-direction:column;gap:14px;">
-            <!-- NUDGES — motivating push notifications -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title">🔔 Your Nudges</div>
-              </div>
-              <div class="card-body" style="display:flex;flex-direction:column;gap:8px;padding-top:10px;">
-                <!-- Urgent recruiter signal -->
-                <div
-                  style="display:flex;gap:9px;padding:10px 11px;background:rgba(99,102,241,0.09);border:1px solid rgba(99,102,241,0.22);border-radius:var(--r2);">
-                  <span style="font-size:16px;animation:pulse 1.5s infinite;"><i class="ph ph-target"></i></span>
-                  <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.45;"><strong
-                      style="color:var(--red);">Razorpay HR viewed you 3 times this week.</strong> They haven't messaged
-                    — first mover wins. Let Dragon Agent send the first move.<span
-                      style="display:block;margin-top:5px;"><button class="btn bp"
-                        style="font-size:10.5px;padding:4px 11px;">Activate Agent →</button></span></div>
-                </div>
-                <div
-                  style="display:flex;gap:9px;padding:10px 11px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.16);border-radius:var(--r2);">
-                  <span style="font-size:16px;animation:pulse 2s infinite;"><i class="ph ph-lightning"></i></span>
-                  <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.45;"><strong
-                      style="color:var(--amber);">Add 1 Databricks cert</strong> — +4 Dragon Score, 4 more ₹35L+ roles.
-                    Takes ~14 days. <span
-                      style="display:block;margin-top:4px;color:var(--amber);font-weight:700;font-size:10.5px;cursor:pointer;">Start
-                      →</span></div>
-                </div>
-                <div
-                  style="display:flex;gap:9px;padding:10px 11px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.14);border-radius:var(--r2);">
-                  <span style="font-size:16px;animation:pulse 2s infinite;"><i class="ph ph-dragon"></i></span>
-                  <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.45;"><strong
-                      style="color:var(--green);">You went from Score 66 → 88 in 60 days.</strong> Top 8% nationally. 4
-                    new Vault roles added today — your competition isn't here yet. <span
-                      style="display:block;margin-top:4px;color:var(--green);font-weight:700;font-size:10.5px;cursor:pointer;">Explore
-                      Vault →</span></div>
-                </div>
-                <div
-                  style="display:flex;gap:9px;padding:10px 11px;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.16);border-radius:var(--r2);">
-                  <span style="font-size:16px;animation:pulse 2s infinite;"><i class="ph ph-trophy"></i></span>
-                  <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.45;"><strong
-                      style="color:var(--purple);">Boss Battle starts tomorrow.</strong> Top 3 win 1000 coins +
-                    Exclusive Badge. Your 42-day streak puts you as a favourite. Don't break it tonight. <span
-                      style="display:block;margin-top:4px;color:var(--purple);font-weight:700;font-size:10.5px;cursor:pointer;">Prep
-                      now →</span></div>
-                </div>
-              </div>
-            </div>
-            <!-- AI INSIGHTS PANEL -->
-            <div class="card" style="border-color:rgba(59,130,246,0.15);">
-              <div class="card-head">
-                <div class="card-title" style="color:var(--blue);">🤖 AI Insights</div>
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <span style="font-size:10px;color:var(--t3);">4 min ago</span>
-                  <span style="font-size:13px;cursor:pointer;color:var(--blue);" title="Refresh">↻</span>
-                </div>
-              </div>
-              <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
-                <!-- Strong -->
-                <div
-                  style="padding:9px 11px;background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.15);border-radius:var(--r2);font-size:12px;color:var(--t2);">
-                  <i class="ph ph-circle" style="color:var(--green);"></i> <strong
-                    style="color:var(--green);">Strong:</strong> Your RAG project matches 14 open roles. Views
-                  up 27% this week.
-                </div>
-                <!-- Action — full-width banner treatment -->
-                <div
-                  style="padding:11px 13px;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(245,158,11,0.03));border:2px solid rgba(245,158,11,0.32);border-radius:var(--r2);">
-                  <div
-                    style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;">
-                    ⚡ Highest Impact Move</div>
-                  <div style="font-size:12.5px;font-weight:700;color:var(--t1);margin-bottom:2px;">Add Databricks ML Pro
-                    cert</div>
-                  <div style="font-size:11.5px;color:var(--t2);margin-bottom:9px;">+4 Dragon Score · 4 ₹35L+ roles · ~14
-                    days</div>
-                  <button class="btn bp"
-                    style="background:var(--amber);font-size:11px;width:100%;display:flex;justify-content:center;">Start
-                    now →</button>
-                </div>
-                <!-- Vault — expandable -->
-                <div
-                  style="padding:9px 11px;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.15);border-radius:var(--r2);">
-                  <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;"
-                    onclick="var v=document.getElementById('vr');v.style.display=v.style.display==='none'?'block':'none'">
-                    <span style="font-size:12px;color:var(--t2);"><i class="ph ph-lock-key"></i> <strong
-                        style="color:var(--purple);">Vault:</strong> 4 exclusive ₹10L+ roles today.</span>
-                    <span style="font-size:10.5px;color:var(--purple);font-weight:600;">Show ▾</span>
-                  </div>
-                  <div id="vr"
-                    style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid rgba(167,139,250,0.15);">
-                    <div style="display:flex;flex-direction:column;gap:4px;">
-                      <div style="display:flex;justify-content:space-between;font-size:11px;"><span>🟡 Stripe — ML Infra
-                          Eng.</span><span style="color:var(--green);">$130K+ · Remote</span></div>
-                      <div style="display:flex;justify-content:space-between;font-size:11px;"><span>🔵 DeepMind — ML
-                          Research</span><span style="color:var(--green);">₹60–90 LPA</span></div>
-                      <div style="display:flex;justify-content:space-between;font-size:11px;"><span>🟠 CRED — Staff ML
-                          (GenAI)</span><span style="color:var(--green);">₹38–52 LPA</span></div>
-                      <div style="display:flex;justify-content:space-between;font-size:11px;"><span>🟣 PhonePe — MLOps
-                          Lead</span><span style="color:var(--green);">₹32–45 LPA</span></div>
-                    </div>
-                    <button class="btn bg"
-                      style="width:100%;margin-top:8px;font-size:11px;display:flex;justify-content:center;">View all
-                      Vault roles →</button>
-                  </div>
-                </div>
-                <!-- Risk -->
-                <div
-                  style="padding:9px 11px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.18);border-radius:var(--r2);font-size:12px;color:var(--t2);">
-                  ⚠️ <strong style="color:#EF4444;">Risk:</strong> System Design score (75) borderline for Razorpay
-                  (78+). Take 1 mock first. <span style="color:#EF4444;font-weight:600;cursor:pointer;">Schedule mock
-                    →</span></div>
-              </div>
-            </div>
-
-
-
           </div>
         </div>
-      </div><!-- end activity tab -->
+      </div>
 
   <script>
     function toggleRV(btn) {
@@ -3201,8 +2708,8 @@
         const active = document.querySelector('.ps.on .tp.on');
         if (active && !active.querySelector('.rv-banner')) {
           const b = document.createElement('div');
-          b.className = 'rv-banner';
-          b.innerHTML = '<i class="ph-fill ph-eye"></i> <span><strong>Recruiter View Active</strong> — This is exactly what recruiters at Razorpay, Stripe, and CRED see when viewing your profile.</span>';
+          // b.className = 'rv-banner';
+          // b.innerHTML = '<i class="ph-fill ph-eye"></i> <span><strong>Recruiter View Active</strong> — This is exactly what recruiters at Razorpay, Stripe, and CRED see when viewing your profile.</span>';
           active.insertBefore(b, active.firstChild);
         }
 
