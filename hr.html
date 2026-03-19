@@ -1,1721 +1,572 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dragon Suite — HR / Recruiter Profile</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-    rel="stylesheet">
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <style>
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --bg: #040609;
-      --bg2: #0D1117;
-      --card: #161D27;
-      --el: #1F2937;
-      --b: rgba(255, 255, 255, 0.09);
-      --b2: rgba(255, 255, 255, 0.15);
-      --t1: #E8ECF1;
-      --t2: #9CA3AF;
-      --t3: #6B7280;
-      --red: #FF2D55;
-      --redd: rgba(255, 45, 85, 0.12);
-      --green: #10B981;
-      --gd: rgba(16, 185, 129, 0.12);
-      --blue: #3B82F6;
-      --bd: rgba(59, 130, 246, 0.12);
-      --amber: #F59E0B;
-      --ad: rgba(245, 158, 11, 0.12);
-      --purple: #A78BFA;
-      --pd: rgba(167, 139, 250, 0.12);
-      --cyan: #06B6D4;
-      --cd: rgba(6, 182, 212, 0.12);
-      --fb: 'DM Sans', sans-serif;
-      --fm: 'JetBrains Mono', monospace;
-      --r1: 8px;
-      --r2: 12px;
-      --r3: 16px;
-    }
-
-    html {
-      font-size: 14px;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--fb);
-      background: var(--bg);
-      color: var(--t1);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* SIDEBAR */
-    .sb {
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 240px;
-      background: var(--bg2);
-      border-right: 1px solid var(--b);
-      display: flex;
-      flex-direction: column;
-      z-index: 100;
-    }
-
-    .sb-scroll {
-      flex: 1;
-      overflow-y: auto;
-      scrollbar-width: thin;
-    }
-
-    .sb-scroll::-webkit-scrollbar {
-      width: 3px;
-    }
-
-    .sb-scroll::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 3px;
-    }
-
-    .sb-logo {
-      padding: 16px 20px 12px;
-      border-bottom: 1px solid var(--b);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-
-    .lm {
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, var(--red), #CC1144);
-      border-radius: 8px;
-      display: grid;
-      place-items: center;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--bg);
-    }
-
-    .lt {
-      font-weight: 700;
-      font-size: 15px;
-      letter-spacing: -.3px;
-    }
-
-    .lt span {
-      color: var(--red);
-    }
-
-    .sb-sec {
-      padding: 12px 20px 4px;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--t3);
-      font-weight: 600;
-    }
-
-    .sb-nav {
-      padding: 0 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
-
-    .ni {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 10px;
-      border-radius: var(--r1);
-      cursor: pointer;
-      transition: all .15s;
-      font-size: 11.5px;
-      color: var(--t2);
-      font-weight: 500;
-      position: relative;
-    }
-
-    .ni:hover {
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--t1);
-    }
-
-    .ni.on {
-      background: var(--redd);
-      color: var(--red);
-    }
-
-    .ni.on::before {
-      content: '';
-      position: absolute;
-      left: -8px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 3px;
-      height: 16px;
-      background: var(--red);
-      border-radius: 0 3px 3px 0;
-    }
-
-    .ni .ico {
-      font-size: 13px;
-      width: 16px;
-      text-align: center;
-    }
-
-    .ndiv {
-      height: 1px;
-      background: var(--b);
-      margin: 4px 8px;
-    }
-
-    .sb-foot {
-      padding: 12px;
-      border-top: 1px solid var(--b);
-      flex-shrink: 0;
-    }
-
-    .usw-lbl {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--t3);
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .usw {
-      width: 100%;
-      padding: 6px 10px;
-      border-radius: var(--r1);
-      background: var(--card);
-      border: 1px solid var(--b);
-      color: var(--t2);
-      font-family: var(--fb);
-      font-size: 11px;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all .15s;
-      margin-bottom: 3px;
-    }
-
-    .usw:hover {
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    .usw.on {
-      background: var(--redd);
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    /* MAIN */
-    .main {
-      margin-left: 240px;
-      min-height: 100vh;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      padding: 12px 24px;
-      background: rgba(7, 9, 14, 0.9);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--b);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .tb-l {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .tb-title {
-      font-size: 13px;
-      color: var(--t2);
-      font-weight: 500;
-    }
-
-    .tb-title strong {
-      color: var(--t1);
-    }
-
-    .tb-r {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn {
-      padding: 6px 13px;
-      border-radius: var(--r1);
-      font-size: 11.5px;
-      font-weight: 500;
-      cursor: pointer;
-      font-family: var(--fb);
-      transition: all .15s;
-      border: none;
-      line-height: 1.4;
-    }
-
-    .bg {
-      background: var(--card);
-      border: 1px solid var(--b);
-      color: var(--t2);
-    }
-
-    .bg:hover {
-      border-color: var(--b2);
-      color: var(--t1);
-    }
-
-    .bp {
-      background: var(--red);
-      color: #fff;
-    }
-
-    .bp:hover {
-      background: #e0253b;
-    }
-
-    .av {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-weight: 700;
-      font-size: 11px;
-      cursor: pointer;
-    }
-
-    /* recruiter toggle */
-    .rv-toggle {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 10px;
-      background: var(--card);
-      border: 1px solid var(--b);
-      border-radius: 20px;
-      font-size: 11px;
-      color: var(--t2);
-      cursor: pointer;
-      transition: all .15s;
-    }
-
-    .rv-toggle:hover,
-    .rv-toggle.on {
-      border-color: var(--amber);
-      color: var(--amber);
-    }
-
-    .rv-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--t3);
-    }
-
-    .rv-toggle.on .rv-dot {
-      background: var(--amber);
-    }
-
-    /* SCREENS */
-    .ps {
-      display: none;
-      animation: fi .25s ease;
-    }
-
-    .ps.on {
-      display: block;
-    }
-
-    @keyframes fi {
-      from {
-        opacity: 0;
-        transform: translateY(5px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
-
-    /* HERO */
-    .hero {
-      padding: 16px 24px 0;
-    }
-
-    .hero-inner {
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-    }
-
-    .h-av-w {
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .h-av {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 32px;
-      border-width: 2px;
-      border-style: solid;
-    }
-
-    .h-badge {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 10px;
-      border: 2px solid var(--bg);
-    }
-
-    .h-info {
-      flex: 1;
-      padding-top: 2px;
-    }
-
-    .h-name {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -.3px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .h-role {
-      display: inline-flex;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .h-meta {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    .h-mi {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11.5px;
-      color: var(--t2);
-    }
-
-    .h-acts {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-    }
-
-    /* score cards in hero */
-    .h-scores {
-      display: flex;
-      gap: 7px;
-      align-items: stretch;
-    }
-
-    .sc {
-      background: var(--card);
-      border: 1px solid var(--b);
-      border-radius: var(--r2);
-      padding: 10px 13px;
-      min-width: 110px;
-    }
-
-    .sc-lbl {
-      font-size: 9px;
-      color: var(--t3);
-      text-transform: uppercase;
-      letter-spacing: .9px;
-      font-weight: 600;
-      margin-bottom: 3px;
-    }
-
-    .sc-val {
-      font-size: 19px;
-      font-weight: 700;
-      font-family: var(--fm);
-      margin-bottom: 1px;
-    }
-
-    .sc-sub {
-      font-size: 10px;
-      color: var(--t2);
-    }
-
-    .sc-tr {
-      font-size: 10px;
-      margin-top: 2px;
-    }
-
-    .up {
-      color: var(--green);
-    }
-
-    /* Hiring health strip */
-    .qs {
-      margin: 14px 24px 0;
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.07), rgba(16, 185, 129, 0.03));
-      border: 1px solid rgba(59, 130, 246, 0.18);
-      border-radius: var(--r3);
-      padding: 14px 18px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .qs::after {
-      content: '🏢';
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 46px;
-      opacity: 0.07;
-    }
-
-    .qs-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 10px;
-    }
-
-    .qs-inf {
-      flex: 1;
-    }
-
-    .qs-nm {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--t1);
-      margin-bottom: 1px;
-    }
-
-    .qs-sb {
-      font-size: 11px;
-      color: var(--t2);
-    }
-
-    .qs-stats {
-      display: flex;
-      gap: 20px;
-    }
-
-    .qsp {
-      text-align: center;
-    }
-
-    .qsp-v {
-      font-size: 15px;
-      font-weight: 700;
-      font-family: var(--fm);
-    }
-
-    .qsp-l {
-      font-size: 11px;
-      color: var(--t2);
-      font-weight: 500;
-      margin-top: 2px;
-    }
-
-    .bt {
-      height: 5px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .bf {
-      height: 100%;
-      border-radius: 3px;
-    }
-
-    /* TABS */
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid var(--b);
-      padding: 0 24px;
-      margin-top: 16px;
-      overflow-x: auto;
-    }
-
-    .tabs::-webkit-scrollbar {
-      display: none;
-    }
-
-    .tab {
-      padding: 10px 16px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--t2);
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: all .15s;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .tab:hover {
-      color: var(--t1);
-    }
-
-    .tab.on {
-      color: var(--tc, var(--red));
-      border-bottom-color: var(--tc, var(--red));
-    }
-
-    .tc {
-      background: var(--el);
-      border-radius: 7px;
-      padding: 1px 6px;
-      font-size: 9.5px;
-      font-family: var(--fm);
-    }
-
-    /* TAB PANELS */
-    .tp {
-      display: none;
-      padding: 18px 24px 60px;
-    }
-
-    .tp.on {
-      display: block;
-    }
-
-    /* OVERVIEW LAYOUT */
-    .ov-grid {
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 16px;
-    }
-
-    .ov-main {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .ov-side {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    /* CARD */
-    .card {
-      background: var(--card);
-      border: 1px solid var(--b);
-      border-radius: var(--r2);
-      overflow: hidden;
-    }
-
-    .card:hover {
-      border-color: var(--b2);
-    }
-
-    .card-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--b);
-    }
-
-    .card-title {
-      font-size: 12.5px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .card-action {
-      font-size: 11.5px;
-      color: var(--blue);
-      cursor: pointer;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .card-action:hover {
-      text-decoration: underline;
-    }
-
-    .card-body {
-      padding: 14px 16px;
-    }
-
-    /* ACCORDION */
-    .acc {
-      background: var(--card);
-      border: 1px solid var(--b);
-      border-radius: var(--r2);
-      margin-bottom: 10px;
-      overflow: hidden;
-      transition: border-color .2s;
-    }
-
-    .acc:hover {
-      border-color: var(--b2);
-    }
-
-    .acc.ex {
-      border-color: var(--ac, var(--b2));
-    }
-
-    .acc-h {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 15px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .acc-ic {
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-
-    .acc-t {
-      flex: 1;
-    }
-
-    .acc-tm {
-      font-size: 12.5px;
-      font-weight: 600;
-      margin-bottom: 1px;
-    }
-
-    .acc-ts {
-      font-size: 11px;
-      color: var(--t2);
-    }
-
-    .acc-r {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .acc-badge {
-      font-size: 10.5px;
-      font-weight: 700;
-      padding: 2px 9px;
-      border-radius: 16px;
-    }
-
-    .acc-arr {
-      font-size: 11px;
-      color: var(--t3);
-      transition: transform .22s;
-    }
-
-    .acc.ex .acc-arr {
-      transform: rotate(180deg);
-    }
-
-    .acc-body {
-      display: none;
-      padding: 0 15px 15px;
-      border-top: 1px solid var(--b);
-    }
-
-    .acc.ex .acc-body {
-      display: block;
-      animation: fi .2s ease;
-    }
-
-    /* PROGRESS BAR */
-    .pb {
-      margin-bottom: 9px;
-    }
-
-    .pb-l {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11.5px;
-      margin-bottom: 3px;
-    }
-
-    .pb-l span:first-child {
-      color: var(--t2);
-    }
-
-    .pb-l span:last-child {
-      font-family: var(--fm);
-      font-size: 10.5px;
-      font-weight: 600;
-    }
-
-    .pt {
-      height: 5px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .pf {
-      height: 100%;
-      border-radius: 3px;
-    }
-
-    /* STAT ROW */
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-bottom: 1px solid var(--b);
-    }
-
-    .stat-item {
-      padding: 10px 14px;
-      border-right: 1px solid var(--b);
-      text-align: center;
-    }
-
-    .stat-item:last-child {
-      border-right: none;
-    }
-
-    .stat-v {
-      font-size: 18px;
-      font-weight: 700;
-      font-family: var(--fm);
-      margin-bottom: 2px;
-    }
-
-    .stat-l {
-      font-size: 9.5px;
-      color: var(--t3);
-      text-transform: uppercase;
-      letter-spacing: .6px;
-    }
-
-    .stat-ch {
-      font-size: 10px;
-      margin-top: 1px;
-    }
-
-    /* CHIP */
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 9px;
-      border-radius: 13px;
-      font-size: 11px;
-      font-weight: 500;
-      border: 1px solid var(--b);
-    }
-
-    .cr {
-      background: var(--redd);
-      color: var(--red);
-      border-color: rgba(255, 45, 85, 0.2);
-    }
-
-    .cb {
-      background: var(--bd);
-      color: var(--blue);
-      border-color: rgba(59, 130, 246, 0.18);
-    }
-
-    .cg {
-      background: var(--gd);
-      color: var(--green);
-      border-color: rgba(16, 185, 129, 0.18);
-    }
-
-    .ca {
-      background: var(--ad);
-      color: var(--amber);
-      border-color: rgba(245, 158, 11, 0.18);
-    }
-
-    .cp {
-      background: var(--pd);
-      color: var(--purple);
-      border-color: rgba(167, 139, 250, 0.18);
-    }
-
-    .cc {
-      background: var(--cd);
-      color: var(--cyan);
-      border-color: rgba(6, 182, 212, 0.18);
-    }
-
-    .chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 9px;
-    }
-
-    /* PIPELINE */
-    .pl-col {
-      background: var(--bg2);
-      border: 1px solid var(--b);
-      border-radius: var(--r2);
-      padding: 11px;
-    }
-
-    .pl-h {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .7px;
-      margin-bottom: 9px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .pl-c {
-      background: var(--el);
-      border-radius: 7px;
-      padding: 1px 6px;
-      font-family: var(--fm);
-      font-size: 9px;
-    }
-
-    .cand {
-      background: var(--card);
-      border: 1px solid var(--b);
-      border-radius: var(--r1);
-      padding: 8px 9px;
-      margin-bottom: 6px;
-      cursor: pointer;
-      transition: border-color .15s;
-    }
-
-    .cand:hover {
-      border-color: var(--b2);
-    }
-
-    .c-nm {
-      font-size: 11.5px;
-      font-weight: 600;
-      margin-bottom: 1px;
-    }
-
-    .c-rl {
-      font-size: 10.5px;
-      color: var(--t3);
-      margin-bottom: 3px;
-    }
-
-    .c-vd {
-      font-size: 10px;
-      font-weight: 600;
-      font-family: var(--fm);
-    }
-
-    .vd-h {
-      color: var(--green);
-    }
-
-    .vd-c {
-      color: var(--amber);
-    }
-
-    /* SKILL ITEM */
-    .skill-item {
-      display: grid;
-      grid-template-columns: 110px 1fr 30px;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .skill-name {
-      font-size: 11.5px;
-      color: var(--t1);
-      font-weight: 500;
-    }
-
-    .skill-bar-wrap {
-      height: 6px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .skill-bar {
-      height: 100%;
-      border-radius: 3px;
-    }
-
-    .skill-val {
-      font-size: 11.5px;
-      font-weight: 600;
-      font-family: var(--fm);
-      text-align: right;
-    }
-
-    /* NOTIF */
-    .notif {
-      display: flex;
-      gap: 9px;
-      padding: 9px 0;
-      border-bottom: 1px solid var(--b);
-      align-items: flex-start;
-    }
-
-    .notif:last-child {
-      border-bottom: none;
-    }
-
-    .nd {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      margin-top: 5px;
-    }
-
-    .nb {
-      flex: 1;
-    }
-
-    .nt {
-      font-size: 12px;
-      line-height: 1.45;
-      margin-bottom: 2px;
-    }
-
-    .nt strong {
-      color: var(--t1);
-    }
-
-    .nc {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--blue);
-      cursor: pointer;
-      margin-top: 2px;
-    }
-
-    .nc:hover {
-      text-decoration: underline;
-    }
-
-    .ntime {
-      font-size: 10px;
-      color: var(--t3);
-    }
-
-    /* MATCH CARD */
-    .match-card {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.06), transparent);
-      border: 1px solid rgba(59, 130, 246, 0.14);
-      border-radius: var(--r2);
-      padding: 12px 14px;
-      margin-bottom: 9px;
-    }
-
-    .mc-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 6px;
-    }
-
-    .mc-co {
-      font-size: 10px;
-      color: var(--blue);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      margin-bottom: 2px;
-    }
-
-    .mc-role {
-      font-size: 13.5px;
-      font-weight: 700;
-    }
-
-    .mc-pct {
-      font-size: 20px;
-      font-weight: 700;
-      font-family: var(--fm);
-      color: var(--green);
-    }
-
-    .mc-meta {
-      display: flex;
-      gap: 10px;
-      font-size: 11px;
-      color: var(--t2);
-      flex-wrap: wrap;
-    }
-
-    .mc-why {
-      font-size: 11px;
-      color: var(--t3);
-      margin-top: 7px;
-      padding-top: 7px;
-      border-top: 1px solid var(--b);
-    }
-
-    /* SECTION LABEL */
-    .slbl {
-      font-size: 9.5px;
-      text-transform: uppercase;
-      letter-spacing: 1.1px;
-      color: var(--t3);
-      font-weight: 600;
-      margin-bottom: 9px;
-      margin-top: 16px;
-    }
-
-    .slbl:first-child {
-      margin-top: 0;
-    }
-
-    /* TWO COL */
-    .two {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .sbl {
-      display: grid;
-      grid-template-columns: 1fr 290px;
-      gap: 14px;
-    }
-
-    @media(max-width:1200px) {
-
-      .ov-grid,
-      .sbl {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media(max-width:900px) {
-      .sb {
-        transform: translateX(-100%);
-      }
-
-      .main {
-        margin-left: 0;
-      }
-
-      .two {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- SIDEBAR -->
-  <aside class="sb">
-    <div class="sb-logo">
-      <div class="lm">🐉</div>
-      <div class="lt">Dragon<span>Suite</span></div>
-    </div>
-    <div class="sb-scroll">
-      <div class="sb-sec">Navigation</div>
-      <nav class="sb-nav">
-        <div class="ni on" data-nav="profile"><span class="ico"><i class="ph ph-user"></i></span>My Profile</div>
-        <div class="ni" data-nav="gps"><span class="ico"><i class="ph ph-compass"></i></span>Dragon GPS</div>
-        <div class="ni" data-nav="prep"><span class="ico"><i class="ph ph-book-open"></i></span>Dragon Prep</div>
-        <div class="ni" data-nav="arena"><span class="ico"><i class="ph ph-sword"></i></span>Dragon Arena</div>
-        <div class="ni" data-nav="quest"><span class="ico"><i class="ph ph-dragon"></i></span>Dragon Quest</div>
-        <div class="ndiv"></div>
-        <div class="ni" data-nav="elite"><span class="ico"><i class="ph ph-star"></i></span>Dragon Elite</div>
-        <div class="ni" data-nav="hub"><span class="ico"><i class="ph ph-globe"></i></span>Dragon Hub</div>
-        <div class="ni" data-nav="hire"><span class="ico"><i class="ph ph-target"></i></span>Dragon Hire</div>
-        <div class="ni" data-nav="bridge"><span class="ico"><i class="ph ph-bridge"></i></span>Dragon Bridge</div>
-        <div class="ni" data-nav="review"><span class="ico"><i class="ph ph-clipboard-text"></i></span>Dragon Review</div>
-        <div class="ndiv"></div>
-        <div class="ni" data-nav="skill"><span class="ico"><i class="ph ph-wrench"></i></span>Skill Craft</div>
-        <div class="ni" data-nav="lab"><span class="ico"><i class="ph ph-flask"></i></span>Project Lab</div>
-        <div class="ni" data-nav="vault"><span class="ico"><i class="ph ph-lock-laminated"></i></span>Dragon Vault</div>
-        <div class="ni" data-nav="nexus"><span class="ico"><i class="ph ph-link"></i></span>Dragon Nexus</div>
-        <div class="ni" data-nav="dash"><span class="ico"><i class="ph ph-chart-bar"></i></span>Talent Dashboard</div>
-        <div class="ni" data-nav="match"><span class="ico"><i class="ph ph-robot"></i></span>Match Results</div>
-        <div class="ni" data-nav="market"><span class="ico"><i class="ph ph-chart-line-up"></i></span>Market Intel</div>
-      </nav>
-    </div>
-    <div class="sb-foot">
-      <div class="usw-lbl">Switch Profile View</div>
-      <button class="usw" onclick="window.location.href='index.html'"><i class="ph ph-magnifying-glass"></i> Job Seeker</button>
-      <button class="usw on" onclick="window.location.href='hr.html'"><i class="ph ph-buildings"></i> HR / Recruiter</button>
-      <button class="usw" onclick="window.location.href='placement.html'"><i class="ph ph-graduation-cap"></i> Placement Officer</button>
-      <button class="usw" onclick="window.location.href='student.html'"><i class="ph ph-book-open"></i> Student</button>
-    </div>
-  </aside>
-
-  <main class="main">
-    <header class="topbar">
-      <div class="tb-l">
-        <div class="tb-title"><strong>My Profile</strong> — <span id="topLbl">HR / Recruiter</span></div>
-        <div class="rv-toggle" id="rvToggle" onclick="toggleRV(this)" title="Toggle Recruiter View">
-          <div class="rv-dot"></div>Recruiter View
-        </div>
-      </div>
-      <div class="tb-r">
-        <button class="btn bg">⚙️ Settings</button>
-        <button class="btn bp">✏️ Edit Profile</button>
-        <div class="av" id="topAv" style="background:linear-gradient(135deg,#3B82F6,#1D4ED8);">P</div>
-      </div>
-    </header>
-
-    <!-- HR / RECRUITER PROFILE -->
-    <div class="ps on" id="ps-hr">
-
-      <div class="hero">
-        <div class="hero-inner">
-          <div class="h-av-w">
-            <div class="h-av" style="background:linear-gradient(135deg, var(--purple), var(--blue)); border:none; color:#fff; font-size:32px; font-weight:700;">PV</div>
-            <div class="h-badge" style="background:var(--blue); border-color:var(--bg);"><i class="ph ph-buildings"></i></div>
-          </div>
-          <div class="h-info">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
-              <div>
-                <div class="h-name">Priya Venkataraman <span class="chip cg" style="font-size:10px; margin-left:8px;">14 open roles</span></div>
-                <div class="h-role" style="background:var(--card); border:1px solid var(--b); padding:4px 10px 4px 6px; border-radius:16px; color:var(--t1); font-size:11.5px; font-weight:600;">
-                  <span class="chip cc" style="margin-right:8px;"><i class="ph ph-user"></i> HR</span>
-                  <i class="ph ph-buildings" style="margin-right:4px;"></i> Razorpay Technologies
-                </div>
-              </div>
-              <div class="h-scores">
-                <div class="sc" style="border-color:rgba(59,130,246,0.3);">
-                  <div class="sc-lbl">Open Roles</div>
-                  <div class="sc-val" style="color:var(--blue);">14</div>
-                  <div class="sc-sub">3 new this week</div>
-                </div>
-                <div class="sc" style="border-color:rgba(16,185,129,0.3);">
-                  <div class="sc-lbl">Hire Rate</div>
-                  <div class="sc-val" style="color:var(--green);">8.4%</div>
-                </div>
-              </div>
-            </div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DragonSuite - Premium Recruiter Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link id="heading-font-link" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link id="body-font-link" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['var(--font-heading-name)', 'sans-serif'],
+                        body: ['var(--font-body-name)', 'sans-serif'],
+                    },
+                    colors: {
+                        dragon: {
+                            950: '#050505',
+                            900: '#0f0f11',
+                            800: '#18181b',
+                            700: '#27272a',
+                            600: '#3f3f46',
+                            accent: '#3b82f6', // Recruiter color: Blue
+                            accentLight: '#60a5fa',
+                            success: '#10b981',
+                            warning: '#f59e0b',
+                            purple: '#a855f7',
+                        }
+                    },
+                    boxShadow: {
+                        'neon': '0 0 25px -5px rgba(59, 130, 246, 0.25)',
+                        'neon-purple': '0 0 25px -5px rgba(168, 85, 247, 0.25)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                        'card-hover': '0 20px 40px -10px rgba(0,0,0,0.5)',
+                    },
+                    spacing: {
+                        base: 'var(--space-base)',
+                    },
+                    borderRadius: {
+                        small: 'var(--radius-small)',
+                        large: 'var(--radius-large)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --font-heading-name: 'Space Grotesk';
+            --font-body-name: 'Inter';
+            --space-base: 1rem;
+            --radius-small: 0.5rem;
+            --radius-large: 1rem;
             
-            <div class="h-meta">
-              <div class="h-mi"><i class="ph ph-buildings"></i> Talent Acquisition Lead</div>
-              <div class="h-mi"><i class="ph ph-map-pin"></i> Bangalore</div>
-              <div class="h-mi"><i class="ph ph-phone"></i> +91 98765 43210</div>
-              <div class="h-mi" style="color:var(--blue);"><i class="ph ph-globe"></i> razorpay.com/careers</div>
-            </div>
-            <div class="h-acts">
-              <button class="btn" style="background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3); color:var(--blue); font-size:11px;"><i class="ph ph-magnifying-glass"></i> Run AI Search</button>
-              <button class="btn" style="background:var(--card); border:1px solid var(--b); color:var(--t1); font-size:11px;"><i class="ph ph-clipboard-text"></i> Create Assessment</button>
-              <button class="btn" style="background:var(--card); border:1px solid var(--b); color:var(--t1); font-size:11px;"><i class="ph ph-share-network"></i> Share Company Page</button>
-            </div>
-          </div>
+            /* Sidebar Variables */
+            --bg: #07090E;
+            --bg2: #0D1117;
+            --card: #121820;
+            --el: #1A2332;
+            --b: rgba(255, 255, 255, 0.06);
+            --b2: rgba(255, 255, 255, 0.11);
+            --t1: #E8ECF1;
+            --t2: #8B95A5;
+            --t3: #5A6577;
+            --red: #3b82f6; /* Changed to Blue for Recruiter theme */
+            --redd: rgba(59, 130, 246, 0.12);
+            --fb: 'DM Sans', sans-serif;
+            --fm: 'JetBrains Mono', monospace;
+            --r1: 8px;
+        }
+
+        body {
+            background-color: #020203;
+            color: #f8fafc;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.08) 0%, transparent 25%);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ─── SIDEBAR ─── */
+        .sb {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 240px;
+            background: var(--bg2);
+            border-right: 1px solid var(--b);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            font-family: var(--fb);
+        }
+
+        .sb-scroll {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+        }
+
+        .sb-scroll::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .sb-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .sb-logo {
+            padding: 16px 20px 12px;
+            border-bottom: 1px solid var(--b);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .lm {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--red), #1d4ed8);
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .lt {
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: -.3px;
+            color: #E8ECF1;
+        }
+
+        .lt span {
+            color: var(--red);
+        }
+
+        .sb-sec {
+            padding: 12px 20px 4px;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--t3);
+            font-weight: 600;
+        }
+
+        .sb-nav {
+            padding: 0 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .ni {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 10px;
+            border-radius: var(--r1);
+            cursor: pointer;
+            transition: all .15s;
+            font-size: 11.5px;
+            color: var(--t2);
+            font-weight: 500;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .ni:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--t1);
+        }
+
+        .ni.on {
+            background: var(--redd);
+            color: var(--red);
+        }
+
+        .ni.on::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 16px;
+            background: var(--red);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .ni .ico {
+            font-size: 13px;
+            width: 16px;
+            text-align: center;
+        }
+
+        .ndiv {
+            height: 1px;
+            background: var(--b);
+            margin: 4px 8px;
+        }
+
+        .sb-foot {
+            padding: 12px;
+            border-top: 1px solid var(--b);
+            flex-shrink: 0;
+        }
+
+        .usw-lbl {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--t3);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .usw {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: var(--r1);
+            background: var(--card);
+            border: 1px solid var(--b);
+            color: var(--t2);
+            font-family: var(--fb);
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all .15s;
+            margin-bottom: 4px;
+            text-align: left;
+        }
+
+        .usw:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .usw.on {
+            background: var(--redd);
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        /* ─── MAIN ─── */
+        .main-wrapper {
+            margin-left: 240px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - 240px);
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            background: rgba(30, 41, 59, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .role-indicator {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        @media(max-width: 900px) {
+            .sb { transform: translateX(-240px); }
+            .main-wrapper { margin-left: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body class="font-body min-h-screen">
+
+    <!-- ─── SIDEBAR ─── -->
+    <aside class="sb">
+        <div class="sb-logo">
+            <div class="lm"><i class="ph-fill ph-dragon"></i></div>
+            <div class="lt">Dragon<span>Suite</span></div>
         </div>
-      </div>
-
-      <!-- Hiring health strip - removed quarterly target text -->
-      <div class="qs"
-        style="background:linear-gradient(135deg,rgba(59,130,246,0.07),rgba(16,185,129,0.03));border-color:rgba(59,130,246,0.18);">
-        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-          <div style="flex:1;">
-            <div style="font-size:12.5px;font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px;"><i class="ph ph-buildings"></i> Hiring Health — Q1 2025</div>
-            <div style="font-size:11px;color:var(--t2);">Razorpay Technologies · 14 active pipelines</div>
-          </div>
-          <div class="qs-stats" style="gap:20px; align-items:center;">
-            <div class="qsp">
-              <div class="qsp-v" style="color:var(--blue);">347</div>
-              <div class="qsp-l">Screened</div>
-            </div>
-            <div style="width:1px; height:24px; background:var(--b2);"></div>
-            <div class="qsp">
-              <div class="qsp-v" style="color:var(--amber);">29</div>
-              <div class="qsp-l">Shortlisted</div>
-            </div>
-            <div style="width:1px; height:24px; background:var(--b2);"></div>
-            <div class="qsp">
-              <div class="qsp-v" style="color:var(--green);">8</div>
-              <div class="qsp-l">Offered</div>
-            </div>
-            <div style="width:1px; height:24px; background:var(--b2);"></div>
-            <div class="qsp">
-              <div class="qsp-v" style="color:var(--cyan);">74%</div>
-              <div class="qsp-l">Avg Match Score</div>
-            </div>
-          </div>
+        <div class="sb-scroll">
+            <div class="sb-sec">Navigation</div>
+            <nav class="sb-nav">
+                <div class="ni on" data-nav="profile"><span class="ico"><i class="ph ph-user"></i></span>My Profile</div>
+                <div class="ni" data-nav="gps"><span class="ico"><i class="ph ph-compass"></i></span>Dragon GPS</div>
+                <div class="ni" data-nav="prep"><span class="ico"><i class="ph ph-book-open"></i></span>Dragon Prep</div>
+                <div class="ni" data-nav="arena"><span class="ico"><i class="ph ph-sword"></i></span>Dragon Arena</div>
+                <div class="ni" data-nav="quest"><span class="ico"><i class="ph ph-dragon"></i></span>Dragon Quest</div>
+                <div class="ndiv"></div>
+                <div class="ni" data-nav="elite"><span class="ico"><i class="ph ph-star"></i></span>Dragon Elite</div>
+                <div class="ni" data-nav="hub"><span class="ico"><i class="ph ph-globe"></i></span>Dragon Hub</div>
+                <div class="ni" data-nav="hire"><span class="ico"><i class="ph ph-target"></i></span>Dragon Hire</div>
+                <div class="ni" data-nav="bridge"><span class="ico"><i class="ph ph-bridge"></i></span>Dragon Bridge</div>
+                <div class="ni" data-nav="review"><span class="ico"><i class="ph ph-clipboard-text"></i></span>Dragon Review</div>
+                <div class="ndiv"></div>
+                <div class="ni" data-nav="skill"><span class="ico"><i class="ph ph-wrench"></i></span>Skill Craft</div>
+                <div class="ni" data-nav="lab"><span class="ico"><i class="ph ph-flask"></i></span>Project Lab</div>
+                <div class="ni" data-nav="vault"><span class="ico"><i class="ph ph-lock-laminated"></i></span>Dragon Vault</div>
+                <div class="ni" data-nav="nexus"><span class="ico"><i class="ph ph-link"></i></span>Dragon Nexus</div>
+                <div class="ni" data-nav="dash"><span class="ico"><i class="ph ph-chart-bar"></i></span>Talent Dashboard</div>
+                <div class="ni" data-nav="match"><span class="ico"><i class="ph ph-robot"></i></span>Match Results</div>
+                <div class="ni" data-nav="market"><span class="ico"><i class="ph ph-chart-line-up"></i></span>Market Intel</div>
+            </nav>
         </div>
-        <!-- Removed the quarterly target progress bar -->
-      </div>
+        <div class="sb-foot">
+            <div class="usw-lbl">Switch Profile View</div>
+            <button class="usw" onclick="window.location.href='index.html'"><i class="ph ph-magnifying-glass"></i> Job Seeker</button>
+            <button class="usw on" onclick="window.location.href='hr.html'"><i class="ph ph-buildings"></i> HR / Recruiter</button>
+            <button class="usw" onclick="window.location.href='placement.html'"><i class="ph ph-graduation-cap"></i> Placement Officer</button>
+            <button class="usw" onclick="window.location.href='student.html'"><i class="ph ph-book-open"></i> Student</button>
+        </div>
+    </aside>
 
-      <div class="tabs" style="--tc:var(--blue);">
-        <div class="tab on" onclick="stab(this,'hr-t1')">Profile Management</div>
-        <!-- <div class="tab" onclick="stab(this,'hr-t2')">Job Management</div> -->
-        <!-- <div class="tab" onclick="stab(this,'hr-t3')">Talent Search</div> -->
-        <!-- <div class="tab" onclick="stab(this,'hr-t4')">Connections</div> -->
-      </div>
-
-      <!-- PROFILE MANAGEMENT TAB - Company, Roles, Skills, Connections -->
-      <div class="tp on" id="hr-t1">
-        <div class="ov-grid">
-          <div class="ov-main">
-
-            <!-- Company info -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-buildings"></i> About Razorpay</div>
-                <span class="card-action">Edit <i class="ph ph-pencil-simple"></i></span>
-              </div>
-              <div class="card-body">
-                <div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:12px;">India's leading payments
-                  and fintech infrastructure company. We serve 10M+ businesses with payments, banking, payroll, and
-                  lending products. ML talent powers our fraud, risk, and recommendation systems.</div>
-                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:12px;font-size:11.5px;color:var(--t2);">
-                  <span>🌐 razorpay.com</span><span>📍 Bangalore (HQ)</span><span>👥 3,200 employees</span><span>🏦 Series F · $7.5B val</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Roles Currently Hiring -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-target"></i> Roles Currently Hiring</div>
-                <div style="display:flex;gap:14px;align-items:center;">
-                  <span class="card-action">Edit <i class="ph ph-pencil-simple"></i></span>
-                  <button class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--t1);padding:4px 10px;font-size:11px;">+ Add Role</button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div style="display:flex;flex-direction:column;gap:9px;">
-                  <div style="border-bottom:1px solid var(--b);padding-bottom:10px;">
-                    <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-                      <div style="font-size:13px;font-weight:500;">Senior ML Engineer</div><span
-                        style="background:var(--card);color:var(--t2);border:1px solid var(--b);font-size:10px;font-weight:600;padding:2px 7px;border-radius:6px;">Active</span>
+    <div class="main-wrapper">
+        <!-- Top Navigation -->
+        <nav class="sticky top-0 z-50 border-b border-dragon-800 bg-dragon-950/80 backdrop-blur-xl">
+            <div class="content-container">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center gap-6">
+                        <div class="flex items-center bg-dragon-900/50 rounded-full border border-dragon-800 px-4 py-1.5">
+                            <i data-lucide="search" class="w-4 h-4 text-neutral-500 mr-2"></i>
+                            <input type="text" placeholder="Search candidates, roles..." class="bg-transparent border-none text-sm text-neutral-300 focus:outline-none w-64 placeholder-neutral-600">
+                        </div>
+                        <div class="role-indicator">
+                            <div class="w-1.5 h-1.5 rounded-full bg-dragon-accent animate-pulse"></div>
+                            Viewing as: HR / Recruiter
+                        </div>
                     </div>
-                    <div style="font-size:11px;color:var(--t3);margin-bottom:7px;">₹28–40 LPA · Bangalore · Hybrid · 3
-                      openings</div>
-                    <div class="chip-row" style="margin-top:0;"><span class="chip cr">ML/AI</span><span
-                        class="chip cg">Databricks</span><span class="chip cb">AWS</span><span
-                        class="chip cp">RAG/LLM</span><span class="chip ca">MLOps</span></div>
-                  </div>
-                  <div style="border-bottom:1px solid var(--b);padding-bottom:10px;">
-                    <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-                      <div style="font-size:13px;font-weight:500;">MLOps Engineer</div><span
-                        style="background:var(--card);color:var(--t2);border:1px solid var(--b);font-size:10px;font-weight:600;padding:2px 7px;border-radius:6px;">Active</span>
+
+                    <div class="flex items-center gap-4">
+                        <button class="text-neutral-400 hover:text-white transition-colors relative">
+                            <i data-lucide="bell" class="w-5 h-5"></i>
+                            <span class="absolute top-0 right-0 w-2 h-2 bg-dragon-accent rounded-full border-2 border-dragon-950"></span>
+                        </button>
+                        <div class="w-9 h-9 rounded-full bg-dragon-800 border border-dragon-700 overflow-hidden cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="User" class="w-full h-full object-cover">
+                        </div>
                     </div>
-                    <div style="font-size:11px;color:var(--t3);margin-bottom:7px;">₹22–32 LPA · Bangalore · On-site · 2
-                      openings</div>
-                    <div class="chip-row" style="margin-top:0;"><span class="chip cb">Kubernetes</span><span
-                        class="chip cg">Databricks</span><span class="chip ca">Spark</span><span
-                        class="chip cc">Airflow</span></div>
-                  </div>
-                  <div style="padding-bottom:4px;">
-                    <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-                      <div style="font-size:13px;font-weight:500;">Data Scientist — Fraud & Risk</div><span
-                        style="background:var(--purple);color:#fff;font-size:10px;font-weight:600;padding:2px 7px;border-radius:6px;">New</span>
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-grow overflow-hidden flex flex-col pt-4 pb-2 w-full">
+            <div class="content-container space-y-4 h-full flex flex-col">
+                
+                <!-- Hero Section -->
+                <section class="relative rounded-large overflow-hidden border border-neutral-700/50 glass-card p-3 md:p-4 flex flex-col lg:flex-row gap-4 lg:items-center justify-between flex-shrink-0">
+                    <div class="absolute top-0 right-0 w-96 h-96 bg-dragon-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+                    
+                    <!-- Left: Identity -->
+                    <div class="flex flex-col md:flex-row gap-6 items-start relative z-10">
+                        <div class="relative flex-shrink-0">
+                            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full p-1 bg-gradient-to-br from-dragon-accent to-dragon-purple">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Priya Venkataraman" class="w-full h-full rounded-full object-cover border-2 border-dragon-950">
+                            </div>
+                            <div class="absolute bottom-1 right-1 w-6 h-6 bg-green-500 border-4 border-dragon-950 rounded-full"></div>
+                        </div>
+                        
+                        <div class="space-y-1">
+                            <div>
+                                <h1 class="font-heading text-lg md:text-xl font-bold text-white tracking-tight">Priya Venkataraman</h1>
+                                <div class="flex flex-wrap items-center gap-2 mt-1 text-neutral-400">
+                                    <span class="text-dragon-accentLight font-medium">Talent Acquisition Lead</span>
+                                    <span class="w-1 h-1 rounded-full bg-neutral-600"></span>
+                                    <span class="text-white">Razorpay</span>
+                                </div>
+                            </div>
+                             <p class="text-neutral-300 max-w-xl text-sm leading-relaxed">
+                                Hiring AI/ML Talent at Scale <span class="mx-2 text-neutral-600">|</span> <span class="text-white font-medium">14 Active Roles</span>
+                            </p>
+                            <div class="flex flex-wrap gap-4 pt-2 text-sm text-neutral-500">
+                                <span class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-4 h-4"></i> Bengaluru, India</span>
+                                <span class="flex items-center gap-1.5"><i data-lucide="link" class="w-4 h-4"></i> razorpay.com/careers</span>
+                            </div>
+                        </div>
                     </div>
-                    <div style="font-size:11px;color:var(--t3);margin-bottom:7px;">₹18–28 LPA · Remote · 5 openings
+
+                    <!-- Right: Stats & Actions -->
+                    <div class="flex flex-col gap-6 w-full lg:w-auto relative z-10">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="bg-dragon-900/50 p-3 rounded-lg border border-neutral-700/50 text-center">
+                                <div class="text-lg font-heading font-bold text-white">14</div>
+                                <div class="text-xs text-neutral-400 uppercase tracking-wider">Open Roles</div>
+                            </div>
+                            <div class="bg-dragon-900/50 p-3 rounded-lg border border-neutral-700/50 text-center">
+                                <div class="text-lg font-heading font-bold text-dragon-accentLight">8.4%</div>
+                                <div class="text-xs text-neutral-400 uppercase tracking-wider">Hire Rate</div>
+                            </div>
+                            <div class="bg-dragon-900/50 p-3 rounded-lg border border-neutral-700/50 text-center">
+                                <div class="text-lg font-heading font-bold text-white">42</div>
+                                <div class="text-xs text-neutral-400 uppercase tracking-wider">Hired</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <button class="flex-1 bg-gradient-to-r from-dragon-accent to-dragon-purple hover:opacity-90 text-white font-medium py-2.5 px-4 rounded-small shadow-neon transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="search" class="w-4 h-4"></i> Run AI Candidate Search
+                            </button>
+                            <button class="bg-dragon-800 hover:bg-dragon-700 text-neutral-200 border border-dragon-700 font-medium py-2.5 px-4 rounded-small transition-colors">
+                                <i data-lucide="plus" class="w-5 h-5"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="chip-row" style="margin-top:0;"><span class="chip cb">Python</span><span
-                        class="chip cg">Snowflake</span><span class="chip ca">XGBoost</span><span
-                        class="chip cp">SQL</span>
+                </section>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-grow overflow-hidden">
+                    <!-- Left Column (Main) -->
+                    <div class="lg:col-span-8 space-y-4 flex flex-col overflow-hidden">
+                        <!-- AI Insight -->
+                        <div class="relative rounded-large p-[1px] bg-gradient-to-r from-dragon-accent/30 via-dragon-purple/30 to-transparent flex-shrink-0">
+                            <div class="bg-dragon-900/80 backdrop-blur-sm rounded-large p-3 flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-dragon-accent to-dragon-purple flex items-center justify-center flex-shrink-0 shadow-neon">
+                                    <i data-lucide="bot" class="text-white w-4 h-4"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-neutral-200 font-medium text-[10px] mb-0.5 flex items-center gap-2">
+                                        Dragon AI Insight
+                                        <span class="text-[8px] bg-dragon-accent/20 text-dragon-accentLight px-1.5 py-0.5 rounded-full border border-dragon-accent/20 uppercase tracking-widest">Live Analysis</span>
+                                    </h3>
+                                    <p class="text-neutral-300 text-sm leading-tight">
+                                        Actively hiring <span class="text-white font-medium border-b border-dragon-accent/50">ML and Backend Engineers</span>. High hiring velocity.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <section class="flex flex-col flex-grow overflow-hidden">
+                            <div class="flex items-center justify-between mb-2 flex-shrink-0">
+                                <h2 class="font-heading text-lg font-bold text-white uppercase tracking-wider">Active Roles</h2>
+                                <a href="#" class="text-dragon-accentLight hover:underline text-[10px] font-medium">View all 14 &rarr;</a>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 flex-grow overflow-hidden">
+                                <div class="glass-card rounded-large p-3 group flex flex-col justify-between h-full">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <h3 class="font-heading text-base font-bold text-white group-hover:text-dragon-accentLight transition-colors">Senior ML Engineer</h3>
+                                            <div class="text-neutral-400 text-[10px]">Bengaluru • Hybrid</div>
+                                        </div>
+                                        <span class="bg-green-500/10 text-green-400 border border-green-500/20 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Active</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1 mb-3">
+                                        <span class="bg-dragon-800 text-neutral-300 text-[8px] font-bold px-1.5 py-0.5 rounded border border-dragon-700 uppercase">PYTHON</span>
+                                        <span class="bg-dragon-800 text-neutral-300 text-[8px] font-bold px-1.5 py-0.5 rounded border border-dragon-700 uppercase">PYTORCH</span>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-2 border-t border-dragon-800">
+                                        <div class="flex gap-3">
+                                            <div><div class="text-white font-bold text-xs">48</div><div class="text-[8px] text-neutral-500 uppercase">App</div></div>
+                                            <div><div class="text-dragon-accentLight font-bold text-xs">12</div><div class="text-[8px] text-neutral-500 uppercase">Short</div></div>
+                                        </div>
+                                        <div class="text-right"><div class="text-white font-medium text-[10px]">₹45L-65L</div></div>
+                                    </div>
+                                </div>
+                                <div class="glass-card rounded-large p-3 group flex flex-col justify-between h-full">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <h3 class="font-heading text-base font-bold text-white group-hover:text-dragon-accentLight transition-colors">Backend Lead</h3>
+                                            <div class="text-neutral-400 text-[10px]">Remote • India</div>
+                                        </div>
+                                        <span class="bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Urgent</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1 mb-3">
+                                        <span class="bg-dragon-800 text-neutral-300 text-[8px] font-bold px-1.5 py-0.5 rounded border border-dragon-700 uppercase">GO</span>
+                                        <span class="bg-dragon-800 text-neutral-300 text-[8px] font-bold px-1.5 py-0.5 rounded border border-dragon-700 uppercase">K8S</span>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-2 border-t border-dragon-800">
+                                        <div class="flex gap-3">
+                                            <div><div class="text-white font-bold text-xs">124</div><div class="text-[8px] text-neutral-500 uppercase">App</div></div>
+                                            <div><div class="text-dragon-accentLight font-bold text-xs">8</div><div class="text-[8px] text-neutral-500 uppercase">Short</div></div>
+                                        </div>
+                                        <div class="text-right"><div class="text-white font-medium text-[10px]">₹50L-70L</div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Activity Timeline -->
+                        <section class="glass-card rounded-large p-5 flex-shrink-0">
+                            <h3 class="font-heading text-base font-bold text-white mb-4">Recent Activity</h3>
+                            <div class="space-y-3 relative before:absolute before:left-[7px] before:top-1 before:bottom-1 before:w-[2px] before:bg-dragon-800">
+                                <div class="relative pl-6">
+                                    <div class="absolute left-0 top-1.5 w-3.5 h-3.5 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-dragon-accent ring-2 ring-dragon-950"></div></div>
+                                    <div class="flex justify-between items-center"><p class="text-neutral-300 text-xs">Shortlisted <span class="text-white">5 candidates</span> for <span class="text-dragon-accentLight">Senior ML Engineer</span></p><span class="text-[9px] text-neutral-500">2h ago</span></div>
+                                </div>
+                                <div class="relative pl-6">
+                                    <div class="absolute left-0 top-1.5 w-3.5 h-3.5 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-green-500 ring-2 ring-dragon-950"></div></div>
+                                    <div class="flex justify-between items-center"><p class="text-neutral-300 text-xs truncate">Closed <span class="text-white">Backend Engineer</span> role</p><span class="text-[9px] text-neutral-500">Yesterday</span></div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-          </div>
+                    <!-- Right Column (Sidebar) -->
+                    <div class="lg:col-span-4 space-y-4 flex flex-col overflow-hidden">
+                        <div class="glass-card rounded-large p-5 flex-shrink-0">
+                            <h3 class="font-heading text-xs font-bold text-white mb-4 uppercase tracking-widest border-l-2 border-dragon-accent pl-2">Skills Demand</h3>
+                            <div class="space-y-3">
+                                <div><div class="flex justify-between text-[10px] mb-1.5"><span class="text-neutral-500">Machine Learning</span><span class="text-dragon-accentLight font-bold">High</span></div>
+                                    <div class="h-1 w-full bg-dragon-800 rounded-full overflow-hidden"><div class="h-full bg-dragon-accent w-[85%]"></div></div>
+                                </div>
+                                <div><div class="flex justify-between text-[10px] mb-1.5"><span class="text-neutral-400">Python</span><span class="text-dragon-accentLight font-bold">High</span></div>
+                                    <div class="h-1 w-full bg-dragon-800 rounded-full overflow-hidden"><div class="h-full bg-dragon-accent w-[92%]"></div></div>
+                                </div>
+                            </div>
+                        </div>
 
-          <div class="ov-side">
-
-            <!-- Skills Needed -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-chart-bar"></i> Skills Needed</div>
-              </div>
-              <div class="card-body">
-                <div class="skill-item"><span class="skill-name">Machine Learning</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:95%;background:var(--red);"></div>
-                  </div><span class="skill-val" style="color:var(--red);">12</span>
-                </div>
-                <div class="skill-item"><span class="skill-name">Python / PyTorch</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:88%;background:var(--blue);"></div>
-                  </div><span class="skill-val" style="color:var(--blue);">11</span>
-                </div>
-                <div class="skill-item"><span class="skill-name">Databricks</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:75%;background:var(--green);"></div>
-                  </div><span class="skill-val" style="color:var(--green);">10</span>
-                </div>
-                <div class="skill-item"><span class="skill-name">LLM / RAG</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:60%;background:var(--purple);"></div>
-                  </div><span class="skill-val" style="color:var(--purple);">8</span>
-                </div>
-                <div class="skill-item"><span class="skill-name">MLOps</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:50%;background:var(--amber);"></div>
-                  </div><span class="skill-val" style="color:var(--amber);">7</span>
-                </div>
-                <div style="font-size:11.5px;color:var(--t2);font-weight:500;margin-top:12px;text-align:center;background:var(--bg);padding:6px;border-radius:6px;border:1px solid var(--b);">Numbers indicate open roles requiring this skill</div>
-              </div>
-            </div>
-
-            <!-- Connections Preview -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-link"></i> Connections</div>
-                <span class="card-action">View All <i class="ph ph-arrow-right"></i></span>
-              </div>
-              <div class="card-body" style="padding-top:10px;">
-                <div style="display:flex;flex-direction:column;gap:6px;">
-                  <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--b);">
-                    <div
-                      style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));display:grid;place-items:center;font-size:10px;font-weight:700;">
-                      RK</div>
-                    <div style="flex:1;">
-                      <div style="font-size:12px;font-weight:600;">Dr. Ramesh Kumar</div>
-                      <div style="font-size:10.5px;color:var(--t3);">Placement Officer · PSG Tech</div>
+                        <div class="glass-card rounded-large p-5 flex-grow overflow-hidden flex flex-col">
+                            <h3 class="font-heading text-xs font-bold text-white mb-4 uppercase tracking-widest border-l-2 border-dragon-accent pl-2">Top Candidates</h3>
+                            <div class="space-y-3 overflow-y-auto pr-1">
+                                <div class="flex items-center gap-2 p-2 rounded-lg bg-dragon-800/20 hover:bg-dragon-800/50 cursor-pointer transition-colors">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Arjun" class="w-7 h-7 rounded-full object-cover">
+                                    <div class="flex-1 min-w-0"><div class="flex justify-between items-center"><h4 class="text-white font-medium text-xs truncate">Arjun Mehta</h4><span class="text-green-400 font-bold text-[9px]">98%</span></div><p class="text-neutral-500 text-[8px] font-bold uppercase">Senior ML Engineer</p></div>
+                                </div>
+                                <div class="flex items-center gap-2 p-2 rounded-lg bg-dragon-800/20 hover:bg-dragon-800/50 cursor-pointer transition-colors">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Sarah" class="w-8 h-8 rounded-full object-cover">
+                                    <div class="flex-1 min-w-0"><div class="flex justify-between items-center"><h4 class="text-white font-medium text-xs truncate">Sarah Jenkins</h4><span class="text-green-400 font-bold text-[9px]">94%</span></div><p class="text-neutral-500 text-[8px] font-bold uppercase">Backend Lead</p></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div style="display:flex;align-items:center;gap:8px;padding:6px 0;">
-                    <div
-                      style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--red));display:grid;place-items:center;font-size:10px;font-weight:700;">
-                      AM</div>
-                    <div style="flex:1;">
-                      <div style="font-size:12px;font-weight:600;">Arjun Mehta</div>
-                      <div style="font-size:10.5px;color:var(--t3);">ML Engineer · Score 88</div>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
+        </main>
+    </div>
 
-          </div>
-        </div>
-      </div>
-
-      <!-- JOB MANAGEMENT TAB - Applicant Stats, Hiring Pipeline, Dragon Vault, Talent Search -->
-      <div class="tp" id="hr-t2">
-
-        <!-- Applicant Stats -->
-        <div class="card" style="margin-bottom:16px;">
-          <div class="card-head">
-            <div class="card-title"><i class="ph ph-chart-line-up"></i> Applicant Stats</div>
-          </div>
-          <div class="stat-row">
-            <div class="stat-item">
-              <div class="stat-v" style="color:var(--blue);">347</div>
-              <div class="stat-l">Total Applicants</div>
-              <div class="stat-ch up">↑ +42 this week</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-v" style="color:var(--green);">74%</div>
-              <div class="stat-l">Avg Match Score</div>
-              <div class="stat-ch up">↑ +4%</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-v" style="color:var(--amber);">29</div>
-              <div class="stat-l">Shortlisted</div>
-              <div class="stat-ch">8 Strong Hire</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Hiring Pipeline -->
-        <div class="acc ex" style="--ac:rgba(59,130,246,0.2);margin-bottom:16px;">
-          <div class="acc-h" onclick="tog(this)">
-            <span class="acc-ic"><i class="ph ph-target"></i></span>
-            <div class="acc-t">
-              <div class="acc-tm">Hiring Pipeline</div>
-              <div class="acc-ts">143 applied · 57 screened · 8 offers</div>
-            </div>
-            <div class="acc-r"><span class="acc-badge" style="background:var(--bd);color:var(--blue);">Live</span><span
-                class="acc-arr">▼</span></div>
-          </div>
-          <div class="acc-body">
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding-top:8px;">
-              <div class="pl-col">
-                <div class="pl-h" style="color:var(--blue);">Applied<span class="pl-c">143</span></div>
-                <div class="cand">
-                  <div class="c-nm">Arjun Mehta</div>
-                  <div class="c-rl">ML Eng · Score 88</div>
-                  <div class="c-vd vd-h">Strong Hire</div>
-                </div>
-                <div class="cand">
-                  <div class="c-nm">Riya Sharma</div>
-                  <div class="c-rl">ML Eng · Score 84</div>
-                  <div class="c-vd vd-h">Hire</div>
-                </div>
-              </div>
-              <div class="pl-col">
-                <div class="pl-h" style="color:var(--amber);">Screened<span class="pl-c">57</span></div>
-                <div class="cand">
-                  <div class="c-nm">Karthik Nair</div>
-                  <div class="c-rl">MLOps · Score 82</div>
-                  <div class="c-vd vd-h">Hire</div>
-                </div>
-                <div class="cand">
-                  <div class="c-nm">Deepa Iyer</div>
-                  <div class="c-rl">Data Sci · Score 76</div>
-                  <div class="c-vd vd-c">Consider</div>
-                </div>
-              </div>
-              <div class="pl-col">
-                <div class="pl-h" style="color:var(--purple);">Interviewed<span class="pl-c">21</span></div>
-                <div class="cand">
-                  <div class="c-nm">Vikram Patel</div>
-                  <div class="c-rl">Data Eng · Score 91</div>
-                  <div class="c-vd vd-h">Strong Hire</div>
-                </div>
-              </div>
-              <div class="pl-col">
-                <div class="pl-h" style="color:var(--green);">Offered<span class="pl-c">8</span></div>
-                <div class="cand">
-                  <div class="c-nm">Sneha Gupta</div>
-                  <div class="c-rl">ML Platform Lead</div>
-                  <div class="c-vd" style="color:var(--green);">₹38 LPA</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- TALENT SEARCH TAB (Full page) -->
-      <div class="tp" id="hr-t3">
-        <div style="font-size:12px;font-weight:600;margin-bottom:12px;">Last search: "Databricks + Snowflake, Bangalore,
-          ≤₹35L, RAG" → <span style="color:var(--green);">23 verified matches</span></div>
-        <div class="match-card"
-          style="background:linear-gradient(135deg,rgba(59,130,246,0.06),transparent);border-color:rgba(59,130,246,0.14);">
-          <div class="mc-top">
-            <div>
-              <div class="mc-co" style="color:var(--blue);">Arjun Mehta · Bangalore · 4 yrs</div>
-              <div class="mc-role">ML Engineer</div>
-            </div>
-            <div class="mc-pct">94%</div>
-          </div>
-          <div class="mc-meta"><span><i class="ph ph-currency-circle-dollar"></i> ₹28–35 LPA</span><span><i class="ph ph-medal"></i> AWS ML + Databricks + Snowflake</span><span
-              style="color:var(--green);"><i class="ph ph-check-circle"></i> RAG</span></div>
-          <div class="mc-why"><i class="ph ph-robot"></i> <strong>All cert stacks verified · Bangalore <i class="ph ph-check"></i> · 3 RAG projects in Lab</strong></div>
-        </div>
-        <div class="match-card"
-          style="background:linear-gradient(135deg,rgba(16,185,129,0.05),transparent);border-color:rgba(16,185,129,0.12);">
-          <div class="mc-top">
-            <div>
-              <div class="mc-co" style="color:var(--green);">Divya Krishnan · Bangalore · 6 yrs</div>
-              <div class="mc-role">Senior Data Engineer</div>
-            </div>
-            <div class="mc-pct" style="color:var(--amber);">89%</div>
-          </div>
-          <div class="mc-meta"><span><i class="ph ph-currency-circle-dollar"></i> ₹32–40 LPA</span><span><i class="ph ph-medal"></i> AWS + Databricks</span></div>
-        </div>
-        <!-- Dragon Vault -->
-        <div class="acc" style="--ac:rgba(245,158,11,0.2);margin-bottom:16px;">
-          <div class="acc-h" onclick="tog(this)">
-            <span class="acc-ic"><i class="ph ph-lock-laminated"></i></span>
-            <div class="acc-t">
-              <div class="acc-tm">Dragon Vault — Top Candidates</div>
-              <div class="acc-ts">86 candidates with Score 85+ · 14 match your open roles</div>
-            </div>
-            <div class="acc-r"><span class="acc-badge" style="background:var(--ad);color:var(--amber);">14
-                matches</span><span class="acc-arr">▼</span></div>
-          </div>
-          <div class="acc-body">
-            <div style="padding-top:8px;">
-              <div
-                style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--b);">
-                <div style="display:flex;gap:9px;align-items:center;">
-                  <div
-                    style="width:30px;height:30px;border-radius:var(--r1);background:var(--el);display:grid;place-items:center;font-size:15px;">
-                    <i class="ph ph-brain"></i></div>
-                  <div>
-                    <div style="font-size:12px;font-weight:600;">Arjun Mehta</div>
-                    <div style="font-size:10.5px;color:var(--t3);">Score 88 · AWS ML · Databricks · RAG · ₹28–35L</div>
-                  </div>
-                </div><span style="font-size:11px;font-weight:600;color:var(--amber);cursor:pointer;">View <i class="ph ph-arrow-right"></i></span>
-              </div>
-              <div
-                style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--b);">
-                <div style="display:flex;gap:9px;align-items:center;">
-                  <div
-                    style="width:30px;height:30px;border-radius:var(--r1);background:var(--el);display:grid;place-items:center;font-size:15px;">
-                    <i class="ph ph-star"></i></div>
-                  <div>
-                    <div style="font-size:12px;font-weight:600;">Vikram Patel</div>
-                    <div style="font-size:10.5px;color:var(--t3);">Score 91 · GCP · Snowflake · LLM · ₹32–45L</div>
-                  </div>
-                </div><span style="font-size:11px;font-weight:600;color:var(--amber);cursor:pointer;">View <i class="ph ph-arrow-right"></i></span>
-              </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;">
-                <div style="display:flex;gap:9px;align-items:center;">
-                  <div
-                    style="width:30px;height:30px;border-radius:var(--r1);background:var(--el);display:grid;place-items:center;font-size:15px;">
-                    <i class="ph ph-lightbulb"></i></div>
-                  <div>
-                    <div style="font-size:12px;font-weight:600;">Divya Krishnan</div>
-                    <div style="font-size:10.5px;color:var(--t3);">Score 86 · Azure AI · PyTorch · MLOps · ₹30–40L</div>
-                  </div>
-                </div><span style="font-size:11px;font-weight:600;color:var(--amber);cursor:pointer;">View <i class="ph ph-arrow-right"></i></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CONNECTIONS TAB -->
-      <div class="tp" id="hr-t4">
-        <div class="two">
-          <div>
-            <div class="slbl"><i class="ph ph-graduation-cap"></i> Placement Officers</div>
-            <div class="card">
-              <div class="card-body">
-                <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--b);">
-                  <div
-                    style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));display:grid;place-items:center;font-weight:700;font-size:11px;">
-                    RK</div>
-                  <div style="flex:1;">
-                    <div style="font-size:12px;font-weight:600;">Dr. Ramesh Kumar</div>
-                    <div style="font-size:10.5px;color:var(--t3);">Placement Officer · PSG College of Technology</div>
-                  </div>
-                  <button class="btn bg" style="padding:3px 10px;font-size:10px;">Message</button>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--b);">
-                  <div
-                    style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--red));display:grid;place-items:center;font-weight:700;font-size:11px;">
-                    SM</div>
-                  <div style="flex:1;">
-                    <div style="font-size:12px;font-weight:600;">Suresh Menon</div>
-                    <div style="font-size:10.5px;color:var(--t3);">Placement Head · NIT Trichy</div>
-                  </div>
-                  <button class="btn bg" style="padding:3px 10px;font-size:10px;">Connect</button>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;padding:9px 0;">
-                  <div
-                    style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:grid;place-items:center;font-weight:700;font-size:11px;">
-                    AR</div>
-                  <div style="flex:1;">
-                    <div style="font-size:12px;font-weight:600;">Asha Rao</div>
-                    <div style="font-size:10.5px;color:var(--t3);">T&P Head · BITS Pilani</div>
-                  </div>
-                  <button class="btn bg" style="padding:3px 10px;font-size:10px;">Connect</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="slbl"><i class="ph ph-user"></i> Candidate Connections</div>
-            <div class="card">
-              <div class="card-body">
-                <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--b);">
-                  <div
-                    style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;font-weight:700;font-size:11px;">
-                    AM</div>
-                  <div style="flex:1;">
-                    <div style="font-size:12px;font-weight:600;">Arjun Mehta</div>
-                    <div style="font-size:10.5px;color:var(--t3);">ML Engineer · Score 88 · Actively looking</div>
-                  </div>
-                  <button class="btn bg" style="padding:3px 10px;font-size:10px;">Message</button>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--b);">
-                  <div
-                    style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--cyan));display:grid;place-items:center;font-weight:700;font-size:11px;">
-                    VP</div>
-                  <div style="flex:1;">
-                    <div style="font-size:12px;font-weight:600;">Vikram Patel</div>
-                    <div style="font-size:10.5px;color:var(--t3);">Data Engineer · Score 91 · Interview stage</div>
-                  </div>
-                  <button class="btn bg" style="padding:3px 10px;font-size:10px;">Message</button>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;padding:9px 0;">
-                  <div
-                    style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--red));display:grid;place-items:center;font-weight:700;font-size:11px;">
-                    DK</div>
-                  <div style="flex:1;">
-                    <div style="font-size:12px;font-weight:600;">Divya Krishnan</div>
-                    <div style="font-size:10.5px;color:var(--t3);">Data Eng · Score 86 · Available now</div>
-                  </div>
-                  <button class="btn bg" style="padding:3px 10px;font-size:10px;">Message</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- end hr -->
-
-  </main>
-
-  <script>
-    function toggleRV(btn) {
-      btn.classList.toggle('on');
-    }
-
-    function stab(tab, pid) {
-      const sc = tab.closest('.ps');
-      sc.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
-      sc.querySelectorAll('.tp').forEach(p => p.classList.remove('on'));
-      tab.classList.add('on');
-      document.getElementById(pid).classList.add('on');
-    }
-
-    function tog(head) {
-      const acc = head.closest('.acc');
-      acc.classList.toggle('ex');
-    }
-
-    document.querySelectorAll('.ni[data-nav]').forEach(n => {
-      n.addEventListener('click', () => {
-        document.querySelectorAll('.ni').forEach(i => i.classList.remove('on'));
-        n.classList.add('on');
-      });
-    });
-  </script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
-
 </html>

@@ -1,1951 +1,1145 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" style="height: 100vh;">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dragon Suite — Placement Officer Profile</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-    rel="stylesheet">
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <style>
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --bg: #040609;
-      --bg2: #0D1117;
-      --card: #161D27;
-      --el: #1F2937;
-      --b: rgba(255, 255, 255, 0.09);
-      --b2: rgba(255, 255, 255, 0.15);
-      --t1: #E8ECF1;
-      --t2: #9CA3AF;
-      --t3: #6B7280;
-      --red: #FF2D55;
-      --redd: rgba(255, 45, 85, 0.12);
-      --green: #10B981;
-      --gd: rgba(16, 185, 129, 0.12);
-      --blue: #3B82F6;
-      --bd: rgba(59, 130, 246, 0.12);
-      --amber: #F59E0B;
-      --ad: rgba(245, 158, 11, 0.12);
-      --purple: #A78BFA;
-      --pd: rgba(167, 139, 250, 0.12);
-      --cyan: #06B6D4;
-      --cd: rgba(6, 182, 212, 0.12);
-      --fb: 'DM Sans', sans-serif;
-      --fm: 'JetBrains Mono', monospace;
-      --r1: 8px;
-      --r2: 12px;
-      --r3: 16px;
-    }
-
-    html {
-      font-size: 14px;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--fb);
-      background: var(--bg);
-      color: var(--t1);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ─── SIDEBAR ─── */
-    .sb {
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 240px;
-      background: var(--bg2);
-      border-right: 1px solid var(--b);
-      display: flex;
-      flex-direction: column;
-      z-index: 100;
-    }
-
-    .sb-scroll {
-      flex: 1;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
-    }
-
-    .sb-scroll::-webkit-scrollbar {
-      width: 3px;
-    }
-
-    .sb-scroll::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 3px;
-    }
-
-    .sb-logo {
-      padding: 16px 20px 12px;
-      border-bottom: 1px solid var(--b);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-
-    .lm {
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, var(--red), #CC1144);
-      border-radius: 8px;
-      display: grid;
-      place-items: center;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--bg);
-    }
-
-    .lt {
-      font-weight: 700;
-      font-size: 15px;
-      letter-spacing: -.3px;
-    }
-
-    .lt span {
-      color: var(--red);
-    }
-
-    .sb-sec {
-      padding: 12px 20px 4px;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--t3);
-      font-weight: 600;
-    }
-
-    .sb-nav {
-      padding: 0 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
-
-    .ni {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 10px;
-      border-radius: var(--r1);
-      cursor: pointer;
-      transition: all .15s;
-      font-size: 11.5px;
-      color: var(--t2);
-      font-weight: 500;
-      position: relative;
-    }
-
-    .ni:hover {
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--t1);
-    }
-
-    .ni.on {
-      background: var(--redd);
-      color: var(--red);
-    }
-
-    .ni.on::before {
-      content: '';
-      position: absolute;
-      left: -8px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 3px;
-      height: 16px;
-      background: var(--red);
-      border-radius: 0 3px 3px 0;
-    }
-
-    .ni .ico {
-      font-size: 13px;
-      width: 16px;
-      text-align: center;
-    }
-
-    .ndiv {
-      height: 1px;
-      background: var(--b);
-      margin: 4px 8px;
-    }
-
-    .sb-foot {
-      padding: 12px;
-      border-top: 1px solid var(--b);
-      flex-shrink: 0;
-    }
-
-    .usw-lbl {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--t3);
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .usw {
-      width: 100%;
-      padding: 6px 10px;
-      border-radius: var(--r1);
-      background: var(--card);
-      border: 1px solid var(--b);
-      color: var(--t2);
-      font-family: var(--fb);
-      font-size: 11px;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all .15s;
-      margin-bottom: 3px;
-    }
-
-    .usw:hover {
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    .usw.on {
-      background: var(--redd);
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    /* ─── MAIN ─── */
-    .main {
-      margin-left: 240px;
-      min-height: 100vh;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      padding: 12px 24px;
-      background: rgba(7, 9, 14, 0.9);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--b);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .tb-l {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .tb-title {
-      font-size: 13px;
-      color: var(--t2);
-      font-weight: 500;
-    }
-
-    .tb-title strong {
-      color: var(--t1);
-    }
-
-    .tb-r {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn {
-      padding: 6px 13px;
-      border-radius: var(--r1);
-      font-size: 11.5px;
-      font-weight: 500;
-      cursor: pointer;
-      font-family: var(--fb);
-      transition: all .15s;
-      border: none;
-      line-height: 1.4;
-    }
-
-    .bg {
-      background: var(--card);
-      border: 1px solid var(--b);
-      color: var(--t2);
-    }
-
-    .bg:hover {
-      border-color: var(--b2);
-      color: var(--t1);
-    }
-
-    .bp {
-      background: var(--red);
-      color: #fff;
-    }
-
-    .bp:hover {
-      background: #e0253b;
-    }
-
-    .av {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-weight: 700;
-      font-size: 11px;
-      cursor: pointer;
-    }
-
-    /* recruiter toggle */
-    .rv-toggle {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 10px;
-      background: var(--card);
-      border: 1px solid var(--b);
-      border-radius: 20px;
-      font-size: 11px;
-      color: var(--t2);
-      cursor: pointer;
-      transition: all .15s;
-    }
-
-    .rv-toggle:hover,
-    .rv-toggle.on {
-      border-color: var(--amber);
-      color: var(--amber);
-    }
-
-    .rv-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--t3);
-    }
-
-    .rv-toggle.on .rv-dot {
-      background: var(--amber);
-    }
-
-    /* ─── SCREENS ─── */
-    .ps {
-      display: none;
-      animation: fi .25s ease;
-    }
-
-    .ps.on {
-      display: block;
-    }
-
-    @keyframes fi {
-      from {
-        opacity: 0;
-        transform: translateY(5px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
-
-    /* ─── HERO ─── */
-    .hero {
-      padding: 16px 24px 0;
-    }
-
-    .hero-inner {
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-    }
-
-    .h-av-w {
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .h-av {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 32px;
-      border-width: 2px;
-      border-style: solid;
-    }
-
-    .h-badge {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 10px;
-      border: 2px solid var(--bg);
-    }
-
-    .h-info {
-      flex: 1;
-      padding-top: 2px;
-    }
-
-    .h-name {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -.3px;
-      margin-bottom: 3px;
-    }
-
-    .h-role {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 10px;
-      border-radius: 14px;
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .7px;
-      margin-bottom: 8px;
-    }
-
-    .h-meta {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .h-mi {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 11.5px;
-      color: var(--t2);
-    }
-
-    .h-acts {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-    }
-
-    /* score cards in hero */
-    .h-scores {
-      display: flex;
-      gap: 7px;
-      align-items: stretch;
-    }
-
-    .sc {
-      background: var(--card);
-      border: 1px solid var(--b);
-      border-radius: var(--r2);
-      padding: 10px 13px;
-      min-width: 110px;
-    }
-
-    .sc-lbl {
-      font-size: 9px;
-      color: var(--t3);
-      text-transform: uppercase;
-      letter-spacing: .9px;
-      font-weight: 600;
-      margin-bottom: 3px;
-    }
-
-    .sc-val {
-      font-size: 19px;
-      font-weight: 700;
-      font-family: var(--fm);
-      margin-bottom: 1px;
-    }
-
-    .sc-sub {
-      font-size: 10px;
-      color: var(--t2);
-    }
-
-    .sc-tr {
-      font-size: 10px;
-      margin-top: 2px;
-    }
-
-    .up {
-      color: var(--green);
-    }
-
-    /* ─── QUEST STRIP ─── */
-    .qs {
-      margin: 14px 24px 0;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.07), rgba(59, 130, 246, 0.03));
-      border: 1px solid rgba(16, 185, 129, 0.18);
-      border-radius: var(--r2);
-      padding: 14px 18px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .qs::after {
-      content: '🎓';
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 46px;
-      opacity: 0.07;
-    }
-
-    .qs-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 10px;
-    }
-
-    .qs-ico {
-      font-size: 24px;
-      background: rgba(16, 185, 129, 0.14);
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      flex-shrink: 0;
-    }
-
-    .qs-inf {
-      flex: 1;
-    }
-
-    .qs-nm {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--t1);
-      margin-bottom: 1px;
-    }
-
-    .qs-sb {
-      font-size: 11px;
-      color: var(--t2);
-    }
-
-    .qs-stats {
-      display: flex;
-      gap: 0;
-      border: 1px solid var(--b);
-      border-radius: var(--r2);
-      background: var(--card);
-    }
-
-    .qsp {
-      text-align: center;
-      padding: 12px 20px;
-      border-right: 1px solid var(--b);
-    }
-
-    .qsp:last-child {
-      border-right: none;
-    }
-
-    .qsp-v {
-      font-size: 16px;
-      font-weight: 700;
-      font-family: var(--fm);
-    }
-
-    .qsp-l {
-      font-size: 9px;
-      color: var(--t3);
-      text-transform: uppercase;
-      letter-spacing: .7px;
-      margin-top: 2px;
-      font-weight: 500;
-    }
-
-    .qs-bar-l {
-      display: flex;
-      justify-content: space-between;
-      font-size: 10.5px;
-      margin-bottom: 4px;
-    }
-
-    .qs-bar-l span:first-child {
-      color: var(--t2);
-    }
-
-    .qs-bar-l span:last-child {
-      color: var(--green);
-      font-family: var(--fm);
-      font-weight: 600;
-    }
-
-    .bt {
-      height: 5px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .bf {
-      height: 100%;
-      border-radius: 3px;
-    }
-
-    .sf {
-      font-size: 20px;
-      animation: fire .8s infinite alternate;
-    }
-
-    @keyframes fire {
-      from {
-        transform: scale(1) rotate(-3deg);
-      }
-
-      to {
-        transform: scale(1.12) rotate(3deg);
-      }
-    }
-
-    /* ─── TABS ─── */
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid var(--b);
-      padding: 0 24px;
-      margin-top: 16px;
-      overflow-x: auto;
-    }
-
-    .tabs::-webkit-scrollbar {
-      display: none;
-    }
-
-    .tab {
-      padding: 10px 16px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--t2);
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: all .15s;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .tab:hover {
-      color: var(--t1);
-    }
-
-    .tab.on {
-      color: var(--tc, var(--green));
-      border-bottom-color: var(--tc, var(--green));
-    }
-
-    .tc {
-      background: var(--el);
-      border-radius: 7px;
-      padding: 1px 6px;
-      font-size: 9.5px;
-      font-family: var(--fm);
-    }
-
-    /* ─── TAB PANELS ─── */
-    .tp {
-      display: none;
-      padding: 18px 24px 60px;
-    }
-
-    .tp.on {
-      display: block;
-    }
-
-    /* ─── OVERVIEW LAYOUT ─── */
-    .ov-grid {
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 16px;
-    }
-
-    .ov-main {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .ov-side {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    /* ─── SECTION CARD ─── */
-    .card {
-      background: var(--card);
-      border: 1px solid var(--b);
-      border-radius: var(--r2);
-      overflow: hidden;
-    }
-
-    .card:hover {
-      border-color: var(--b2);
-    }
-
-    .card-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--b);
-    }
-
-    .card-title {
-      font-size: 12.5px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .card-action {
-      font-size: 11px;
-      color: var(--green);
-      cursor: pointer;
-      font-weight: 500;
-    }
-
-    .card-action:hover {
-      text-decoration: underline;
-    }
-
-    .card-body {
-      padding: 14px 16px;
-    }
-
-    .card-body-np {
-      padding: 0;
-    }
-
-    /* ─── ACCORDION ─── */
-    .acc {
-      background: var(--card);
-      border: 1px solid var(--b);
-      border-radius: var(--r2);
-      margin-bottom: 10px;
-      overflow: hidden;
-      transition: border-color .2s;
-    }
-
-    .acc:hover {
-      border-color: var(--b2);
-    }
-
-    .acc.ex {
-      border-color: var(--ac, var(--b2));
-    }
-
-    .acc-h {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 15px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .acc-ic {
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-
-    .acc-t {
-      flex: 1;
-    }
-
-    .acc-tm {
-      font-size: 12.5px;
-      font-weight: 600;
-      margin-bottom: 1px;
-    }
-
-    .acc-ts {
-      font-size: 11px;
-      color: var(--t2);
-    }
-
-    .acc-r {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .acc-badge {
-      font-size: 10.5px;
-      font-weight: 700;
-      padding: 2px 9px;
-      border-radius: 16px;
-    }
-
-    .acc-arr {
-      font-size: 11px;
-      color: var(--t3);
-      transition: transform .22s;
-    }
-
-    .acc.ex .acc-arr {
-      transform: rotate(180deg);
-    }
-
-    .acc-body {
-      display: none;
-      padding: 0 15px 15px;
-      border-top: 1px solid var(--b);
-    }
-
-    .acc.ex .acc-body {
-      display: block;
-      animation: fi .2s ease;
-    }
-
-    /* ─── PROGRESS BAR ─── */
-    .pb {
-      margin-bottom: 9px;
-    }
-
-    .pb-l {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11.5px;
-      margin-bottom: 3px;
-    }
-
-    .pb-l span:first-child {
-      color: var(--t2);
-    }
-
-    .pb-l span:last-child {
-      font-family: var(--fm);
-      font-size: 10.5px;
-      font-weight: 600;
-    }
-
-    .pt {
-      height: 5px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .pf {
-      height: 100%;
-      border-radius: 3px;
-    }
-
-    /* ─── STAT ROW ─── */
-    .stat-row {
-      display: grid;
-      gap: 0;
-    }
-
-    .stat-item {
-      padding: 10px 14px;
-      border-right: 1px solid var(--b);
-      text-align: center;
-    }
-
-    .stat-item:last-child {
-      border-right: none;
-    }
-
-    .stat-v {
-      font-size: 18px;
-      font-weight: 700;
-      font-family: var(--fm);
-      margin-bottom: 2px;
-    }
-
-    .stat-l {
-      font-size: 9.5px;
-      color: var(--t3);
-      text-transform: uppercase;
-      letter-spacing: .6px;
-    }
-
-    .stat-ch {
-      font-size: 10px;
-      margin-top: 1px;
-    }
-
-    /* ─── SKILL GRAPH ─── */
-    .skill-item {
-      display: grid;
-      grid-template-columns: 120px 1fr 34px;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .skill-name {
-      font-size: 11.5px;
-      color: var(--t2);
-      white-space: nowrap;
-    }
-
-    .skill-bar-wrap {
-      flex: 1;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .skill-bar {
-      height: 100%;
-      border-radius: 3px;
-    }
-
-    .skill-val {
-      font-size: 11px;
-      font-weight: 600;
-      font-family: var(--fm);
-      width: 35px;
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    /* ─── CHIP ─── */
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 9px;
-      border-radius: 13px;
-      font-size: 11px;
-      font-weight: 500;
-      border: 1px solid var(--b);
-    }
-
-    .cr {
-      background: var(--redd);
-      color: var(--red);
-      border-color: rgba(255, 45, 85, 0.2);
-    }
-
-    .cb {
-      background: var(--bd);
-      color: var(--blue);
-      border-color: rgba(59, 130, 246, 0.18);
-    }
-
-    .cg {
-      background: var(--gd);
-      color: var(--green);
-      border-color: rgba(16, 185, 129, 0.18);
-    }
-
-    .ca {
-      background: var(--ad);
-      color: var(--amber);
-      border-color: rgba(245, 158, 11, 0.18);
-    }
-
-    .cp {
-      background: var(--pd);
-      color: var(--purple);
-      border-color: rgba(167, 139, 250, 0.18);
-    }
-
-    .cc {
-      background: var(--cd);
-      color: var(--cyan);
-      border-color: rgba(6, 182, 212, 0.18);
-    }
-
-    .chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 9px;
-    }
-
-    /* ─── AI BOX ─── */
-    .ai-box {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.07), rgba(16, 185, 129, 0.04));
-      border: 1px solid rgba(59, 130, 246, 0.14);
-      border-radius: var(--r2);
-      padding: 11px 13px;
-      margin-top: 12px;
-    }
-
-    .ai-h {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--green);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: .7px;
-    }
-
-    .ai-p {
-      font-size: 13.5px;
-      color: var(--t2);
-      line-height: 1.6;
-    }
-
-    .ai-p strong {
-      color: var(--t1);
-    }
-
-    /* ─── NOTIF ─── */
-    .notif {
-      display: flex;
-      gap: 9px;
-      padding: 9px 0;
-      border-bottom: 1px solid var(--b);
-      align-items: flex-start;
-    }
-
-    .notif:last-child {
-      border-bottom: none;
-    }
-
-    .nd {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      margin-top: 5px;
-    }
-
-    .nb {
-      flex: 1;
-    }
-
-    .nt {
-      font-size: 12px;
-      line-height: 1.45;
-      margin-bottom: 2px;
-    }
-
-    .nt strong {
-      color: var(--t1);
-    }
-
-    .nc {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--green);
-      cursor: pointer;
-      margin-top: 2px;
-    }
-
-    .nc:hover {
-      text-decoration: underline;
-    }
-
-    .ntime {
-      font-size: 10px;
-      color: var(--t3);
-    }
-
-    /* ─── STUDENT ROW ─── */
-    .srow {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 6px 0;
-      border-bottom: 1px solid var(--b);
-    }
-
-    .srow:last-child {
-      border-bottom: none;
-    }
-
-    .sav {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      display: grid;
-      place-items: center;
-      font-weight: 700;
-      font-size: 11px;
-      flex-shrink: 0;
-    }
-
-    .sinf {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .snm {
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 1px;
-      line-height: 1.25;
-    }
-
-    .sdp {
-      font-size: 10.5px;
-      color: var(--t3);
-    }
-
-    .risk {
-      font-size: 9.5px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .rh {
-      background: var(--redd);
-      color: #EF4444;
-    }
-
-    .rm {
-      background: var(--ad);
-      color: var(--amber);
-    }
-
-    .rl {
-      background: var(--gd);
-      color: var(--green);
-    }
-
-    /* ─── DRIVE ROW ─── */
-    .drive {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 9px 0;
-      border-bottom: 1px solid var(--b);
-    }
-
-    .drive:last-child {
-      border-bottom: none;
-    }
-
-    .dr-dt {
-      text-align: center;
-      min-width: 40px;
-    }
-
-    .dr-day {
-      font-size: 18px;
-      font-weight: 700;
-      font-family: var(--fm);
-    }
-
-    .dr-mo {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--t3);
-    }
-
-    .dr-inf {
-      flex: 1;
-    }
-
-    .dr-co {
-      font-size: 12.5px;
-      font-weight: 600;
-      margin-bottom: 1px;
-    }
-
-    .dr-meta {
-      font-size: 10.5px;
-      color: var(--t3);
-    }
-
-    .dr-badge {
-      font-size: 10.5px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 7px;
-    }
-
-    /* ─── COMPANY ROW ─── */
-    .co-row {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--b);
-    }
-
-    .co-row:last-child {
-      border-bottom: none;
-    }
-
-    .co-av {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--green), var(--blue));
-      display: grid;
-      place-items: center;
-      font-weight: 700;
-      font-size: 10px;
-      flex-shrink: 0;
-    }
-
-    .co-inf {
-      flex: 1;
-    }
-
-    .co-nm {
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 1px;
-    }
-
-    .co-role {
-      font-size: 10.5px;
-      color: var(--t3);
-    }
-
-    .co-btn {
-      font-size: 10.5px;
-      font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 7px;
-      background: var(--bd);
-      color: var(--blue);
-      cursor: pointer;
-      border: none;
-      font-family: var(--fb);
-    }
-
-    /* ─── DEPT SKILL BAR ─── */
-    .dept-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 9px;
-    }
-
-    .dept-nm {
-      font-size: 11.5px;
-      color: var(--t2);
-      width: 90px;
-      flex-shrink: 0;
-    }
-
-    .dept-bar {
-      flex: 1;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .dept-fill {
-      height: 100%;
-      border-radius: 3px;
-    }
-
-    .dept-val {
-      font-size: 10.5px;
-      font-family: var(--fm);
-      width: 32px;
-      text-align: right;
-    }
-
-    /* ─── SECTION LABEL ─── */
-    .slbl {
-      font-size: 9.5px;
-      text-transform: uppercase;
-      letter-spacing: 1.1px;
-      color: var(--t3);
-      font-weight: 600;
-      margin-bottom: 9px;
-      margin-top: 16px;
-    }
-
-    .slbl:first-child {
-      margin-top: 0;
-    }
-
-    /* ─── TWO COL ─── */
-    .two {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .three {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .sbl {
-      display: grid;
-      grid-template-columns: 1fr 290px;
-      gap: 14px;
-    }
-
-    @media(max-width:1200px) {
-
-      .ov-grid,
-      .sbl {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media(max-width:900px) {
-      .sb {
-        transform: translateX(-100%);
-      }
-
-      .main {
-        margin-left: 0;
-      }
-
-      .two,
-      .three {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DragonSuite — My Profile | Dr. Ramesh Kumar</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link id="heading-font-link" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link id="body-font-link" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        heading: ['var(--font-heading-name)', 'sans-serif'],
+        body: ['var(--font-body-name)', 'sans-serif'],
+      },
+      borderRadius: {
+        small: 'var(--radius-small)',
+        large: 'var(--radius-large)',
+      },
+      boxShadow: {
+        custom: 'var(--shadow-custom)',
+        'custom-hover': 'var(--shadow-custom-hover)',
+      },
+    }
+  }
+}
+</script>
+<style>
+:root {
+  --font-heading-name: 'Space Grotesk';
+  --font-body-name: 'Inter';
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --letter-spacing-heading: -0.02em;
+  --letter-spacing-body: 0px;
+  --space-base: 0.8rem;
+  --radius-small: 6px;
+  --radius-large: 10px;
+  --border-width: 1px;
+  --shadow-color: 0 0 0;
+  --shadow-offset-x: 0px;
+  --shadow-offset-y: 8px;
+  --shadow-blur: 32px;
+  --shadow-spread: -8px;
+  --shadow-opacity: 0.5;
+  --shadow-custom: 0 8px 32px -8px rgba(0,0,0,0.5);
+  --shadow-custom-hover: 0 16px 48px -8px rgba(16,185,129,0.2);
+  
+  /* Sidebar Variables */
+  --bg: #07090E;
+  --bg2: #0D1117;
+  --card-bg: #121820;
+  --el: #1A2332;
+  --b: rgba(255,255,255,0.06);
+  --b2: rgba(255,255,255,0.11);
+  --t1: #E8ECF1;
+  --t2: #8B95A5;
+  --t3: #5A6577;
+  --red: #10b981; /* Placement theme: Green */
+  --redd: rgba(16, 185, 129, 0.12);
+  --fb: 'DM Sans', sans-serif;
+  --fm: 'JetBrains Mono', monospace;
+  --r1: 8px;
+}
+
+html { font-size: 13px; }
+
+* { box-sizing: border-box; }
+
+body {
+  background-color: #060b18;
+  background-image:
+    radial-gradient(ellipse 80% 40% at 50% -10%, rgba(16,185,129,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 0% 60%, rgba(16,185,129,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 100% 80%, rgba(139,92,246,0.07) 0%, transparent 50%);
+  background-attachment: fixed;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ─── SIDEBAR ─── */
+.sb {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 240px;
+  background: var(--bg2);
+  border-right: 1px solid var(--b);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  font-family: var(--fb);
+}
+
+.sb-scroll {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+}
+
+.sb-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+
+.sb-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.sb-logo {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--b);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.lm {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--red), #059669);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.lt {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -.3px;
+  color: #E8ECF1;
+}
+
+.lt span {
+  color: var(--red);
+}
+
+.sb-sec {
+  padding: 12px 20px 4px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--t3);
+  font-weight: 600;
+}
+
+.sb-nav {
+  padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.ni {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--r1);
+  cursor: pointer;
+  transition: all .15s;
+  font-size: 11.5px;
+  color: var(--t2);
+  font-weight: 500;
+  position: relative;
+  text-decoration: none;
+}
+
+.ni:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--t1);
+}
+
+.ni.on {
+  background: var(--redd);
+  color: var(--red);
+}
+
+.ni.on::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 16px;
+  background: var(--red);
+  border-radius: 0 3px 3px 0;
+}
+
+.ni .ico {
+  font-size: 13px;
+  width: 16px;
+  text-align: center;
+}
+
+.ndiv {
+  height: 1px;
+  background: var(--b);
+  margin: 4px 8px;
+}
+
+.sb-foot {
+  padding: 12px;
+  border-top: 1px solid var(--b);
+  flex-shrink: 0;
+}
+
+.usw-lbl {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--t3);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.usw {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: var(--r1);
+  background: var(--card-bg, #161D27);
+  border: 1px solid var(--b);
+  color: var(--t2);
+  font-family: var(--fb);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .15s;
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.usw:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.usw.on {
+  background: var(--redd);
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* ─── MAIN ─── */
+.main-wrapper {
+  margin-left: 240px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 240px);
+  overflow-y: auto;
+}
+
+.glass {
+  background: rgba(13,20,40,0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.content-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.glass-hover {
+  transition: all 0.2s ease;
+}
+.glass-hover:hover {
+  background: rgba(20,30,60,0.85);
+  border-color: rgba(16,185,129,0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px -8px rgba(16,185,129,0.15);
+}
+
+.card-lift {
+  transition: all 0.2s ease;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px -8px rgba(16,185,129,0.2);
+  border-color: rgba(16,185,129,0.3);
+}
+
+.tab-btn { transition: all 0.2s ease; }
+.tab-btn.active {
+  color: #10b981;
+  border-bottom: 2px solid #10b981;
+}
+
+@media(max-width: 900px) {
+  .sb { transform: translateX(-240px); }
+  .main-wrapper { margin-left: 0; width: 100%; }
+}
+
+.progress-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s ease;
+}
+
+.badge-glow-blue { box-shadow: 0 0 12px rgba(59,130,246,0.4); }
+.badge-glow-green { box-shadow: 0 0 12px rgba(16,185,129,0.4); }
+.badge-glow-red { box-shadow: 0 0 12px rgba(239,68,68,0.3); }
+.badge-glow-purple { box-shadow: 0 0 12px rgba(139,92,246,0.4); }
+
+.edit-overlay { opacity: 0; transition: opacity 0.2s ease; }
+.editable-section:hover .edit-overlay { opacity: 1; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.neon-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.role-indicator {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.drive-progress {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+  margin-top: 6px;
+}
+.drive-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.toggle-switch {
+  width: 36px; height: 20px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.toggle-switch.on { background: #10b981; }
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  width: 14px; height: 14px;
+  background: white;
+  border-radius: 50%;
+  top: 3px; left: 3px;
+  transition: transform 0.2s;
+}
+.toggle-switch.on::after { transform: translateX(16px); }
+
+.activity-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+</style>
 </head>
+<body class="font-body text-slate-200" style="height:auto;min-height:100%;">
 
-<body>
-
-  <!-- ─── SIDEBAR ─── -->
-  <aside class="sb">
+<!-- ─── SIDEBAR ─── -->
+<aside class="sb">
     <div class="sb-logo">
-      <div class="lm"><i class="ph-fill ph-dragon"></i></div>
-      <div class="lt">Dragon<span>Suite</span></div>
+        <div class="lm"><i class="ph-fill ph-dragon"></i></div>
+        <div class="lt">Dragon<span>Suite</span></div>
     </div>
     <div class="sb-scroll">
-      <div class="sb-sec">Navigation</div>
-      <nav class="sb-nav">
-        <div class="ni on" data-nav="profile"><span class="ico"><i class="ph ph-user"></i></span>My Profile</div>
-        <div class="ni" data-nav="gps"><span class="ico"><i class="ph ph-compass"></i></span>Dragon GPS</div>
-        <div class="ni" data-nav="prep"><span class="ico"><i class="ph ph-book-open"></i></span>Dragon Prep</div>
-        <div class="ni" data-nav="arena"><span class="ico"><i class="ph ph-sword"></i></span>Dragon Arena</div>
-        <div class="ni" data-nav="quest"><span class="ico"><i class="ph ph-dragon"></i></span>Dragon Quest</div>
-        <div class="ndiv"></div>
-        <div class="ni" data-nav="elite"><span class="ico"><i class="ph ph-star"></i></span>Dragon Elite</div>
-        <div class="ni" data-nav="hub"><span class="ico"><i class="ph ph-globe"></i></span>Dragon Hub</div>
-        <div class="ni" data-nav="hire"><span class="ico"><i class="ph ph-target"></i></span>Dragon Hire</div>
-        <div class="ni" data-nav="bridge"><span class="ico"><i class="ph ph-bridge"></i></span>Dragon Bridge</div>
-        <div class="ni" data-nav="review"><span class="ico"><i class="ph ph-clipboard-text"></i></span>Dragon Review</div>
-        <div class="ndiv"></div>
-        <div class="ni" data-nav="skill"><span class="ico"><i class="ph ph-wrench"></i></span>Skill Craft</div>
-        <div class="ni" data-nav="lab"><span class="ico"><i class="ph ph-flask"></i></span>Project Lab</div>
-        <div class="ni" data-nav="vault"><span class="ico"><i class="ph ph-lock-laminated"></i></span>Dragon Vault</div>
-        <div class="ni" data-nav="nexus"><span class="ico"><i class="ph ph-link"></i></span>Dragon Nexus</div>
-        <div class="ni" data-nav="dash"><span class="ico"><i class="ph ph-chart-bar"></i></span>Talent Dashboard</div>
-        <div class="ni" data-nav="match"><span class="ico"><i class="ph ph-robot"></i></span>Match Results</div>
-        <div class="ni" data-nav="market"><span class="ico"><i class="ph ph-chart-line-up"></i></span>Market Intel</div>
-      </nav>
+        <div class="sb-sec">Navigation</div>
+        <nav class="sb-nav">
+            <div class="ni on" data-nav="profile"><span class="ico"><i class="ph ph-user"></i></span>My Profile</div>
+            <div class="ni" data-nav="gps"><span class="ico"><i class="ph ph-compass"></i></span>Dragon GPS</div>
+            <div class="ni" data-nav="prep"><span class="ico"><i class="ph ph-book-open"></i></span>Dragon Prep</div>
+            <div class="ni" data-nav="arena"><span class="ico"><i class="ph ph-sword"></i></span>Dragon Arena</div>
+            <div class="ni" data-nav="quest"><span class="ico"><i class="ph ph-dragon"></i></span>Dragon Quest</div>
+            <div class="ndiv"></div>
+            <div class="ni" data-nav="elite"><span class="ico"><i class="ph ph-star"></i></span>Dragon Elite</div>
+            <div class="ni" data-nav="hub"><span class="ico"><i class="ph ph-globe"></i></span>Dragon Hub</div>
+            <div class="ni" data-nav="hire"><span class="ico"><i class="ph ph-target"></i></span>Dragon Hire</div>
+            <div class="ni" data-nav="bridge"><span class="ico"><i class="ph ph-bridge"></i></span>Dragon Bridge</div>
+            <div class="ni" data-nav="review"><span class="ico"><i class="ph ph-clipboard-text"></i></span>Dragon Review</div>
+            <div class="ndiv"></div>
+            <div class="ni" data-nav="skill"><span class="ico"><i class="ph ph-wrench"></i></span>Skill Craft</div>
+            <div class="ni" data-nav="lab"><span class="ico"><i class="ph ph-flask"></i></span>Project Lab</div>
+            <div class="ni" data-nav="vault"><span class="ico"><i class="ph ph-lock-laminated"></i></span>Dragon Vault</div>
+            <div class="ni" data-nav="nexus"><span class="ico"><i class="ph ph-link"></i></span>Dragon Nexus</div>
+            <div class="ni" data-nav="dash"><span class="ico"><i class="ph ph-chart-bar"></i></span>Talent Dashboard</div>
+            <div class="ni" data-nav="match"><span class="ico"><i class="ph ph-robot"></i></span>Match Results</div>
+            <div class="ni" data-nav="market"><span class="ico"><i class="ph ph-chart-line-up"></i></span>Market Intel</div>
+        </nav>
     </div>
     <div class="sb-foot">
-      <div class="usw-lbl">Switch Profile View</div>
-      <button class="usw" onclick="window.location.href='index.html'"><i class="ph ph-magnifying-glass"></i> Job Seeker</button>
-      <button class="usw" onclick="window.location.href='hr.html'"><i class="ph ph-buildings"></i> HR / Recruiter</button>
-      <button class="usw on" onclick="window.location.href='placement.html'"><i class="ph ph-graduation-cap"></i> Placement Officer</button>
-      <button class="usw" onclick="window.location.href='student.html'"><i class="ph ph-book-open"></i> Student</button>
+        <div class="usw-lbl">Switch Profile View</div>
+        <button class="usw" onclick="window.location.href='index.html'"><i class="ph ph-magnifying-glass"></i> Job Seeker</button>
+        <button class="usw" onclick="window.location.href='hr.html'"><i class="ph ph-buildings"></i> HR / Recruiter</button>
+        <button class="usw on" onclick="window.location.href='placement.html'"><i class="ph ph-graduation-cap"></i> Placement Officer</button>
+        <button class="usw" onclick="window.location.href='student.html'"><i class="ph ph-book-open"></i> Student</button>
     </div>
-  </aside>
+</aside>
 
-  <main class="main">
-    <header class="topbar">
-      <div class="tb-l">
-        <div class="tb-title"><strong>My Profile</strong> — <span id="topLbl">Placement Officer</span></div>
-        <div class="rv-toggle" id="rvToggle" onclick="toggleRV(this)" title="Toggle Recruiter View">
-          <div class="rv-dot"></div>Recruiter View
+<div class="main-wrapper">
+    <!-- TOP NAV -->
+    <nav class="sticky top-0 z-50 border-b border-white/5" style="background:rgba(6,11,24,0.9);backdrop-filter:blur(20px);">
+      <div class="content-container h-12 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="role-indicator">
+            <div class="neon-dot" style="background:#10b981;"></div>
+            Viewing as: Placement Officer
+          </div>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-4">
+          <button class="relative p-2 text-slate-400 hover:text-white transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+            <span class="absolute top-1 right-1 w-2 h-2 rounded-full border border-current" style="background:#ef4444;border-color:#060b18;"></span>
+          </button>
+          <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=80&q=80&fit=crop" alt="Dr. Ramesh" class="w-8 h-8 rounded-full border" style="border-color:rgba(16,185,129,0.3);">
         </div>
       </div>
-      <div class="tb-r">
-        <button class="btn bg"><i class="ph ph-gear"></i> Settings</button>
-        <button class="btn bp"><i class="ph ph-pencil"></i> Edit Profile</button>
-        <div class="av" id="topAv" style="background:linear-gradient(135deg,#10B981,#059669);">D</div>
-      </div>
-    </header>
+    </nav>
 
-    <!-- PLACEMENT OFFICER PROFILE -->
-    <div class="ps on" id="ps-placement">
+<div class="content-container py-3">
 
-      <!-- Nudge banner removed as requested -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 1: PROFILE HEADER                              -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="glass rounded-large mb-4 overflow-hidden">
+    <!-- Cover Banner -->
+    <div class="h-20 relative" style="background:linear-gradient(135deg,rgba(16,185,129,0.25) 0%,rgba(139,92,246,0.2) 50%,rgba(6,182,212,0.15) 100%);border-bottom:1px solid rgba(255,255,255,0.05);">
+      <div class="absolute inset-0" style="background-image:radial-gradient(circle at 20% 50%,rgba(16,185,129,0.15) 0%,transparent 50%),radial-gradient(circle at 80% 50%,rgba(139,92,246,0.1) 0%,transparent 50%);"></div>
+      <button class="absolute top-2 right-4 flex items-center gap-2 px-3 py-1 rounded-small text-[10px] font-medium transition-all hover:bg-white/10" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+        Edit Profile
+      </button>
+    </div>
 
-      <div class="hero">
-        <div class="hero-inner">
-          <div class="h-av-w">
-            <div class="h-av" style="border-color:var(--green);background:rgba(16,185,129,0.07);"><i class="ph-fill ph-user-circle"></i></div>
-            <div class="h-badge" style="background:var(--green);"><i class="ph ph-graduation-cap"></i></div>
+    <div class="px-6 pb-6">
+      <!-- Avatar Row -->
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 -mt-8 mb-4">
+        <div class="flex items-end gap-3">
+          <div class="relative">
+            <div class="w-16 h-16 rounded-xl border-2 overflow-hidden" style="border-color:rgba(16,185,129,0.5);box-shadow:0 0 20px rgba(16,185,129,0.2);">
+              <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80&fit=crop" alt="Dr. Ramesh Kumar" class="w-full h-full object-cover">
+            </div>
+            <div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center border-2" style="background:#10b981;border-color:#060b18;">
+              <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
           </div>
-          <div class="h-info">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+          <div class="pb-0.5">
+            <div class="flex items-center gap-2 flex-wrap">
+              <h1 class="font-heading text-xl font-bold text-white">Dr. Ramesh Kumar</h1>
+              <span class="px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider" style="background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.25);">Verified TPO</span>
+            </div>
+            <p class="text-xs mt-0.5" style="color:#94a3b8;">Placement Officer · PSG College of Technology</p>
+            <p class="text-xs mt-0.5 font-medium" style="color:#34d399;">Driving <span class="text-white font-bold">78% Placement Success</span> with AI Insights</p>
+          </div>
+        </div>
+        <div class="flex gap-2 pb-1">
+          <button class="flex items-center gap-2 px-4 py-2 rounded-small text-sm font-semibold text-white transition-all" style="background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 4px 16px rgba(16,185,129,0.3);">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            Message
+          </button>
+          <button class="px-4 py-2 rounded-small text-sm font-medium transition-all" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Contact & Meta Info Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-5">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0" style="background:rgba(16,185,129,0.1);">
+            <svg class="w-3.5 h-3.5" style="color:#34d399;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div>
+            <div class="text-[10px] uppercase tracking-wider" style="color:#64748b;">Email</div>
+            <div class="text-xs font-medium text-white truncate" style="max-width:100px;">ramesh@psgtech.ac.in</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0" style="background:rgba(16,185,129,0.1);">
+            <svg class="w-3.5 h-3.5" style="color:#34d399;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          </div>
+          <div>
+            <div class="text-[10px] uppercase tracking-wider" style="color:#64748b;">Phone</div>
+            <div class="text-xs font-medium text-white">+91 98765 43210</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0" style="background:rgba(139,92,246,0.1);">
+            <svg class="w-3.5 h-3.5" style="color:#a78bfa;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div>
+            <div class="text-[10px] uppercase tracking-wider" style="color:#64748b;">Location</div>
+            <div class="text-xs font-medium text-white">Coimbatore, TN</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0" style="background:rgba(245,158,11,0.1);">
+            <svg class="w-3.5 h-3.5" style="color:#fbbf24;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div>
+            <div class="text-[10px] uppercase tracking-wider" style="color:#64748b;">Experience</div>
+            <div class="text-xs font-medium text-white">12 Years as TPO</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0" style="background:rgba(6,182,212,0.1);">
+            <svg class="w-3.5 h-3.5" style="color:#22d3ee;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <div>
+            <div class="text-[10px] uppercase tracking-wider" style="color:#64748b;">Departments</div>
+            <div class="text-xs font-medium text-white">12 Managed</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0" style="background:rgba(16,185,129,0.1);">
+            <svg class="w-3.5 h-3.5" style="color:#34d399;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div>
+            <div class="text-[10px] uppercase tracking-wider" style="color:#64748b;">Students</div>
+            <div class="text-xs font-medium text-white">620 (Batch 2025)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex gap-0 border-b" style="border-color:rgba(255,255,255,0.06);">
+        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn active px-3 py-2 text-sm font-medium -mb-px">Overview</button>
+        <button onclick="switchTab('performance')" id="tab-performance" class="tab-btn px-3 py-2 text-sm font-medium -mb-px text-slate-400 hover:text-white">My Performance</button>
+        <button onclick="switchTab('settings')" id="tab-settings" class="tab-btn px-3 py-2 text-sm font-medium -mb-px text-slate-400 hover:text-white">Settings</button>
+        <button onclick="switchTab('activity')" id="tab-activity" class="tab-btn px-3 py-2 text-sm font-medium -mb-px text-slate-400 hover:text-white">Activity Log</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- TAB: OVERVIEW                                          -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div id="content-overview" class="tab-content active">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+      <!-- LEFT COLUMN (Profile-heavy) -->
+      <div class="lg:col-span-7 space-y-4">
+
+        <!-- SECTION 2: QUICK STATS -->
+        <section>
+          <div class="glass rounded-large p-4">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="font-heading text-sm font-bold text-white flex items-center gap-2">
+                <svg class="w-3.5 h-3.5" style="color:#10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                Placement Metrics
+              </h2>
+              <button class="text-[10px] font-medium transition-colors hover:text-white" style="color:#10b981;">View All</button>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="rounded-large p-3 card-lift cursor-pointer" style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);">
+                <div class="text-[10px] uppercase tracking-wider mb-1" style="color:#64748b;">Placement Rate</div>
+                <div class="font-heading text-2xl font-bold text-white">78%</div>
+                <div class="flex items-center gap-1 mt-1">
+                  <svg class="w-3 h-3" style="color:#10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                  <span class="text-xs font-medium" style="color:#10b981;">+5% YoY</span>
+                </div>
+              </div>
+              <div class="rounded-large p-3 card-lift cursor-pointer" style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);">
+                <div class="text-[10px] uppercase tracking-wider mb-1" style="color:#64748b;">Avg Package</div>
+                <div class="font-heading text-2xl font-bold text-white">₹8.4L</div>
+                <div class="flex items-center gap-1 mt-1">
+                  <svg class="w-3 h-3" style="color:#10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                  <span class="text-xs font-medium" style="color:#10b981;">+₹0.8L</span>
+                </div>
+              </div>
+              <div class="rounded-large p-3 card-lift cursor-pointer" style="background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);">
+                <div class="text-[10px] uppercase tracking-wider mb-1" style="color:#64748b;">Students</div>
+                <div class="font-heading text-2xl font-bold text-white">620</div>
+                <div class="text-xs mt-1" style="color:#a78bfa;">483 verified</div>
+              </div>
+              <div class="rounded-large p-3 card-lift cursor-pointer" style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15);">
+                <div class="text-[10px] uppercase tracking-wider mb-1" style="color:#64748b;">Active Drives</div>
+                <div class="font-heading text-2xl font-bold text-white">12</div>
+                <div class="flex items-center gap-1 mt-1">
+                  <div class="neon-dot" style="background:#22d3ee;"></div>
+                  <span class="text-xs" style="color:#22d3ee;">Ongoing</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: INSTITUTION PROFILE -->
+        <section class="editable-section relative">
+          <div class="glass rounded-large p-4 card-lift cursor-pointer">
+            <div class="flex items-start justify-between mb-4">
+              <h2 class="font-heading text-base font-bold text-white flex items-center gap-2">
+                <svg class="w-4 h-4" style="color:#10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                PSG College of Technology
+              </h2>
+              <button class="edit-overlay flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium transition-colors" style="background:rgba(16,185,129,0.1);color:#34d399;border:1px solid rgba(16,185,129,0.2);">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                Edit
+              </button>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
               <div>
-                <div class="h-name">Dr. Ramesh Kumar <span class="risk rm" style="display:inline-flex;align-items:center;padding:3px 8px;border-radius:12px;margin-left:8px;vertical-align:middle;font-size:10px;"><i class="ph ph-warning-diamond" style="margin-right:4px;"></i> 47 At-Risk</span></div>
-                <div class="h-role" style="background:var(--gd);color:var(--green);"><i class="ph ph-graduation-cap"></i> Placement Officer · PSG College of Technology</div>
+                <div class="text-[10px] uppercase tracking-wider mb-0.5" style="color:#64748b;">Type</div>
+                <div class="text-sm font-medium text-white">Autonomous</div>
               </div>
-              <div class="h-scores">
-                <div class="sc" style="border-color:rgba(16,185,129,0.2);">
-                  <div class="sc-lbl">Placement Rate</div>
-                  <div class="sc-val" style="color:var(--green);">78%</div>
-                  <div class="sc-sub sc-tr up"><i class="ph ph-trend-up"></i> +8% YoY</div>
-                </div>
-                <div class="sc" style="border-color:rgba(59,130,246,0.2);">
-                  <div class="sc-lbl">Avg Package</div>
-                  <div class="sc-val" style="color:var(--blue);">₹8.4L</div>
-                  <div class="sc-sub"><i class="ph ph-trend-up"></i> +₹0.8L YoY</div>
-                </div>
+              <div>
+                <div class="text-[10px] uppercase tracking-wider mb-0.5" style="color:#64748b;">Established</div>
+                <div class="text-sm font-medium text-white">1951</div>
               </div>
-            </div>
-            <div class="h-meta">
-              <div class="h-mi"><i class="ph ph-buildings"></i> PSG College of Technology, Coimbatore</div>
-              <div class="h-mi"><i class="ph ph-globe"></i> psgtech.ac.in/placements</div>
-              <div class="h-mi"><i class="ph ph-users"></i> <strong>620</strong> students</div>
-              <div class="h-mi"><i class="ph ph-books"></i> <strong>12</strong> departments</div>
-            </div>
-            <div class="h-acts">
-              <button class="btn bg" style="font-size:11.5px;"><i class="ph ph-calendar-plus"></i> Schedule Drive</button>
-              <button class="btn bg" style="font-size:11.5px;"><i class="ph ph-file-arrow-down"></i> Export Report</button>
-              <button class="btn bg" style="font-size:11.5px;color:var(--red);border-color:var(--redd);"><i class="ph ph-bell-ringing"></i> Flag Students</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- College health strip -->
-      <div class="qs">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-          <div style="flex:1;">
-            <div style="font-size:12.5px;font-weight:700;margin-bottom:3px;"><i class="ph ph-buildings"></i> Batch 2025 — Placement Health</div>
-            <div style="font-size:11px;color:var(--t2);">PSG College of Technology · 620 students · 12 departments</div>
-          </div>
-          <div class="qs-stats">
-            <div class="qsp">
-              <div class="qsp-v" style="color:var(--green);">483</div>
-              <div class="qsp-l">Verified</div>
-            </div>
-            <div class="qsp">
-              <div class="qsp-v" style="color:var(--amber);">47</div>
-              <div class="qsp-l">At-Risk</div>
-            </div>
-            <div class="qsp">
-              <div class="qsp-v" style="color:var(--blue);">12</div>
-              <div class="qsp-l">Drives</div>
-            </div>
-            <div class="qsp">
-              <div class="qsp-v" style="color:var(--blue);">71</div>
-              <div class="qsp-l">Avg Score</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tabs" style="--tc:var(--green);">
-        <div class="tab on" onclick="stab(this,'po-t1')">Profile Management</div>
-        <div class="tab" onclick="stab(this,'po-t2')">Students <span class="tc">620</span></div>
-        <!-- <div class="tab" onclick="stab(this,'po-t3')">Campus Drives <span class="tc">12</span></div>
-        <div class="tab" onclick="stab(this,'po-t5')">Connections</div> -->
-      </div>
-
-      <!-- PROFILE MANAGEMENT TAB - College Summary, HR Connections, Peer Officers -->
-      <div class="tp on" id="po-t1">
-        <div class="ov-grid">
-          <div class="ov-main">
-            <!-- College summary -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-buildings"></i> College Summary</div><span class="card-action">Edit <i class="ph ph-pencil-simple"></i></span>
+              <div>
+                <div class="text-[10px] uppercase tracking-wider mb-0.5" style="color:#64748b;">Location</div>
+                <div class="text-sm font-medium text-white">Coimbatore, TN</div>
               </div>
-              <div class="card-body">
-                <div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px;">PSG College of
-                  Technology, established 1951, is a leading autonomous institution in Coimbatore. The T&P Cell has
-                  facilitated 84 company partnerships, consistently achieving 75–80% placement rates for final-year
-                  students across 12 departments.</div>
-                <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--t2);">
-                  <span><i class="ph ph-globe"></i> psgtech.ac.in</span><span><i class="ph ph-map-pin"></i> Coimbatore, Tamil Nadu</span><span><i class="ph ph-graduation-cap"></i> 8,200 students
-                    total</span><span><i class="ph ph-seal-check"></i> NAAC A++ Grade</span>
-                </div>
+              <div>
+                <div class="text-[10px] uppercase tracking-wider mb-0.5" style="color:#64748b;">Total Students</div>
+                <div class="text-sm font-medium text-white">8,200+</div>
               </div>
-            </div>
-
-            <!-- At-risk students summary (moved from dashboard) -->
-            <div class="acc ex" style="--ac:rgba(239,68,68,0.22);">
-              <div class="acc-h" onclick="tog(this)">
-                <span class="acc-ic"><i class="ph ph-warning-diamond"></i></span>
-                <div class="acc-t">
-                  <div class="acc-tm">AI-Flagged At-Risk Students</div>
-                  <div class="acc-ts">47 students may not clear upcoming drives</div>
-                </div>
-                <div class="acc-r"><span class="acc-badge" style="background:rgba(239,68,68,0.12);color:#EF4444;">47
-                    flagged</span><span class="acc-arr"><i class="ph ph-caret-down"></i></span></div>
-              </div>
-              <div class="acc-body">
-                <div style="padding-top:8px;">
-                  <div class="srow">
-                    <div class="sav">RS</div>
-                    <div class="sinf">
-                      <div class="snm">Rohit Suresh</div>
-                      <div class="sdp">CSE · Score: 48 · 2 sessions/week</div>
-                    </div><span class="risk rh">High Risk</span>
-                  </div>
-                  <div class="srow">
-                    <div class="sav">AM</div>
-                    <div class="sinf">
-                      <div class="snm">Anjali Mishra</div>
-                      <div class="sdp">IT · Score: 56 · 4 sessions/week</div>
-                    </div><span class="risk rm">Medium</span>
-                  </div>
-                  <div class="srow">
-                    <div class="sav">KP</div>
-                    <div class="sinf">
-                      <div class="snm">Kiran Pillai</div>
-                      <div class="sdp">ECE · Score: 61 · Improving</div>
-                    </div><span class="risk rm">Medium</span>
-                  </div>
-                  <div class="ai-box">
-                    <div class="ai-h"><i class="ph ph-brain"></i> Dragon AI Prescription</div>
-                    <div class="ai-p">14-day intensive Dragon Prep path brings <strong>31 of 47 students</strong> above
-                      threshold. Focus: DSA patterns + Aptitude.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="ov-side">
-            <!-- HR / Company Connections -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-buildings"></i> HR / Company Connections</div>
-                <button class="btn bg" style="padding:4px 10px;font-size:10.5px;display:flex;align-items:center;gap:4px;"><i class="ph ph-plus"></i> Connect</button>
-              </div>
-              <div class="card-body">
-                <div class="co-row">
-                  <div class="co-av" style="background:linear-gradient(135deg,var(--blue),var(--cyan));">PV</div>
-                  <div class="co-inf">
-                    <div class="co-nm">Priya Venkataraman</div>
-                    <div class="co-role">Talent Lead · Razorpay</div>
-                  </div><button class="co-btn">Message</button>
-                </div>
-                <div class="co-row">
-                  <div class="co-av" style="background:linear-gradient(135deg,var(--amber),var(--red));">MK</div>
-                  <div class="co-inf">
-                    <div class="co-nm">Mohan Kumar</div>
-                    <div class="co-role">HR Manager · Infosys</div>
-                  </div><button class="co-btn">Message</button>
-                </div>
-                <div class="co-row">
-                  <div class="co-av" style="background:linear-gradient(135deg,var(--green),var(--blue));">RS</div>
-                  <div class="co-inf">
-                    <div class="co-nm">Reena Sharma</div>
-                    <div class="co-role">Campus Head · TCS Digital</div>
-                  </div><button class="co-btn">Message</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Peer Placement Officers -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-graduation-cap"></i> Peer Placement Officers</div>
-                <button class="btn bg" style="padding:4px 10px;font-size:10.5px;display:flex;align-items:center;gap:4px;"><i class="ph ph-plus"></i> Connect</button>
-              </div>
-              <div class="card-body">
-                <div class="co-row">
-                  <div class="co-av" style="background:linear-gradient(135deg,var(--purple),var(--blue));">SM</div>
-                  <div class="co-inf">
-                    <div class="co-nm">Suresh Menon</div>
-                    <div class="co-role">T&P Head · NIT Trichy</div>
-                  </div><button class="co-btn">Connect</button>
-                </div>
-                <div class="co-row">
-                  <div class="co-av" style="background:linear-gradient(135deg,var(--red),var(--amber));">TP</div>
-                  <div class="co-inf">
-                    <div class="co-nm">Tara Patel</div>
-                    <div class="co-role">Placement Cell · IIT Madras</div>
-                  </div><button class="co-btn">Connect</button>
-                </div>
-                <div class="co-row">
-                  <div class="co-av">AR</div>
-                  <div class="co-inf">
-                    <div class="co-nm">Arvind Rao</div>
-                    <div class="co-role">T&P Officer · BITS Pilani</div>
-                  </div><button class="co-btn">Connect</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- STUDENTS TAB - All, At-Risk, Ready, Unverified + Department Skills + Score Distribution -->
-      <div class="tp" id="po-t2">
-        <!-- <div style="display:flex;gap:4px;margin-bottom:16px;background:var(--card);padding:4px;border-radius:var(--r1);border:1px solid var(--b);width:fit-content;">
-          <button class="btn" style="background:var(--b2);color:var(--t1);">All <span style="background:rgba(255,255,255,0.1);padding:1px 5px;border-radius:4px;font-size:9.5px;margin-left:4px;">620</span></button>
-          <button class="btn" style="background:transparent;color:var(--t2);">At-Risk <span style="background:var(--redd);color:var(--red);padding:1px 5px;border-radius:4px;font-size:9.5px;margin-left:4px;">47</span></button>
-          <button class="btn" style="background:transparent;color:var(--t2);">Ready <span style="background:rgba(255,255,255,0.06);padding:1px 5px;border-radius:4px;font-size:9.5px;margin-left:4px;">124</span></button>
-          <button class="btn" style="background:transparent;color:var(--t2);">Unverified <span style="background:rgba(255,255,255,0.06);padding:1px 5px;border-radius:4px;font-size:9.5px;margin-left:4px;">137</span></button>
-        </div> -->
-
-        <div class="three" style="align-items: stretch;">
-          <!-- Card 1: Score Distribution -->
-          <div class="card" style="display:flex;flex-direction:column;height:100%;">
-            <div class="card-head">
-              <div class="card-title"><i class="ph ph-chart-bar"></i> Score Distribution</div>
-            </div>
-            <div class="card-body" style="flex:1;">
-              <div class="skill-item"><span class="skill-name">85–100 Elite</span>
-                <div class="skill-bar-wrap">
-                  <div class="skill-bar" style="width:7.7%;background:var(--green);"></div>
-                </div><span class="skill-val" style="color:var(--green);">48</span>
-              </div>
-              <div class="skill-item"><span class="skill-name">75–84 Premium</span>
-                <div class="skill-bar-wrap">
-                  <div class="skill-bar" style="width:12%;background:var(--blue);"></div>
-                </div><span class="skill-val" style="color:var(--blue);">76</span>
-              </div>
-              <div class="skill-item"><span class="skill-name">65–74 Eligible</span>
-                <div class="skill-bar-wrap">
-                  <div class="skill-bar" style="width:45%;background:var(--amber);"></div>
-                </div><span class="skill-val" style="color:var(--amber);">283</span>
-              </div>
-              <div class="skill-item"><span class="skill-name">Below 65 At-Risk</span>
-                <div class="skill-bar-wrap">
-                  <div class="skill-bar" style="width:35%;background:var(--red);"></div>
-                </div><span class="skill-val" style="color:var(--red);">213</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 2: Cohort Skill Gaps -->
-          <div class="card" style="display:flex;flex-direction:column;height:100%;">
-            <div class="card-head">
-              <div class="card-title"><i class="ph ph-brain"></i> Cohort Skill Gaps</div>
-              <div style="display:flex;gap:10px;font-size:10px;color:var(--t2);"><span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--red);"></span> Critical</span><span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--amber);"></span> Warning</span></div>
-            </div>
-            <div class="card-body" style="flex:1;">
-              <div class="skill-item"><span class="skill-name">DSA & Algorithms</span>
-                <div class="skill-bar-wrap">
-                  <div class="skill-bar" style="width:54%;background:var(--red);"></div>
-                </div><span class="skill-val" style="color:var(--red);">-28</span>
-              </div>
-              <div class="skill-item"><span class="skill-name">DBMS & SQL</span>
-                <div class="skill-bar-wrap">
-                  <div class="skill-bar" style="width:68%;background:var(--amber);"></div>
-                </div><span class="skill-val" style="color:var(--amber);">-16</span>
-              </div>
-              <div class="skill-item"><span class="skill-name">Aptitude</span>
-                <div class="skill-bar-wrap">
-                  <div class="skill-bar" style="width:76%;background:var(--blue);"></div>
-                </div><span class="skill-val" style="color:var(--blue);">-11</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3: Department-wise Skill Score -->
-          <div class="card" style="display:flex;flex-direction:column;height:100%;">
-            <div class="card-head">
-              <div class="card-title"><i class="ph ph-buildings"></i> Department-wise Skill Score</div><span class="card-action">Export <i class="ph ph-arrow-right"></i></span>
-            </div>
-            <div class="card-body" style="flex:1;">
-              <div style="margin-bottom:16px;">
-                <div class="slbl" style="margin-top:0;">CSE — 240 students</div>
-                <div class="skill-item"><span class="skill-name">DSA</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:78%;background:var(--green);"></div>
-                  </div><span class="skill-val" style="color:var(--green);">78</span>
-                </div>
-                <div class="skill-item"><span class="skill-name">DBMS</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:72%;background:var(--blue);"></div>
-                  </div><span class="skill-val" style="color:var(--blue);">72</span>
-                </div>
-              </div>
-              <div style="margin-bottom:16px;">
-                <div class="slbl" style="margin-top:0;">IT — 180 students</div>
-                <div class="skill-item"><span class="skill-name">DSA</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:62%;background:var(--amber);"></div>
-                  </div><span class="skill-val" style="color:var(--amber);">62</span>
-                </div>
-                <div class="skill-item"><span class="skill-name">DBMS</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:70%;background:var(--blue);"></div>
-                  </div><span class="skill-val" style="color:var(--blue);">70</span>
+              <div>
+                <div class="text-[10px] uppercase tracking-wider mb-0.5" style="color:#64748b;">NAAC Grade</div>
+                <div class="flex items-center gap-1">
+                  <span class="text-sm font-bold" style="color:#fbbf24;">A++</span>
+                  <svg class="w-3.5 h-3.5" style="color:#fbbf24;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                 </div>
               </div>
               <div>
-                <div class="slbl" style="margin-top:0;">ECE — 120 students</div>
-                <div class="skill-item"><span class="skill-name">DSA</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:55%;background:var(--red);"></div>
-                  </div><span class="skill-val" style="color:var(--red);">55</span>
+                <div class="text-[10px] uppercase tracking-wider mb-0.5" style="color:#64748b;">NIRF Rank</div>
+                <div class="text-sm font-medium text-white">#42 India (2024)</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 5: ACHIEVEMENTS -->
+        <section class="editable-section relative">
+          <div class="glass rounded-large p-4">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="font-heading text-base font-bold text-white flex items-center gap-2">
+                <svg class="w-4 h-4" style="color:#fbbf24;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                Your Achievements
+              </h2>
+              <button class="edit-overlay flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium" style="background:rgba(251,191,36,0.08);color:#fbbf24;border:1px solid rgba(251,191,36,0.2);">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Add
+              </button>
+            </div>
+            <div class="space-y-3">
+              <div class="flex items-start gap-3 p-3 rounded-large card-lift cursor-pointer" style="background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.1);">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-base" style="background:rgba(251,191,36,0.1);">🥇</div>
+                <div>
+                  <div class="text-sm font-semibold text-white">Best TPO Award 2024</div>
+                  <div class="text-xs mt-0.5" style="color:#94a3b8;">Anna University · 2024</div>
                 </div>
-                <div class="skill-item"><span class="skill-name">C/C++</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:68%;background:var(--purple);"></div>
-                  </div><span class="skill-val" style="color:var(--purple);">68</span>
+              </div>
+              <div class="flex items-start gap-3 p-3 rounded-large card-lift cursor-pointer" style="background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.1);">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-base" style="background:rgba(59,130,246,0.1);">📜</div>
+                <div>
+                  <div class="text-sm font-semibold text-white">Certified Career Counselor</div>
+                  <div class="text-xs mt-0.5" style="color:#94a3b8;">NCDA Certified · 2023</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 p-3 rounded-large card-lift cursor-pointer" style="background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.1);">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-base" style="background:rgba(16,185,129,0.1);">🎓</div>
+                <div>
+                  <div class="text-sm font-semibold text-white">Advanced Placement Strategies</div>
+                  <div class="text-xs mt-0.5" style="color:#94a3b8;">IIM Bangalore · 2022</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 p-3 rounded-large card-lift cursor-pointer" style="background:rgba(139,92,246,0.05);border:1px solid rgba(139,92,246,0.1);">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-base" style="background:rgba(139,92,246,0.1);">💼</div>
+                <div>
+                  <div class="text-sm font-semibold text-white">Industry Relations Expert</div>
+                  <div class="text-xs mt-0.5" style="color:#94a3b8;">NASSCOM Certified · 2021</div>
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <!-- SECTION 8: HR CONNECTIONS -->
+        <section>
+          <div class="glass rounded-large p-4">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="font-heading text-base font-bold text-white flex items-center gap-2">
+                <svg class="w-4 h-4" style="color:#10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                Your HR Network
+              </h2>
+              <button class="text-xs font-medium" style="color:#10b981;">View All 24</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="p-3 rounded-large text-center card-lift cursor-pointer" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&q=80&fit=crop" alt="Priya" class="w-8 h-8 rounded-full mx-auto mb-2 border" style="border-color:rgba(16,185,129,0.3);">
+                <div class="text-sm font-semibold text-white">Priya V.</div>
+                <div class="text-xs" style="color:#94a3b8;">Razorpay</div>
+                <div class="text-[10px] mb-2" style="color:#64748b;">Talent Lead</div>
+                <button class="w-full py-1.5 rounded text-xs font-medium transition-colors" style="background:rgba(16,185,129,0.1);color:#34d399;border:1px solid rgba(16,185,129,0.2);">Message</button>
+              </div>
+              <div class="p-3 rounded-large text-center card-lift cursor-pointer" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80&fit=crop" alt="David" class="w-10 h-10 rounded-full mx-auto mb-2 border" style="border-color:rgba(16,185,129,0.3);">
+                <div class="text-sm font-semibold text-white">David M.</div>
+                <div class="text-xs" style="color:#94a3b8;">Google</div>
+                <div class="text-[10px] mb-2" style="color:#64748b;">Recruiter</div>
+                <button class="w-full py-1.5 rounded text-xs font-medium transition-colors" style="background:rgba(16,185,129,0.1);color:#34d399;border:1px solid rgba(16,185,129,0.2);">Message</button>
+              </div>
+               <div class="p-3 rounded-large text-center card-lift cursor-pointer" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80&fit=crop" alt="Sarah" class="w-8 h-8 rounded-full mx-auto mb-2 border" style="border-color:rgba(16,185,129,0.3);">
+                <div class="text-sm font-semibold text-white">Sarah J.</div>
+                <div class="text-xs" style="color:#94a3b8;">Microsoft</div>
+                <div class="text-[10px] mb-2" style="color:#64748b;">Campus Head</div>
+                <button class="w-full py-1.5 rounded text-xs font-medium transition-colors" style="background:rgba(16,185,129,0.1);color:#34d399;border:1px solid rgba(16,185,129,0.2);">Message</button>
+              </div>
+            </div>
+            <button class="mt-3 w-full py-2 rounded-large text-xs font-medium transition-colors text-center" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:#64748b;">
+              + Add Connection
+            </button>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- RIGHT COLUMN (Performance-focused) -->
+      <div class="lg:col-span-5 space-y-4">
+
+        <!-- SECTION 6: AI ALERTS -->
+        <section>
+          <div class="rounded-large overflow-hidden" style="border:1px solid rgba(239,68,68,0.2);background:rgba(13,20,40,0.7);">
+            <div class="px-5 py-3 flex items-center justify-between" style="background:rgba(239,68,68,0.06);border-bottom:1px solid rgba(239,68,68,0.15);">
+              <h2 class="font-heading text-sm font-bold text-white flex items-center gap-2">
+                <div class="neon-dot" style="background:#ef4444;"></div>
+                AI Insights — Action Required
+              </h2>
+              <span class="text-[10px] px-2 py-0.5 rounded font-bold uppercase" style="background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.25);">3 Alerts</span>
+            </div>
+            <div class="p-4 space-y-3">
+              <!-- High Priority -->
+              <div class="p-3 rounded-large" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-2 h-2 rounded-full" style="background:#ef4444;"></div>
+                  <span class="text-[10px] font-bold uppercase tracking-wider" style="color:#f87171;">High Priority</span>
+                </div>
+                <p class="text-sm text-white mb-2"><span class="font-bold" style="color:#f87171;">47 students at risk</span> — needs immediate intervention</p>
+                <div class="flex gap-2">
+                  <button class="px-3 py-1.5 rounded text-xs font-semibold text-white" style="background:linear-gradient(135deg,#ef4444,#dc2626);">Start Intervention</button>
+                  <button class="px-3 py-1.5 rounded text-xs font-medium" style="background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2);">View Details</button>
+                </div>
+              </div>
+              <!-- Medium Priority -->
+              <div class="p-3 rounded-large" style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-2 h-2 rounded-full" style="background:#f59e0b;"></div>
+                  <span class="text-[10px] font-bold uppercase tracking-wider" style="color:#fbbf24;">Medium Priority</span>
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <p class="text-xs text-slate-300">3 companies requested candidate profiles</p>
+                    <button class="px-2 py-1 rounded text-[10px] font-medium" style="background:rgba(245,158,11,0.1);color:#fbbf24;border:1px solid rgba(245,158,11,0.2);">Send</button>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <p class="text-xs text-slate-300">TCS Digital drive in <span class="font-bold text-white">5 days</span></p>
+                    <button class="px-2 py-1 rounded text-[10px] font-medium" style="background:rgba(245,158,11,0.1);color:#fbbf24;border:1px solid rgba(245,158,11,0.2);">Prepare</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Low Priority -->
+              <div class="p-3 rounded-large" style="background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.12);">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-2 h-2 rounded-full" style="background:#10b981;"></div>
+                  <span class="text-[10px] font-bold uppercase tracking-wider" style="color:#34d399;">Low Priority</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <p class="text-xs text-slate-300">12 students need resume review</p>
+                  <button class="px-2 py-1 rounded text-[10px] font-medium" style="background:rgba(16,185,129,0.1);color:#34d399;border:1px solid rgba(16,185,129,0.2);">Review</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 7: ACTIVE DRIVES -->
+        <section>
+          <div class="glass rounded-large p-5">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="font-heading text-base font-bold text-white flex items-center gap-2">
+                <svg class="w-4 h-4" style="color:#10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                Active Placement Drives
+              </h2>
+              <button class="flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded" style="background:rgba(16,185,129,0.1);color:#34d399;border:1px solid rgba(16,185,129,0.2);">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                New
+              </button>
+            </div>
+            <div class="space-y-3">
+              <!-- Drive 1 -->
+              <div class="p-3 rounded-large card-lift cursor-pointer" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded flex items-center justify-center text-xs font-bold text-white" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">T</div>
+                    <div>
+                      <div class="text-sm font-semibold text-white">TCS Digital</div>
+                      <div class="text-[10px]" style="color:#64748b;">In 5 days</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs" style="color:#94a3b8;">45 applied</span>
+                    <button class="px-2.5 py-1 rounded text-[10px] font-medium" style="background:rgba(16,185,129,0.1);color:#34d399;border:1px solid rgba(16,185,129,0.2);">Manage</button>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between text-[10px] mb-1" style="color:#64748b;">
+                  <span>Student Readiness</span><span style="color:#fbbf24;">68%</span>
+                </div>
+                <div class="drive-progress"><div class="drive-fill w-[68%]" style="background:linear-gradient(90deg,#f59e0b,#fbbf24);"></div></div>
+              </div>
+              <!-- Drive 2 -->
+              <div class="p-3 rounded-large card-lift cursor-pointer" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded flex items-center justify-center text-xs font-bold text-white" style="background:linear-gradient(135deg,#0f4c81,#1565c0);">I</div>
+                    <div>
+                      <div class="text-sm font-semibold text-white">Infosys</div>
+                      <div class="text-[10px]" style="color:#64748b;">In 12 days</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs" style="color:#94a3b8;">89 applied</span>
+                    <button class="px-2.5 py-1 rounded text-[10px] font-medium" style="background:rgba(16,185,129,0.1);color:#34d399;border:1px solid rgba(16,185,129,0.2);">Manage</button>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between text-[10px] mb-1" style="color:#64748b;">
+                  <span>Student Readiness</span><span style="color:#10b981;">82%</span>
+                </div>
+                <div class="drive-progress"><div class="drive-fill w-[82%]" style="background:linear-gradient(90deg,#10b981,#34d399);"></div></div>
+              </div>
+              <!-- Drive 3 -->
+              <div class="p-3 rounded-large card-lift cursor-pointer" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded flex items-center justify-center text-xs font-bold text-white" style="background:linear-gradient(135deg,#1a1a1a,#333);">A</div>
+                    <div>
+                      <div class="text-sm font-semibold text-white">Amazon</div>
+                      <div class="text-[10px]" style="color:#64748b;">In 18 days</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs" style="color:#94a3b8;">34 applied</span>
+                    <button class="px-2.5 py-1 rounded text-[10px] font-medium" style="background:rgba(16,185,129,0.1);color:#34d399;border:1px solid rgba(16,185,129,0.2);">Manage</button>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between text-[10px] mb-1" style="color:#64748b;">
+                  <span>Student Readiness</span><span style="color:#ef4444;">45%</span>
+                </div>
+                <div class="drive-progress"><div class="drive-fill w-[45%]" style="background:linear-gradient(90deg,#ef4444,#f87171);"></div></div>
+              </div>
+            </div>
+            <button class="mt-3 w-full py-2 rounded-large text-xs font-medium text-center transition-colors" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:#64748b;">View All Drives</button>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- TAB: MY PERFORMANCE                                    -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div id="content-performance" class="tab-content">
+    <div class="glass rounded-large p-6" style="max-height:600px;">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="font-heading text-xl font-bold text-white flex items-center gap-2">
+          <svg class="w-5 h-5" style="color:#fbbf24;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Your Performance This Year
+        </h2>
+        <span class="text-xs px-2 py-1 rounded" style="background:rgba(16,185,129,0.1);color:#34d399;border:1px solid rgba(16,185,129,0.2);">FY 2024–25</span>
+      </div>
+      <div class="space-y-6">
+        <!-- Placement Rate vs Target -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <div class="text-sm font-semibold text-white">Placement Rate vs Target</div>
+              <div class="text-xs mt-0.5" style="color:#f87171;">↘ 7% below target — Focus on at-risk students</div>
+            </div>
+            <div class="text-right">
+              <div class="text-lg font-heading font-bold text-white">78%</div>
+              <div class="text-xs" style="color:#64748b;">Target: 85%</div>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="progress-bar"><div class="progress-fill" style="width:78%;background:linear-gradient(90deg,#10b981,#34d399);"></div></div>
+            <div class="absolute top-0 h-full w-px" style="left:85%;background:#f59e0b;opacity:0.6;"></div>
+          </div>
+        </div>
+        <!-- Companies Engaged -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <div class="text-sm font-semibold text-white">Companies Engaged</div>
+              <div class="text-xs mt-0.5" style="color:#34d399;">↑ 6 new companies from last year</div>
+            </div>
+            <div class="text-right">
+              <div class="text-lg font-heading font-bold text-white">24</div>
+              <div class="text-xs" style="color:#64748b;">Last year: 18</div>
+            </div>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:80%;background:linear-gradient(90deg,#10b981,#34d399);"></div></div>
+        </div>
+        <!-- Student Satisfaction -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <div class="text-sm font-semibold text-white">Student Satisfaction</div>
+              <div class="text-xs mt-0.5" style="color:#94a3b8;">89 students rated</div>
+            </div>
+            <div class="text-right">
+              <div class="text-lg font-heading font-bold text-white">4.2<span class="text-sm font-normal" style="color:#64748b;">/5.0</span></div>
+            </div>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:84%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);"></div></div>
+        </div>
+        <!-- Response Time -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <div class="text-sm font-semibold text-white">Avg Response Time</div>
+              <div class="text-xs mt-0.5" style="color:#34d399;">Excellent — Top 10% of TPOs</div>
+            </div>
+            <div class="text-right">
+              <div class="text-lg font-heading font-bold text-white">2.4<span class="text-sm font-normal" style="color:#64748b;"> hrs</span></div>
+            </div>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:92%;background:linear-gradient(90deg,#10b981,#059669);"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- TAB: SETTINGS                                          -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div id="content-settings" class="tab-content">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" style="max-height:600px;">
+      <!-- Notifications -->
+      <div class="glass rounded-large p-5">
+        <h3 class="font-heading text-base font-bold text-white mb-4 flex items-center gap-2">
+          <svg class="w-4 h-4" style="color:#fbbf24;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          Notifications
+        </h3>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm font-medium text-white">Email alerts for at-risk students</div>
+              <div class="text-xs" style="color:#64748b;">Immediate notification</div>
+            </div>
+            <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm font-medium text-white">SMS for urgent drive updates</div>
+              <div class="text-xs" style="color:#64748b;">Critical alerts only</div>
+            </div>
+            <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm font-medium text-white">Weekly digest report</div>
+              <div class="text-xs" style="color:#64748b;">Every Monday 9 AM</div>
+            </div>
+            <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
           </div>
         </div>
       </div>
-
-      <!-- CAMPUS DRIVES TAB - Upcoming Drives, Company Interaction, Company Readiness -->
-      <div class="tp" id="po-t3">
-        <div class="two">
-          <div>
-            <!-- Upcoming Drives -->
-            <div class="card" style="margin-bottom:16px;">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-calendar-blank"></i> Upcoming Drives</div><span class="card-action">Manage all <i class="ph ph-arrow-right"></i></span>
-              </div>
-              <div class="card-body">
-                <div class="drive">
-                  <div class="dr-dt">
-                    <div class="dr-day" style="color:var(--green);">21</div>
-                    <div class="dr-mo">Mar</div>
-                  </div>
-                  <div class="dr-inf">
-                    <div class="dr-co">Infosys · Software Engineer</div>
-                    <div class="dr-meta">₹6.5L · Threshold 65 · 412 eligible</div>
-                  </div><span class="dr-badge" style="background:var(--gd);color:var(--green);">Confirmed</span>
-                </div>
-                <div class="drive">
-                  <div class="dr-dt">
-                    <div class="dr-day" style="color:var(--blue);">28</div>
-                    <div class="dr-mo">Mar</div>
-                  </div>
-                  <div class="dr-inf">
-                    <div class="dr-co">TCS Digital · Data Engineering</div>
-                    <div class="dr-meta">₹7L · Threshold 70 · 364 eligible</div>
-                  </div><span class="dr-badge" style="background:var(--bd);color:var(--blue);">Confirmed</span>
-                </div>
-                <div class="drive">
-                  <div class="dr-dt">
-                    <div class="dr-day" style="color:var(--red);">04</div>
-                    <div class="dr-mo">Apr</div>
-                  </div>
-                  <div class="dr-inf">
-                    <div class="dr-co">Zoho · Software Developer</div>
-                    <div class="dr-meta">₹10L · Threshold 75 · 287 eligible</div>
-                  </div><span class="dr-badge" style="background:var(--bd);color:var(--blue);">Confirmed</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Company Interaction -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-buildings"></i> Company Interaction</div>
-              </div>
-              <div class="card-body">
-                <div class="stat-row" style="grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--b);">
-                  <div class="stat-item">
-                    <div class="stat-v" style="color:var(--blue);">84</div>
-                    <div class="stat-l">Companies Invited</div>
-                  </div>
-                  <div class="stat-item">
-                    <div class="stat-v" style="color:var(--green);">312</div>
-                    <div class="stat-l">Roles Offered</div>
-                  </div>
-                  <div class="stat-item">
-                    <div class="stat-v" style="color:var(--amber);">1,240</div>
-                    <div class="stat-l">Students Shortlisted</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <!-- Dashboard Preferences -->
+      <div class="glass rounded-large p-5">
+        <h3 class="font-heading text-base font-bold text-white mb-4 flex items-center gap-2">
+          <svg class="w-4 h-4" style="color:#8b5cf6;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Dashboard Preferences
+        </h3>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between p-2 rounded-large" style="background:rgba(255,255,255,0.03);">
+            <span class="text-sm" style="color:#94a3b8;">Default View</span>
+            <span class="text-sm font-medium text-white">Batch 2025</span>
           </div>
+          <div class="flex items-center justify-between p-2 rounded-large" style="background:rgba(255,255,255,0.03);">
+            <span class="text-sm" style="color:#94a3b8;">Show AI Insights</span>
+            <span class="text-sm font-medium" style="color:#34d399;">Enabled</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-large" style="background:rgba(255,255,255,0.03);">
+            <span class="text-sm" style="color:#94a3b8;">Theme</span>
+            <span class="text-sm font-medium text-white">Dark Mode</span>
+          </div>
+        </div>
+        <button class="mt-4 w-full py-2 rounded-large text-sm font-medium text-white transition-all" style="background:linear-gradient(135deg,#10b981,#059669);">Edit Settings</button>
+      </div>
+    </div>
+  </div>
 
-          <div>
-            <!-- Company Readiness -->
-            <div class="card">
-              <div class="card-head">
-                <div class="card-title"><i class="ph ph-buildings"></i> Company Readiness</div>
-              </div>
-              <div class="card-body">
-                <div class="skill-item"><span class="skill-name">Infosys (65)</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:66%;background:var(--green);"></div>
-                  </div><span class="skill-val" style="color:var(--green);">66%</span>
-                </div>
-                <div class="skill-item"><span class="skill-name">TCS Digital (70)</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:59%;background:var(--blue);"></div>
-                  </div><span class="skill-val" style="color:var(--blue);">59%</span>
-                </div>
-                <div class="skill-item"><span class="skill-name">Zoho (75)</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:46%;background:var(--amber);"></div>
-                  </div><span class="skill-val" style="color:var(--amber);">46%</span>
-                </div>
-                <div class="skill-item"><span class="skill-name">Razorpay (82)</span>
-                  <div class="skill-bar-wrap">
-                    <div class="skill-bar" style="width:14%;background:var(--red);"></div>
-                  </div><span class="skill-val" style="color:var(--red);">14%</span>
-                </div>
-              </div>
-            </div>
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- TAB: ACTIVITY LOG                                      -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div id="content-activity" class="tab-content">
+    <div class="glass rounded-large p-5" style="max-height:500px;">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="font-heading text-base font-bold text-white flex items-center gap-2">
+          <svg class="w-4 h-4" style="color:#10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          Your Recent Activity
+        </h2>
+        <button class="text-xs font-medium" style="color:#10b981;">View All</button>
+      </div>
+      <div class="space-y-4">
+        <div class="flex gap-3">
+          <div class="activity-dot" style="background:#ef4444;margin-top:4px;flex-shrink:0;"></div>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-white">Flagged 5 students for DSA remedial</div>
+            <div class="text-xs mt-0.5" style="color:#64748b;">2 hours ago</div>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="activity-dot" style="background:#10b981;margin-top:4px;flex-shrink:0;"></div>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-white">Sent candidate profiles to Razorpay</div>
+            <div class="text-xs mt-0.5" style="color:#64748b;">5 hours ago</div>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="activity-dot" style="background:#10b981;margin-top:4px;flex-shrink:0;"></div>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-white">Scheduled TCS Digital drive (Apr 24)</div>
+            <div class="text-xs mt-0.5" style="color:#64748b;">1 day ago</div>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="activity-dot" style="background:#8b5cf6;margin-top:4px;flex-shrink:0;"></div>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-white">Updated student eligibility criteria</div>
+            <div class="text-xs mt-0.5" style="color:#64748b;">2 days ago</div>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="activity-dot" style="background:#f59e0b;margin-top:4px;flex-shrink:0;"></div>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-white">Meeting with Infosys HR team</div>
+            <div class="text-xs mt-0.5" style="color:#64748b;">3 days ago</div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
+</div>
 
-      <!-- CONNECTIONS TAB (unchanged but moved from original po-t5) -->
-      <div class="tp" id="po-t5">
-        <div class="two">
-          <div>
-            <div class="slbl"><i class="ph ph-buildings"></i> HR / Company Connections</div>
-            <div class="card">
-              <div class="card-body">
-                <div class="co-row">
-                  <div class="co-av" style="background:linear-gradient(135deg,var(--blue),var(--cyan));">PV</div>
-                  <div class="co-inf">
-                    <div class="co-nm">Priya Venkataraman</div>
-                    <div class="co-role">Talent Lead · Razorpay</div>
-                  </div><button class="co-btn">Message</button>
-                </div>
-                <div class="co-row">
-                  <div class="co-av" style="background:linear-gradient(135deg,var(--amber),var(--red));">MK</div>
-                  <div class="co-inf">
-                    <div class="co-nm">Mohan Kumar</div>
-                    <div class="co-role">HR Manager · Infosys</div>
-                  </div><button class="co-btn">Message</button>
-                </div>
-                <div class="co-row">
-                  <div class="co-av" style="background:linear-gradient(135deg,var(--green),var(--blue));">RS</div>
-                  <div class="co-inf">
-                    <div class="co-nm">Reena Sharma</div>
-                    <div class="co-role">Campus Head · TCS Digital</div>
-                  </div><button class="co-btn">Message</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="slbl"><i class="ph ph-graduation-cap"></i> Peer Placement Officers</div>
-            <div class="card">
-              <div class="card-body">
-                <div class="co-row">
-                  <div class="co-av" style="background:linear-gradient(135deg,var(--purple),var(--blue));">SM</div>
-                  <div class="co-inf">
-                    <div class="co-nm">Suresh Menon</div>
-                    <div class="co-role">T&P Head · NIT Trichy</div>
-                  </div><button class="co-btn">Connect</button>
-                </div>
-                <div class="co-row">
-                  <div class="co-av" style="background:linear-gradient(135deg,var(--red),var(--amber));">TP</div>
-                  <div class="co-inf">
-                    <div class="co-nm">Tara Patel</div>
-                    <div class="co-role">Placement Cell · IIT Madras</div>
-                  </div><button class="co-btn">Connect</button>
-                </div>
-                <div class="co-row">
-                  <div class="co-av">AR</div>
-                  <div class="co-inf">
-                    <div class="co-nm">Arvind Rao</div>
-                    <div class="co-role">T&P Officer · BITS Pilani</div>
-                  </div><button class="co-btn">Connect</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+<!-- Footer -->
+<footer class="mt-12 border-t py-6" style="border-color:rgba(255,255,255,0.05);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <div class="w-5 h-5 rounded flex items-center justify-center" style="background:linear-gradient(135deg,#10b981,#059669);">
+        <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
       </div>
+      <span class="font-heading text-sm font-bold text-white">Dragon<span style="color:#10b981;">Suite</span></span>
+      <span class="text-xs" style="color:#475569;">Placement OS v2.4</span>
+    </div>
+    <p class="text-xs" style="color:#475569;">© 2025 DragonSuite. All rights reserved.</p>
+  </div>
+</footer>
 
-      <!-- Modules tab removed as requested -->
+</div>
 
-    </div><!-- end placement -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active');
+    b.style.color = '#94a3b8';
+    b.style.borderBottom = 'none';
+  });
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
-  </main>
+  const btn = document.getElementById('tab-' + tab);
+  btn.classList.add('active');
+  btn.style.color = '#10b981';
+  btn.style.borderBottom = '2px solid #10b981';
 
-  <script>
-    const UC = {
-      jobseeker: { label: 'Job Seeker', bg: 'linear-gradient(135deg,#FF2D55,#CC1144)', l: 'A' },
-      hr: { label: 'HR / Recruiter', bg: 'linear-gradient(135deg,#3B82F6,#1D4ED8)', l: 'P' },
-      placement: { label: 'Placement Officer', bg: 'linear-gradient(135deg,#10B981,#059669)', l: 'D' },
-      student: { label: 'Student', bg: 'linear-gradient(135deg,#A78BFA,#7C3AED)', l: 'K' }
-    };
+  document.getElementById('content-' + tab).classList.add('active');
+}
 
-    function sw(id, btn) {
-      document.querySelectorAll('.ps').forEach(p => p.classList.remove('on'));
-      document.getElementById('ps-' + id).classList.add('on');
-      document.querySelectorAll('.usw').forEach(b => b.classList.remove('on'));
-      btn.classList.add('on');
-      const c = UC[id];
-      document.getElementById('topLbl').textContent = c.label;
-      document.getElementById('topAv').style.background = c.bg;
-      document.getElementById('topAv').textContent = c.l;
-    }
-
-    function stab(tab, pid) {
-      const sc = tab.closest('.ps');
-      sc.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
-      sc.querySelectorAll('.tp').forEach(p => p.classList.remove('on'));
-      tab.classList.add('on');
-      document.getElementById(pid).classList.add('on');
-    }
-
-    function tog(head) {
-      const acc = head.closest('.acc');
-      acc.classList.toggle('ex');
-    }
-
-    function toggleRV(btn) {
-      btn.classList.toggle('on');
-      const isRV = btn.classList.contains('on');
-      const banner = document.querySelector('.ps.on .rv-banner');
-      if (isRV) {
-        const active = document.querySelector('.ps.on .tp.on');
-        if (active && !active.querySelector('.rv-banner')) {
-          const b = document.createElement('div');
-          b.className = 'rv-banner';
-          b.innerHTML = '<i class="ph ph-eye"></i> <strong>Recruiter View Active</strong> — This is what a recruiter sees when they open your profile.';
-          active.insertBefore(b, active.firstChild);
-        }
-      } else {
-        document.querySelectorAll('.rv-banner').forEach(b => b.remove());
-      }
-    }
-
-    document.querySelectorAll('.ni[data-nav]').forEach(n => {
-      n.addEventListener('click', () => {
+// Sidebar Navigation
+document.querySelectorAll('.ni[data-nav]').forEach(n => {
+    n.addEventListener('click', () => {
         document.querySelectorAll('.ni').forEach(i => i.classList.remove('on'));
         n.classList.add('on');
-      });
     });
-  </script>
-</body>
+});
 
+// Initialize first tab
+switchTab('overview');
+</script>
+</body>
 </html>
