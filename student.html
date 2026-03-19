@@ -1,0 +1,2942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dragon Suite — Student Profile</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #07090E;
+      --bg2: #0D1117;
+      --card: #121820;
+      --el: #1A2332;
+      --b: rgba(255, 255, 255, 0.06);
+      --b2: rgba(255, 255, 255, 0.11);
+      --t1: #E8ECF1;
+      --t2: #8B95A5;
+      --t3: #5A6577;
+      --red: #FF2D55;
+      --redd: rgba(255, 45, 85, 0.12);
+      --green: #10B981;
+      --gd: rgba(16, 185, 129, 0.12);
+      --blue: #3B82F6;
+      --bd: rgba(59, 130, 246, 0.12);
+      --amber: #F59E0B;
+      --ad: rgba(245, 158, 11, 0.12);
+      --purple: #A78BFA;
+      --pd: rgba(167, 139, 250, 0.12);
+      --cyan: #06B6D4;
+      --cd: rgba(6, 182, 212, 0.12);
+      --fb: 'DM Sans', sans-serif;
+      --fm: 'JetBrains Mono', monospace;
+      --r1: 8px;
+      --r2: 12px;
+      --r3: 16px;
+    }
+
+    html {
+      font-size: 14px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--fb);
+      background: var(--bg);
+      color: var(--t1);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── SIDEBAR ─── */
+    .sb {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 240px;
+      background: var(--bg2);
+      border-right: 1px solid var(--b);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
+
+    .sb-scroll {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+    }
+
+    .sb-scroll::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    .sb-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+
+    .sb-logo {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid var(--b);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .lm {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--red), #CC1144);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--bg);
+    }
+
+    .lt {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -.3px;
+    }
+
+    .lt span {
+      color: var(--red);
+    }
+
+    .sb-sec {
+      padding: 12px 20px 4px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--t3);
+      font-weight: 600;
+    }
+
+    .sb-nav {
+      padding: 0 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .ni {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: var(--r1);
+      cursor: pointer;
+      transition: all .15s;
+      font-size: 11.5px;
+      color: var(--t2);
+      font-weight: 500;
+      position: relative;
+    }
+
+    .ni:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--t1);
+    }
+
+    .ni.on {
+      background: var(--redd);
+      color: var(--red);
+    }
+
+    .ni.on::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 16px;
+      background: var(--red);
+      border-radius: 0 3px 3px 0;
+    }
+
+    .ni .ico {
+      font-size: 13px;
+      width: 16px;
+      text-align: center;
+    }
+
+    .ndiv {
+      height: 1px;
+      background: var(--b);
+      margin: 4px 8px;
+    }
+
+    .sb-foot {
+      padding: 12px;
+      border-top: 1px solid var(--b);
+      flex-shrink: 0;
+    }
+
+    .usw-lbl {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--t3);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .usw {
+      width: 100%;
+      padding: 6px 10px;
+      border-radius: var(--r1);
+      background: var(--card);
+      border: 1px solid var(--b);
+      color: var(--t2);
+      font-family: var(--fb);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all .15s;
+      margin-bottom: 3px;
+    }
+
+    .usw:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .usw.on {
+      background: var(--redd);
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    /* ─── MAIN ─── */
+    .main {
+      margin-left: 240px;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 12px 24px;
+      background: rgba(7, 9, 14, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--b);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tb-l {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .tb-title {
+      font-size: 13px;
+      color: var(--t2);
+      font-weight: 500;
+    }
+
+    .tb-title strong {
+      color: var(--t1);
+    }
+
+    .tb-r {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 6px 13px;
+      border-radius: var(--r1);
+      font-size: 11.5px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: var(--fb);
+      transition: all .15s;
+      border: none;
+      line-height: 1.4;
+    }
+
+    .bg {
+      background: var(--card);
+      border: 1px solid var(--b);
+      color: var(--t2);
+    }
+
+    .bg:hover {
+      border-color: var(--b2);
+      color: var(--t1);
+    }
+
+    .bp {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .bp:hover {
+      background: #e0253b;
+    }
+
+    .av {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    /* recruiter toggle */
+    .rv-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      background: var(--card);
+      border: 1px solid var(--b);
+      border-radius: 20px;
+      font-size: 11px;
+      color: var(--t2);
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .rv-toggle:hover,
+    .rv-toggle.on {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    .rv-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--t3);
+    }
+
+    .rv-toggle.on .rv-dot {
+      background: var(--amber);
+    }
+
+    /* ─── SCREENS ─── */
+    .ps {
+      display: none;
+      animation: fi .25s ease;
+    }
+
+    .ps.on {
+      display: block;
+    }
+
+    @keyframes fi {
+      from {
+        opacity: 0;
+        transform: translateY(5px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* ─── NUDGE ─── */
+    .nudge {
+      margin: 16px 24px 0;
+      border-radius: var(--r2);
+      padding: 11px 14px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform .2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nudge:hover {
+      transform: translateX(2px);
+    }
+
+    .n-ico {
+      font-size: 19px;
+      flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    .n-txt {
+      flex: 1;
+      line-height: 1.45;
+      font-size: 12px;
+    }
+
+    .n-txt strong {
+      color: var(--t1);
+    }
+
+    .n-cta {
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .n-x {
+      font-size: 14px;
+      color: var(--t3);
+      padding: 2px 5px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 16px 24px 0;
+    }
+
+    .hero-inner {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .h-av-w {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .h-av {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 32px;
+      border-width: 2px;
+      border-style: solid;
+    }
+
+    .h-badge {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+      border: 2px solid var(--bg);
+    }
+
+    .h-info {
+      flex: 1;
+      padding-top: 2px;
+    }
+
+    .h-name {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -.3px;
+      margin-bottom: 3px;
+    }
+
+    .h-role {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 14px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      margin-bottom: 8px;
+    }
+
+    .h-meta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .h-mi {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      color: var(--t2);
+    }
+
+    .h-acts {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    /* profile completion */
+    .pc-bar {
+      margin: 14px 24px 0;
+      background: var(--card);
+      border: 1px solid var(--b);
+      border-radius: var(--r2);
+      padding: 11px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .pc-label {
+      font-size: 11.5px;
+      color: var(--t2);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .pc-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .pc-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--red), var(--amber));
+    }
+
+    .pc-pct {
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--fm);
+      color: var(--amber);
+      white-space: nowrap;
+    }
+
+    .pc-tip {
+      font-size: 11px;
+      color: var(--t3);
+    }
+
+    /* score cards in hero */
+    .h-scores {
+      display: flex;
+      gap: 7px;
+      align-items: stretch;
+    }
+
+    .sc {
+      background: var(--card);
+      border: 1px solid var(--b);
+      border-radius: var(--r2);
+      padding: 10px 13px;
+      min-width: 110px;
+    }
+
+    .sc-lbl {
+      font-size: 9px;
+      color: var(--t3);
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .sc-val {
+      font-size: 19px;
+      font-weight: 700;
+      font-family: var(--fm);
+      margin-bottom: 1px;
+    }
+
+    .sc-sub {
+      font-size: 10px;
+      color: var(--t2);
+    }
+
+    .sc-tr {
+      font-size: 10px;
+      margin-top: 2px;
+    }
+
+    .up {
+      color: var(--green);
+    }
+
+    /* ─── QUEST STRIP ─── */
+    .qs {
+      margin: 14px 24px 0;
+      background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(59, 130, 246, 0.04));
+      border: 1px solid rgba(167, 139, 250, 0.18);
+      border-radius: var(--r3);
+      padding: 14px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .qs::after {
+      content: '🐉';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 46px;
+      opacity: 0.07;
+    }
+
+    .qs-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .qs-ico {
+      font-size: 24px;
+      background: rgba(167, 139, 250, 0.14);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(167, 139, 250, 0.25);
+      flex-shrink: 0;
+    }
+
+    .qs-inf {
+      flex: 1;
+    }
+
+    .qs-nm {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--t1);
+      margin-bottom: 1px;
+    }
+
+    .qs-sb {
+      font-size: 11px;
+      color: var(--t2);
+    }
+
+    .qs-stats {
+      display: flex;
+      gap: 18px;
+    }
+
+    .qsp {
+      text-align: center;
+    }
+
+    .qsp-v {
+      font-size: 16px;
+      font-weight: 700;
+      font-family: var(--fm);
+    }
+
+    .qsp-l {
+      font-size: 9px;
+      color: var(--t3);
+      text-transform: uppercase;
+      letter-spacing: .7px;
+    }
+
+    .qs-bar-l {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10.5px;
+      margin-bottom: 4px;
+    }
+
+    .qs-bar-l span:first-child {
+      color: var(--t2);
+    }
+
+    .qs-bar-l span:last-child {
+      color: var(--purple);
+      font-family: var(--fm);
+      font-weight: 600;
+    }
+
+    .bt {
+      height: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bf {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .sf {
+      font-size: 20px;
+      animation: fire .8s infinite alternate;
+    }
+
+    @keyframes fire {
+      from {
+        transform: scale(1) rotate(-3deg);
+      }
+
+      to {
+        transform: scale(1.12) rotate(3deg);
+      }
+    }
+
+    /* ─── TABS ─── */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--b);
+      padding: 0 24px;
+      margin-top: 16px;
+      overflow-x: auto;
+    }
+
+    .tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab {
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--t2);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all .15s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tab:hover {
+      color: var(--t1);
+    }
+
+    .tab.on {
+      color: var(--tc, var(--red));
+      border-bottom-color: var(--tc, var(--red));
+    }
+
+    .tc {
+      background: var(--el);
+      border-radius: 7px;
+      padding: 1px 6px;
+      font-size: 9.5px;
+      font-family: var(--fm);
+    }
+
+    /* ─── TAB PANELS ─── */
+    .tp {
+      display: none;
+      padding: 18px 24px 60px;
+    }
+
+    .tp.on {
+      display: block;
+    }
+
+    /* ─── OVERVIEW LAYOUT ─── */
+    .ov-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 16px;
+    }
+
+    .ov-main {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .ov-side {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* ─── SECTION CARD ─── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--b);
+      border-radius: var(--r3);
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: var(--b2);
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--b);
+    }
+
+    .card-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .card-action {
+      font-size: 11px;
+      color: var(--red);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .card-action:hover {
+      text-decoration: underline;
+    }
+
+    .card-body {
+      padding: 14px 16px;
+    }
+
+    .card-body-np {
+      padding: 0;
+    }
+
+    /* ─── ACCORDION ─── */
+    .acc {
+      background: var(--card);
+      border: 1px solid var(--b);
+      border-radius: var(--r2);
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+
+    .acc:hover {
+      border-color: var(--b2);
+    }
+
+    .acc.ex {
+      border-color: var(--ac, var(--b2));
+    }
+
+    .acc-h {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 15px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .acc-ic {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .acc-t {
+      flex: 1;
+    }
+
+    .acc-tm {
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .acc-ts {
+      font-size: 11px;
+      color: var(--t2);
+    }
+
+    .acc-r {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .acc-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 16px;
+    }
+
+    .acc-arr {
+      font-size: 11px;
+      color: var(--t3);
+      transition: transform .22s;
+    }
+
+    .acc.ex .acc-arr {
+      transform: rotate(180deg);
+    }
+
+    .acc-body {
+      display: none;
+      padding: 0 15px 15px;
+      border-top: 1px solid var(--b);
+    }
+
+    .acc.ex .acc-body {
+      display: block;
+      animation: fi .2s ease;
+    }
+
+    /* ─── MINI STAT ROW ─── */
+    .stat-row {
+      display: grid;
+      gap: 0;
+    }
+
+    .stat-item {
+      padding: 10px 14px;
+      border-right: 1px solid var(--b);
+      text-align: center;
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-v {
+      font-size: 18px;
+      font-weight: 700;
+      font-family: var(--fm);
+      margin-bottom: 2px;
+    }
+
+    .stat-l {
+      font-size: 9.5px;
+      color: var(--t3);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    .stat-ch {
+      font-size: 10px;
+      margin-top: 1px;
+    }
+
+    /* ─── PROGRESS BAR ─── */
+    .pb {
+      margin-bottom: 9px;
+    }
+
+    .pb-l {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      margin-bottom: 3px;
+    }
+
+    .pb-l span:first-child {
+      color: var(--t2);
+    }
+
+    .pb-l span:last-child {
+      font-family: var(--fm);
+      font-size: 10.5px;
+      font-weight: 600;
+    }
+
+    .pt {
+      height: 5px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .pf {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    /* ─── SKILL GRAPH ─── */
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .skill-name {
+      font-size: 11.5px;
+      color: var(--t2);
+      width: 130px;
+      flex-shrink: 0;
+    }
+
+    .skill-bar-wrap {
+      flex: 1;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .skill-bar {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .skill-val {
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--fm);
+      width: 35px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* ─── CERT ROW ─── */
+    .cert-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--b);
+    }
+
+    .cert-row:last-child {
+      border-bottom: none;
+    }
+
+    .cert-ico {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .cert-inf {
+      flex: 1;
+    }
+
+    .cert-nm {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .cert-dt {
+      font-size: 10.5px;
+      color: var(--t3);
+    }
+
+    .cert-v {
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: var(--gd);
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    /* ─── CHIP ─── */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 9px;
+      border-radius: 13px;
+      font-size: 11px;
+      font-weight: 500;
+      border: 1px solid var(--b);
+    }
+
+    .cr {
+      background: var(--redd);
+      color: var(--red);
+      border-color: rgba(255, 45, 85, 0.2);
+    }
+
+    .cb {
+      background: var(--bd);
+      color: var(--blue);
+      border-color: rgba(59, 130, 246, 0.18);
+    }
+
+    .cg {
+      background: var(--gd);
+      color: var(--green);
+      border-color: rgba(16, 185, 129, 0.18);
+    }
+
+    .ca {
+      background: var(--ad);
+      color: var(--amber);
+      border-color: rgba(245, 158, 11, 0.18);
+    }
+
+    .cp {
+      background: var(--pd);
+      color: var(--purple);
+      border-color: rgba(167, 139, 250, 0.18);
+    }
+
+    .cc {
+      background: var(--cd);
+      color: var(--cyan);
+      border-color: rgba(6, 182, 212, 0.18);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 9px;
+    }
+
+    /* ─── AI BOX ─── */
+    .ai-box {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.07), rgba(167, 139, 250, 0.04));
+      border: 1px solid rgba(59, 130, 246, 0.14);
+      border-radius: var(--r2);
+      padding: 11px 13px;
+      margin-top: 12px;
+    }
+
+    .ai-h {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+    }
+
+    .ai-p {
+      font-size: 12px;
+      color: var(--t2);
+      line-height: 1.6;
+    }
+
+    .ai-p strong {
+      color: var(--t1);
+    }
+
+    /* ─── MATCH CARD ─── */
+    .match-card {
+      background: linear-gradient(135deg, rgba(255, 45, 85, 0.06), transparent);
+      border: 1px solid rgba(255, 45, 85, 0.12);
+      border-radius: var(--r2);
+      padding: 12px 14px;
+      margin-bottom: 9px;
+    }
+
+    .mc-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+
+    .mc-co {
+      font-size: 10px;
+      color: var(--red);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 2px;
+    }
+
+    .mc-role {
+      font-size: 13.5px;
+      font-weight: 700;
+    }
+
+    .mc-pct {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: var(--fm);
+      color: var(--green);
+    }
+
+    .mc-meta {
+      display: flex;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--t2);
+      flex-wrap: wrap;
+    }
+
+    .mc-why {
+      font-size: 11px;
+      color: var(--t3);
+      margin-top: 7px;
+      padding-top: 7px;
+      border-top: 1px solid var(--b);
+    }
+
+    .mc-why strong {
+      color: var(--t2);
+    }
+
+    /* ─── GPS STEPS ─── */
+    .gps-step {
+      display: flex;
+      gap: 11px;
+      padding: 9px 11px;
+      background: var(--bg2);
+      border: 1px solid var(--b);
+      border-radius: var(--r2);
+      margin-bottom: 6px;
+      align-items: flex-start;
+    }
+
+    .gps-step.done {
+      border-color: rgba(16, 185, 129, 0.18);
+    }
+
+    .gps-step.now {
+      border-color: rgba(255, 45, 85, 0.22);
+      background: rgba(255, 45, 85, 0.03);
+    }
+
+    .gps-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .dd {
+      background: var(--gd);
+      color: var(--green);
+    }
+
+    .dn {
+      background: var(--redd);
+      color: var(--red);
+    }
+
+    .du {
+      background: var(--el);
+      color: var(--t3);
+    }
+
+    .gps-t {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .gps-s {
+      font-size: 10.5px;
+      color: var(--t3);
+    }
+
+    .gps-eta {
+      font-size: 10px;
+      font-family: var(--fm);
+      margin-top: 2px;
+    }
+
+    /* ─── NOTIF ─── */
+    .notif {
+      display: flex;
+      gap: 9px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--b);
+      align-items: flex-start;
+    }
+
+    .notif:last-child {
+      border-bottom: none;
+    }
+
+    .nd {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .nb {
+      flex: 1;
+    }
+
+    .nt {
+      font-size: 12px;
+      line-height: 1.45;
+      margin-bottom: 2px;
+    }
+
+    .nt strong {
+      color: var(--t1);
+    }
+
+    .nc {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--red);
+      cursor: pointer;
+      margin-top: 2px;
+    }
+
+    .nc:hover {
+      text-decoration: underline;
+    }
+
+    .ntime {
+      font-size: 10px;
+      color: var(--t3);
+    }
+
+    /* ─── PIPELINE ─── */
+    .pl-col {
+      background: var(--bg2);
+      border: 1px solid var(--b);
+      border-radius: var(--r2);
+      padding: 11px;
+    }
+
+    .pl-h {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      margin-bottom: 9px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .pl-c {
+      background: var(--el);
+      border-radius: 7px;
+      padding: 1px 6px;
+      font-family: var(--fm);
+      font-size: 9px;
+    }
+
+    .cand {
+      background: var(--card);
+      border: 1px solid var(--b);
+      border-radius: var(--r1);
+      padding: 8px 9px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: border-color .15s;
+    }
+
+    .cand:hover {
+      border-color: var(--b2);
+    }
+
+    .c-nm {
+      font-size: 11.5px;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .c-rl {
+      font-size: 10.5px;
+      color: var(--t3);
+      margin-bottom: 3px;
+    }
+
+    .c-vd {
+      font-size: 10px;
+      font-weight: 600;
+      font-family: var(--fm);
+    }
+
+    .vd-h {
+      color: var(--green);
+    }
+
+    .vd-c {
+      color: var(--amber);
+    }
+
+    .vd-b {
+      color: var(--red);
+    }
+
+    /* ─── STUDENT ROW ─── */
+    .srow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--b);
+    }
+
+    .srow:last-child {
+      border-bottom: none;
+    }
+
+    .sav {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    .sinf {
+      flex: 1;
+    }
+
+    .snm {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .sdp {
+      font-size: 10.5px;
+      color: var(--t3);
+    }
+
+    .risk {
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+
+    .rh {
+      background: rgba(239, 68, 68, 0.12);
+      color: #EF4444;
+    }
+
+    .rm {
+      background: var(--ad);
+      color: var(--amber);
+    }
+
+    .rl {
+      background: var(--gd);
+      color: var(--green);
+    }
+
+    /* ─── DRIVE ROW ─── */
+    .drive {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--b);
+    }
+
+    .drive:last-child {
+      border-bottom: none;
+    }
+
+    .dr-dt {
+      text-align: center;
+      min-width: 40px;
+    }
+
+    .dr-day {
+      font-size: 18px;
+      font-weight: 700;
+      font-family: var(--fm);
+    }
+
+    .dr-mo {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--t3);
+    }
+
+    .dr-inf {
+      flex: 1;
+    }
+
+    .dr-co {
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .dr-meta {
+      font-size: 10.5px;
+      color: var(--t3);
+    }
+
+    .dr-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 7px;
+    }
+
+    /* ─── ELIGIBILITY ─── */
+    .elig {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 12px;
+      border-radius: var(--r2);
+      margin-bottom: 7px;
+      border: 1px solid;
+      cursor: pointer;
+      transition: transform .15s;
+    }
+
+    .elig:hover {
+      transform: translateX(2px);
+    }
+
+    .elig-ico {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .elig-inf {
+      flex: 1;
+    }
+
+    .elig-co {
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .elig-meta {
+      font-size: 10.5px;
+      color: var(--t3);
+    }
+
+    .elig-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 7px;
+      white-space: nowrap;
+    }
+
+    /* ─── WHY YOU ─── */
+    .why-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px;
+      background: var(--bg2);
+      border-radius: var(--r2);
+      border: 1px solid var(--b);
+      margin-bottom: 8px;
+    }
+
+    .why-num {
+      font-size: 14px;
+      font-weight: 700;
+      font-family: var(--fm);
+      color: var(--red);
+      width: 20px;
+      flex-shrink: 0;
+    }
+
+    .why-t {
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .why-s {
+      font-size: 11px;
+      color: var(--t3);
+    }
+
+    /* ─── ENDORSEMENT ─── */
+    .endorse {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--b);
+    }
+
+    .endorse:last-child {
+      border-bottom: none;
+    }
+
+    .e-av {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    .e-inf {
+      flex: 1;
+    }
+
+    .e-nm {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .e-rl {
+      font-size: 10.5px;
+      color: var(--t3);
+    }
+
+    .e-txt {
+      font-size: 11.5px;
+      color: var(--t2);
+      margin-top: 4px;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* ─── APP ROW ─── */
+    .app-row {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--b);
+    }
+
+    .app-row:last-child {
+      border-bottom: none;
+    }
+
+    .app-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--r1);
+      background: var(--el);
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+    }
+
+    .app-inf {
+      flex: 1;
+    }
+
+    .app-co {
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .app-dt {
+      font-size: 10.5px;
+      color: var(--t3);
+    }
+
+    .app-status {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 7px;
+    }
+
+    /* ─── CONNECTION ─── */
+    .conn {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--b);
+    }
+
+    .conn:last-child {
+      border-bottom: none;
+    }
+
+    .conn-av {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+
+    .conn-inf {
+      flex: 1;
+    }
+
+    .conn-nm {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .conn-rl {
+      font-size: 10.5px;
+      color: var(--t3);
+    }
+
+    .conn-btn {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 7px;
+      background: var(--bd);
+      color: var(--blue);
+      cursor: pointer;
+      border: none;
+      font-family: var(--fb);
+    }
+
+    /* ─── MODULE PILL ─── */
+    .mod-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .mod-pill {
+      background: var(--bg2);
+      border: 1px solid var(--b);
+      border-radius: var(--r2);
+      padding: 10px 11px;
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .mod-pill:hover {
+      border-color: var(--mc, var(--red));
+      transform: translateY(-2px);
+    }
+
+    .mp-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .mp-ico {
+      font-size: 16px;
+    }
+
+    .mp-st {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 7px;
+      text-transform: uppercase;
+      letter-spacing: .2px;
+    }
+
+    .st-on {
+      background: var(--gd);
+      color: var(--green);
+    }
+
+    .st-lk {
+      background: rgba(90, 101, 119, 0.15);
+      color: var(--t3);
+    }
+
+    .st-el {
+      background: var(--ad);
+      color: var(--amber);
+    }
+
+    .st-nw {
+      background: var(--bd);
+      color: var(--blue);
+    }
+
+    .mp-nm {
+      font-size: 11.5px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .mp-st2 {
+      font-size: 10px;
+      color: var(--mc, var(--t3));
+      font-family: var(--fm);
+    }
+
+    /* ─── DEPT SKILL BAR ─── */
+    .dept-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+
+    .dept-nm {
+      font-size: 11.5px;
+      color: var(--t2);
+      width: 90px;
+      flex-shrink: 0;
+    }
+
+    .dept-bar {
+      flex: 1;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .dept-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .dept-val {
+      font-size: 10.5px;
+      font-family: var(--fm);
+      width: 32px;
+      text-align: right;
+    }
+
+    /* ─── SECTION LABEL ─── */
+    .slbl {
+      font-size: 9.5px;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      color: var(--t3);
+      font-weight: 600;
+      margin-bottom: 9px;
+      margin-top: 16px;
+    }
+
+    .slbl:first-child {
+      margin-top: 0;
+    }
+
+    /* ─── SEARCH STATS ─── */
+    .s-stat {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--b);
+    }
+
+    .s-stat:last-child {
+      border-bottom: none;
+    }
+
+    .s-stat-l {
+      font-size: 12px;
+      color: var(--t2);
+    }
+
+    .s-stat-v {
+      font-size: 13px;
+      font-weight: 700;
+      font-family: var(--fm);
+    }
+
+    /* ─── IMPORT / GENERATE BTNS ─── */
+    .action-strip {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .a-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: var(--r1);
+      border: 1px solid var(--b);
+      background: var(--bg2);
+      color: var(--t2);
+      font-size: 11.5px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: var(--fb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all .15s;
+    }
+
+    .a-btn:hover {
+      border-color: var(--b2);
+      color: var(--t1);
+    }
+
+    /* two col + sidebar layout */
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .sbl {
+      display: grid;
+      grid-template-columns: 1fr 290px;
+      gap: 14px;
+    }
+
+    /* recruiter-view overlay indicator */
+    .rv-banner {
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.1), transparent);
+      border: 1px solid rgba(245, 158, 11, 0.18);
+      border-radius: var(--r2);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11.5px;
+      color: var(--amber);
+      margin-bottom: 14px;
+    }
+
+    /* ─── PO CHART BAR ─── */
+    .chart-bar-wrap {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 80px;
+      margin-bottom: 6px;
+    }
+
+    .chart-bar {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+      min-height: 4px;
+      transition: height .3s ease;
+    }
+
+    .chart-labels {
+      display: flex;
+      gap: 6px;
+    }
+
+    .chart-label {
+      flex: 1;
+      text-align: center;
+      font-size: 9.5px;
+      color: var(--t3);
+    }
+
+    @media(max-width:1200px) {
+
+      .ov-grid,
+      .sbl {
+        grid-template-columns: 1fr;
+      }
+
+      .mod-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media(max-width:900px) {
+      .sb {
+        transform: translateX(-100%);
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      .two {
+        grid-template-columns: 1fr;
+      }
+
+      .mod-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ─── SIDEBAR ─── -->
+  <aside class="sb">
+    <div class="sb-logo">
+      <div class="lm"><i class="ph-fill ph-dragon"></i></div>
+      <div class="lt">Dragon<span>Suite</span></div>
+    </div>
+    <div class="sb-scroll">
+      <div class="sb-sec">Navigation</div>
+      <nav class="sb-nav">
+        <div class="ni on" data-nav="profile"><span class="ico"><i class="ph ph-user"></i></span>My Profile</div>
+        <div class="ni" data-nav="gps"><span class="ico"><i class="ph ph-compass"></i></span>Dragon GPS</div>
+        <div class="ni" data-nav="prep"><span class="ico"><i class="ph ph-book-open"></i></span>Dragon Prep</div>
+        <div class="ni" data-nav="arena"><span class="ico"><i class="ph ph-sword"></i></span>Dragon Arena</div>
+        <div class="ni" data-nav="quest"><span class="ico"><i class="ph ph-dragon"></i></span>Dragon Quest</div>
+        <div class="ndiv"></div>
+        <div class="ni" data-nav="elite"><span class="ico"><i class="ph ph-star"></i></span>Dragon Elite</div>
+        <div class="ni" data-nav="hub"><span class="ico"><i class="ph ph-globe"></i></span>Dragon Hub</div>
+        <div class="ni" data-nav="hire"><span class="ico"><i class="ph ph-target"></i></span>Dragon Hire</div>
+        <div class="ni" data-nav="bridge"><span class="ico"><i class="ph ph-bridge"></i></span>Dragon Bridge</div>
+        <div class="ni" data-nav="review"><span class="ico"><i class="ph ph-clipboard-text"></i></span>Dragon Review</div>
+        <div class="ndiv"></div>
+        <div class="ni" data-nav="skill"><span class="ico"><i class="ph ph-wrench"></i></span>Skill Craft</div>
+        <div class="ni" data-nav="lab"><span class="ico"><i class="ph ph-flask"></i></span>Project Lab</div>
+        <div class="ni" data-nav="vault"><span class="ico"><i class="ph ph-lock-laminated"></i></span>Dragon Vault</div>
+        <div class="ni" data-nav="nexus"><span class="ico"><i class="ph ph-link"></i></span>Dragon Nexus</div>
+        <div class="ni" data-nav="dash"><span class="ico"><i class="ph ph-chart-bar"></i></span>Talent Dashboard</div>
+        <div class="ni" data-nav="match"><span class="ico"><i class="ph ph-robot"></i></span>Match Results</div>
+        <div class="ni" data-nav="market"><span class="ico"><i class="ph ph-chart-line-up"></i></span>Market Intel</div>
+      </nav>
+    </div>
+    <div class="sb-foot">
+      <div class="usw-lbl">Switch Profile View</div>
+      <button class="usw" onclick="window.location.href='index.html'"><i class="ph ph-magnifying-glass"></i> Job Seeker</button>
+      <button class="usw" onclick="window.location.href='hr.html'"><i class="ph ph-buildings"></i> HR / Recruiter</button>
+      <button class="usw" onclick="window.location.href='placement.html'"><i class="ph ph-graduation-cap"></i> Placement Officer</button>
+      <button class="usw on" onclick="window.location.href='student.html'"><i class="ph ph-book-open"></i> Student</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="tb-l">
+        <div class="tb-title"><strong>My Profile</strong> — <span id="topLbl">Student</span></div>
+        <div class="rv-toggle" id="rvToggle" onclick="toggleRV(this)" title="Toggle Recruiter View">
+          <div class="rv-dot"></div>Recruiter View
+        </div>
+      </div>
+      <div class="tb-r">
+        <button class="btn bg" style="font-size:11px;"><i class="ph ph-file-text"></i> Generate Resume</button>
+        <button class="btn bg"><i class="ph ph-gear"></i> Settings</button>
+        <button class="btn bp"><i class="ph ph-pencil"></i> Edit Profile</button>
+        <div class="av" id="topAv" style="background:linear-gradient(135deg,#A78BFA,#7C3AED);">K</div>
+      </div>
+    </header>
+
+
+
+    <!-- ════════════════════════════════════
+     STUDENT
+════════════════════════════════════ -->
+    <div class="ps on" id="ps-student">
+
+      <div class="nudge"
+        style="background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(245,158,11,0.02));border:1px solid rgba(245,158,11,0.22);">
+        <span class="n-ico"><i class="ph-fill ph-lightning"></i></span>
+        <div class="n-txt" style="color:var(--amber);"><strong>1 point away from Zoho (₹10 LPA).</strong> Take the DBMS
+          mock test — 20 minutes. 3 classmates crossed the threshold today.</div>
+        <span class="n-cta" style="color:var(--amber);">Take test <i class="ph ph-arrow-right"></i></span>
+        <span class="n-x" onclick="this.parentElement.style.display='none'">✕</span>
+      </div>
+
+      <div class="hero">
+        <div class="hero-inner">
+          <div class="h-av-w">
+            <div class="h-av" style="border-color:var(--purple);background:rgba(167,139,250,0.07);"><i class="ph-fill ph-user-circle"></i></div>
+            <div class="h-badge" style="background:var(--purple);"><i class="ph ph-book-open"></i></div>
+          </div>
+          <div class="h-info">
+            <div class="h-name">Kavya Nair</div>
+            <div class="h-role" style="background:var(--pd);color:var(--purple);"><i class="ph ph-book-open"></i> Student · PSG College · Final Year
+              CSE · 2025 Batch</div>
+            <div class="h-meta">
+              <div class="h-mi"><i class="ph ph-buildings"></i> PSG College of Technology, Coimbatore</div>
+              <div class="h-mi"><i class="ph ph-graduation-cap"></i> B.E CSE · Final Year</div>
+              <div class="h-mi" style="color:var(--purple);"><i class="ph ph-dragon"></i> Dragon Score: <strong>74</strong></div>
+              <div class="h-mi" style="color:var(--amber);"><i class="ph-fill ph-fire"></i> 18-day streak</div>
+              <div class="h-mi" style="color:var(--green);"><i class="ph ph-check-circle"></i> TCS Digital eligible</div>
+            </div>
+            <div class="h-acts">
+              <button class="btn bp" style="background:var(--purple);font-size:11px;">🧭 View GPS</button>
+              <button class="btn bg" style="font-size:11px;">📥 Import LinkedIn</button>
+              <button class="btn bg" style="font-size:11px;">⚔️ Practice Now</button>
+            </div>
+          </div>
+          <div class="h-scores">
+            <div class="sc" style="border-color:rgba(167,139,250,0.22);">
+              <div class="sc-lbl">Dragon Score</div>
+              <div class="sc-val" style="color:var(--purple);">74</div>
+              <div class="sc-sub">Top 32% in batch</div>
+              <div class="sc-tr up"><i class="ph ph-trend-up"></i> +8 this month <i class="ph ph-rocket"></i></div>
+            </div>
+            <div class="sc" style="border-color:rgba(16,185,129,0.2);">
+              <div class="sc-lbl">Trust Score</div>
+              <div class="sc-val" style="color:var(--green);">88</div>
+              <div class="sc-sub">3 proctored sessions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile completion -->
+      <div class="pc-bar">
+        <span class="pc-label">Profile Completion</span>
+        <div class="pc-track">
+          <div class="pc-fill" style="width:62%;"></div>
+        </div>
+        <span class="pc-pct">62%</span>
+        <span class="pc-tip">Add GitHub · 2 more certs · Projects <i class="ph ph-arrow-right"></i> 100%</span>
+      </div>
+
+      <!-- QUEST STRIP -->
+      <div class="qs">
+        <div class="qs-row">
+          <div class="qs-ico"><i class="ph-fill ph-smiley-wink"></i></div>
+          <div class="qs-inf">
+            <div class="qs-nm">Swift Fox — Level 7 · DSA Specialist <i class="ph-fill ph-fire"></i></div>
+            <div class="qs-sb">Dragon Quest · 3 days to Movie Tickets <i class="ph ph-sparkle"></i> · Don't break the streak!</div>
+          </div>
+          <div class="qs-stats">
+            <div class="qsp">
+              <div class="qsp-v" style="color:var(--purple);">1,840</div>
+              <div class="qsp-l">XP</div>
+            </div>
+            <div class="qsp">
+              <div class="qsp-v" style="color:var(--amber);">18<span class="sf"><i class="ph-fill ph-fire"></i></span></div>
+              <div class="qsp-l">Streak</div>
+            </div>
+            <div class="qsp">
+              <div class="qsp-v" style="color:var(--green);">280</div>
+              <div class="qsp-l">Coins</div>
+            </div>
+          </div>
+        </div>
+        <div class="qs-bar-l"><span>Level 7 <i class="ph ph-arrow-right"></i> 8</span><span>1,840 / 2,500 XP</span></div>
+        <div class="bt">
+          <div class="bf" style="width:73.6%;background:linear-gradient(90deg,var(--purple),var(--blue));"></div>
+        </div>
+        <div style="font-size:11px;color:var(--t2);margin-top:7px;">🏫 College rank: <strong
+            style="color:var(--purple);">#34 / 620</strong> · Top 6% · 3 study days = Movie Tickets reward</div>
+      </div>
+
+      <div class="tabs" style="--tc:var(--purple);">
+        <div class="tab on" onclick="stab(this,'st-t1')">Overview</div>
+        <div class="tab" onclick="stab(this,'st-t2')">Drives & Eligibility</div>
+        <div class="tab" onclick="stab(this,'st-t3')">Portfolio</div>
+        <div class="tab" onclick="stab(this,'st-t4')">Prep & Practice</div>
+        <div class="tab" onclick="stab(this,'st-t5')">Dragon Quest</div>
+        <div class="tab" onclick="stab(this,'st-t6')">Connections</div>
+        <div class="tab" onclick="stab(this,'st-t7')">Modules <span class="tc">11</span></div>
+      </div>
+
+      <div class="tp on" id="st-t1">
+        <div class="ov-grid">
+          <div class="ov-main">
+
+            <!-- AI SKILL GRAPH — TOP -->
+            <div class="card">
+              <div class="card-head">
+                <div class="card-title"><i class="ph ph-brain"></i> AI Skill Graph <span
+                    style="font-size:10px;color:var(--t3);font-weight:400;">— from certs + assessments</span></div><span
+                  class="card-action">Full analysis <i class="ph ph-arrow-right"></i></span>
+              </div>
+              <div class="card-body">
+                <div class="two" style="gap:10px;">
+                  <div>
+                    <div class="skill-item"><span class="skill-name">Python</span>
+                      <div class="skill-bar-wrap">
+                        <div class="skill-bar" style="width:75%;background:var(--green);"></div>
+                      </div><span class="skill-val" style="color:var(--green);">75</span>
+                    </div>
+                    <div class="skill-item"><span class="skill-name">DSA</span>
+                      <div class="skill-bar-wrap">
+                        <div class="skill-bar" style="width:72%;background:var(--blue);"></div>
+                      </div><span class="skill-val" style="color:var(--blue);">72</span>
+                    </div>
+                    <div class="skill-item"><span class="skill-name">DBMS & SQL</span>
+                      <div class="skill-bar-wrap">
+                        <div class="skill-bar" style="width:55%;background:var(--amber);"></div>
+                      </div><span class="skill-val" style="color:var(--amber);">55</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="skill-item"><span class="skill-name">Aptitude</span>
+                      <div class="skill-bar-wrap">
+                        <div class="skill-bar" style="width:68%;background:var(--purple);"></div>
+                      </div><span class="skill-val" style="color:var(--purple);">68</span>
+                    </div>
+                    <div class="skill-item"><span class="skill-name">OS Concepts</span>
+                      <div class="skill-bar-wrap">
+                        <div class="skill-bar" style="width:45%;background:var(--red);"></div>
+                      </div><span class="skill-val" style="color:var(--red);">45</span>
+                    </div>
+                    <div class="skill-item"><span class="skill-name">Data Science</span>
+                      <div class="skill-bar-wrap">
+                        <div class="skill-bar" style="width:70%;background:var(--cyan);"></div>
+                      </div><span class="skill-val" style="color:var(--cyan);">70</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- WHY YOU -->
+            <div class="card">
+              <div class="card-head">
+                <div class="card-title"><i class="ph ph-lightbulb"></i> Why You — For Recruiters</div><span class="card-action">Edit <i class="ph ph-arrow-right"></i></span>
+              </div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:0;">
+                <div class="why-item"><span class="why-num" style="color:var(--purple);">01</span>
+                  <div>
+                    <div class="why-t">Verified skills, not just a resume</div>
+                    <div class="why-s">2 certifications independently verified from Coursera and Kaggle. Trust Score 88
+                      — all assessments proctored with AI monitoring.</div>
+                  </div>
+                </div>
+                <div class="why-item"><span class="why-num" style="color:var(--purple);">02</span>
+                  <div>
+                    <div class="why-t">Consistently ranked top 6% in college</div>
+                    <div class="why-s">Dragon Score 74, Rank #34 of 620 students. Moved from rank 280 to 197 in one
+                      month — consistently improving.</div>
+                  </div>
+                </div>
+                <div class="why-item" style="margin-bottom:0;"><span class="why-num"
+                    style="color:var(--purple);">03</span>
+                  <div>
+                    <div class="why-t">18-day unbroken learning streak</div>
+                    <div class="why-s">Proof of discipline and work ethic. 142 problems solved this semester, 3+ hours
+                      of structured learning per day.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- AI INSIGHTS -->
+            <div class="card" style="border-color:rgba(59,130,246,0.14);">
+              <div class="card-head">
+                <div class="card-title" style="color:var(--blue);"><i class="ph ph-brain"></i> AI Insights Panel</div>
+              </div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:7px;">
+                <div
+                  style="padding:9px 11px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.14);border-radius:var(--r2);font-size:11.5px;color:var(--t2);">
+                  <i class="ph-fill ph-lightning"></i> <strong style="color:var(--amber);">Action now:</strong> DBMS mock test (20 min) <i class="ph ph-arrow-right"></i> +2 Dragon Score <i class="ph ph-arrow-right"></i>
+                  Zoho eligible (₹10 LPA). Drive is Apr 4.</div>
+                <div
+                  style="padding:9px 11px;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.14);border-radius:var(--r2);font-size:11.5px;color:var(--t2);">
+                  <i class="ph ph-trend-up"></i> <strong style="color:var(--purple);">Progress:</strong> +8 Dragon Score this month. You've moved
+                  from rank 280 <i class="ph ph-arrow-right"></i> 197. At this pace, top 20% by April.</div>
+                <div
+                  style="padding:9px 11px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.13);border-radius:var(--r2);font-size:11.5px;color:var(--t2);">
+                  <i class="ph ph-medal"></i> <strong style="color:var(--green);">Next cert:</strong> AWS Cloud Practitioner (free, 2 weeks) <i class="ph ph-arrow-right"></i> +5
+                  Dragon Score <i class="ph ph-arrow-right"></i> 14 new campus roles unlocked.</div>
+              </div>
+            </div>
+
+            <!-- CERTIFICATIONS compact -->
+            <div class="acc" style="--ac:rgba(16,185,129,0.2);">
+              <div class="acc-h" onclick="tog(this)">
+                <span class="acc-ic"><i class="ph ph-medal"></i></span>
+                <div class="acc-t">
+                  <div class="acc-tm">Certifications</div>
+                  <div class="acc-ts">2 verified · Python Data Science (IBM) · SQL for Data Analysis (Kaggle)</div>
+                </div>
+                <div class="acc-r"><span class="acc-badge" style="background:var(--gd);color:var(--green);">2
+                    Verified</span><span class="acc-arr"><i class="ph ph-caret-down"></i></span></div>
+              </div>
+              <div class="acc-body">
+                <div class="cert-row"><span class="cert-ico">🐍</span>
+                  <div class="cert-inf">
+                    <div class="cert-nm">Python for Data Science — IBM</div>
+                    <div class="cert-dt">Coursera · Jan 2025 · Dragon Nexus verified</div>
+                  </div><span class="cert-v">✓</span>
+                </div>
+                <div class="cert-row"><span class="cert-ico">📊</span>
+                  <div class="cert-inf">
+                    <div class="cert-nm">SQL for Data Analysis — Kaggle</div>
+                    <div class="cert-dt">Kaggle · Feb 2025 · Dragon Nexus verified</div>
+                  </div><span class="cert-v">✓</span>
+                </div>
+                <div class="ai-box">
+                  <div class="ai-h"><i class="ph ph-brain"></i> Next cert to add</div>
+                  <div class="ai-p"><strong>AWS Cloud Practitioner</strong> (free, 2 weeks) → +5 Dragon Score → 14 new
+                    campus roles. Highest ROI cert for your profile.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PROOF OF SKILL FROM GITHUB -->
+            <div class="acc" style="--ac:rgba(59,130,246,0.2);">
+              <div class="acc-h" onclick="tog(this)">
+                <span class="acc-ic"><i class="ph ph-github-logo"></i></span>
+                <div class="acc-t">
+                  <div class="acc-tm">Proof of Skill — GitHub</div>
+                  <div class="acc-ts">Not connected yet · Connect to show projects to recruiters</div>
+                </div>
+                <div class="acc-r"><span class="acc-badge"
+                    style="background:var(--bd);color:var(--blue);">Connect</span><span class="acc-arr"><i class="ph ph-caret-down"></i></span></div>
+              </div>
+              <div class="acc-body">
+                <div style="text-align:center;padding:20px;color:var(--t3);font-size:12px;">
+                  <div style="font-size:28px;margin-bottom:8px;">🐙</div>
+                  <div style="margin-bottom:10px;">Connect your GitHub to show recruiters your actual code, not just a
+                    resume line.</div>
+                  <button class="btn bp" style="background:var(--purple);font-size:11.5px;">Connect GitHub → +2 Dragon
+                    Score</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="ov-side">
+
+            <div class="card">
+              <div class="card-head">
+                <div class="card-title"><i class="ph ph-bell"></i> Your Nudges</div>
+              </div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:7px;padding-top:10px;">
+                <div
+                  style="display:flex;gap:8px;padding:9px 11px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.18);border-radius:var(--r2);">
+                  <span style="font-size:16px;animation:pulse 2s infinite;"><i class="ph-fill ph-lightning"></i></span>
+                  <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.4;"><strong
+                      style="color:var(--amber);">Zoho drive is Apr 4 — 17 days.</strong> 1 point away. 3 classmates
+                    crossed threshold today.<span
+                      style="display:block;margin-top:4px;color:var(--amber);font-weight:700;font-size:10.5px;cursor:pointer;">Take
+                      DBMS mock <i class="ph ph-arrow-right"></i></span></div>
+                </div>
+                <div
+                  style="display:flex;gap:8px;padding:9px 11px;background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.18);border-radius:var(--r2);">
+                  <span style="font-size:16px;animation:pulse 2s infinite;"><i class="ph ph-dragon"></i></span>
+                  <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.4;"><strong
+                      style="color:var(--purple);">Score jumped +8 this month.</strong> Rank 280 <i class="ph ph-arrow-right"></i> 197. Keep this pace
+                    for 3 more weeks <i class="ph ph-arrow-right"></i> Top 20%.</div>
+                </div>
+                <div
+                  style="display:flex;gap:8px;padding:9px 11px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.16);border-radius:var(--r2);">
+                  <span style="font-size:16px;animation:pulse 2s infinite;"><i class="ph ph-sparkle"></i></span>
+                  <div style="flex:1;font-size:11.5px;color:var(--t2);line-height:1.4;"><strong
+                      style="color:var(--green);">3 days to Movie Tickets.</strong> 18-day streak. You've already built
+                    the habit — don't stop now.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- GPS short -->
+            <div class="card" style="border-color:rgba(167,139,250,0.2);">
+              <div class="card-head">
+                <div class="card-title"><i class="ph ph-compass"></i> Dragon GPS</div><span class="card-action" style="color:var(--purple);">Full
+                  map <i class="ph ph-arrow-right"></i></span>
+              </div>
+              <div class="card-body">
+                <div style="font-size:11.5px;color:var(--t2);margin-bottom:8px;">Target: <strong
+                    style="color:var(--t1);">Software Engineer @ Zoho</strong></div>
+                <div class="pb">
+                  <div class="pb-l"><span>Progress to Zoho</span><span style="color:var(--purple);">68%</span></div>
+                  <div class="pt">
+                    <div class="pf" style="width:68%;background:linear-gradient(90deg,var(--purple),var(--blue));">
+                    </div>
+                  </div>
+                </div>
+                <div style="font-size:11.5px;color:var(--green);margin-bottom:10px;"><i class="ph ph-target"></i> ETA: 3 days at current pace
+                </div>
+                <div class="gps-step now">
+                  <div class="gps-dot dn"><i class="ph-fill ph-circle"></i></div>
+                  <div>
+                    <div class="gps-t">DBMS & SQL (68%)</div>
+                    <div class="gps-s">Key gap — finish → Score 76</div>
+                  </div>
+                </div>
+                <div class="gps-step">
+                  <div class="gps-dot du">3</div>
+                  <div>
+                    <div class="gps-t">DSA — Arrays, Trees, Graphs</div>
+                    <div class="gps-s">High priority for TCS Digital</div>
+                  </div>
+                </div>
+                <div class="gps-step">
+                  <div class="gps-dot du"><i class="ph ph-trophy"></i></div>
+                  <div>
+                    <div class="gps-t">Zoho Drive — Apr 4 · ₹10 LPA</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Today's plan -->
+            <div class="card" style="border-color:rgba(167,139,250,0.18);">
+              <div class="card-head">
+                <div class="card-title"><i class="ph ph-calendar-blank"></i> Today's Plan</div><span style="font-size:10px;color:var(--green);">+195 XP if
+                  all done</span>
+              </div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:6px;">
+                <div
+                  style="display:flex;gap:9px;padding:9px;background:var(--bg2);border-radius:var(--r2);align-items:center;border:1px solid var(--b);cursor:pointer;">
+                  <span style="font-size:16px;"><i class="ph ph-book-open"></i></span>
+                  <div style="flex:1;">
+                    <div style="font-size:12px;font-weight:600;">DBMS Normalization & Joins</div>
+                    <div style="font-size:10.5px;color:var(--t3);">30 min · Dragon Prep · +90 XP</div>
+                  </div><span style="font-size:10.5px;font-weight:700;color:var(--purple);">Start <i class="ph ph-arrow-right"></i></span>
+                </div>
+                <div
+                  style="display:flex;gap:9px;padding:9px;background:var(--bg2);border-radius:var(--r2);align-items:center;border:1px solid var(--b);cursor:pointer;">
+                  <span style="font-size:16px;"><i class="ph ph-sword"></i></span>
+                  <div style="flex:1;">
+                    <div style="font-size:12px;font-weight:600;">DBMS Mock Test — Dragon Arena</div>
+                    <div style="font-size:10.5px;color:var(--t3);">20 min · Updates Dragon Score · +60 XP</div>
+                  </div><span style="font-size:10.5px;font-weight:700;color:var(--red);">Start <i class="ph ph-arrow-right"></i></span>
+                </div>
+                <div
+                  style="display:flex;gap:9px;padding:9px;background:var(--bg2);border-radius:var(--r2);align-items:center;border:1px solid var(--b);cursor:pointer;">
+                  <span style="font-size:16px;"><i class="ph ph-puzzle-piece"></i></span>
+                  <div style="flex:1;">
+                    <div style="font-size:12px;font-weight:600;">3 LeetCode Easy (Array pattern)</div>
+                    <div style="font-size:10.5px;color:var(--t3);">Dragon Prep · +45 XP</div>
+                  </div><span style="font-size:10.5px;font-weight:700;color:var(--blue);">Start <i class="ph ph-arrow-right"></i></span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="tp" id="st-t2">
+        <div style="font-size:12px;color:var(--t2);margin-bottom:14px;">Your eligibility updates in real-time as your
+          Dragon Score changes. Complete today's DBMS mock to unlock Zoho.</div>
+        <div class="elig" style="background:var(--gd);border-color:rgba(16,185,129,0.2);">
+          <div class="elig-ico"><i class="ph ph-check-circle"></i></div>
+          <div class="elig-inf">
+            <div class="elig-co">Infosys — Software Engineer</div>
+            <div class="elig-meta">Threshold: 65 · Your score: 74 · Mar 21 · ₹6.5 LPA · Register by Mar 19</div>
+          </div><span class="elig-tag" style="background:var(--gd);color:var(--green);">ELIGIBLE</span>
+        </div>
+        <div class="elig" style="background:var(--gd);border-color:rgba(16,185,129,0.2);">
+          <div class="elig-ico"><i class="ph ph-check-circle"></i></div>
+          <div class="elig-inf">
+            <div class="elig-co">TCS Digital — Data Engineering</div>
+            <div class="elig-meta">Threshold: 70 · Your score: 74 · Mar 28 · ₹7 LPA</div>
+          </div><span class="elig-tag" style="background:var(--gd);color:var(--green);">ELIGIBLE</span>
+        </div>
+        <div class="elig" style="background:rgba(245,158,11,0.07);border-color:rgba(245,158,11,0.2);">
+          <div class="elig-ico"><i class="ph-fill ph-lightning"></i></div>
+          <div class="elig-inf">
+            <div class="elig-co">Zoho — Software Developer</div>
+            <div class="elig-meta">Threshold: 75 · Your score: 74 · Apr 4 · ₹10 LPA · 17 days away</div>
+          </div><span class="elig-tag" style="background:var(--ad);color:var(--amber);">1 PT AWAY</span>
+        </div>
+        <div class="elig" style="background:rgba(239,68,68,0.05);border-color:rgba(239,68,68,0.12);">
+          <div class="elig-ico"><i class="ph ph-lock"></i></div>
+          <div class="elig-inf">
+            <div class="elig-co">Razorpay — ML Engineer</div>
+            <div class="elig-meta">Threshold: 82 · Your score: 74 · Apr 20 · ₹28–35 LPA · Need +8 pts</div>
+          </div><span class="elig-tag" style="background:rgba(239,68,68,0.1);color:#EF4444;">+8 PTS NEEDED</span>
+        </div>
+        <div class="elig" style="background:var(--gd);border-color:rgba(16,185,129,0.2);">
+          <div class="elig-ico"><i class="ph ph-check-circle"></i></div>
+          <div class="elig-inf">
+            <div class="elig-co">Wipro — Technology Associate</div>
+            <div class="elig-meta">Threshold: 65 · Your score: 74 · Apr 15 · ₹6.5 LPA</div>
+          </div><span class="elig-tag" style="background:var(--gd);color:var(--green);">ELIGIBLE</span>
+        </div>
+        <div class="ai-box">
+          <div class="ai-h"><i class="ph ph-brain"></i> Dragon AI — Zoho Plan</div>
+          <div class="ai-p">Step 1: Complete <strong>DBMS mock test today</strong> (+2 pts → Score 76 → Zoho eligible).
+            Step 2: <strong>3-day SQL sprint</strong> in Skill Craft. Step 3: Register for Zoho (Apr 4). That's the
+            whole plan.</div>
+        </div>
+      </div>
+
+      <!-- PORTFOLIO -->
+      <div class="tp" id="st-t3">
+        <div class="sbl">
+          <div>
+            <div class="action-strip">
+              <button class="a-btn">📥 Import LinkedIn</button>
+              <button class="a-btn">📄 Generate Resume</button>
+              <button class="a-btn">🐙 Connect GitHub</button>
+            </div>
+            <div class="slbl">💼 Experience</div>
+            <div
+              style="background:var(--card);border:1px solid var(--b);border-radius:var(--r2);padding:12px 14px;margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                <div>
+                  <div style="font-size:13px;font-weight:700;">ML Intern</div>
+                  <div style="font-size:11.5px;color:var(--purple);font-weight:600;">Zoho Corporation</div>
+                </div>
+                <span style="font-size:10.5px;color:var(--t3);">May 2024 – Jul 2024</span>
+              </div>
+              <div style="font-size:11.5px;color:var(--t2);line-height:1.55;">Built a customer churn prediction model
+                using XGBoost achieving 87% accuracy. Worked on Zoho Analytics backend data pipelines.</div>
+              <div class="chip-row"><span class="chip cp">Python</span><span class="chip cb">XGBoost</span><span
+                  class="chip cg">SQL</span></div>
+            </div>
+            <div class="slbl">🧪 Projects</div>
+            <div style="display:flex;flex-direction:column;gap:9px;">
+              <div style="background:var(--card);border:1px solid var(--b);border-radius:var(--r2);padding:12px 14px;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                  <div style="font-size:13px;font-weight:700;">Student Portal with Django + SQL</div>
+                  <span
+                    style="background:var(--ad);color:var(--amber);font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;">In
+                    Progress</span>
+                </div>
+                <div style="font-size:11.5px;color:var(--t2);margin-bottom:7px;">Full-stack student attendance and grade
+                  management system. Matches Zoho's tech stack.</div>
+                <div class="chip-row" style="margin-top:0;"><span class="chip cp">Django</span><span
+                    class="chip cb">PostgreSQL</span><span class="chip cg">HTML/CSS</span></div>
+              </div>
+              <div style="background:var(--card);border:1px solid var(--b);border-radius:var(--r2);padding:12px 14px;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                  <div style="font-size:13px;font-weight:700;">Sales Dashboard — Pandas + Plotly</div>
+                  <span
+                    style="background:var(--gd);color:var(--green);font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;">Quality
+                    72/100</span>
+                </div>
+                <div style="font-size:11.5px;color:var(--t2);margin-bottom:7px;">Interactive sales analytics dashboard.
+                  Viewed by 12 recruiters via Project Lab.</div>
+                <div class="chip-row" style="margin-top:0;"><span class="chip cr">Python</span><span
+                    class="chip ca">Pandas</span><span class="chip cc">Plotly</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="slbl">🏅 Certifications</div>
+            <div class="card">
+              <div class="card-body">
+                <div class="cert-row"><span class="cert-ico">🐍</span>
+                  <div class="cert-inf">
+                    <div class="cert-nm">Python for Data Science — IBM</div>
+                    <div class="cert-dt">Coursera · Jan 2025 · Verified</div>
+                  </div><span class="cert-v">✓</span>
+                </div>
+                <div class="cert-row"><span class="cert-ico">📊</span>
+                  <div class="cert-inf">
+                    <div class="cert-nm">SQL for Data Analysis — Kaggle</div>
+                    <div class="cert-dt">Kaggle · Feb 2025 · Verified</div>
+                  </div><span class="cert-v">✓</span>
+                </div>
+                <div
+                  style="text-align:center;padding:12px;border:1px dashed rgba(167,139,250,0.3);border-radius:var(--r2);margin-top:8px;cursor:pointer;">
+                  <div style="font-size:12px;color:var(--purple);">+ Add More Certs</div>
+                  <div style="font-size:10.5px;color:var(--t3);">Each cert = +3–8 Dragon Score</div>
+                </div>
+              </div>
+            </div>
+            <div class="slbl" style="margin-top:14px;">🌟 Endorsements</div>
+            <div class="card">
+              <div class="card-body">
+                <div class="endorse">
+                  <div class="e-av" style="background:linear-gradient(135deg,var(--purple),var(--blue));">ZI</div>
+                  <div class="e-inf">
+                    <div class="e-nm">Zoho Internship Mentor</div>
+                    <div class="e-rl">Senior Engineer · Zoho Corporation</div>
+                    <div class="e-txt">"Kavya picked up Django and SQL in record time. Her churn prediction model went
+                      directly to the analytics team."</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tp" id="st-t4">
+        <div class="two">
+          <div>
+            <div class="slbl">📚 Dragon Prep — Recent Activity</div>
+            <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px;">
+              <div
+                style="display:flex;gap:9px;padding:10px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);">
+                <span style="font-size:16px;">📖</span>
+                <div>
+                  <div style="font-size:12px;font-weight:600;">DBMS — Normalization Chapter 3</div>
+                  <div style="font-size:10.5px;color:var(--t3);">Course · 2 hours ago · +90 XP</div>
+                </div>
+              </div>
+              <div
+                style="display:flex;gap:9px;padding:10px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);">
+                <span style="font-size:16px;">💻</span>
+                <div>
+                  <div style="font-size:12px;font-weight:600;">LeetCode: Two Sum + Maximum Subarray</div>
+                  <div style="font-size:10.5px;color:var(--t3);">Coding · Yesterday · +30 XP</div>
+                </div>
+              </div>
+              <div
+                style="display:flex;gap:9px;padding:10px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);">
+                <span style="font-size:16px;"><i class="ph ph-calculator"></i></span>
+                <div>
+                  <div style="font-size:12px;font-weight:600;">Aptitude Mock — Number System</div>
+                  <div style="font-size:10.5px;color:var(--t3);">Course · 2 days ago · Score 78/100</div>
+                </div>
+              </div>
+            </div>
+            <div class="slbl"><i class="ph ph-chart-line"></i> Module Progress</div>
+            <div class="pb">
+              <div class="pb-l"><span>DSA — Arrays & Strings</span><span style="color:var(--green);">72%</span></div>
+              <div class="pt">
+                <div class="pf" style="width:72%;background:var(--green);"></div>
+              </div>
+            </div>
+            <div class="pb">
+              <div class="pb-l"><span>DBMS & SQL</span><span style="color:var(--amber);">41%</span></div>
+              <div class="pt">
+                <div class="pf" style="width:41%;background:var(--amber);"></div>
+              </div>
+            </div>
+            <div class="pb">
+              <div class="pb-l"><span>Aptitude & Reasoning</span><span style="color:var(--blue);">58%</span></div>
+              <div class="pt">
+                <div class="pf" style="width:58%;background:var(--blue);"></div>
+              </div>
+            </div>
+            <div class="pb">
+              <div class="pb-l"><span>OS Concepts</span><span style="color:var(--purple);">22%</span></div>
+              <div class="pt">
+                <div class="pf" style="width:22%;background:var(--purple);"></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="slbl"><i class="ph ph-sword"></i> Dragon Arena — Assessments Taken</div>
+            <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px;">
+              <div style="padding:11px 13px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);">
+                <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                  <div style="font-size:12px;font-weight:600;">Aptitude Mock</div><span
+                    style="font-size:12px;font-weight:700;color:var(--amber);">72/100</span>
+                </div>
+                <div style="font-size:10.5px;color:var(--t3);">Trust: 92 · Above batch avg · 2 days ago</div>
+              </div>
+              <div style="padding:11px 13px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);">
+                <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                  <div style="font-size:12px;font-weight:600;">DSA Coding — Easy/Medium</div><span
+                    style="font-size:12px;font-weight:700;color:var(--blue);">3/4</span>
+                </div>
+                <div style="font-size:10.5px;color:var(--t3);">Trust: 88 · 78th percentile · 5 days ago</div>
+              </div>
+              <div style="padding:11px 13px;background:var(--card);border:1px solid var(--b);border-radius:var(--r2);">
+                <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+                  <div style="font-size:12px;font-weight:600;">AI Video Interview Mock</div><span
+                    style="font-size:12px;font-weight:700;color:var(--purple);">74/100</span>
+                </div>
+                <div style="font-size:10.5px;color:var(--t3);">Trust: 85 · STAR score 68 · 1 week ago</div>
+              </div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--b);border-radius:var(--r2);padding:11px 13px;">
+              <div style="font-size:11.5px;font-weight:600;margin-bottom:3px;">Trust Score: <span
+                  style="color:var(--green);">88/100</span></div>
+              <div style="font-size:10.5px;color:var(--t3);">Across 3 proctored assessments · No integrity flags</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tp" id="st-t5">
+        <div class="two">
+          <div
+            style="background:linear-gradient(135deg,rgba(167,139,250,0.07),rgba(59,130,246,0.03));border:1px solid rgba(167,139,250,0.18);border-radius:var(--r3);padding:18px;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+              <div
+                style="font-size:32px;background:rgba(167,139,250,0.14);border-radius:50%;width:54px;height:54px;display:grid;place-items:center;">
+                <i class="ph-fill ph-smiley-wink"></i></div>
+              <div>
+                <div style="font-size:15px;font-weight:700;color:var(--purple);">Swift Fox · Level 7</div>
+                <div style="font-size:11.5px;color:var(--t2);">DSA Specialist · Agile Learner</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
+              <div style="text-align:center;padding:11px;background:rgba(167,139,250,0.1);border-radius:var(--r2);">
+                <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--purple);">7</div>
+                <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Level</div>
+              </div>
+              <div style="text-align:center;padding:11px;background:rgba(245,158,11,0.1);border-radius:var(--r2);">
+                <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--amber);">18<i class="ph-fill ph-fire"></i></div>
+                <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Streak</div>
+              </div>
+              <div style="text-align:center;padding:11px;background:var(--gd);border-radius:var(--r2);">
+                <div style="font-size:20px;font-weight:700;font-family:var(--fm);color:var(--green);">280</div>
+                <div style="font-size:9px;color:var(--t3);text-transform:uppercase;">Coins</div>
+              </div>
+            </div>
+            <div class="pb-l" style="font-size:10.5px;"><span style="color:var(--t2);">Level 7 <i class="ph ph-arrow-right"></i> 8</span><span
+                style="color:var(--purple);font-family:var(--fm);">1,840 / 2,500 XP</span></div>
+            <div class="bt" style="height:7px;">
+              <div class="bf" style="width:73.6%;background:linear-gradient(90deg,var(--purple),var(--blue));"></div>
+            </div>
+            <div style="font-size:11px;color:var(--t2);margin-top:8px;">📅 Boss Battle: Weekly DSA · Rank #47 of 320 ·
+              Ends in 2 days</div>
+          </div>
+          <div>
+            <div class="slbl">🏆 Streak Milestones</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div
+                style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--gd);border-radius:var(--r1);">
+                <span style="font-size:15px;"><i class="ph ph-check-circle"></i></span>
+                <div style="font-size:12px;flex:1;"><strong>7 days</strong> — Coffee Voucher · Claimed</div>
+              </div>
+              <div
+                style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--gd);border-radius:var(--r1);">
+                <span style="font-size:15px;"><i class="ph ph-check-circle"></i></span>
+                <div style="font-size:12px;flex:1;"><strong>14 days</strong> — Movie Tickets · Claimed</div>
+              </div>
+              <div
+                style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);border-radius:var(--r1);">
+                <span style="font-size:15px;"><i class="ph ph-sparkle"></i></span>
+                <div style="font-size:12px;flex:1;"><strong>21 days — Movie Tickets <i class="ph ph-sparkle"></i> · 3 days away!</strong></div>
+              </div>
+              <div
+                style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--card);border:1px solid var(--b);border-radius:var(--r1);">
+                <span style="font-size:15px;"><i class="ph ph-lock"></i></span>
+                <div style="font-size:12px;color:var(--t3);flex:1;"><strong>30 days</strong> — Premium Day Pass</div>
+              </div>
+              <div
+                style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--card);border:1px solid var(--b);border-radius:var(--r1);">
+                <span style="font-size:15px;"><i class="ph ph-lock"></i></span>
+                <div style="font-size:12px;color:var(--t3);flex:1;"><strong>90 days</strong> — Exclusive Dragon Badge
+                </div>
+              </div>
+              <div
+                style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--card);border:1px solid var(--b);border-radius:var(--r1);">
+                <span style="font-size:15px;"><i class="ph ph-lock"></i></span>
+                <div style="font-size:12px;color:var(--t3);flex:1;"><strong>365 days</strong> — Legendary Dragon Title
+                </div>
+              </div>
+            </div>
+            <div
+              style="margin-top:12px;padding:10px 13px;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.16);border-radius:var(--r2);font-size:11.5px;color:var(--t2);">
+              🏫 College rank: <strong style="color:var(--purple);">#34 / 620</strong> · Top 6% · 4 students above you
+              have 22-day streaks — catch them in 4 days.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tp" id="st-t6">
+        <div class="two">
+          <div>
+            <div class="slbl">🎓 Placement Officers</div>
+            <div class="card">
+              <div class="card-body">
+                <div class="conn">
+                  <div class="conn-av" style="background:linear-gradient(135deg,var(--green),var(--blue));">RK</div>
+                  <div class="conn-inf">
+                    <div class="conn-nm">Dr. Ramesh Kumar</div>
+                    <div class="conn-rl">Placement Officer · PSG College</div>
+                  </div><button class="conn-btn">Message</button>
+                </div>
+              </div>
+            </div>
+            <div class="slbl" style="margin-top:14px;">🏢 HR / Recruiters</div>
+            <div class="card">
+              <div class="card-body">
+                <div class="conn">
+                  <div class="conn-av" style="background:linear-gradient(135deg,var(--amber),var(--red));">ZI</div>
+                  <div class="conn-inf">
+                    <div class="conn-nm">Zoho Internship Mentor</div>
+                    <div class="conn-rl">Senior Engineer · Zoho Corp</div>
+                  </div><button class="conn-btn">Message</button>
+                </div>
+                <div class="conn">
+                  <div class="conn-av" style="background:linear-gradient(135deg,var(--blue),var(--purple));">IH</div>
+                  <div class="conn-inf">
+                    <div class="conn-nm">Infosys HR</div>
+                    <div class="conn-rl">Campus Recruiter · Drive: Mar 21</div>
+                  </div><button class="conn-btn">Message</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="slbl">👤 Batchmates</div>
+            <div class="card">
+              <div class="card-body">
+                <div class="conn">
+                  <div class="conn-av">AK</div>
+                  <div class="conn-inf">
+                    <div class="conn-nm">Arun Kumar</div>
+                    <div class="conn-rl">CSE · Dragon Score 88 · Placed</div>
+                  </div><button class="conn-btn">Connect</button>
+                </div>
+                <div class="conn">
+                  <div class="conn-av" style="background:linear-gradient(135deg,var(--blue),var(--cyan));">SP</div>
+                  <div class="conn-inf">
+                    <div class="conn-nm">Sridevi Pillai</div>
+                    <div class="conn-rl">IT · Dragon Score 74 · Same level!</div>
+                  </div><button class="conn-btn">Message</button>
+                </div>
+                <div class="conn">
+                  <div class="conn-av" style="background:linear-gradient(135deg,var(--purple),var(--red));">MR</div>
+                  <div class="conn-inf">
+                    <div class="conn-nm">Meera Raj</div>
+                    <div class="conn-rl">CSE · Dragon Score 80 · TCS Digital</div>
+                  </div><button class="conn-btn">Connect</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tp" id="st-t7">
+        <div style="font-size:12px;color:var(--t2);margin-bottom:13px;">11 active modules — every module feeds your
+          Dragon Score and campus drive eligibility. Dragon AI removed from module view; it's always available
+          site-wide.</div>
+        <div class="mod-grid">
+          <div class="mod-pill" style="--mc:var(--purple);">
+            <div class="mp-top"><span class="mp-ico"><i class="ph ph-compass"></i></span><span class="mp-st st-on">Active</span></div>
+            <div class="mp-nm">Dragon GPS</div>
+            <div class="mp-st2">Zoho target · 3d ETA</div>
+          </div>
+          <div class="mod-pill" style="--mc:var(--blue);">
+            <div class="mp-top"><span class="mp-ico"><i class="ph ph-book-open"></i></span><span class="mp-st st-on">Active</span></div>
+            <div class="mp-nm">Dragon Prep</div>
+            <div class="mp-st2">DBMS sprint · 142 solved</div>
+          </div>
+          <div class="mod-pill" style="--mc:var(--green);">
+            <div class="mp-top"><span class="mp-ico"><i class="ph ph-sword"></i></span><span class="mp-st st-on">Active</span></div>
+            <div class="mp-nm">Dragon Arena</div>
+            <div class="mp-st2">3 assessments · Trust 88</div>
+          </div>
+          <div class="mod-pill" style="--mc:var(--purple);">
+            <div class="mp-top"><span class="mp-ico"><i class="ph ph-dragon"></i></span><span class="mp-st st-on">Active</span></div>
+            <div class="mp-nm">Dragon Quest</div>
+            <div class="mp-st2">Lv7 · 18d streak <i class="ph-fill ph-fire"></i></div>
+          </div>
+          <div class="mod-pill" style="--mc:var(--amber);">
+            <div class="mp-top"><span class="mp-ico"><i class="ph ph-star"></i></span><span class="mp-st st-el">Soon</span></div>
+            <div class="mp-nm">Dragon Elite</div>
+            <div class="mp-st2">Unlocks at Score 85</div>
+          </div>
+          <div class="mod-pill" style="--mc:var(--cyan);">
+            <div class="mp-top"><span class="mp-ico"><i class="ph ph-globe"></i></span><span class="mp-st st-on">Active</span></div>
+            <div class="mp-nm">Dragon Hub</div>
+            <div class="mp-st2">47 internships match</div>
+          </div>
+          <div class="mod-pill" style="--mc:var(--blue);">
+            <div class="mp-top"><span class="mp-ico"><i class="ph ph-wrench"></i></span><span class="mp-st st-on">Active</span></div>
+            <div class="mp-nm">Skill Craft</div>
+            <div class="mp-st2">3 mastered · +₹1.2L uplift</div>
+          </div>
+          <div class="mod-pill" style="--mc:var(--green);">
+            <div class="mp-top"><span class="mp-ico"><i class="ph ph-flask"></i></span><span class="mp-st st-nw">New</span></div>
+            <div class="mp-nm">Project Lab</div>
+            <div class="mp-st2">Sales Dashboard · 72/100</div>
+          </div>
+          <div class="mod-pill" style="--mc:var(--green);">
+            <div class="mp-top"><span class="mp-ico"><i class="ph ph-clipboard-text"></i></span><span class="mp-st st-on">Active</span></div>
+            <div class="mp-nm">Dragon Review</div>
+            <div class="mp-st2">Last: Aptitude 72/100</div>
+          </div>
+          <div class="mod-pill" style="--mc:var(--purple);">
+            <div class="mp-top"><span class="mp-ico"><i class="ph ph-link"></i></span><span class="mp-st st-on">Active</span></div>
+            <div class="mp-nm">Dragon Nexus</div>
+            <div class="mp-st2">Coursera + Kaggle linked</div>
+          </div>
+          <div class="mod-pill" style="--mc:var(--red);">
+            <div class="mp-top"><span class="mp-ico"><i class="ph ph-user-circle"></i></span><span class="mp-st st-on">Active</span></div>
+            <div class="mp-nm">Talent Onboarding</div>
+            <div class="mp-st2">2 certs verified · Trust 88</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end student -->
+
+  </main>
+
+  <script>
+    const UC = {
+      jobseeker: { label: 'Job Seeker', bg: 'linear-gradient(135deg,#FF2D55,#CC1144)', l: 'A' },
+      hr: { label: 'HR / Recruiter', bg: 'linear-gradient(135deg,#3B82F6,#1D4ED8)', l: 'P' },
+      placement: { label: 'Placement Officer', bg: 'linear-gradient(135deg,#10B981,#059669)', l: 'D' },
+      student: { label: 'Student', bg: 'linear-gradient(135deg,#A78BFA,#7C3AED)', l: 'K' }
+    };
+
+    function sw(id, btn) {
+      document.querySelectorAll('.ps').forEach(p => p.classList.remove('on'));
+      document.getElementById('ps-' + id).classList.add('on');
+      document.querySelectorAll('.usw').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      const c = UC[id];
+      document.getElementById('topLbl').textContent = c.label;
+      document.getElementById('topAv').style.background = c.bg;
+      document.getElementById('topAv').textContent = c.l;
+    }
+
+    function stab(tab, pid) {
+      const sc = tab.closest('.ps');
+      sc.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+      sc.querySelectorAll('.tp').forEach(p => p.classList.remove('on'));
+      tab.classList.add('on');
+      document.getElementById(pid).classList.add('on');
+    }
+
+    function tog(head) {
+      const acc = head.closest('.acc');
+      acc.classList.toggle('ex');
+    }
+
+    function toggleRV(btn) {
+      btn.classList.toggle('on');
+      const isRV = btn.classList.contains('on');
+      const banner = document.querySelector('.ps.on .rv-banner');
+      if (isRV) {
+        // Add recruiter view banner to active tab
+        const active = document.querySelector('.ps.on .tp.on');
+        if (active && !active.querySelector('.rv-banner')) {
+          const b = document.createElement('div');
+          b.className = 'rv-banner';
+          b.innerHTML = '<i class="ph ph-eye"></i> <strong>Recruiter View Active</strong> — This is what a recruiter sees when they open your profile.';
+          active.insertBefore(b, active.firstChild);
+        }
+      } else {
+        document.querySelectorAll('.rv-banner').forEach(b => b.remove());
+      }
+    }
+
+    document.querySelectorAll('.ni[data-nav]').forEach(n => {
+      n.addEventListener('click', () => {
+        document.querySelectorAll('.ni').forEach(i => i.classList.remove('on'));
+        n.classList.add('on');
+      });
+    });
+  </script>
+</body>
